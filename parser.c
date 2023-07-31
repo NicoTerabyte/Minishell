@@ -39,67 +39,69 @@ void	parser(char **splitcmd)
 	int expected_cmd_name;
 	int expected_cmd_arg;
 	int	j;
+	int indouble;
+	int closedquotes;
 
+	closedquotes = 0;
+	indouble = 0;
 	j = 0;
 	i = 0;
 	expected_cmd_name = 1;
 	expected_cmd_arg = 0;
-	printf("valore letto stringa %s\n", *splitcmd);
+
+	char *tmp = NULL;
 	while (splitcmd[i])
 	{
+		// printf ("%s\n", splitcmd[i]);
 		if (strchr(splitcmd[i], '=') && ft_isalpha(splitcmd[i][0]))
 			printf("ENV_DECL ");
 		else if (strchr(splitcmd[i], '*'))
 			printf("WILDCARD ");
-		else if (strchr(splitcmd[i], '"'))
+		else if (strchr(splitcmd[i], '"') || strchr(splitcmd[i], '\''))
 		{
-			//da fixare
-			//legge anche una singola
-			//e se ne metti due attaccate stampa due volte
-			//manca il controllo generico degli spazi
-			if (strchr(&splitcmd[i][1], '"'))
+			tmp = strchr(splitcmd[i], '"') + 1;
+			while (strchr(tmp, '"'))
 			{
-				printf("DOUBLE_QUOTES");
-			}
-			while (!strchr(&splitcmd[i][j++], ' '))
-			{
-				if (strchr(&splitcmd[i][j], '"'))
+				// if (strchr(splitcmd[i], '"') < strchr(splitcmd[i], '\''))
+				// 	indouble = 1;
+				// tmp = strchr(splitcmd[i], '"') + 1;
+				// if (indouble)
+				// {
+				printf("DOUBLE_QUOTES ");
+				if ((strchr(tmp + 1, '"')))
 				{
-					printf("DOUBLE_QUOTES\n");
-					return ;
+					tmp = strchr(tmp + 1, '"') + 1;
+					closedquotes = 0;
 				}
+				else
+					closedquotes = 1;
+				// if ((strchr(tmp, '"') + 1) != NULL)
+				// {
+				// 	tmp = strchr(tmp, '"') + 1;
+				// 	if (*tmp)
+				// 	{
+				// 		if ((strchr(tmp, '"') + 1) != NULL)
+				// 		{
+				// 			tmp = strchr(tmp, '"') + 1;
+				// 			closedquotes = 0;
+				// 		}
+				// 	}
+				// }
+				// }
+				// else
+				// {
+				// 	if (strchr(tmp, '\''))
+				// 		printf("SINGLE_QUOTES ");
+				// 	else
+				// 	{
+				// 		printf("minishell : unclosed quotes\n");
+				// 		return;
+				// 	}
+				// 	tmp = strchr(tmp, '\'');
+				// }
 			}
-			if (strchr(splitcmd[i], '\0'))
-			{
-				printf(" minishell: %s: command not found\n", splitcmd[i]);
-				return ;
-			}
-		}
-		else if (strchr(splitcmd[i], '\''))
-		{
-			//controllo in caso di spazi
-			//da fixare
-			//legge anche una singola
-			//e se ne metti due attaccate stampa due volte
-			if (strchr(&splitcmd[i][1], '\''))
-			{
-				printf("SINGLE_QUOTES\n");
-			}
-			while (!strchr(&splitcmd[i][j++], ' '))
-			{
-				printf("testing: %c\n ascii value: %d\n", splitcmd[i][j], splitcmd[i][j]);
-				if (splitcmd[i][j] == '\'')
-				{
-					printf("SINGLE_QUOTES\n");
-					return ;
-				}
-			}
-			if (splitcmd[i][j] == '\0')
-			{
-				printf("command not found \n");
-				return ;
-			}
-
+			if (!closedquotes)
+				printf("minishell : unclosed quotes");
 		}
 		else if (splitcmd[i][0] == '$' && splitcmd[i][1] != ' ' && splitcmd[i][1] != 0)
 			printf("EXPANSION ");
@@ -203,10 +205,7 @@ char	*fix_syntax(char *str)
 
 	i = 0;
 	j = 0;
-	//prendo la stringa e gli do spazio
 	res = malloc(count_syntax(str));
-	//perché usare j e i? qual'è lo scopo di alternare
-	//le due lettere?
 	while (str[i])
 	{
 		if (str[i + 1] && ((str[i] == '|' && str[i + 1] == '|') || (str[i] == '&' && str[i + 1] == '&')
