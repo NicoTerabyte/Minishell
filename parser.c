@@ -1,5 +1,69 @@
 #include "minishell.h"
 
+char *no_quotes(char *str)
+{
+	char	*res;
+	int		i;
+	int		j;
+	int		diff;
+
+	diff = 0;
+	i = 0;
+	j = 0;
+	res = ft_substr(str, 0, ft_strlen(str));
+	while (str[i])
+	{
+		if (str[i] == '"')
+		{
+			diff = ft_strlen(str) - ft_strlen(res);
+			j = i;
+			i++;
+			while (str[j + 1])
+			{
+				res[j - diff] = str[j + 1];
+				j++;
+			}
+			res[j - diff] = 0;
+			while (str[i] != '"')
+				i++;
+			diff = ft_strlen(str) - ft_strlen(res);
+			j = i;
+			i++;
+			while (str[j + 1])
+			{
+				res[j - diff] = str[j + 1];
+				j++;
+			}
+			res[j - diff] = 0;
+		}
+		else if (str[i] == '\'')
+		{
+			diff = ft_strlen(str) - ft_strlen(res);
+			j = i;
+			i++;
+			while (str[j + 1])
+			{
+				res[j - diff] = str[j + 1];
+				j++;
+			}
+			res[j - diff] = 0;
+			while (str[i] != '\'')
+				i++;
+			diff = ft_strlen(str) - ft_strlen(res);
+			j = i;
+			i++;
+			while (str[j + 1])
+			{
+				res[j - diff] = str[j + 1];
+				j++;
+			}
+			res[j - diff] = 0;
+		}
+	}
+	res[i - (ft_strlen(str) - ft_strlen(res))] = 0;
+	return (res);
+}
+
 int	cmd_name(char *str)
 {
 	int i;
@@ -41,15 +105,15 @@ void	parser(char **splitcmd)
 	int	j;
 	int indouble;
 	int closedquotes;
+	char quote;
 
+	quote = '"';
 	closedquotes = 0;
 	indouble = 0;
 	j = 0;
 	i = 0;
 	expected_cmd_name = 1;
 	expected_cmd_arg = 0;
-
-	char *tmp = NULL;
 	while (splitcmd[i])
 	{
 		// printf ("%s\n", splitcmd[i]);
@@ -59,49 +123,56 @@ void	parser(char **splitcmd)
 			printf("WILDCARD ");
 		else if (strchr(splitcmd[i], '"') || strchr(splitcmd[i], '\''))
 		{
-			tmp = strchr(splitcmd[i], '"') + 1;
-			while (strchr(tmp, '"'))
+			if (strchr(splitcmd[i], '"') && strchr(splitcmd[i], '\''))
 			{
-				// if (strchr(splitcmd[i], '"') < strchr(splitcmd[i], '\''))
-				// 	indouble = 1;
-				// tmp = strchr(splitcmd[i], '"') + 1;
-				// if (indouble)
-				// {
-				printf("DOUBLE_QUOTES ");
-				if ((strchr(tmp + 1, '"')))
-				{
-					tmp = strchr(tmp + 1, '"') + 1;
-					closedquotes = 0;
-				}
+				if (strchr(splitcmd[i], '"') < strchr(splitcmd[i], '\''))
+					quote = '"';
 				else
-					closedquotes = 1;
-				// if ((strchr(tmp, '"') + 1) != NULL)
-				// {
-				// 	tmp = strchr(tmp, '"') + 1;
-				// 	if (*tmp)
-				// 	{
-				// 		if ((strchr(tmp, '"') + 1) != NULL)
-				// 		{
-				// 			tmp = strchr(tmp, '"') + 1;
-				// 			closedquotes = 0;
-				// 		}
-				// 	}
-				// }
-				// }
-				// else
-				// {
-				// 	if (strchr(tmp, '\''))
-				// 		printf("SINGLE_QUOTES ");
-				// 	else
-				// 	{
-				// 		printf("minishell : unclosed quotes\n");
-				// 		return;
-				// 	}
-				// 	tmp = strchr(tmp, '\'');
-				// }
+					quote = '\'';
 			}
-			if (!closedquotes)
-				printf("minishell : unclosed quotes");
+			else if (strchr(splitcmd[i], '"'))
+				quote = '"';
+			else
+				quote = '\'';
+			j = 0;
+			while (splitcmd[i][j] != quote && splitcmd[i][j])
+				j++;
+			while (splitcmd[i][j])
+			{
+				j++;
+				while (splitcmd[i][j] != quote && splitcmd[i][j])
+					j++;
+				if (splitcmd[i][j])
+				{
+					if (quote == '"')
+						printf("DOUBLE_QUOTES ");
+					else
+						printf("SINGLE_QUOTES ");
+				}
+				else {
+					printf("minishell : unclosed quotes\n");
+					return ;
+				}
+				j++;
+				while (splitcmd[i][j] != '"' && splitcmd[i][j] != '\'' && splitcmd[i][j])
+					j++;
+				if (splitcmd[i][j] == '"')
+					quote = '"';
+				else
+					quote = '\'';
+			}
+			if (expected_cmd_name)
+			{
+				if (cmd_name(no_quotes(splitcmd[i])))
+					printf("cmd_name");
+				else
+				{
+					printf(" minishell: %s: command not found\n", no_quotes(splitcmd[i]));
+					return ;
+				}
+				expected_cmd_name = 0;
+				expected_cmd_arg = 1;
+			}
 		}
 		else if (splitcmd[i][0] == '$' && splitcmd[i][1] != ' ' && splitcmd[i][1] != 0)
 			printf("EXPANSION ");
