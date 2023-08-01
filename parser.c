@@ -164,7 +164,7 @@ void	parser(char **splitcmd)
 			if (expected_cmd_name)
 			{
 				if (cmd_name(no_quotes(splitcmd[i])))
-					printf("cmd_name");
+					printf("cmd_name in quotes ");
 				else
 				{
 					printf(" minishell: %s: command not found\n", no_quotes(splitcmd[i]));
