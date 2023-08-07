@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/08/07 18:17:24 by mlongo           ###   ########.fr       */
+/*   Created: 2023/04/04 19:15:34 by mlongo            #+#    #+#             */
+/*   Updated: 2023/04/04 19:15:36 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int main()
+void	*ft_memset(void *s, int c, size_t n)
 {
-	char *str;
-	char **splitcmd;
-	while (1)
-	{
-		str = readline("minishell> ");
-		add_history(str);
-		//qui va fatto prima un lexer
-		splitcmd = ft_split(fix_syntax(str), ' ');
-		for (int i = 0; splitcmd[i]; i++)
-			printf("%s ", splitcmd[i]);
-		printf("\n");
-		tokenizer(splitcmd);
-		free_matrix(splitcmd);
-		free(str);
-	}
+	size_t			i;
+	unsigned char	x;
+
+	x = (unsigned char) c;
+	i = 0;
+	while (i < n)
+		((unsigned char *) s)[i++] = x;
+	return (s);
 }

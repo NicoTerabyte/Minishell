@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/08/07 18:17:24 by mlongo           ###   ########.fr       */
+/*   Created: 2023/04/04 19:15:54 by mlongo            #+#    #+#             */
+/*   Updated: 2023/04/04 19:15:57 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int main()
+void	ft_putnbr_fd(int n, int fd)
 {
-	char *str;
-	char **splitcmd;
-	while (1)
+	if (n == -2147483648)
+		ft_putstr_fd("-2147483648", fd);
+	else
 	{
-		str = readline("minishell> ");
-		add_history(str);
-		//qui va fatto prima un lexer
-		splitcmd = ft_split(fix_syntax(str), ' ');
-		for (int i = 0; splitcmd[i]; i++)
-			printf("%s ", splitcmd[i]);
-		printf("\n");
-		tokenizer(splitcmd);
-		free_matrix(splitcmd);
-		free(str);
+		if (n < 0)
+		{
+			ft_putchar_fd('-', fd);
+			n = n * -1;
+		}
+		if (n > 9)
+		{
+			ft_putnbr_fd(n / 10, fd);
+		}
+		ft_putchar_fd((n % 10) + '0', fd);
 	}
 }

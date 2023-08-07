@@ -1,32 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/08/07 18:17:24 by mlongo           ###   ########.fr       */
+/*   Created: 2023/04/04 19:17:02 by mlongo            #+#    #+#             */
+/*   Updated: 2023/04/04 19:17:05 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int main()
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char *str;
-	char **splitcmd;
-	while (1)
+	char	*res;
+	size_t	i;
+
+	if (!s1 || !s2)
+		return (NULL);
+	res = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (res == NULL)
+		return (NULL);
+	i = 0;
+	res[ft_strlen(s1) + ft_strlen(s2)] = 0;
+	while (i < ft_strlen(s1))
 	{
-		str = readline("minishell> ");
-		add_history(str);
-		//qui va fatto prima un lexer
-		splitcmd = ft_split(fix_syntax(str), ' ');
-		for (int i = 0; splitcmd[i]; i++)
-			printf("%s ", splitcmd[i]);
-		printf("\n");
-		tokenizer(splitcmd);
-		free_matrix(splitcmd);
-		free(str);
+		res[i] = s1[i];
+		i++;
 	}
+	i = 0;
+	while (i < ft_strlen(s2))
+	{
+		res[ft_strlen(s1) + i] = s2[i];
+		i++;
+	}
+	return (res);
 }

@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/08/07 18:17:24 by mlongo           ###   ########.fr       */
+/*   Created: 2023/04/04 19:12:39 by mlongo            #+#    #+#             */
+/*   Updated: 2023/04/04 19:12:41 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int main()
+void	*ft_calloc(size_t count, size_t size)
 {
-	char *str;
-	char **splitcmd;
-	while (1)
-	{
-		str = readline("minishell> ");
-		add_history(str);
-		//qui va fatto prima un lexer
-		splitcmd = ft_split(fix_syntax(str), ' ');
-		for (int i = 0; splitcmd[i]; i++)
-			printf("%s ", splitcmd[i]);
-		printf("\n");
-		tokenizer(splitcmd);
-		free_matrix(splitcmd);
-		free(str);
-	}
+	void	*res;
+	int		len;
+
+	if (count == SIZE_MAX || size == SIZE_MAX)
+		return (NULL);
+	len = count * size;
+	res = (void *) malloc(len);
+	if (res == NULL)
+		return (NULL);
+	ft_bzero(res, len);
+	return (res);
 }

@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/08/07 18:17:24 by mlongo           ###   ########.fr       */
+/*   Created: 2023/04/05 15:51:07 by mlongo            #+#    #+#             */
+/*   Updated: 2023/04/05 17:20:57 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int main()
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	char *str;
-	char **splitcmd;
-	while (1)
+	t_list	*list;
+	t_list	*node;
+
+	if (!lst || !f || !del)
+		return (NULL);
+	list = NULL;
+	while (lst)
 	{
-		str = readline("minishell> ");
-		add_history(str);
-		//qui va fatto prima un lexer
-		splitcmd = ft_split(fix_syntax(str), ' ');
-		for (int i = 0; splitcmd[i]; i++)
-			printf("%s ", splitcmd[i]);
-		printf("\n");
-		tokenizer(splitcmd);
-		free_matrix(splitcmd);
-		free(str);
+		node = ft_lstnew(f(lst->content));
+		if (node == NULL)
+		{
+			ft_lstclear(&list, del);
+			return (NULL);
+		}
+		ft_lstadd_back(&list, node);
+		lst = lst->next;
 	}
+	ft_lstclear(&lst, del);
+	return (list);
 }

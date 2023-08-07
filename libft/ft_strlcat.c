@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/08/07 18:17:24 by mlongo           ###   ########.fr       */
+/*   Created: 2023/04/04 19:17:09 by mlongo            #+#    #+#             */
+/*   Updated: 2023/04/04 19:17:12 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int main()
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	char *str;
-	char **splitcmd;
-	while (1)
+	int		lenght;
+	size_t	dstlen;
+	size_t	i;
+
+	if (size == 0)
+		return (ft_strlen(src));
+	lenght = ft_strlen(src) + ft_strlen(dst);
+	dstlen = ft_strlen(dst);
+	i = 0;
+	while (src[i] && i + dstlen < size - 1)
 	{
-		str = readline("minishell> ");
-		add_history(str);
-		//qui va fatto prima un lexer
-		splitcmd = ft_split(fix_syntax(str), ' ');
-		for (int i = 0; splitcmd[i]; i++)
-			printf("%s ", splitcmd[i]);
-		printf("\n");
-		tokenizer(splitcmd);
-		free_matrix(splitcmd);
-		free(str);
+		dst[i + dstlen] = src[i];
+		i++;
 	}
+	if (dstlen < size)
+		dst[i + dstlen] = 0;
+	else
+		return (ft_strlen(src) + size);
+	return (lenght);
 }
