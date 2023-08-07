@@ -6,7 +6,7 @@
 #    By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/01 14:36:32 by fcarlucc          #+#    #+#              #
-#    Updated: 2023/08/07 18:20:09 by mlongo           ###   ########.fr        #
+#    Updated: 2023/08/07 19:17:13 by mlongo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRC = main.c  parser.c utils_libft.c scan_1.c tok_list.c tokenizer.c\
 
 OBJS = $(SRC:.c=.o)
 
-FLAGS := -Wall -Werror -Wextra -g -pthread
+FLAGS := -Wall -Werror -Wextra -g
 
 LIBFT_PATH = ./libft
 

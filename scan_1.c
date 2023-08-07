@@ -12,7 +12,7 @@ void scan_parenthesis(char **splitwords, int *i, t_token **token_lst)
 		if (splitwords[*i][0] == '(')
 		{
 			tok_par->token = PARENTHESIS;
-			tok_par->value = (int *)i;
+			tok_par->value = i;
 			tok_par->next = NULL;
 			*i += 1;
 			tok_add_back(token_lst, tok_par);
@@ -20,7 +20,7 @@ void scan_parenthesis(char **splitwords, int *i, t_token **token_lst)
 		else if (splitwords[*i][0] == ')')
 		{
 			tok_par->token = PARENTHESIS;
-			tok_par->value = (int *)i;
+			tok_par->value = i;
 			tok_par->next = NULL;
 			*i += 1;
 			tok_add_back(token_lst, tok_par);

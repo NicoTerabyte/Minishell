@@ -2,9 +2,14 @@
 
 void	print_tokens(t_token *token_lst)
 {
+	int *type;
+
+	type = NULL;
 	while (token_lst)
 	{
-		printf("tipo : %d, contenuto : %d\n", token_lst->token, token_lst->value);
+		printf("ok");
+		type = (int *)token_lst->value;
+		printf("tipo : %d, contenuto : %d\n", token_lst->token, *type);
 		token_lst = token_lst->next;
 	}
 }
@@ -17,10 +22,13 @@ t_token	*tokenizer(char **splitcmd)
 
 	i = 0;
 	cursor = 0;
+	token_lst = NULL;
 	while (splitcmd[i])
 	{
 		cursor = i;
+		// printf("ok");
 		scan_parenthesis(splitcmd, &i, &token_lst);
+		// printf("ok");
 		// scan_redirections(splitcmd, &i, token_lst);
 		// if (verify_env_decl(splitcmd, &i))
 		// 	scan_env_decl(splitcmd, &i, token_lst);
