@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/07/28 16:45:30 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/08/06 17:30:00 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,15 @@
 # define DOUBLE_QUOTES 7
 # define SINGLE_QUOTES 8
 
+
+typedef struct s_data
+{
+	char	*path;
+	char	*old_path;
+	char	**copy_env;
+} t_data;
+
+
 size_t	ft_strlen(const char *s);
 int		ft_islower(int c);
 int		ft_isupper(int c);
@@ -50,5 +59,11 @@ int		cmd_name(char *str);
 void	parser(char **splitcmd);
 int		count_syntax(char *str);
 char	*fix_syntax(char *str);
-
+//lnicoter
+void	builtin_reader(char **command_line, char **envp, t_data *shell_data);
+void	ft_echo(char **command_line);
+void	ft_cd(char **command_line, t_data *shell_data);
+void	ft_env(t_data *shell_data, char **envp);
+void	copy_env(char **env, t_data *mini_data);
+void	ft_pwd();
 #endif

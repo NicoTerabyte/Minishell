@@ -115,8 +115,6 @@ static size_t	get_word(const char *s, char c)
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	//con questo separiamo i pezzi della split
-	//CON QUESTO occhio
 	char	*str;
 	size_t	i;
 	size_t	j;
@@ -138,18 +136,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (str);
 }
 
-//funzione d'appoggio con la quale controllo le quotes per ft_split
-static char	*quotes(char *quoted)
-{
-	//il problema si presenta qua
-	int	i;
-
-	i = 1;
-	printf("test del valore %s\n", quoted);
-	while (quoted[i] == '"' && quoted[i] != '\0')
-		i++;
-	return (quoted);
-}
 //la split va fixata in modo tale che riesca a riconoscere le virgolette e
 //che non le splitti finchè non ne trovi altre le quali completeranno la stringa
 //cosicché nel fix_syntax le quotes che hanno gli spazi non vengano eliminate
@@ -160,7 +146,6 @@ static char	*quotes(char *quoted)
 //la funzione split
 char	**ft_split(char *s, char c)
 {
-	printf("SPLIT FUNCTION\n\n\n");
 	char	**str;
 	size_t	i;
 	size_t	len;
@@ -184,13 +169,6 @@ char	**ft_split(char *s, char c)
 			++s;
 	}
 	str[i] = 0;
-	int	printer;
-	printer = 0;
-	while (str[printer])
-	{
-		printf("String value: %s\n",str[printer]);
-		printer++;
-	}
 	return (str);
 }
 

@@ -6,17 +6,17 @@
 #    By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/01 14:36:32 by fcarlucc          #+#    #+#              #
-#    Updated: 2023/07/24 14:41:04 by lnicoter         ###   ########.fr        #
+#    Updated: 2023/08/04 18:55:16 by lnicoter         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRC = main.c parser.c utils_libft.c \
+SRC = $(wildcard *.c)\
 
 OBJ = $(SRC:.c=.o)
 
-FLAGS = -Wall -Werror -Wextra -g
+FLAGS = 
 
 #COLORS
 RED = \033[1;31m
