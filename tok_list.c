@@ -2,14 +2,17 @@
 
 void	tok_add_back(t_token **lst, t_token *new)
 {
-	if (!lst)
-		return ;
-	if (!*lst)
+	static t_token	*tail = NULL;
+
+	if (!(*lst))
 	{
 		*lst = new;
-		return ;
+		tail = *lst;
 	}
-	while ((*lst)->next)
-		(*lst) = (*lst)->next;
-	(*lst)->next = new;
+	else
+	{
+		tail->next = new;
+		tail = tail->next;
+	}
+	tail->next = NULL;
 }

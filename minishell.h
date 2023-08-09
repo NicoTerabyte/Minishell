@@ -6,16 +6,12 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/08/07 18:22:40 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/08/09 16:38:41 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
-# endif
 
 # include "./libft/libft.h"
 # include <stdio.h>
@@ -43,10 +39,9 @@ typedef enum e_token_enum
 typedef struct s_declaration
 {
 	int						concatenation;
-	char					var_name;
-	char					var_value;
+	char					*name;
+	char					*value;
 	struct	s_declaration	*next;
-	struct	s_declaration	*prev;
 }	t_declaration;
 
 typedef struct s_token
@@ -61,7 +56,14 @@ t_token	*tokenizer(char **splitcmd);
 int		count_syntax(char *str);
 char	*fix_syntax(char *str);
 int		free_matrix(char **s);
-void	scan_parenthesis(char **splitwords, int *i, t_token **token_lst);
+void	scan_parenthesis(char **splitcmd, int *i, t_token **token_lst);
+// void	scan_redirections(char **splitcmd, int *i, t_token **token_lst);
+void	scan_env_decl(char **splitcmd, int *i, t_token **token_lst);
+int		verify_env_decl(char **splitcmd, int *i);
 void	tok_add_back(t_token **lst, t_token *new);
+char	*ft_strpbrk(char *str, char *set);
+int		ft_isspace(char c);
+int		ft_stralnum(char *str);
+char	*ft_strbash_control(char *str);
 
 #endif

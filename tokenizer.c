@@ -2,16 +2,38 @@
 
 void	print_tokens(t_token *token_lst)
 {
-	int *type;
+	t_declaration	*type_decl;
+	char			*type_parenthesis;
+	t_token			*tmp;
+	t_declaration	*tmpdecl;
 
-	type = NULL;
 	while (token_lst)
 	{
-		printf("ok");
-		type = (int *)token_lst->value;
-		printf("tipo : %d, contenuto : %d\n", token_lst->token, *type);
+		if (token_lst->token == PARENTHESIS)
+		{
+			type_parenthesis = (char *)token_lst->value;
+			printf("tipo : %d, contenuto : %s\n", token_lst->token, type_parenthesis);
+		}
+		else if (token_lst->token == ENV_VAR_DECL || token_lst->token == ENV_VAR_UNSET)
+		{
+			type_decl = (t_declaration *)token_lst->value;
+			printf("tipo : %d, contenuto : \n", token_lst->token);
+			while (type_decl)
+			{
+				printf("var name : %s, var value : %s, conc mode : %d\n", type_decl->name, type_decl->value, type_decl->concatenation);
+				tmpdecl = type_decl;
+				type_decl = type_decl->next;
+				free(tmpdecl->name);
+				if (tmpdecl->value)
+					free(tmpdecl->value);
+				free(tmpdecl);
+			}
+		}
+		tmp = token_lst;
 		token_lst = token_lst->next;
+		free(tmp);
 	}
+	free(token_lst);
 }
 
 t_token	*tokenizer(char **splitcmd)
@@ -26,14 +48,13 @@ t_token	*tokenizer(char **splitcmd)
 	while (splitcmd[i])
 	{
 		cursor = i;
-		// printf("ok");
 		scan_parenthesis(splitcmd, &i, &token_lst);
-		// printf("ok");
-		// scan_redirections(splitcmd, &i, token_lst);
-		// if (verify_env_decl(splitcmd, &i))
-		// 	scan_env_decl(splitcmd, &i, token_lst);
-		// else
-		// 	scan_cmd(splitcmd, &i, token_lst);
+		// scan_redirections(splitcmd, &i, &token_lst);
+		if (verify_env_decl(splitcmd, &i))
+			scan_env_decl(splitcmd, &i, &token_lst);
+		else
+			printf("not env\n");
+			// scan_cmd(splitcmd, &i, token_lst);
 		// scan_redirections(splitcmd, &i, token_lst);
 		// scan_parenthesis(splitcmd, &i, token_lst);
 		// scan_redirections(splitcmd, &i, token_lst);
