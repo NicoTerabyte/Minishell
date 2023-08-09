@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/08/09 16:38:41 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/08/09 18:08:42 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef enum e_token_enum
 	CMD_ARG,
 	IN_FILE_TRUNC,
 	HERE_DOC,
-	OUT_FILE_TRUN,
+	OUT_FILE_TRUNC,
 	OUT_FILE_APPEND,
 	OPERATOR,
 	ENV_VAR_DECL,

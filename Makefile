@@ -6,13 +6,13 @@
 #    By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/01 14:36:32 by fcarlucc          #+#    #+#              #
-#    Updated: 2023/08/09 16:59:23 by mlongo           ###   ########.fr        #
+#    Updated: 2023/08/09 18:04:54 by mlongo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRC = main.c  tok_parser.c tok_utils.c tok_utils_1.c tok_scan_1.c tok_list.c tokenizer.c tok_env_decl.c
+SRC = main.c tok_utils.c tok_utils_1.c tok_scan_1.c tok_list.c tokenizer.c tok_env_decl.c
 
 OBJS = $(SRC:.c=.o)
 

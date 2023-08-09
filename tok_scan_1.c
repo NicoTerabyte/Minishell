@@ -29,17 +29,3 @@ void	scan_parenthesis(char **splitcmd, int *i, t_token **token_lst)
 			free(tok_par);
 	}
 }
-
-void	scan_redirections(char **splitcmd, int *i, t_token *token_lst)
-{
-	t_token	*token;
-
-	if (!splitcmd[*i])
-		return ;
-	if (!((splitcmd[*i][0] == '>' && splitcmd[*i][1] == '>') || (splitcmd[*i][0] == '<' && splitcmd[*i][1] == '<') || splitcmd[*i][0] == '>' || splitcmd[*i][0] == '<'))
-		return ;
-	token = (t_token *)malloc(sizeof(t_token));
-	token->token = set_redir_type();
-
-
-}
