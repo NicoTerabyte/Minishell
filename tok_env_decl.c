@@ -123,7 +123,9 @@ t_token	*set_token_env_id(char **splitcmd, int *i)
 int	verify_env_decl(char **splitcmd, int *i)
 {
 	//espansione
-	if ((ft_strlen(splitcmd[*i]) >= 6 && ft_strncmp(splitcmd[*i], "export", 6) == 0 && (ft_isspace(splitcmd[*i][6]) || splitcmd[*i][6] == 0))
+	if (!splitcmd[*i])
+		return (0);
+	else if ((ft_strlen(splitcmd[*i]) >= 6 && ft_strncmp(splitcmd[*i], "export", 6) == 0 && (ft_isspace(splitcmd[*i][6]) || splitcmd[*i][6] == 0))
 			|| (ft_strlen(splitcmd[*i]) >= 5 && ft_strncmp(splitcmd[*i], "unset", 5) == 0 && (ft_isspace(splitcmd[*i][5]) || splitcmd[*i][5] == 0))
 			|| (ft_strlen(splitcmd[*i]) >= 8 && ft_strncmp(splitcmd[*i] + 1, "export", 6) == 0 && splitcmd[*i][0] == '"' && splitcmd[*i][7] == '"' && (ft_isspace(splitcmd[*i][8]) || splitcmd[*i][8] == 0))
 			|| (ft_strlen(splitcmd[*i]) >= 7 && ft_strncmp(splitcmd[*i] + 1, "unset", 5) == 0 && splitcmd[*i][0] == '"' && splitcmd[*i][6] == '"' && (ft_isspace(splitcmd[*i][7]) || splitcmd[*i][7] == 0)))
@@ -145,7 +147,7 @@ void	scan_env_decl(char **splitcmd, int *i, t_token **token_lst)
 	token = set_token_env_id(splitcmd, i);
 	while (splitcmd[*i])
 	{
-		// scan_redirections(splitcmd, i, token_lst);
+		scan_redirections(splitcmd, i, token_lst);
 		cursor = *i;
 		tmpdecl = set_decl(splitcmd, i, token->token);
 		if (cursor == *i)
@@ -158,5 +160,4 @@ void	scan_env_decl(char **splitcmd, int *i, t_token **token_lst)
 		token->value = NULL;
 	token->next = NULL;
 	tok_add_back(token_lst, token);
-
 }

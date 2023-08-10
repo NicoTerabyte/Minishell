@@ -6,13 +6,13 @@
 #    By: alessiolongo <alessiolongo@student.42.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/01 14:36:32 by fcarlucc          #+#    #+#              #
-#    Updated: 2023/08/10 15:03:26 by alessiolong      ###   ########.fr        #
+#    Updated: 2023/08/10 18:06:05 by alessiolong      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRC = main.c tok_utils.c tok_utils_1.c tok_scan_1.c tok_list.c tokenizer.c tok_env_decl.c tok_redir.c ./gnl/get_next_line_bonus.c ./gnl/get_next_line_utils_bonus.c
+SRC = main.c tok_utils.c tok_utils_1.c tok_scan_1.c tok_list.c tokenizer.c tok_env_decl.c tok_redir.c ./gnl/get_next_line_bonus.c
 
 OBJS = $(SRC:.c=.o)
 

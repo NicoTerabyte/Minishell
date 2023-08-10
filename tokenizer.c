@@ -3,16 +3,18 @@
 void	print_tokens(t_token *token_lst)
 {
 	t_declaration	*type_decl;
-	char			*type_parenthesis;
+	char			*type_char;
 	t_token			*tmp;
 	t_declaration	*tmpdecl;
 
 	while (token_lst)
 	{
-		if (token_lst->token == PARENTHESIS)
+		if (token_lst->token == PARENTHESIS || token_lst->token == IN_FILE_TRUNC
+				|| token_lst->token == HERE_DOC || token_lst->token == OUT_FILE_APPEND
+				|| token_lst->token == OUT_FILE_TRUNC)
 		{
-			type_parenthesis = (char *)token_lst->value;
-			printf("tipo : %d, contenuto : %s\n", token_lst->token, type_parenthesis);
+			type_char = (char *)token_lst->value;
+			printf("tipo : %d, contenuto : %s\n", token_lst->token, type_char);
 		}
 		else if (token_lst->token == ENV_VAR_DECL || token_lst->token == ENV_VAR_UNSET)
 		{
@@ -48,10 +50,10 @@ t_token	*tokenizer(char **splitcmd)
 	while (splitcmd[i])
 	{
 		cursor = i;
-		// scan_parenthesis(splitcmd, &i, &token_lst);
+		scan_parenthesis(splitcmd, &i, &token_lst);
 		scan_redirections(splitcmd, &i, &token_lst);
-		// if (verify_env_decl(splitcmd, &i))
-		// 	scan_env_decl(splitcmd, &i, &token_lst);
+		if (verify_env_decl(splitcmd, &i))
+			scan_env_decl(splitcmd, &i, &token_lst);
 		// else
 		// 	printf("not env\n");
 			// scan_cmd(splitcmd, &i, token_lst);
@@ -62,6 +64,6 @@ t_token	*tokenizer(char **splitcmd)
 		if (cursor == i)
 			break ;
 	}
-	// print_tokens(token_lst);
+	print_tokens(token_lst);
 	return (token_lst);
 }
