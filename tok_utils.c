@@ -129,13 +129,11 @@ char	*fix_syntax(char *str)
 {
 	int		i;
 	int		j;
-	int		inquotes;
 	char	quote;
 	char	*res;
 
 
 	quote = 0;
-	inquotes = 0;
 	i = 0;
 	j = 0;
 	res = malloc(count_syntax(str));

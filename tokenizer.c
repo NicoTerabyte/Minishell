@@ -48,12 +48,12 @@ t_token	*tokenizer(char **splitcmd)
 	while (splitcmd[i])
 	{
 		cursor = i;
-		scan_parenthesis(splitcmd, &i, &token_lst);
-		// scan_redirections(splitcmd, &i, &token_lst);
-		if (verify_env_decl(splitcmd, &i))
-			scan_env_decl(splitcmd, &i, &token_lst);
-		else
-			printf("not env\n");
+		// scan_parenthesis(splitcmd, &i, &token_lst);
+		scan_redirections(splitcmd, &i, &token_lst);
+		// if (verify_env_decl(splitcmd, &i))
+		// 	scan_env_decl(splitcmd, &i, &token_lst);
+		// else
+		// 	printf("not env\n");
 			// scan_cmd(splitcmd, &i, token_lst);
 		// scan_redirections(splitcmd, &i, token_lst);
 		// scan_parenthesis(splitcmd, &i, token_lst);
@@ -62,6 +62,6 @@ t_token	*tokenizer(char **splitcmd)
 		if (cursor == i)
 			break ;
 	}
-	print_tokens(token_lst);
+	// print_tokens(token_lst);
 	return (token_lst);
 }

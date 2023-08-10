@@ -5,39 +5,96 @@ t_token_enum set_redir_type(char **splitcmd, int *i)
 	t_token_enum enum_tok;
 
 	enum_tok = NONE;
-	if (!splitcmd[*i])
-		return (enum_tok);
 	if (splitcmd[*i][0] == '>' && splitcmd[*i][1] == '>')
-		return (OUT_FILE_APPEND);
+		enum_tok = OUT_FILE_APPEND;
 	else if (splitcmd[*i][0] == '<' && splitcmd[*i][1] == '<')
-		return (HERE_DOC);
+		enum_tok = HERE_DOC;
 	else if (splitcmd[*i][0] == '>')
-		return (OUT_FILE_TRUNC);
+		enum_tok = OUT_FILE_TRUNC;
 	else if (splitcmd[*i][0] == '<')
-		return (IN_FILE_TRUNC);
+		enum_tok = IN_FILE_TRUNC;
 	*i += 1;
 	return (enum_tok);
 }
 
-char	*set_redir_type(char **splitcmd, int *i)
+char	*set_redir_value(char **splitcmd, int *i)
 {
-	//espansione e no quotes splitcmd[*i]
-	return (ft_substr(splitcmd[*i], 0, ft_strlen(splitcmd[*i])));
+	char	*res;
+
+	//espansione e no quotes di splitcmd[*i]
+	res = ft_substr(splitcmd[*i], 0, ft_strlen(splitcmd[*i]));
+	*i += 1;
+	return (res);
 }
-void	scan_redirections(char **splitcmd, int *i, t_token *token_lst)
+
+char	*here_doc_name()
+{
+	int			here_docs;
+	char		*prefix;
+	char		*res;
+	char		*suffix;
+
+	here_docs = 0;
+	prefix = ".here_docs-";
+	while (1)
+	{
+		suffix = ft_itoa(here_docs);
+		res = ft_strjoin(prefix, suffix);
+		if (access(res, R_OK | W_OK) != 0)
+		{
+			free(suffix);
+			break ;
+		}
+		free(suffix);
+		free(res);
+		here_docs++;
+	}
+	return (res);
+}
+
+char	*handle_here_doc(char **splitcmd, int *i)
+{
+	char	*here_doc;
+	char	*del;
+	char	*str;
+	int		fd;
+
+	here_doc = here_doc_name();
+	del = set_redir_value(splitcmd, i);
+	fd = open(here_doc, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+	while (1)
+	{
+		write(1, "heredoc> ", 9);
+		str = get_next_line(0);
+		if (ft_strncmp(str, del, ft_strlen(del)) == 0
+			&& ft_strlen(str) == (ft_strlen(del) + 1))
+			break ;
+		write(fd, str, ft_strlen(str));
+		free(str);
+	}
+	free(str);
+	close(fd);
+	return (here_doc);
+}
+
+void	scan_redirections(char **splitcmd, int *i, t_token **token_lst)
 {
 	t_token	*token;
 
 	if (!splitcmd[*i])
 		return ;
-	if (!((splitcmd[*i][0] == '>' && splitcmd[*i][1] == '>') || (splitcmd[*i][0] == '<' && splitcmd[*i][1] == '<') || splitcmd[*i][0] == '>' || splitcmd[*i][0] == '<'))
-		return ;
-	token = (t_token *)malloc(sizeof(t_token));
-	token->token = set_redir_type(splitcmd, i);
-	if (token->token == NONE)
-		return ;
-	if (token->token == HERE_DOC)
-		return ;
-	else
-		token->value = set_redir_value(splitcmd, i);
+	while (splitcmd[*i] && ((splitcmd[*i][0] == '>' && splitcmd[*i][1] == '>') || (splitcmd[*i][0] == '<' && splitcmd[*i][1] == '<')
+			|| splitcmd[*i][0] == '>' || splitcmd[*i][0] == '<'))
+	{
+		token = (t_token *)malloc(sizeof(t_token));
+		token->token = set_redir_type(splitcmd, i);
+		if (token->token == NONE)
+			return ;
+		if (token->token == HERE_DOC)
+			token->value = handle_here_doc(splitcmd, i);
+		else
+			token->value = set_redir_value(splitcmd, i);
+		token->next = NULL;
+		tok_add_back(token_lst, token);
+	}
 }

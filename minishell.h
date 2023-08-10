@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alessiolongo <alessiolongo@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/08/09 18:08:42 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/08/10 15:13:14 by alessiolong      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 # define MINISHELL_H
 
 # include "./libft/libft.h"
+# include "./gnl/get_next_line_bonus.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <fcntl.h>
 
 typedef enum e_token_enum
 {
@@ -57,7 +59,7 @@ int		count_syntax(char *str);
 char	*fix_syntax(char *str);
 int		free_matrix(char **s);
 void	scan_parenthesis(char **splitcmd, int *i, t_token **token_lst);
-// void	scan_redirections(char **splitcmd, int *i, t_token **token_lst);
+void	scan_redirections(char **splitcmd, int *i, t_token **token_lst);
 void	scan_env_decl(char **splitcmd, int *i, t_token **token_lst);
 int		verify_env_decl(char **splitcmd, int *i);
 void	tok_add_back(t_token **lst, t_token *new);
