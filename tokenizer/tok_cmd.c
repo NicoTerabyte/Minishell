@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:43:45 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/11 15:49:39 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/08/11 19:30:00 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,3 +80,4 @@ void	scan_cmd(char **splitcmd, int *i, t_token **token_lst)
 	scan_args(splitcmd, i, token_lst);
 	tok_add_back(token_lst, token_cmd_name);
 }
+
