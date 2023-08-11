@@ -1,17 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenizer.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/11 11:44:38 by mlongo            #+#    #+#             */
+/*   Updated: 2023/08/11 14:36:57 by mlongo           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	print_tokens(t_token *token_lst)
 {
 	t_declaration	*type_decl;
 	char			*type_char;
+	char			**args;
 	t_token			*tmp;
 	t_declaration	*tmpdecl;
+	int				i;
 
+	i = 0;
 	while (token_lst)
 	{
 		if (token_lst->token == PARENTHESIS || token_lst->token == IN_FILE_TRUNC
 				|| token_lst->token == HERE_DOC || token_lst->token == OUT_FILE_APPEND
-				|| token_lst->token == OUT_FILE_TRUNC)
+				|| token_lst->token == OUT_FILE_TRUNC || token_lst->token == CMD_NAME
+				|| token_lst->token == OPERATOR)
 		{
 			type_char = (char *)token_lst->value;
 			printf("tipo : %d, contenuto : %s\n", token_lst->token, type_char);
@@ -19,10 +35,10 @@ void	print_tokens(t_token *token_lst)
 		else if (token_lst->token == ENV_VAR_DECL || token_lst->token == ENV_VAR_UNSET)
 		{
 			type_decl = (t_declaration *)token_lst->value;
-			printf("tipo : %d, contenuto : \n", token_lst->token);
+			printf("tipo : %d, contenuto : ", token_lst->token);
 			while (type_decl)
 			{
-				printf("var name : %s, var value : %s, conc mode : %d\n", type_decl->name, type_decl->value, type_decl->concatenation);
+				printf("(var name : %s, var value : %s, conc mode : %d) ", type_decl->name, type_decl->value, type_decl->concatenation);
 				tmpdecl = type_decl;
 				type_decl = type_decl->next;
 				free(tmpdecl->name);
@@ -30,6 +46,20 @@ void	print_tokens(t_token *token_lst)
 					free(tmpdecl->value);
 				free(tmpdecl);
 			}
+			printf("\n");
+		}
+		else if (token_lst->token == CMD_ARG)
+		{
+			args = (char **)token_lst->value;
+			printf("tipo : %d, contenuto : (", token_lst->token);
+			while(args[i])
+			{
+				printf(" %s", args[i]);
+				free(args[i]);
+				i++;
+			}
+			free(args);
+			printf(" )\n");
 		}
 		tmp = token_lst;
 		token_lst = token_lst->next;
@@ -54,13 +84,12 @@ t_token	*tokenizer(char **splitcmd)
 		scan_redirections(splitcmd, &i, &token_lst);
 		if (verify_env_decl(splitcmd, &i))
 			scan_env_decl(splitcmd, &i, &token_lst);
-		// else
-		// 	printf("not env\n");
-			// scan_cmd(splitcmd, &i, token_lst);
-		// scan_redirections(splitcmd, &i, token_lst);
-		// scan_parenthesis(splitcmd, &i, token_lst);
-		// scan_redirections(splitcmd, &i, token_lst);
-		// scan_operator(splitcmd, &i, token_lst);
+		else
+			scan_cmd(splitcmd, &i, &token_lst);
+		scan_redirections(splitcmd, &i, &token_lst);
+		scan_parenthesis(splitcmd, &i, &token_lst);
+		scan_redirections(splitcmd, &i, &token_lst);
+		scan_operator(splitcmd, &i, &token_lst);
 		if (cursor == i)
 			break ;
 	}
