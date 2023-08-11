@@ -6,11 +6,11 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:43:45 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/11 13:06:57 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/08/11 15:49:39 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "tokenizer.h"
 
 char	*scan_arg(char **splitcmd, int *i)
 {
@@ -24,6 +24,16 @@ char	*scan_arg(char **splitcmd, int *i)
 	return (res);
 }
 
+void	add_cmd_args(t_token *token_cmd_args, char *args, t_token **token_lst)
+{
+	token_cmd_args = (t_token *)malloc(sizeof(t_token));
+	token_cmd_args->token = CMD_ARG;
+	token_cmd_args->value = ft_split(args, ' ');
+	free(args);
+	token_cmd_args->next = NULL;
+	tok_add_back(token_lst, token_cmd_args);
+}
+
 void	scan_args(char **splitcmd, int *i, t_token **token_lst)
 {
 	t_token	*token_cmd_args;
@@ -34,6 +44,7 @@ void	scan_args(char **splitcmd, int *i, t_token **token_lst)
 	arg = NULL;
 	args = NULL;
 	tmp = NULL;
+	token_cmd_args = NULL;
 	if (!splitcmd[*i])
 		return ;
 	while (splitcmd[*i])
@@ -49,14 +60,7 @@ void	scan_args(char **splitcmd, int *i, t_token **token_lst)
 		free(tmp);
 	}
 	if (args != NULL)
-	{
-		token_cmd_args = (t_token *)malloc(sizeof(t_token));
-		token_cmd_args->token = CMD_ARG;
-		token_cmd_args->value = ft_split(args, ' ');
-		free(args);
-		token_cmd_args->next = NULL;
-		tok_add_back(token_lst, token_cmd_args);
-	}
+		add_cmd_args(token_cmd_args, args, token_lst);
 }
 
 void	scan_cmd(char **splitcmd, int *i, t_token **token_lst)

@@ -6,18 +6,16 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:44:24 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/11 12:48:05 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/08/11 15:50:25 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "tokenizer.h"
 
 void	scan_parenthesis(char **splitcmd, int *i, t_token **token_lst)
 {
 	t_token *tok_par;
 
-	if (!splitcmd[*i])
-		return ;
 	while (splitcmd[*i] && (splitcmd[*i][0] == '(' || splitcmd[*i][0] == ')'))
 	{
 		tok_par = (t_token *)malloc(sizeof(t_token));

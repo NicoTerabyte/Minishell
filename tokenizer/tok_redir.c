@@ -6,11 +6,11 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:44:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/11 11:44:04 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/08/11 15:50:17 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "tokenizer.h"
 
 t_token_enum set_redir_type(char **splitcmd, int *i)
 {
@@ -85,6 +85,7 @@ char	*handle_here_doc(char **splitcmd, int *i)
 		free(str);
 	}
 	free(str);
+	free(del);
 	close(fd);
 	return (here_doc);
 }

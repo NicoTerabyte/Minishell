@@ -6,11 +6,11 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:44:38 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/11 14:36:57 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/08/11 15:51:01 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "tokenizer.h"
 
 void	print_tokens(t_token *token_lst)
 {
@@ -31,6 +31,9 @@ void	print_tokens(t_token *token_lst)
 		{
 			type_char = (char *)token_lst->value;
 			printf("tipo : %d, contenuto : %s\n", token_lst->token, type_char);
+			if (token_lst->token == OPERATOR || token_lst->token == OUT_FILE_APPEND || token_lst->token == OUT_FILE_TRUNC || token_lst->token == HERE_DOC
+					|| token_lst->token == IN_FILE_TRUNC || token_lst->token == OPERATOR || token_lst->token == CMD_NAME)
+				free(type_char);
 		}
 		else if (token_lst->token == ENV_VAR_DECL || token_lst->token == ENV_VAR_UNSET)
 		{
@@ -50,6 +53,7 @@ void	print_tokens(t_token *token_lst)
 		}
 		else if (token_lst->token == CMD_ARG)
 		{
+			i = 0;
 			args = (char **)token_lst->value;
 			printf("tipo : %d, contenuto : (", token_lst->token);
 			while(args[i])
