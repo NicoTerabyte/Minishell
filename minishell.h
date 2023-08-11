@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fcarlucc <fcarlucc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/08/11 12:38:31 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/08/11 17:09:54 by fcarlucc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,11 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+// LEXER
+
+void check_parentheses(char *str);
+void check_quotes(char *str);
+
 // TOKENIZER
 
 // command line adjusters
@@ -61,6 +66,7 @@ int		cmd_name(char *str);
 t_token	*tokenizer(char **splitcmd);
 int		count_syntax(char *str);
 char	*fix_syntax(char *str);
+char	*fix_white_spaces(char *str);
 int		free_matrix(char **s);
 
 //scanners

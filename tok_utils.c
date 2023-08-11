@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fcarlucc <fcarlucc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:44:33 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/11 11:44:34 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/08/11 17:10:12 by fcarlucc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,29 @@ int	count_syntax(char *str)
 	return (i + count);
 }
 
+char	*fix_white_spaces(char *str)
+{
+	int		i;
+	int		j;
+	char 	*res;
+
+	if (!str)
+		return (NULL);
+	i = 0;
+	j = 0;
+	res = malloc(ft_strlen(str));
+	while (str[i])
+	{
+		if (ft_isspace(str[i]) && ft_isspace(str[i + 1]))
+			i++;
+		else
+			res[j++] = str[i++];
+	}
+	res[j] = 0;
+	free(str);
+	return (res);
+}
+
 char	*fix_syntax(char *str)
 {
 	int		i;
@@ -206,5 +229,6 @@ char	*fix_syntax(char *str)
 			res[j++] = str[i++];
 	}
 	res[j] = 0;
+	res = fix_white_spaces(res);
 	return (res);
 }
