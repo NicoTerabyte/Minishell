@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 15:47:11 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/11 15:48:39 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/08/14 18:44:12 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_token
 {
 	t_token_enum	token;
 	void			*value;
+	struct s_token	*prev;
 	struct s_token	*next;
 }	t_token;
 
@@ -79,5 +80,7 @@ char	*ft_strpbrk(char *str, char *set);
 int		ft_isspace(char c);
 int		ft_stralnum(char *str);
 char	*ft_strbash_control(char *str);
+void	print_tokens(t_token *token_lst);
+void	initializePrevious(t_token *head);
 
 #endif

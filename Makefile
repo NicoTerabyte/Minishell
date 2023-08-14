@@ -6,14 +6,14 @@
 #    By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/01 14:36:32 by fcarlucc          #+#    #+#              #
-#    Updated: 2023/08/11 15:46:43 by mlongo           ###   ########.fr        #
+#    Updated: 2023/08/14 14:40:11 by mlongo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 SRC = main.c ./tokenizer/tok_utils.c ./tokenizer/tok_utils_1.c ./tokenizer/tok_scan_1.c ./tokenizer/tok_list.c ./tokenizer/tokenizer.c \
-		./tokenizer/tok_env_decl.c ./tokenizer/tok_redir.c ./tokenizer/tok_cmd.c ./gnl/get_next_line_bonus.c
+		./tokenizer/tok_env_decl.c ./tokenizer/tok_redir.c ./tokenizer/tok_cmd.c ./gnl/get_next_line_bonus.c ./tree/tree_create.c
 
 OBJS = $(SRC:.c=.o)
 

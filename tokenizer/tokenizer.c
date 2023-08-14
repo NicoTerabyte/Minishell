@@ -6,11 +6,24 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:44:38 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/11 15:51:01 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/08/14 18:44:05 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
+
+void	initializePrevious(t_token *head)
+{
+	t_token* current = head;
+	t_token* prevNode = NULL;
+
+	while (current != NULL)
+	{
+		current->prev = prevNode;
+		prevNode = current;
+		current = current->next;
+	}
+}
 
 void	print_tokens(t_token *token_lst)
 {
@@ -69,7 +82,7 @@ void	print_tokens(t_token *token_lst)
 		token_lst = token_lst->next;
 		free(tmp);
 	}
-	free(token_lst);
+	// free(token_lst);
 }
 
 t_token	*tokenizer(char **splitcmd)
@@ -97,6 +110,9 @@ t_token	*tokenizer(char **splitcmd)
 		if (cursor == i)
 			break ;
 	}
+	initializePrevious(token_lst);
 	print_tokens(token_lst);
+	if (token_lst == NULL)
+		printf("merda\n");
 	return (token_lst);
 }
