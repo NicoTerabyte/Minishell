@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 16:11:25 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/08/09 15:32:15 by lnicoter         ###   ########.fr       */
+/*   Created: 2023/04/04 19:17:17 by mlongo            #+#    #+#             */
+/*   Updated: 2023/04/04 19:17:20 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	ft_env(t_data *shell_data)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	int		i;
+	size_t	i;
 
 	i = 0;
-	while (shell_data->copy_env[i])
+	if (!dstsize)
+		return (ft_strlen(src));
+	while (src[i] && i < dstsize - 1)
 	{
-		printf("%s\n", shell_data->copy_env[i]);
+		dst[i] = src[i];
 		i++;
 	}
+	if (i < dstsize)
+		dst[i] = 0;
+	while (src[i])
+		i++;
+	return (i);
 }
-

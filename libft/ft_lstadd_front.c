@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 16:11:25 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/08/09 15:32:15 by lnicoter         ###   ########.fr       */
+/*   Created: 2023/04/05 11:04:08 by mlongo            #+#    #+#             */
+/*   Updated: 2023/04/05 17:27:27 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	ft_env(t_data *shell_data)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	int		i;
-
-	i = 0;
-	while (shell_data->copy_env[i])
-	{
-		printf("%s\n", shell_data->copy_env[i]);
-		i++;
-	}
+	if (lst == NULL || new == NULL)
+		return ;
+	new->next = lst[0];
+	lst[0] = new;
 }
-

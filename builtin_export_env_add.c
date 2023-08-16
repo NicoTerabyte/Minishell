@@ -1,26 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   builtin_export_env_add.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 16:11:25 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/08/09 15:32:15 by lnicoter         ###   ########.fr       */
+/*   Created: 2023/08/16 23:38:43 by lnicoter          #+#    #+#             */
+/*   Updated: 2023/08/16 23:40:23 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_env(t_data *shell_data)
-{
-	int		i;
-
-	i = 0;
-	while (shell_data->copy_env[i])
-	{
-		printf("%s\n", shell_data->copy_env[i]);
-		i++;
-	}
-}
-
+/*cosa fare
+*/

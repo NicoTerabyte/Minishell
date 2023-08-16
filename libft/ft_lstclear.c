@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 16:11:25 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/08/09 15:32:15 by lnicoter         ###   ########.fr       */
+/*   Created: 2023/04/05 14:58:53 by mlongo            #+#    #+#             */
+/*   Updated: 2023/04/05 15:45:47 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	ft_env(t_data *shell_data)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	int		i;
+	t_list	*tmp;
 
-	i = 0;
-	while (shell_data->copy_env[i])
+	if (!lst || !del)
+		return ;
+	while (*lst)
 	{
-		printf("%s\n", shell_data->copy_env[i]);
-		i++;
+		tmp = (*lst)->next;
+		ft_lstdelone(*lst, del);
+		*lst = tmp;
 	}
+	*lst = NULL;
 }
-

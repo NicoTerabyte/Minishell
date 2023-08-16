@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 16:11:25 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/08/09 15:32:15 by lnicoter         ###   ########.fr       */
+/*   Created: 2023/04/04 19:16:44 by mlongo            #+#    #+#             */
+/*   Updated: 2023/04/04 19:16:52 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	ft_env(t_data *shell_data)
+char	*ft_strdup(const char *s)
 {
-	int		i;
+	char	*res;
+	int		len;
 
-	i = 0;
-	while (shell_data->copy_env[i])
-	{
-		printf("%s\n", shell_data->copy_env[i]);
-		i++;
-	}
+	len = ft_strlen(s);
+	res = malloc(len + 1);
+	if (res == NULL)
+		return (NULL);
+	res[len] = 0;
+	while (len--)
+		res[len] = s[len];
+	return (res);
 }
-

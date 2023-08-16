@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 16:11:25 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/08/09 15:32:15 by lnicoter         ###   ########.fr       */
+/*   Created: 2023/04/04 19:15:34 by mlongo            #+#    #+#             */
+/*   Updated: 2023/04/04 19:15:36 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	ft_env(t_data *shell_data)
+void	*ft_memset(void *s, int c, size_t n)
 {
-	int		i;
+	size_t			i;
+	unsigned char	x;
 
+	x = (unsigned char) c;
 	i = 0;
-	while (shell_data->copy_env[i])
-	{
-		printf("%s\n", shell_data->copy_env[i]);
-		i++;
-	}
+	while (i < n)
+		((unsigned char *) s)[i++] = x;
+	return (s);
 }
-

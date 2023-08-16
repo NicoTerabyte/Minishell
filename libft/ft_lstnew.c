@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 16:11:25 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/08/09 15:32:15 by lnicoter         ###   ########.fr       */
+/*   Created: 2023/04/04 19:14:32 by mlongo            #+#    #+#             */
+/*   Updated: 2023/04/05 12:04:00 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	ft_env(t_data *shell_data)
+t_list	*ft_lstnew(void *content)
 {
-	int		i;
+	t_list	*res;
 
-	i = 0;
-	while (shell_data->copy_env[i])
-	{
-		printf("%s\n", shell_data->copy_env[i]);
-		i++;
-	}
+	res = (t_list *) malloc(sizeof(t_list));
+	if (res == NULL)
+		return (NULL);
+	res->content = content;
+	res->next = NULL;
+	return (res);
 }
-

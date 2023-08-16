@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 16:11:25 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/08/09 15:32:15 by lnicoter         ###   ########.fr       */
+/*   Created: 2023/04/04 19:17:37 by mlongo            #+#    #+#             */
+/*   Updated: 2023/04/04 19:17:39 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	ft_env(t_data *shell_data)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	int		i;
+	size_t	i;
 
 	i = 0;
-	while (shell_data->copy_env[i])
-	{
-		printf("%s\n", shell_data->copy_env[i]);
+	if (!n)
+		return (0);
+	while (s1[i] && s2[i] && i < n && s1[i] == s2[i])
 		i++;
-	}
+	if (i == n)
+		i--;
+	return ((unsigned char) s1[i] - (unsigned char) s2[i]);
 }
-

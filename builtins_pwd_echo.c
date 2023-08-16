@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 16:34:36 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/08/06 19:19:58 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/08/09 22:06:10 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	ft_echo(char **command_line)
 	echo_printer(command_line, flag, mat_size, i);
 }
 
-void	builtin_reader(char **command_line, char **envp, t_data *shell_data) //aggiornare con struct
+void	builtin_reader(char **command_line, t_data *shell_data, t_declaration *identity) //aggiornare con struct
 {
 	char	pwd[4096];
 
@@ -100,5 +100,7 @@ void	builtin_reader(char **command_line, char **envp, t_data *shell_data) //aggi
 	if (!ft_strcmp(command_line[0], "cd"))
 		ft_cd(command_line, shell_data);
 	if (!ft_strcmp(command_line[0], "env"))
-		ft_env(shell_data, envp);
+		ft_env(shell_data);
+	if (!ft_strcmp(command_line[0], "export"))
+		ft_export(command_line, shell_data, identity);
 }
