@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alessiolongo <alessiolongo@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 14:19:48 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/14 17:14:49 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/08/17 12:23:46 by alessiolong      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,6 @@ typedef struct s_parenthesis
 }	t_parenthesis;
 
 
-t_tree *tree_create(t_token **token_lst, t_tree_enum calling);
+t_tree	*tree_create(t_token **token_lst, t_tree_enum calling);
 
 #endif

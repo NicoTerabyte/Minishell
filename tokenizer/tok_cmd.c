@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alessiolongo <alessiolongo@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:43:45 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/11 19:30:00 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/08/16 10:53:54 by alessiolong      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,7 @@ void	scan_args(char **splitcmd, int *i, t_token **token_lst)
 void	scan_cmd(char **splitcmd, int *i, t_token **token_lst)
 {
 	t_token	*token_cmd_name;
-	int		cursor;
 
-	cursor = 0;
 	if (!splitcmd[*i])
 		return ;
 	token_cmd_name = (t_token *)malloc(sizeof(t_token));

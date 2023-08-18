@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alessiolongo <alessiolongo@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:44:38 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/14 18:44:05 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/08/16 15:55:31 by alessiolong      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	print_tokens(t_token *token_lst)
 	t_declaration	*type_decl;
 	char			*type_char;
 	char			**args;
-	t_token			*tmp;
-	t_declaration	*tmpdecl;
+	// t_token			*tmp;
+	// t_declaration	*tmpdecl;
 	int				i;
 
 	i = 0;
@@ -44,9 +44,9 @@ void	print_tokens(t_token *token_lst)
 		{
 			type_char = (char *)token_lst->value;
 			printf("tipo : %d, contenuto : %s\n", token_lst->token, type_char);
-			if (token_lst->token == OPERATOR || token_lst->token == OUT_FILE_APPEND || token_lst->token == OUT_FILE_TRUNC || token_lst->token == HERE_DOC
-					|| token_lst->token == IN_FILE_TRUNC || token_lst->token == OPERATOR || token_lst->token == CMD_NAME)
-				free(type_char);
+			// if (token_lst->token == OPERATOR || token_lst->token == OUT_FILE_APPEND || token_lst->token == OUT_FILE_TRUNC || token_lst->token == HERE_DOC
+			// 		|| token_lst->token == IN_FILE_TRUNC || token_lst->token == OPERATOR || token_lst->token == CMD_NAME)
+				// free(type_char);
 		}
 		else if (token_lst->token == ENV_VAR_DECL || token_lst->token == ENV_VAR_UNSET)
 		{
@@ -55,12 +55,12 @@ void	print_tokens(t_token *token_lst)
 			while (type_decl)
 			{
 				printf("(var name : %s, var value : %s, conc mode : %d) ", type_decl->name, type_decl->value, type_decl->concatenation);
-				tmpdecl = type_decl;
+				// tmpdecl = type_decl;
 				type_decl = type_decl->next;
-				free(tmpdecl->name);
-				if (tmpdecl->value)
-					free(tmpdecl->value);
-				free(tmpdecl);
+				// free(tmpdecl->name);
+				// if (tmpdecl->value)
+					// free(tmpdecl->value);
+				// free(tmpdecl);
 			}
 			printf("\n");
 		}
@@ -72,15 +72,15 @@ void	print_tokens(t_token *token_lst)
 			while(args[i])
 			{
 				printf(" %s", args[i]);
-				free(args[i]);
+				// free(args[i]);
 				i++;
 			}
-			free(args);
+			// free(args);
 			printf(" )\n");
 		}
-		tmp = token_lst;
+		// tmp = token_lst;
 		token_lst = token_lst->next;
-		free(tmp);
+		// free(tmp);
 	}
 	// free(token_lst);
 }
@@ -111,7 +111,7 @@ t_token	*tokenizer(char **splitcmd)
 			break ;
 	}
 	initializePrevious(token_lst);
-	print_tokens(token_lst);
+	// print_tokens(token_lst);
 	if (token_lst == NULL)
 		printf("merda\n");
 	return (token_lst);
