@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/08/17 00:00:04 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/08/17 17:51:45 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	//TUTTO A PUTTANE CHECK I PROCESSI
 	char	*str;
 	char	**splitcmd;
 	char	*syntax;

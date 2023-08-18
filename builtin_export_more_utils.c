@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 20:30:03 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/08/14 15:43:12 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/08/18 15:00:40 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,18 +74,20 @@ void	arguments_separation(char **command_line, int conc, t_declaration **identit
 	while(command_line[++i])
 	{
 		if (put_arguments_in_list(*identity, command_line[i]) == 1)
-			separated_args = ft_split(command_line[i], '=');
-		if (ft_strchr(separated_args[0], '+'))
 		{
-			conc = 1;
-			while(separated_args[0][plus_finder])
+			separated_args = ft_split(command_line[i], '=');
+			if (ft_strchr(separated_args[0], '+'))
 			{
-				if (separated_args[0][plus_finder] == '+')
-					separated_args[0][plus_finder] = '\0';
-				plus_finder++;
+				conc = 1;
+				while(separated_args[0][plus_finder])
+				{
+					if (separated_args[0][plus_finder] == '+')
+						separated_args[0][plus_finder] = '\0';
+					plus_finder++;
+				}
 			}
+			insert_declaration(identity, conc, separated_args[0], separated_args[1]);
 		}
-		insert_declaration(identity, conc, separated_args[0], separated_args[1]);
 	}
 	free_matrix(separated_args);
 }

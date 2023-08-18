@@ -6,14 +6,12 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:46:34 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/08/16 23:58:00 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/08/17 17:56:24 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//modificare la funzione in modo tale che
-//char **copy aggiorni la struct dei dati
 int	copy_env(char **env, t_data *mini_data)
 {
 	int	env_size;
