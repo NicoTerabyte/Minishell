@@ -6,11 +6,12 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 19:16:11 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/07 16:50:30 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/08/18 12:45:39 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 static size_t	get_word(const char *s, char c)
 {

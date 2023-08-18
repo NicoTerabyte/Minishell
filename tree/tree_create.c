@@ -25,11 +25,11 @@ void	tree_node_operator(t_token *token_lst, t_tree **tree)
 {
 	(*tree)->type = OP;
 	(*tree)->content = token_lst->value;
+	token_lst = token_lst->prev;
+	(*tree)->left = tree_create(token_lst, OP);
 	token_lst = token_lst->next;
-	(*tree)->right = tree_create(&token_lst, SIMPLE_CMD);
-	token_lst = token_lst->prev;
-	token_lst = token_lst->prev;
-	(*tree)->left = tree_create(&token_lst, OP);
+	token_lst = token_lst->next;
+	(*tree)->right = tree_create(token_lst, SIMPLE_CMD);
 }
 
 t_token	*copy_tok(t_token *to_copy)
@@ -152,8 +152,8 @@ t_token	*skip_par_tokens(t_token *token_lst)
 			token_lst = token_lst->next;
 		}
 	}
-	printf("PRINT TOKENS PARENTHESIS\n");
-	print_tokens(new_token_lst);
+	// printf("PRINT TOKENS PARENTHESIS\n");
+	// print_tokens(new_token_lst);
 	return (new_token_lst);
 }
 
@@ -181,13 +181,17 @@ t_parenthesis	*parenthesis_node(t_token *token_lst)
 	parenthesis_node = (t_parenthesis *)malloc(sizeof(t_parenthesis));
 	parenthesis_node->redir_list = parenthesis_redirections(token_lst);
 	new_token_lst = skip_par_tokens(token_lst);
-	parenthesis_node->tree = tree_create(&new_token_lst, OP);
+	initializePrevious(new_token_lst);
+	if (new_token_lst)
+			while (new_token_lst->next)
+				new_token_lst = new_token_lst->next;
+	parenthesis_node->tree = tree_create(new_token_lst, OP);
 	return (parenthesis_node);
 }
 
-t_tree *tree_create(t_token **token_lst, t_tree_enum calling)
+t_tree *tree_create(t_token *token_lst, t_tree_enum calling)
 {
-	if (!token_lst || !(*token_lst))
+	if (!token_lst)
 		return (NULL);
 	t_tree	*tree;
 
@@ -198,30 +202,30 @@ t_tree *tree_create(t_token **token_lst, t_tree_enum calling)
 	tree->prev = NULL;
 	if (calling == SIMPLE_CMD)
 	{
-		if (verify_parenthesis(*token_lst))
+		if (verify_parenthesis(token_lst))
 		{
 			tree->type = PARENTHESI;
-			tree->content = parenthesis_node(*token_lst);
+			tree->content = parenthesis_node(token_lst);
 			return (tree);
 		}
 		tree->type = SIMPLE_CMD;
-		tree->content = simple_cmd_redirections((*token_lst));
-		simple_cmd((*token_lst), tree->content);
+		tree->content = simple_cmd_redirections((token_lst));
+		simple_cmd(token_lst, tree->content);
 		return (tree);
 	}
 	else if (calling == OP)
 	{
-		while ((*token_lst)->prev != NULL)
+		while (token_lst->prev != NULL)
 		{
-			if ((*token_lst)->token == OPERATOR)
+			if (token_lst->token == OPERATOR)
 			{
-				tree_node_operator(*token_lst, &tree);
+				tree_node_operator(token_lst, &tree);
 				return (tree);
 			}
-			else if ((*token_lst)->token == PARENTHESIS)
-				(*token_lst) = skip_back_parenthesis(*token_lst);
+			else if (token_lst->token == PARENTHESIS)
+				token_lst = skip_back_parenthesis(token_lst);
 			else
-				(*token_lst) = (*token_lst)->prev;
+				token_lst = token_lst->prev;
 		}
 	}
 	return (tree_create(token_lst, SIMPLE_CMD));

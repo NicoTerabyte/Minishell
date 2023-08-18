@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessiolongo <alessiolongo@student.42.f    +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/08/17 18:26:25 by alessiolong      ###   ########.fr       */
+/*   Updated: 2023/08/18 12:51:38 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void printTree(t_tree *node, int level, char *message) {
         printf("OP\n");
         char *cmd = (char *)node->content;
 		printf("content : %s\n", cmd);
-    } else if (node->type == PARENTHESIS) {
+    } else if (node->type == PARENTHESI) {
         printf("PARENTHESIS\n");
         t_parenthesis *cmd = (t_parenthesis *)node->content;
 		print_tokens(cmd->redir_list);
@@ -64,20 +64,21 @@ int main()
 	while (1)
 	{
 		str = readline("minishell> ");
-		// str = "cat ciao | (ok)";
+		// str = "cat ciao | (echo ciao | echo bo) <bo";
 		add_history(str);
 		//qui va fatto prima un lexer
 		res_fix_syntax = fix_syntax(str);
+		// printf("%s\n", res_fix_syntax);
 		splitcmd = ft_split(res_fix_syntax, ' ');
-		free(res_fix_syntax);
-		for (int i = 0; splitcmd[i]; i++)
-			printf("%s ", splitcmd[i]);
-		printf("\n");
+		// free(res_fix_syntax);
+		// for (int i = 0; splitcmd[i]; i++)
+		// 	printf("%s ", splitcmd[i]);
+		// printf("\n");
 		token_list = tokenizer(splitcmd);
 		if (token_list)
 			while (token_list->next)
 				token_list = token_list->next;
-		tree = tree_create(&token_list, OP);
+		tree = tree_create(token_list, OP);
 		printTree(tree, 0, "ROOT");
 		free_matrix(splitcmd);
 		free(str);
