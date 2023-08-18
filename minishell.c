@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/08/18 12:51:38 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/08/18 18:28:03 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,12 @@ int main()
 		// 	printf("%s ", splitcmd[i]);
 		// printf("\n");
 		token_list = tokenizer(splitcmd);
+		// print_tokens(token_list);
 		if (token_list)
 			while (token_list->next)
 				token_list = token_list->next;
 		tree = tree_create(token_list, OP);
-		printTree(tree, 0, "ROOT");
+		// printTree(tree, 0, "ROOT");
 		free_matrix(splitcmd);
 		free(str);
 	}

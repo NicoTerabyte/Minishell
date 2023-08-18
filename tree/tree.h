@@ -6,23 +6,14 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 14:19:48 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/18 12:02:04 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/08/18 13:39:43 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TREE_H
 # define TREE_H
 
-# include "../libft/libft.h"
-# include "../gnl/get_next_line_bonus.h"
-# include "../tokenizer/tokenizer.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <string.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <fcntl.h>
+#include "../minishell.h"
 
 typedef enum e_tree_enum
 {
@@ -60,6 +51,15 @@ typedef struct s_parenthesis
 }	t_parenthesis;
 
 
-t_tree	*tree_create(t_token *token_lst, t_tree_enum calling);
+t_tree			*tree_create(t_token *token_lst, t_tree_enum calling);
+t_parenthesis	*parenthesis_node(t_token *token_lst);
+t_token			*parenthesis_redirections(t_token *token_lst);
+t_token			*skip_par_tokens(t_token *token_lst);
+int				verify_parenthesis(t_token *token_lst);
+t_token			*skip_back_parenthesis(t_token *token_lst);
+t_token			*skip_forward_parenthesis(t_token *token_lst);
+t_token			*copy_tok(t_token *to_copy);
+t_simple_cmd	*simple_cmd_redirections(t_token *token_lst);
+void			simple_cmd(t_token *token_lst, t_simple_cmd *simple_cmd);
 
 #endif

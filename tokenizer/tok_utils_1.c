@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:44:30 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/11 15:50:31 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/08/18 14:35:43 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,10 @@ char *ft_strpbrk(char *str, char *set)
 
 char *ft_strbash_control(char *str)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '|' || str[i] == '&' || str[i] == '<' || str[i] == '>'
-			|| str[i] == '(' || str[i] == ')' || str[i] == '$' || str[i] == '`'
-			|| str[i] == '\\' || str[i] == '"' || str[i] == '\'' || ft_isspace(str[i]))
-			return (&str[i]);
-		i++;
-	}
+	if (str[0] == '|' || str[0] == '&' || str[0] == '<' || str[0] == '>'
+		|| str[0] == '(' || str[0] == ')' || str[0] == '$' || str[0] == '`'
+		|| str[0] == '\\' || str[0] == '"' || str[0] == '\'' || ft_isspace(str[0]))
+		return (&str[0]);
 	return (NULL);
 }
 
