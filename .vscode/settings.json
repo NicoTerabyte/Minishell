@@ -1,5 +1,6 @@
 {
 	"files.associations": {
-		"tree.h": "c"
+		"tree.h": "c",
+		"readline.h": "c"
 	}
 }

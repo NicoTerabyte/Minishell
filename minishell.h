@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alessiolongo <alessiolongo@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 11:35:53 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/18 18:42:44 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/08/20 11:52:27 by alessiolong      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@
 # include <readline/history.h>
 # include <fcntl.h>
 
-// int	last_cmd_status;
+char	**env_container(int action, void *arg);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alessiolongo <alessiolongo@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/08/18 18:28:03 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/08/21 15:07:31 by alessiolong      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,36 +52,51 @@ void printTree(t_tree *node, int level, char *message) {
     printTree(node->right, level + 1, "RIGHT");
 }
 
-int main()
+char	**env_container(int action, void *arg)
 {
+	static char **env;
+
+	if (action == 0)
+		env = (char **)arg;
+	return (env);
+}
+
+int main(int argc, char **argv, char **envp)
+{
+	(void)argc;
+	(void)argv;
 	char	*str;
 	char	**splitcmd;
 	char	*res_fix_syntax;
 	t_token	*token_list;
 	t_tree	*tree;
 
+	env_container(0, envp);
+
 	token_list = NULL;
-	while (1)
-	{
-		str = readline("minishell> ");
-		// str = "cat ciao | (echo ciao | echo bo) <bo";
-		add_history(str);
+	// while (1)
+	// {
+		// str = readline("minishell> ");
+		str = "cat global.h && cat minishell.h";
+		// add_history(str);
 		//qui va fatto prima un lexer
 		res_fix_syntax = fix_syntax(str);
 		// printf("%s\n", res_fix_syntax);
 		splitcmd = ft_split(res_fix_syntax, ' ');
 		// free(res_fix_syntax);
-		// for (int i = 0; splitcmd[i]; i++)
-		// 	printf("%s ", splitcmd[i]);
-		// printf("\n");
+		for (int i = 0; splitcmd[i]; i++)
+			printf("%s ", splitcmd[i]);
+		printf("\n");
 		token_list = tokenizer(splitcmd);
-		// print_tokens(token_list);
+		print_tokens(token_list);
 		if (token_list)
 			while (token_list->next)
 				token_list = token_list->next;
 		tree = tree_create(token_list, OP);
-		// printTree(tree, 0, "ROOT");
+		printTree(tree, 0, "ROOT");
+		// execute(tree, STDIN_FILENO, STDOUT_FILENO);
+		// printf("%d\n", last_exit_status_cmd);
 		free_matrix(splitcmd);
-		free(str);
-	}
+		// free(str);
+	// }
 }

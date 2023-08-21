@@ -3,17 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   tree.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alessiolongo <alessiolongo@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 14:19:48 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/18 13:39:43 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/08/20 11:57:34 by alessiolong      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TREE_H
 # define TREE_H
 
-#include "../minishell.h"
+
+# include "../global.h"
+# include "../libft/libft.h"
+# include "../gnl/get_next_line_bonus.h"
+# include "../tokenizer/tokenizer.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <string.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <fcntl.h>
 
 typedef enum e_tree_enum
 {
