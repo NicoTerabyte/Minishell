@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:44:33 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/22 19:01:10 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/08/22 19:12:40 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,19 +119,9 @@ int	count_syntax(char *str)
 	while (str[i])
 	{
 		if (str[i + 1] && ((str[i] == '|' && str[i + 1] == '|') || (str[i] == '&' && str[i + 1] == '&') || (str[i] == '<' && str[i + 1] == '<') || (str[i] == '>' && str[i + 1] == '>')))
-		{
-			if (i != 0 && str[i - 1] != ' ')
-				count++;
-			if (str[i + 2] && str[i + 2] != ' ')
-				count++;
-		}
+			count += 2;
 		else if (ft_strchr("|()<>", str[i]))
-		{
-			if (i != 0 && str[i - 1] != ' ')
-				count++;
-			if (str[i + 1] && str[i + 1] != ' ')
-				count++;
-		}
+			count += 2;
 		i++;
 	}
 	return (i + count);
@@ -176,16 +166,11 @@ char	*fix_syntax(char *str)
 				res[j++] = str[i++];
 				res[j++] = str[i++];
 			}
-			else if (i != 0 && str[i + 2] != ' ')
-			{
-				res[j++] = str[i++];
-				res[j++] = str[i++];
-				res[j++] = ' ';
-			}
 			else
 			{
 				res[j++] = str[i++];
 				res[j++] = str[i++];
+				res[j++] = ' ';
 			}
 		}
 		else if (ft_strchr("|()<>", str[i]))
@@ -201,13 +186,11 @@ char	*fix_syntax(char *str)
 				res[j++] = ' ';
 				res[j++] = str[i++];
 			}
-			else if (i != 0 && str[i + 1] != ' ')
+			else
 			{
 				res[j++] = str[i++];
 				res[j++] = ' ';
 			}
-			else
-				res[j++] = str[i++];
 		}
 		else
 			res[j++] = str[i++];

@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/22 15:20:35 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/08/22 19:22:16 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ void	execute_integrated(t_tree *tree, int curr_in, int curr_out)
 		dup_std_fd(curr_in, STDIN_FILENO);
 		dup_std_fd(curr_out, STDOUT_FILENO);
 	}
-	if (simple_cmd->cmd == NULL)
+	if (simple_cmd->cmd->cmd_name == NULL)
 		exit (0);
 	else
 		execve_cmd(simple_cmd);
