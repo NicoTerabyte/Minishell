@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/22 13:39:14 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/08/22 15:20:35 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,7 @@ void	process_integrated(t_tree *tree, int curr_in, int curr_out)
 		waitpid(pid, &exit_status, 0);
 		if (WIFEXITED(exit_status))
 			last_exit_status_cmd = WEXITSTATUS(exit_status);
+		handle_here_doc(NULL, NULL);
 	}
 }
 
@@ -275,6 +276,35 @@ void	execute_operator(t_tree *tree, int curr_in, int curr_out)
 		execute_pipe_op(tree, curr_in, curr_out);
 }
 
+static void	execute_subshell(t_tree *root, int in, int out)
+{
+	int				subshell_pid;
+	int				subshell_exit_status;
+	t_parenthesis	*parenthesis_node;
+	t_token			*redir_list;
+
+	parenthesis_node = (t_parenthesis *)root->content;
+	subshell_pid = fork();
+	if (subshell_pid == 0)
+	{
+		if (parenthesis_node->redir_list != NULL)
+		{
+			redir_list = (t_token *)parenthesis_node->redir_list;
+			if (execute_redirections(redir_list, in, out))
+				exit (1);
+		}
+		else
+		{
+			dup_std_fd(in, STDIN_FILENO);
+			dup_std_fd(out, STDOUT_FILENO);
+		}
+		execute(parenthesis_node->tree, in, out);
+		exit(last_exit_status_cmd);
+	}
+	waitpid(subshell_pid, &subshell_exit_status, 0);
+	last_exit_status_cmd = WEXITSTATUS(subshell_exit_status);
+}
+
 void	execute_shell(t_tree *tree, int curr_in, int curr_out)
 {
 	if (!tree)
@@ -289,8 +319,8 @@ void	execute(t_tree *tree, int curr_in, int curr_out)
 {
 	if (!tree)
 		return ;
-	// else if (tree->type == PARENTHESI)
-	// 	execute_subshell(tree, curr_in, curr_out);
-	// else
+	else if (tree->type == PARENTHESI)
+		execute_subshell(tree, curr_in, curr_out);
+	else
 	execute_shell(tree, curr_in, curr_out);
 }

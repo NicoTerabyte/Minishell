@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:44:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/11 15:50:17 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/08/22 15:20:02 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ char	*set_redir_value(char **splitcmd, int *i)
 
 char	*here_doc_name()
 {
-	int			here_docs;
-	char		*prefix;
-	char		*res;
-	char		*suffix;
+	int				here_docs;
+	char			*prefix;
+	char			*res;
+	char			*suffix;
 
 	here_docs = 0;
 	prefix = ".here_docs-";
@@ -64,14 +64,28 @@ char	*here_doc_name()
 	return (res);
 }
 
+void	*unlink_here_docs(t_list *here_docs_lst)
+{
+	while (here_docs_lst)
+	{
+		unlink((char *)here_docs_lst->content);
+		here_docs_lst = here_docs_lst->next;
+	}
+	return (NULL);
+}
+
 char	*handle_here_doc(char **splitcmd, int *i)
 {
-	char	*here_doc;
-	char	*del;
-	char	*str;
-	int		fd;
+	char			*here_doc;
+	static t_list	*here_docs_lst = NULL;
+	char			*del;
+	char			*str;
+	int				fd;
 
+	if (splitcmd == NULL && i == NULL)
+		return (unlink_here_docs(here_docs_lst));
 	here_doc = here_doc_name();
+	ft_lstadd_back(&here_docs_lst, ft_lstnew(here_doc));
 	del = set_redir_value(splitcmd, i);
 	fd = open(here_doc, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	while (1)
