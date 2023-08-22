@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/08/22 16:30:40 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/08/22 18:57:58 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ void	free_tree(t_tree *tree)
 		par = (t_parenthesis *)tree->content;
 		free_tokens((t_token *)par->redir_list);
 		free_tree((t_tree *)par->tree);
+		free(par);
 	}
 	else if (tree->type == SIMPLE_CMD)
 	{
@@ -135,6 +136,7 @@ void	free_tree(t_tree *tree)
 		free_tokens(cmd->cmd->cmd_arg);
 		free_tokens(cmd->cmd->cmd_name);
 		free_tokens(cmd->env);
+		free(cmd);
 	}
 	free_tree(tree->left);
 	free_tree(tree->right);
@@ -163,13 +165,13 @@ int main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		str = readline("minishell> ");
-		// str = "cat global./h && cat minishell.h";
+		// str = "cat global.h";
 		add_history(str);
 		//qui va fatto prima un lexer
 		res_fix_syntax = fix_syntax(str);
 		// printf("%s\n", res_fix_syntax);
 		splitcmd = ft_split(res_fix_syntax, ' ');
-		// free(res_fix_syntax);
+		free(res_fix_syntax);
 		// for (int i = 0; splitcmd[i]; i++)
 		// 	printf("%s ", splitcmd[i]);
 		// printf("\n");
@@ -181,7 +183,7 @@ int main(int argc, char **argv, char **envp)
 		tree = tree_create(token_list, OP);
 		// printTree(tree, 0, "ROOT");
 		execute(tree, STDIN_FILENO, STDOUT_FILENO);
-		printf("%d\n", last_exit_status_cmd);
+		// printf("%d\n", last_exit_status_cmd);
 		free_matrix(splitcmd);
 		ft_free_all(token_list, tree);
 		free(str);

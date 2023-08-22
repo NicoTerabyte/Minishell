@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:44:33 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/11 15:50:45 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/08/22 19:01:10 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ char	*fix_syntax(char *str)
 	quote = 0;
 	i = 0;
 	j = 0;
-	res = malloc(count_syntax(str));
+	res = malloc(count_syntax(str) + 1);
 	while (str[i])
 	{
 		if (str[i] == '"' || str[i] == '\'')
@@ -176,11 +176,16 @@ char	*fix_syntax(char *str)
 				res[j++] = str[i++];
 				res[j++] = str[i++];
 			}
-			else
+			else if (i != 0 && str[i + 2] != ' ')
 			{
 				res[j++] = str[i++];
 				res[j++] = str[i++];
 				res[j++] = ' ';
+			}
+			else
+			{
+				res[j++] = str[i++];
+				res[j++] = str[i++];
 			}
 		}
 		else if (ft_strchr("|()<>", str[i]))
@@ -196,11 +201,13 @@ char	*fix_syntax(char *str)
 				res[j++] = ' ';
 				res[j++] = str[i++];
 			}
-			else
+			else if (i != 0 && str[i + 1] != ' ')
 			{
 				res[j++] = str[i++];
 				res[j++] = ' ';
 			}
+			else
+				res[j++] = str[i++];
 		}
 		else
 			res[j++] = str[i++];
