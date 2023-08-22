@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessiolongo <alessiolongo@student.42.f    +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:37:51 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/20 12:03:08 by alessiolong      ###   ########.fr       */
+/*   Updated: 2023/08/22 12:34:54 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define EXECUTOR_H
 
 # include "../tree/tree.h"
+# include <sys/types.h>
+# include <sys/wait.h>
 # include "../minishell.h"
 
 void	execute(t_tree *tree, int curr_in, int curr_out);

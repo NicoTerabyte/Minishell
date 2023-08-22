@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessiolongo <alessiolongo@student.42.f    +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/21 14:36:54 by alessiolong      ###   ########.fr       */
+/*   Updated: 2023/08/22 13:39:14 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	execute_redirections(t_token *redir_list, int curr_in, int curr_out)
 		}
 		redir_list = redir_list->next;
 	}
-	printf("curr_in = %d, curr_out = %d\n", curr_in, curr_out);
 	dup_std_fd(curr_in, STDIN_FILENO);
 	dup_std_fd(curr_out, STDOUT_FILENO);
 	return (0);
@@ -134,10 +133,6 @@ void	execve_cmd(t_simple_cmd *simple_cmd)
 		exit(1);
 	}
 	cmd_args = get_cmd_args(simple_cmd);
-	// printf("executable : %s, args : ", cmd_name);
-	// for (int i = 0; cmd_args[i]; i++)
-	// 	printf("%s, ", cmd_args[i]);
-	// printf("\n");
 	execve(cmd_name, cmd_args, env);
 }
 
@@ -154,6 +149,11 @@ void	execute_integrated(t_tree *tree, int curr_in, int curr_out)
 		redir_list = (t_token *)simple_cmd->redir_list;
 		if (execute_redirections(redir_list, curr_in, curr_out))
 			exit (1);
+	}
+	else
+	{
+		dup_std_fd(curr_in, STDIN_FILENO);
+		dup_std_fd(curr_out, STDOUT_FILENO);
 	}
 	if (simple_cmd->cmd == NULL)
 		exit (0);
@@ -213,6 +213,35 @@ void	execute_simple_cmd(t_tree *tree, int curr_in, int curr_out)
 		process_integrated(tree, curr_in, curr_out);
 }
 
+void	execute_pipe_op(t_tree *root, int curr_in, int curr_out)
+{
+	int	piping[2];
+	int	pid_left;
+	int	pid_right;
+	int	exit_status;
+
+	pipe(piping);
+	pid_left = fork();
+	if (!pid_left)
+	{
+		close(piping[0]);
+		execute(root->left, curr_in, piping[1]);
+		exit(last_exit_status_cmd);
+	}
+	pid_right = fork();
+	if (!pid_right)
+	{
+		close(piping[1]);
+		execute(root->right, piping[0], curr_out);
+		exit(last_exit_status_cmd);
+	}
+	close(piping[0]);
+	close(piping[1]);
+	waitpid(pid_left, NULL, 0);
+	waitpid(pid_right, &exit_status, 0);
+	last_exit_status_cmd = WEXITSTATUS(exit_status);
+}
+
 void	execute_and_op(t_tree *tree, int curr_in, int curr_out)
 {
 	if (!tree)
@@ -236,16 +265,14 @@ void	execute_operator(t_tree *tree, int curr_in, int curr_out)
 	if (!tree)
 		return ;
 	char	*operator;
-	t_token	*op_tok;
 
-	op_tok = tree->content;
-	operator = (char *)op_tok->value;
-	if (ft_strcmp(operator, "&&"))
+	operator = (char *)tree->content;
+	if (!ft_strcmp(operator, "&&"))
 		execute_and_op(tree, curr_in, curr_out);
-	else if (ft_strcmp(operator, "||"))
+	else if (!ft_strcmp(operator, "||"))
 		execute_or_op(tree, curr_in, curr_out);
-	// else
-	// 	execute_pipe_op(tree, curr_in, curr_out);
+	else
+		execute_pipe_op(tree, curr_in, curr_out);
 }
 
 void	execute_shell(t_tree *tree, int curr_in, int curr_out)
@@ -265,5 +292,5 @@ void	execute(t_tree *tree, int curr_in, int curr_out)
 	// else if (tree->type == PARENTHESI)
 	// 	execute_subshell(tree, curr_in, curr_out);
 	// else
-		execute_shell(tree, curr_in, curr_out);
+	execute_shell(tree, curr_in, curr_out);
 }

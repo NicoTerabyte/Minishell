@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessiolongo <alessiolongo@student.42.f    +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 13:02:21 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/10 15:13:49 by alessiolong      ###   ########.fr       */
+/*   Updated: 2023/08/22 12:10:24 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	load_res(char *res, char *buf)
 
 char	*get_next_line(int fd)
 {
-	char static	buf[4096][BUFFER_SIZE];
+	static char	buf[4096][BUFFER_SIZE];
 	char		*res;
 	int			countread;
 

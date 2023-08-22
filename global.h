@@ -6,13 +6,13 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 18:41:00 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/18 18:42:17 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/08/22 12:43:52 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GLOBAL_H
 #define GLOBAL_H
 
-int	last_exit_status_cmd;
+extern int	last_exit_status_cmd;
 
 #endif

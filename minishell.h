@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessiolongo <alessiolongo@student.42.f    +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 11:35:53 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/20 11:52:27 by alessiolong      ###   ########.fr       */
+/*   Updated: 2023/08/22 12:36:23 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "./global.h"
+#include "global.h"
 # include "./libft/libft.h"
-# include "./gnl/get_next_line_bonus.h"
 # include "./tokenizer/tokenizer.h"
 # include "./tree/tree.h"
 # include "./executor/executor.h"

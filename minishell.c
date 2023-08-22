@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessiolongo <alessiolongo@student.42.f    +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/08/21 15:07:31 by alessiolong      ###   ########.fr       */
+/*   Updated: 2023/08/22 13:36:54 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	last_exit_status_cmd = 0;
 
 void printTree(t_tree *node, int level, char *message) {
     if (node == NULL) {
@@ -74,29 +76,28 @@ int main(int argc, char **argv, char **envp)
 	env_container(0, envp);
 
 	token_list = NULL;
-	// while (1)
-	// {
-		// str = readline("minishell> ");
-		str = "cat global.h && cat minishell.h";
-		// add_history(str);
+	while (1)
+	{
+		str = readline("minishell> ");
+		// str = "cat global./h && cat minishell.h";
+		add_history(str);
 		//qui va fatto prima un lexer
 		res_fix_syntax = fix_syntax(str);
 		// printf("%s\n", res_fix_syntax);
 		splitcmd = ft_split(res_fix_syntax, ' ');
 		// free(res_fix_syntax);
-		for (int i = 0; splitcmd[i]; i++)
-			printf("%s ", splitcmd[i]);
-		printf("\n");
+		// for (int i = 0; splitcmd[i]; i++)
+		// 	printf("%s ", splitcmd[i]);
+		// printf("\n");
 		token_list = tokenizer(splitcmd);
-		print_tokens(token_list);
+		// print_tokens(token_list);
 		if (token_list)
 			while (token_list->next)
 				token_list = token_list->next;
 		tree = tree_create(token_list, OP);
-		printTree(tree, 0, "ROOT");
-		// execute(tree, STDIN_FILENO, STDOUT_FILENO);
-		// printf("%d\n", last_exit_status_cmd);
+		// printTree(tree, 0, "ROOT");
+		execute(tree, STDIN_FILENO, STDOUT_FILENO);
 		free_matrix(splitcmd);
-		// free(str);
-	// }
+		free(str);
+	}
 }
