@@ -1,27 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_libft.c                                      :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/07 21:51:50 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/08/07 21:55:08 by lnicoter         ###   ########.fr       */
+/*   Created: 2023/08/07 21:47:57 by lnicoter          #+#    #+#             */
+/*   Updated: 2023/08/07 21:47:58 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "minishell.h"
-
-int	free_matrix(char **s)
-{
-	int i;
-
-	i = 0;
-	while (s[i])
-		free(s[i++]);
-	free(s);
-	return (0);
-}
 
 int	ft_strcmp(const char *s1, const char *s2)
 {
@@ -39,4 +26,3 @@ int	ft_strcmp(const char *s1, const char *s2)
 	else
 		return (s1[i] - s2[i]);
 }
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/07/28 16:45:30 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/08/28 16:56:59 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include "./libft/libft.h"
 # define AND 0
 # define OR 1
 # define PIPE 2
@@ -33,22 +34,49 @@
 # define DOUBLE_QUOTES 7
 # define SINGLE_QUOTES 8
 
-size_t	ft_strlen(const char *s);
-int		ft_islower(int c);
-int		ft_isupper(int c);
-int		ft_isalpha(int c);
-int		ft_atoi(const char *str);
-int		ft_strcmp(const char *s1, const char *s2);
-char	*ft_strchr(const char *s, int c);
-int		free_matrix(char **s);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	**ft_split(char *s, char c);
-char	*ft_strjoin(char *s1, char *s2);
-char	*get_next_line(int fd);
+typedef struct s_data
+{
+	char	*path;
+	char	*old_path;
+	char	**copy_env;
+} t_data;
+
+typedef struct s_declaration
+{
+	int						concatenation; //true o false
+	char					*name; //nome della variabile da inserire nell'export
+	char					*value; //il valore di quest'ultima
+	struct	s_declaration	*next; //la variabile successiva
+}	t_declaration;
 
 int		cmd_name(char *str);
 void	parser(char **splitcmd);
 int		count_syntax(char *str);
 char	*fix_syntax(char *str);
-
+int		free_matrix(char **s);
+//lnicoter
+void	builtin_reader(char **command_line, t_data *shell_data, t_declaration *identity);
+void	ft_echo(char **command_line);
+void	ft_cd(char **command_line, t_data *shell_data);
+void	ft_env(t_data *shell_data);
+int		copy_env(char **env, t_data *mini_data);
+void	ft_pwd();
+void	update_oldpwd(t_data *shell_data);
+void	update_pwd(t_data *shell_data);
+int		ft_strcmp(const char *s1, const char *s2);
+void	*ft_realloc(void *ptr, size_t size);
+void	ft_export(char **command_line, t_data *shell_data, t_declaration *identity);
+void	print_export(char **export_matrix);
+void	sort_and_print_export(t_data *shell_data);
+char	**setting_the_matrix(t_data *shell_data);
+int		env_rows(t_data *shell_data);
+int		put_arguments_in_list(t_declaration *identity, char *command_line);
+void	insert_declaration(t_declaration **list, int concatenation, const char *name, const char *value);
+void	print_list(t_declaration *list);
+void	arguments_separation(char **command_line, int conc, t_declaration **identity);
+void	add_env(t_data *shell_data, t_declaration **values);
+void	super_strjoin(t_data *shell_data, t_declaration *values);
+// void	insert_in_env(t_data shell_data, char *final_string, t_declaration *values);
+// abuonomo
+char *find_in_env(t_data *shell_data, char *input);
 #endif

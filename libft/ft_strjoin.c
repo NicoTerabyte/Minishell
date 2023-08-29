@@ -1,42 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_libft.c                                      :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/07 21:51:50 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/08/07 21:55:08 by lnicoter         ###   ########.fr       */
+/*   Created: 2023/04/04 19:17:02 by mlongo            #+#    #+#             */
+/*   Updated: 2023/08/18 15:40:37 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	free_matrix(char **s)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int i;
+	char	*res;
+	size_t	i;
 
+	if (!s1 || !s2)
+		return (NULL);
+	res = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (res == NULL)
+		return (NULL);
 	i = 0;
-	while (s[i])
-		free(s[i++]);
-	free(s);
-	return (0);
-}
-
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] && s2[i] && s1[i] == s2[i])
+	res[ft_strlen(s1) + ft_strlen(s2)] = 0;
+	while (i < ft_strlen(s1))
+	{
+		res[i] = s1[i];
 		i++;
-	if (s1[i] == '\0' && s2[i] == '\0')
-		return (0);
-	else if (s1[i] == '\0')
-		return (-1);
-	else if (s2[i] == '\0')
-		return (1);
-	else
-		return (s1[i] - s2[i]);
+	}
+	i = 0;
+	while (i < ft_strlen(s2))
+	{
+		res[ft_strlen(s1) + i] = s2[i];
+		i++;
+	}
+	return (res);
 }
-
