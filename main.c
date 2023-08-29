@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/08/29 16:11:30 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/08/29 18:18:53 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(int argc, char **argv, char **envp)
 	printf("\n%s\n",shell_data->copy_env[2]);
 	while (1)
 	{
-		str = readline("minishell> ");
+		str = readline("\nminishell> ");
 		printf("input : %s \n", str);
 		printf("output: %s",find_in_env(shell_data,str));
 	}

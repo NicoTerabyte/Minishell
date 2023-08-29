@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/08/29 16:55:05 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/08/29 18:24:19 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int ft_strcmp_env(const char *input, const char *env)
 {
-	while (*env != '=')
+	while (*env != '=' && *input != '\0')
 	{
 		if (*input != *env)
 		{
@@ -23,16 +23,19 @@ int ft_strcmp_env(const char *input, const char *env)
 		input++;
 		env++;
 	}
-	return 0;
+	return (*env != '=' || *input != '\0');
 }
 
 char *find_in_env(t_data *shell_data, char *input)
 {
 	int i = 0;
-	int x = 0;
+	int var_index;
 	char *ret = malloc(strlen(input) + 1);
+	int ret_index; // Indice per la posizione corrente nell'output
+	char var[100];	   // Array temporaneo per memorizzare il nome della variabile
 	char *value_start;
-	char *var;
+
+	ret_index = 0;
 	if (ret == NULL)
 	{
 		fprintf(stderr, "Errore nell'allocazione di memoria\n");
@@ -43,21 +46,26 @@ char *find_in_env(t_data *shell_data, char *input)
 		if (*input == '$' && *(input + 1) && ft_isalpha(*(input + 1)))
 		{
 			input++;
-			while(ft_isalnum(*(input)) && *input == '_')
-				*(var++) = *(input++);
+			var_index = 0; // Indice per la posizione corrente nel nome della variabile
+			while (ft_isalnum(*input) || *input == '_')
+				var[var_index++] = *input++;
+			var[var_index] = '\0'; // Termina la stringa di nome variabile
+			i = 0;
 			while (shell_data->copy_env[i])
 			{
 				if (ft_strcmp_env(var, shell_data->copy_env[i]) == 0)
 				{
-					char *value_start = ft_strchr(shell_data->copy_env[i], '=') + 1;
-					strcat(ret, value_start);
+					value_start = strchr(shell_data->copy_env[i], '=') + 1;
+					while (*value_start)
+						ret[ret_index++] = *value_start++; // Copia il valore della variabile nell'output
 					break;
 				}
 				i++;
 			}
 		}
 		else
-			ret[x++] = *(input++);
+			ret[ret_index++] = *input++; // Copia il carattere normale nell'output
 	}
+	ret[ret_index] = '\0'; // Termina la stringa di output
 	return ret;
 }
