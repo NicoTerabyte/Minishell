@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/08/22 19:05:29 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/08/31 18:38:56 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,14 +169,15 @@ int main(int argc, char **argv, char **envp)
 		add_history(str);
 		//qui va fatto prima un lexer
 		res_fix_syntax = fix_syntax(str);
+		//lexer
 		printf("%s\n", res_fix_syntax);
 		splitcmd = ft_split(res_fix_syntax, ' ');
 		free(res_fix_syntax);
 		// for (int i = 0; splitcmd[i]; i++)
 		// 	printf("%s ", splitcmd[i]);
 		// printf("\n");
-		token_list = tokenizer(splitcmd);
-		// print_tokens(token_list);
+		// token_list = tokenizer(splitcmd);
+		print_tokens(token_list);
 		if (token_list)
 			while (token_list->next)
 				token_list = token_list->next;

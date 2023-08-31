@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:44:30 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/18 14:35:43 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/08/31 18:38:28 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char *ft_strpbrk(char *str, char *set)
 
 char *ft_strbash_control(char *str)
 {
-	if (str[0] == '|' || str[0] == '&' || str[0] == '<' || str[0] == '>'
+	if (str[0] == '|' || (str[0] == '&' && str[1] == '&')|| str[0] == '<' || str[0] == '>'
 		|| str[0] == '(' || str[0] == ')' || str[0] == '$' || str[0] == '`'
 		|| str[0] == '\\' || str[0] == '"' || str[0] == '\'' || ft_isspace(str[0]))
 		return (&str[0]);
