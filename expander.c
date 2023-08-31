@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/08/30 16:58:52 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/08/31 16:49:35 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,19 @@ int ft_strcmp_env(const char *input, const char *env)
 	return (*env != '=' || *input != '\0');
 }
 
-char *find_in_env(t_data *shell_data, char *input)
+char *handle_single_quote(char *input, char **ret, int *ret_index){
+	input++;
+			while(*input != 39){
+				*ret += *ret_index;
+				**ret = *input;
+				*input+=1;
+				*ret_index+=1;
+			}
+	input++;
+	return input;
+}
+
+char *translate_exp(t_data *shell_data, char *input)
 {
 	int i = 0;
 	int var_index;
@@ -36,20 +48,12 @@ char *find_in_env(t_data *shell_data, char *input)
 	char *value_start;
 
 	ret_index = 0;
-	if (ret == NULL)
-	{
-		fprintf(stderr, "Errore nell'allocazione di memoria\n");
-		return NULL;
-	}
+	if (!ret)
+		return ("ERRORE DI ALLOCAZIONE");
 	while (*input)
 	{
 		if(*input == 39){
-			input++;
-			while(*input != 39)
-			{
-				ret[ret_index++] = *input++;
-			}
-			input++;
+			input = handle_single_quote(input, &ret, &ret_index);
 		}else if (*input == '$' && *(input + 1) && ft_isalpha(*(input + 1)))
 		{
 			input++;

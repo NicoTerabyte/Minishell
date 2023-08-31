@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/08/29 18:18:53 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/08/31 16:22:09 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		str = readline("\nminishell> ");
 		printf("input : %s \n", str);
-		printf("output: %s",find_in_env(shell_data,str));
+		printf("output: %s",translate_exp(shell_data,str));
 	}
 }
 
