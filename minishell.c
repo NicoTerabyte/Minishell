@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alessiolongo <alessiolongo@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/08/31 18:38:56 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/02 17:47:38 by alessiolong      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,8 +149,19 @@ void	ft_free_all(t_token *token_lst, t_tree *tree)
 	free_tree(tree);
 }
 
-int main(int argc, char **argv, char **envp)
+void	signal_handler(int signum)
 {
+	(void)signum;
+	printf("\n");
+	// rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	signal(SIGINT, signal_handler);
+	signal(SIGQUIT, SIG_IGN);
 	(void)argc;
 	(void)argv;
 	char	*str;
@@ -165,6 +176,12 @@ int main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		str = readline("minishell> ");
+		if (str == NULL)
+		{
+			printf("\n");
+			free(str);
+			exit(0);
+		}
 		// str = "cat global.h";
 		add_history(str);
 		//qui va fatto prima un lexer
@@ -176,7 +193,7 @@ int main(int argc, char **argv, char **envp)
 		// for (int i = 0; splitcmd[i]; i++)
 		// 	printf("%s ", splitcmd[i]);
 		// printf("\n");
-		// token_list = tokenizer(splitcmd);
+		token_list = tokenizer(splitcmd);
 		print_tokens(token_list);
 		if (token_list)
 			while (token_list->next)
