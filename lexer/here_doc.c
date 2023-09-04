@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessiolongo <alessiolongo@student.42.f    +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 15:42:00 by alessiolong       #+#    #+#             */
-/*   Updated: 2023/09/02 17:39:41 by alessiolong      ###   ########.fr       */
+/*   Updated: 2023/09/04 15:49:51 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,15 +88,13 @@ int	reading(int fd, char *del)
 	exit(0);
 }
 
-char	*handle_here_doc(char **splitcmd, int *i)
+void	handle_here_doc(char *del)
 {
 	char	*here_doc;
 	int		fd;
 	int		pid;
 	int		exit_status;
 
-	if (splitcmd == NULL && i == NULL)
-		return (unlink_here_docs(handle_list_heredocs(LIST)));
 	//esp del
 	here_doc = handle_list_heredocs(ADD);
 	fd = open(here_doc, O_WRONLY | O_TRUNC | O_CREAT, 0644);
@@ -104,6 +102,7 @@ char	*handle_here_doc(char **splitcmd, int *i)
 	if (!pid)
 		reading(fd, del);
 	waitpid(pid, &exit_status, 0);
+	free(del);
 	last_exit_status_cmd = WEXITSTATUS(exit_status);
 	close(fd);
 }

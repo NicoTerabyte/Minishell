@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/22 19:22:16 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/04 14:16:05 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,9 +130,11 @@ void	execve_cmd(t_simple_cmd *simple_cmd)
 	if (cmd_name == NULL)
 	{
 		printf("minishell : %s command not found\n", (char *)simple_cmd->cmd->cmd_name->value);
+		free_matrix(split_paths);
 		exit(1);
 	}
 	cmd_args = get_cmd_args(simple_cmd);
+	free_matrix(split_paths);
 	execve(cmd_name, cmd_args, env);
 }
 

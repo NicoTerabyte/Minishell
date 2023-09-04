@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessiolongo <alessiolongo@student.42.f    +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/09/02 17:47:38 by alessiolong      ###   ########.fr       */
+/*   Updated: 2023/09/04 15:01:02 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ void	signal_handler(int signum)
 {
 	(void)signum;
 	printf("\n");
-	// rl_replace_line("", 0);
+	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
 }
@@ -194,7 +194,7 @@ int	main(int argc, char **argv, char **envp)
 		// 	printf("%s ", splitcmd[i]);
 		// printf("\n");
 		token_list = tokenizer(splitcmd);
-		print_tokens(token_list);
+		// print_tokens(token_list);
 		if (token_list)
 			while (token_list->next)
 				token_list = token_list->next;

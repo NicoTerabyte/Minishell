@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 11:51:13 by alessiolong       #+#    #+#             */
-/*   Updated: 2023/08/22 16:51:56 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/04 14:34:06 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,6 @@ t_tree *tree_create(t_token *token_lst, t_tree_enum calling)
 				token_lst = token_lst->prev;
 		}
 	}
+	free(tree);
 	return (tree_create(token_lst, SIMPLE_CMD));
 }
