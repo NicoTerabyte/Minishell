@@ -3,24 +3,20 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fcarlucc <fcarlucc@student.42.fr>          +#+  +:+       +#+         #
+#    By: fla <fla@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/01 14:36:32 by fcarlucc          #+#    #+#              #
-#    Updated: 2023/08/11 15:28:58 by fcarlucc         ###   ########.fr        #
+#    Updated: 2023/09/02 16:03:29 by fla              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRC = main.c lexer.c tok_utils.c tok_utils_1.c tok_scan_1.c tok_list.c tokenizer.c tok_env_decl.c tok_redir.c tok_cmd.c ./gnl/get_next_line_bonus.c
+SRC = main.c lexer/syntax.c lexer/checks.c parser.c utils_libft.c \
 
-OBJS = $(SRC:.c=.o)
+OBJ = $(SRC:.c=.o)
 
-FLAGS := -Wall -Werror -Wextra -g
-
-LIBFT_PATH = ./libft
-
-LIBFT = ${LIBFT_PATH}/libft.a
+FLAGS = -Wall -Werror -Wextra
 
 #COLORS
 RED = \033[1;31m
@@ -31,25 +27,18 @@ YELLOW = \033[1;33m
 
 DEFAULT = \033[0m
 
-all: $(NAME)
-
-%.o : %.c
-	@cc $(FLAGS) -c $< -o $@
-
-$(NAME): $(OBJS)
-	@make -C libft
-	@make bonus -C libft
-	@cc $(FLAGS) $(OBJS) $(LIBFT) -o $(NAME) -lreadline
+all :
+	@$(CC) $(FLAGS) $(SRC) -o $(NAME) -lreadline
 	@echo "$(GREEN)$(NAME) created!$(DEFAULT)"
 
 clean:
-	@make clean -C libft
-	@rm -f $(OBJS)
+	@rm -f $(OBJ)
 	@echo "$(YELLOW)object files deleted!$(DEFAULT)"
 
 fclean: clean
-	@make fclean -C libft
 	@rm -f $(NAME)
 	@echo "$(RED)all deleted!$(DEFAULT)"
 
-re: clean fclean all
+re: fclean all
+
+.PHONY:			all clean fclean re
