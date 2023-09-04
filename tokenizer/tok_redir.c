@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_redir.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessiolongo <alessiolongo@student.42.f    +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:44:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/09/02 17:47:07 by alessiolong      ###   ########.fr       */
+/*   Updated: 2023/09/04 18:14:31 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,36 +74,6 @@ void	*unlink_here_docs(t_list *here_docs_lst)
 	return (NULL);
 }
 
-char	*handle_here_doc(char **splitcmd, int *i)
-{
-	char			*here_doc;
-	static t_list	*here_docs_lst = NULL;
-	char			*del;
-	char			*str;
-	int				fd;
-
-	if (splitcmd == NULL && i == NULL)
-		return (unlink_here_docs(here_docs_lst));
-	here_doc = here_doc_name();
-	ft_lstadd_back(&here_docs_lst, ft_lstnew(here_doc));
-	del = set_redir_value(splitcmd, i);
-	fd = open(here_doc, O_WRONLY | O_TRUNC | O_CREAT, 0644);
-	while (1)
-	{
-		write(1, "heredoc> ", 9);
-		str = get_next_line(0);
-		if (ft_strncmp(str, del, ft_strlen(del)) == 0
-			&& ft_strlen(str) == (ft_strlen(del) + 1))
-			break ;
-		write(fd, str, ft_strlen(str));
-		free(str);
-	}
-	free(str);
-	free(del);
-	close(fd);
-	return (here_doc);
-}
-
 void	scan_redirections(char **splitcmd, int *i, t_token **token_lst)
 {
 	t_token	*token;
@@ -118,7 +88,10 @@ void	scan_redirections(char **splitcmd, int *i, t_token **token_lst)
 		if (token->token == NONE)
 			return ;
 		if (token->token == HERE_DOC)
-			token->value = handle_here_doc(splitcmd, i);
+		{
+			token->value = handle_list_heredocs(GET);
+			(*i)++;
+		}
 		else
 			token->value = set_redir_value(splitcmd, i);
 		token->next = NULL;

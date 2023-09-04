@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alessiolongo <alessiolongo@student.42.f    +#+  +:+       +#+         #
+#    By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/01 14:36:32 by fcarlucc          #+#    #+#              #
-#    Updated: 2023/08/19 20:33:17 by alessiolong      ###   ########.fr        #
+#    Updated: 2023/09/04 16:40:03 by mlongo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME = minishell
 
 SRC = minishell.c ./tokenizer/tok_utils.c ./tokenizer/tok_utils_1.c ./tokenizer/tok_scan_1.c ./tokenizer/tok_list.c ./tokenizer/tokenizer.c \
 		./tokenizer/tok_env_decl.c ./tokenizer/tok_redir.c ./tokenizer/tok_cmd.c ./gnl/get_next_line_bonus.c ./tree/tree_create.c \
-		./tree/tree_parenthesis.c ./tree/tree_utils.c ./executor/executor.c
+		./tree/tree_parenthesis.c ./tree/tree_utils.c ./executor/executor.c lexer/syntax.c lexer/checks.c \
+		./lexer/here_doc.c
 
 OBJS = $(SRC:.c=.o)
 

@@ -6,13 +6,12 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 14:19:48 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/22 12:33:37 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/04 17:38:16 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TREE_H
 # define TREE_H
-
 
 # include "../libft/libft.h"
 # include "../gnl/get_next_line_bonus.h"

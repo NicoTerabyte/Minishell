@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/09/04 14:16:05 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/04 16:50:01 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ void	process_integrated(t_tree *tree, int curr_in, int curr_out)
 		waitpid(pid, &exit_status, 0);
 		if (WIFEXITED(exit_status))
 			last_exit_status_cmd = WEXITSTATUS(exit_status);
-		handle_here_doc(NULL, NULL);
+		unlink_here_docs(handle_list_heredocs(LIST));
 	}
 }
 

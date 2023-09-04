@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:37:51 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/22 12:34:54 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/04 16:57:02 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define EXECUTOR_H
 
 # include "../tree/tree.h"
+# include "../lexer/lexer.h"
 # include <sys/types.h>
 # include <sys/wait.h>
 # include "../minishell.h"

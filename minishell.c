@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/09/04 15:01:02 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/04 18:55:07 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	last_exit_status_cmd = 0;
 
-void printTree(t_tree *node, int level, char *message) {
+void printTree(t_tree *node, int level, char *message)
+{
     if (node == NULL) {
         return;
     }
@@ -149,6 +150,68 @@ void	ft_free_all(t_token *token_lst, t_tree *tree)
 	free_tree(tree);
 }
 
+static char *path_create(char *s1, char *s2, char *s3, char *s4, char *s5)
+{
+	int i;
+	int j = 0;
+	char *str;
+
+	str = malloc(strlen(s1) + strlen(s2) + strlen(s3) + strlen(s4) + strlen(s5) + 1);
+	i = 0;
+	while (s1[j])
+		str[i++] = s1[j++];
+	j = 0;
+	while (s2[j])
+		str[i++] = s2[j++];
+	j = 0;
+	while (s3[j])
+		str[i++] = s3[j++];
+	j = 0;
+	while (s4[j])
+		str[i++] = s4[j++];
+	j = 0;
+	while (s5[j])
+		str[i++] = s5[j++];
+	str[i] = 0;
+	return (str);
+}
+
+static char *create(char *s1)
+{
+	int i;
+	char *str;
+
+	str = malloc(strlen(s1) + 1);
+	i = 0;
+	while (s1[i])
+	{
+		str[i] = s1[i];
+		i++;
+	}
+	str[i] = 0;
+	return (str);
+}
+
+static char *mini(void)
+{
+	char pwd[4096];
+	char *path;
+	char *name;
+	char **dir;
+	char **tmp;
+
+	getcwd(pwd, sizeof(pwd));
+	dir = ft_split(pwd, '/');
+	tmp = dir;
+	name = create(dir[2]);
+	while (*dir)
+		dir++;
+	path = path_create("\033[31;49;3;1m", name, "@Mini$hell🔥:\033[32m~/", *--dir, "$ \033[0m");
+	free_matrix(tmp);
+	free(name);
+	return (path);
+}
+
 void	signal_handler(int signum)
 {
 	(void)signum;
@@ -166,7 +229,8 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	char	*str;
 	char	**splitcmd;
-	char	*res_fix_syntax;
+	char	*fixed;
+	char	*path;
 	t_token	*token_list;
 	t_tree	*tree;
 
@@ -175,35 +239,44 @@ int	main(int argc, char **argv, char **envp)
 	token_list = NULL;
 	while (1)
 	{
-		str = readline("minishell> ");
-		if (str == NULL)
+		while (1)
 		{
-			printf("\n");
+			path = mini();
+			str = readline(path);
+			if (str == NULL)
+			{
+				printf("\n");
+				free(str);
+				exit(0);
+			}
+			add_history(str);
+			fixed = fix_syntax(str);
+			// printf("input : %s \n", fixed);
+			if (!check(fixed))
+			{
+				if (last_exit_status_cmd == 130)
+					break ;
+				printf("Syntax error\n");
+				last_exit_status_cmd = 2;
+				free(fixed);
+				free(str);
+				break;
+			}
+			splitcmd = ft_split(fixed, ' ');
+			free(fixed);
+			token_list = tokenizer(splitcmd);
+			// print_tokens(token_list);
+			if (token_list)
+				while (token_list->next)
+					token_list = token_list->next;
+			tree = tree_create(token_list, OP);
+			// printTree(tree, 0, "ROOT");
+			execute(tree, STDIN_FILENO, STDOUT_FILENO);
+			printf("%d\n", last_exit_status_cmd);
+			free_matrix(splitcmd);
+			ft_free_all(token_list, tree);
+			free(path);
 			free(str);
-			exit(0);
 		}
-		// str = "cat global.h";
-		add_history(str);
-		//qui va fatto prima un lexer
-		res_fix_syntax = fix_syntax(str);
-		//lexer
-		printf("%s\n", res_fix_syntax);
-		splitcmd = ft_split(res_fix_syntax, ' ');
-		free(res_fix_syntax);
-		// for (int i = 0; splitcmd[i]; i++)
-		// 	printf("%s ", splitcmd[i]);
-		// printf("\n");
-		token_list = tokenizer(splitcmd);
-		// print_tokens(token_list);
-		if (token_list)
-			while (token_list->next)
-				token_list = token_list->next;
-		tree = tree_create(token_list, OP);
-		// printTree(tree, 0, "ROOT");
-		execute(tree, STDIN_FILENO, STDOUT_FILENO);
-		// printf("%d\n", last_exit_status_cmd);
-		free_matrix(splitcmd);
-		ft_free_all(token_list, tree);
-		free(str);
 	}
 }

@@ -1,0 +1,14 @@
+{
+	"files.associations": {
+		"stdio.h": "c",
+		"history.h": "c",
+		"types.h": "c",
+		"tokenizer.h": "c",
+		"libft.h": "c",
+		"stdlib.h": "c",
+		"executor.h": "c",
+		"tree.h": "c",
+		"string.h": "c",
+		"minishell.h": "c"
+	}
+}

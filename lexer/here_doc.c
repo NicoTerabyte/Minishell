@@ -6,13 +6,11 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 15:42:00 by alessiolong       #+#    #+#             */
-/*   Updated: 2023/09/04 15:49:51 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/04 18:28:03 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
-#include "../tokenizer/tokenizer.h"
-#include "../global.h"
 
 t_list	*start_back(t_list *here_doc_lst)
 {
@@ -21,7 +19,7 @@ t_list	*start_back(t_list *here_doc_lst)
 	return (here_doc_lst);
 }
 
-void	del(char *str)
+void	del(void *str)
 {
 	free(str);
 }
@@ -56,15 +54,14 @@ void	*handle_list_heredocs(int op)
 
 void handle_here_doc_sig(int signum)
 {
-	exit(1);
+	(void)signum;
+	exit(130);
 }
 
 int	reading(int fd, char *del)
 {
 	char	*str;
-	char	*del;
 
-	del = set_del_value();
 	signal(SIGINT, handle_here_doc_sig);
 	while (1)
 	{
@@ -76,13 +73,13 @@ int	reading(int fd, char *del)
 			free(del);
 			exit(0);
 		}
-		if (ft_strncmp(str, del, ft_strlen(del)) == 0
-			&& ft_strlen(str) == (ft_strlen(del) + 1))
+		if (ft_strcmp(str, del) == 0)
 			break ;
 		//esp str
 		write(fd, str, ft_strlen(str));
 		free(str);
 	}
+	printf("ok\n");
 	free(str);
 	free(del);
 	exit(0);

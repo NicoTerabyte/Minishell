@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 11:35:53 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/22 12:36:23 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/04 17:35:41 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 #include "global.h"
+# include "./lexer/lexer.h"
 # include "./libft/libft.h"
 # include "./tokenizer/tokenizer.h"
 # include "./tree/tree.h"

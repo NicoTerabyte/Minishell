@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 15:47:11 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/22 15:22:03 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/04 17:38:53 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../libft/libft.h"
 # include "../gnl/get_next_line_bonus.h"
+# include "../lexer/lexer.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -58,10 +59,7 @@ typedef struct s_token
 
 // command line adjusters
 
-int		cmd_name(char *str);
 t_token	*tokenizer(char **splitcmd);
-int		count_syntax(char *str);
-char	*fix_syntax(char *str);
 int		free_matrix(char **s);
 
 //scanners
@@ -82,6 +80,7 @@ int		ft_stralnum(char *str);
 char	*ft_strbash_control(char *str);
 void	print_tokens(t_token *token_lst);
 void	initializePrevious(t_token *head);
-char	*handle_here_doc(char **splitcmd, int *i);
+void	*unlink_here_docs(t_list *here_docs_lst);
+char	*here_doc_name();
 
 #endif
