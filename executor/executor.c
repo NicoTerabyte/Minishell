@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/09/05 18:47:51 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/05 18:52:04 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,7 @@ void	process_integrated(t_tree *tree, int curr_in, int curr_out)
 		if (WIFEXITED(exit_status))
 			last_exit_status_cmd = WEXITSTATUS(exit_status);
 		unlink_here_docs(handle_list_heredocs(LIST));
+		//resolve not newline behaviour and verify the unlink of heredocs through the operators
 		// if (last_exit_status_cmd == 130)
 		// 	printf("\n");
 		// printf("%d\n", last_exit_status_cmd);
