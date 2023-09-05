@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:28:00 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/22 16:56:36 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/05 12:57:15 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ void	simple_cmd(t_token *token_lst, t_simple_cmd *simple_cmd)
 		else
 			token_lst = token_lst->next;
 	}
+	if (simple_cmd->cmd->cmd_arg == NULL && simple_cmd->cmd->cmd_name == NULL)
+	{
+		free(simple_cmd->cmd);
+		simple_cmd->cmd = NULL;
+	}
 }
 
 t_simple_cmd	*simple_cmd_redirections(t_token *token_lst)
@@ -66,7 +71,7 @@ t_token	*copy_tok(t_token *to_copy)
 	res = (t_token *)malloc(sizeof(t_token));
 	res->next = NULL;
 	res->token = to_copy->token;
-	if (to_copy->token == OPERATOR || to_copy->token == OUT_FILE_APPEND || to_copy->token == OUT_FILE_TRUNC || to_copy->token == HERE_DOC
+	if (to_copy->token == OPERATOR || to_copy->token == OUT_FILE_APPEND || to_copy->token == OUT_FILE_TRUNC
 		|| to_copy->token == IN_FILE_TRUNC || to_copy->token == OPERATOR || to_copy->token == CMD_NAME)
 		res->value = ft_strdup((char *)to_copy->value);
 	else

@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/09/04 18:55:07 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/05 17:49:25 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,15 +75,9 @@ void	free_tokens(t_token *token_lst)
 	i = 0;
 	while (token_lst)
 	{
-		if (token_lst->token == PARENTHESIS || token_lst->token == IN_FILE_TRUNC
-				|| token_lst->token == HERE_DOC || token_lst->token == OUT_FILE_APPEND
-				|| token_lst->token == OUT_FILE_TRUNC || token_lst->token == CMD_NAME
-				|| token_lst->token == OPERATOR)
-		{
-			if (token_lst->token == OPERATOR || token_lst->token == OUT_FILE_APPEND || token_lst->token == OUT_FILE_TRUNC || token_lst->token == HERE_DOC
-					|| token_lst->token == IN_FILE_TRUNC || token_lst->token == OPERATOR || token_lst->token == CMD_NAME)
-				free(token_lst->value);
-		}
+		if (token_lst->token == OPERATOR || token_lst->token == OUT_FILE_APPEND || token_lst->token == OUT_FILE_TRUNC
+				|| token_lst->token == IN_FILE_TRUNC || token_lst->token == OPERATOR || token_lst->token == CMD_NAME)
+			free(token_lst->value);
 		else if (token_lst->token == ENV_VAR_DECL || token_lst->token == ENV_VAR_UNSET)
 		{
 			type_decl = (t_declaration *)token_lst->value;
@@ -118,7 +112,7 @@ void	free_tokens(t_token *token_lst)
 void	free_tree(t_tree *tree)
 {
 	t_parenthesis	*par;
-	t_simple_cmd	*cmd;
+	t_simple_cmd	*simple_cmd;
 
 	if (!tree)
 		return ;
@@ -132,12 +126,16 @@ void	free_tree(t_tree *tree)
 	}
 	else if (tree->type == SIMPLE_CMD)
 	{
-		cmd = (t_simple_cmd *)tree->content;
-		free_tokens(cmd->redir_list);
-		free_tokens(cmd->cmd->cmd_arg);
-		free_tokens(cmd->cmd->cmd_name);
-		free_tokens(cmd->env);
-		free(cmd);
+		simple_cmd = (t_simple_cmd *)tree->content;
+		free_tokens(simple_cmd->redir_list);
+		free_tokens(simple_cmd->env);
+		if (simple_cmd->cmd)
+		{
+			free(simple_cmd->cmd->cmd_arg);
+			free_tokens(simple_cmd->cmd->cmd_name);
+			free(simple_cmd->cmd);
+		}
+		free(simple_cmd);
 	}
 	free_tree(tree->left);
 	free_tree(tree->right);
@@ -146,6 +144,7 @@ void	free_tree(t_tree *tree)
 
 void	ft_free_all(t_token *token_lst, t_tree *tree)
 {
+	(void)tree;
 	free_tokens(token_lst);
 	free_tree(tree);
 }
@@ -223,7 +222,6 @@ void	signal_handler(int signum)
 
 int	main(int argc, char **argv, char **envp)
 {
-	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, SIG_IGN);
 	(void)argc;
 	(void)argv;
@@ -241,8 +239,12 @@ int	main(int argc, char **argv, char **envp)
 	{
 		while (1)
 		{
+			unlink_here_docs(handle_list_heredocs(LIST));
+			handle_list_heredocs(START);
+			signal(SIGINT, signal_handler);
 			path = mini();
 			str = readline(path);
+			free(path);
 			if (str == NULL)
 			{
 				printf("\n");
@@ -251,15 +253,14 @@ int	main(int argc, char **argv, char **envp)
 			}
 			add_history(str);
 			fixed = fix_syntax(str);
-			// printf("input : %s \n", fixed);
 			if (!check(fixed))
 			{
+				free(fixed);
+				free(str);
 				if (last_exit_status_cmd == 130)
 					break ;
 				printf("Syntax error\n");
 				last_exit_status_cmd = 2;
-				free(fixed);
-				free(str);
 				break;
 			}
 			splitcmd = ft_split(fixed, ' ');
@@ -272,10 +273,12 @@ int	main(int argc, char **argv, char **envp)
 			tree = tree_create(token_list, OP);
 			// printTree(tree, 0, "ROOT");
 			execute(tree, STDIN_FILENO, STDOUT_FILENO);
-			printf("%d\n", last_exit_status_cmd);
+			if (token_list)
+				while (token_list->prev)
+					token_list = token_list->prev;
+			// printf("%d\n", last_exit_status_cmd);
 			free_matrix(splitcmd);
 			ft_free_all(token_list, tree);
-			free(path);
 			free(str);
 		}
 	}

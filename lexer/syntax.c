@@ -10,19 +10,9 @@ int	count_syntax(char *str)
 	while (str[i])
 	{
 		if (str[i + 1] && ((str[i] == '|' && str[i + 1] == '|') || (str[i] == '&' && str[i + 1] == '&') || (str[i] == '<' && str[i + 1] == '<') || (str[i] == '>' && str[i + 1] == '>')))
-		{
-			if (i != 0 && str[i - 1] != ' ')
-				count++;
-			if (str[i + 2] && str[i + 2] != ' ')
-				count++;
-		}
+			count += 2;
 		else if (ft_strchr("|()<>", str[i]))
-		{
-			if (i != 0 && str[i - 1] != ' ')
-				count++;
-			if (str[i + 1] && str[i + 1] != ' ')
-				count++;
-		}
+			count += 2;
 		i++;
 	}
 	return (i + count);
@@ -38,7 +28,7 @@ char	*fix_white_spaces(char *str)
 		return (NULL);
 	i = 0;
 	j = 0;
-	res = malloc(ft_strlen(str));
+	res = malloc(ft_strlen(str) + 1);
 	while (str[i])
 	{
 		if (ft_isspace(str[i]) && ft_isspace(str[i + 1]))
@@ -62,7 +52,7 @@ char	*fix_syntax(char *str)
 	quote = 0;
 	i = 0;
 	j = 0;
-	res = malloc(count_syntax(str));
+	res = malloc(count_syntax(str) + 1);
 	while (str[i])
 	{
 		if (str[i] == '"' || str[i] == '\'')

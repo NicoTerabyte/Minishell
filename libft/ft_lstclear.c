@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 14:58:53 by mlongo            #+#    #+#             */
-/*   Updated: 2023/09/04 17:05:49 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/05 12:47:48 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 	while (*lst)
 	{
 		tmp = (*lst)->next;
-		ft_lstdelone(*lst, del);
+		free((*lst)->content);
+		free(*lst);
 		*lst = tmp;
 	}
 	*lst = NULL;

@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 11:35:53 by mlongo            #+#    #+#             */
-/*   Updated: 2023/09/04 17:35:41 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/05 16:39:48 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@
 # include <fcntl.h>
 
 char	**env_container(int action, void *arg);
+void	signal_handler(int signum);
 
 #endif

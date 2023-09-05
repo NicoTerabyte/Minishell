@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 19:18:00 by mlongo            #+#    #+#             */
-/*   Updated: 2023/04/04 19:18:01 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/05 11:01:45 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 	if (!str)
 		return (NULL);
 	ft_strlcpy(str, &s1[start], end - start + 2);
+	free((void *)s1);
 	return (str);
 }

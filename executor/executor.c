@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/09/04 16:50:01 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/05 18:47:51 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,11 +138,22 @@ void	execve_cmd(t_simple_cmd *simple_cmd)
 	execve(cmd_name, cmd_args, env);
 }
 
+void	signal_handler_execve(int signum)
+{
+	(void)signum;
+	printf("\n");
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+	exit(130);
+}
+
 void	execute_integrated(t_tree *tree, int curr_in, int curr_out)
 {
 	t_simple_cmd	*simple_cmd;
 	t_token			*redir_list;
 
+	signal(SIGINT, signal_handler_execve);
 	if (!tree)
 		return ;
 	simple_cmd = (t_simple_cmd	*)tree->content;
@@ -157,7 +168,7 @@ void	execute_integrated(t_tree *tree, int curr_in, int curr_out)
 		dup_std_fd(curr_in, STDIN_FILENO);
 		dup_std_fd(curr_out, STDOUT_FILENO);
 	}
-	if (simple_cmd->cmd->cmd_name == NULL)
+	if (simple_cmd->cmd == NULL)
 		exit (0);
 	else
 		execve_cmd(simple_cmd);
@@ -168,15 +179,20 @@ void	process_integrated(t_tree *tree, int curr_in, int curr_out)
 	int	pid;
 	int	exit_status;
 
+	signal(SIGINT, SIG_IGN);
 	pid = fork();
 	if(pid == 0)
 		execute_integrated(tree, curr_in, curr_out);
 	else
 	{
 		waitpid(pid, &exit_status, 0);
+		signal(SIGINT, signal_handler);
 		if (WIFEXITED(exit_status))
 			last_exit_status_cmd = WEXITSTATUS(exit_status);
 		unlink_here_docs(handle_list_heredocs(LIST));
+		// if (last_exit_status_cmd == 130)
+		// 	printf("\n");
+		// printf("%d\n", last_exit_status_cmd);
 	}
 }
 
@@ -187,22 +203,26 @@ int	is_builtin_command(t_tree *root)
 
 
 	simple_cmd = (t_simple_cmd	*)root->content;
-	if (simple_cmd->cmd->cmd_name == NULL)
+	if (simple_cmd->cmd)
 	{
-		if (simple_cmd->env == NULL)
+		if (simple_cmd->cmd->cmd_name == NULL)
+		{
+			if (simple_cmd->env == NULL)
+				return (0);
+			return (1);
+		}
+		simple_name = (char *)simple_cmd->cmd->cmd_name;
+		if (0 == ft_strcmp(simple_name, "cd")
+			|| 0 == ft_strcmp(simple_name, "exit")
+			|| 0 == ft_strcmp(simple_name, "echo")
+			|| 0 == ft_strcmp(simple_name, "pwd")
+			|| 0 == ft_strcmp(simple_name, "env")
+		)
+			return (1);
+		else
 			return (0);
-		return (1);
 	}
-	simple_name = (char *)simple_cmd->cmd->cmd_name;
-	if (0 == ft_strcmp(simple_name, "cd")
-		|| 0 == ft_strcmp(simple_name, "exit")
-		|| 0 == ft_strcmp(simple_name, "echo")
-		|| 0 == ft_strcmp(simple_name, "pwd")
-		|| 0 == ft_strcmp(simple_name, "env")
-	)
-		return (1);
-	else
-		return (0);
+	return (0);
 }
 
 void	execute_simple_cmd(t_tree *tree, int curr_in, int curr_out)

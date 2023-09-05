@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 15:42:00 by alessiolong       #+#    #+#             */
-/*   Updated: 2023/09/04 18:28:03 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/05 16:35:53 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	*handle_list_heredocs(int op)
 void handle_here_doc_sig(int signum)
 {
 	(void)signum;
+	printf("\n");
 	exit(130);
 }
 
@@ -79,7 +80,6 @@ int	reading(int fd, char *del)
 		write(fd, str, ft_strlen(str));
 		free(str);
 	}
-	printf("ok\n");
 	free(str);
 	free(del);
 	exit(0);
@@ -95,6 +95,7 @@ void	handle_here_doc(char *del)
 	//esp del
 	here_doc = handle_list_heredocs(ADD);
 	fd = open(here_doc, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+	signal(SIGINT, SIG_IGN);
 	pid = fork();
 	if (!pid)
 		reading(fd, del);

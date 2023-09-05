@@ -22,14 +22,14 @@ char	*create_del(char *s)
 
 int	check(char *s)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	while (s[i])
 	{
 		if (s[i] == ')')
 		{
-			if (!check_number(s))
+			if (!check_number_back(&s[i], &s[0]))
 				return (0);
 		}
 		if (s[i] == '(')
@@ -48,9 +48,9 @@ int	check(char *s)
 				return (0);
 			if (s[i] == '<' && s[i + 1] == '<')
 			{
-				handle_here_doc(create_del(&s[i + 3]));
-				if (last_exit_status_cmd == 130)
-					return (0);
+					handle_here_doc(create_del(&s[i + 3]));
+					if (last_exit_status_cmd == 130)
+						return (0);
 			}
 		}
 		i++;
@@ -70,28 +70,41 @@ int	check_parentheses(char *s, int *i)
 	return (0);
 }
 
-// int check_order(char *s, int *i)
-// {
-//     while (s[*i] != ')' && s[*i] != 0)
-// 	{
-//         if (s[*i] == '(')
-// 		{
-// 			while (s[*i] != ')' && s[*i] != 0)
-//             {
-// 				(*i)++;
-// 				if (s[*i] == '(')
-// 				{
-// 					(*i)--;
-// 					break ;
-// 				}
-// 			}
-//         }
-//         if (s[*i + 1] == ')')
-//             (*i)++;
-// 		(*i)++;
-//     }
-//     return (1);
-// }
+int check_number_back(char *s, char *start)
+{
+    int i;
+    int count;
+
+	i = 0;
+	count = 0;
+    while (&s[i] != start)
+	{
+        if (s[i] == '"')
+		{
+            i--;
+            while (s[i] != '"' && &s[i] != start)
+                i--;
+        }
+        if (s[i] == '\'')
+		{
+            i--;
+            while (s[i] != '\'' && &s[i] != start)
+                i--;
+        }
+        if (s[i] == '(')
+            count--;
+        if (s[i] == ')')
+            count++;
+        i--;
+    }
+	if (s[i] == '(')
+		count--;
+	if (s[i] == ')')
+		count++;
+    if (count != 0)
+        return (0);
+    return (1);
+}
 
 int check_number(char *s)
 {
@@ -123,6 +136,21 @@ int check_number(char *s)
     if (count != 0)
         return (0);
     return (1);
+}
+
+int check_back(char *s, int i)
+{
+	if (s[i - 2] == ')')
+	{
+		while (i >= 0)
+		{
+			if (s[i - 2] == '(')
+				return (1);
+			i--;
+		}
+		return (0);
+	}
+	return (1);
 }
 
 int check_quote(char *s)
