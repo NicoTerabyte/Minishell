@@ -1,25 +1,5 @@
 #include "lexer.h"
 
-char	*create_del(char *s)
-{
-	char	quote;
-	int		i;
-
-	i = 0;
-	while (s[i] && !isspace(s[i]))
-	{
-		if (s[i] == '"' || s[i] == '\'')
-		{
-			quote = s[i];
-			while (s[i] && s[i] != quote)
-				i++;
-			break ;
-		}
-		i++;
-	}
-	return (ft_substring((s, 0, i)));
-}
-
 int	check(char *s)
 {
 	int	i;
@@ -174,4 +154,24 @@ int check_operator(char *s, int *i)
 			return (1);
 	}
 	return (0);
+}
+
+char	*create_del(char *s)
+{
+	char	quote;
+	int		i;
+
+	i = 0;
+	while (s[i] && !isspace(s[i]))
+	{
+		if (s[i] == '"' || s[i] == '\'')
+		{
+			quote = s[i];
+			while (s[i] && s[i] != quote)
+				i++;
+			break ;
+		}
+		i++;
+	}
+	return (ft_substring((s, 0, i)));
 }
