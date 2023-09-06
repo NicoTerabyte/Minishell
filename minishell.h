@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 11:35:53 by mlongo            #+#    #+#             */
-/*   Updated: 2023/09/05 16:39:48 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/06 17:13:02 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@
 
 char	**env_container(int action, void *arg);
 void	signal_handler(int signum);
+void	ign(int signum);
 
 #endif

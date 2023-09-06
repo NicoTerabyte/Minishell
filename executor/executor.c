@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/09/05 18:52:04 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/06 17:19:18 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,44 @@ void	dup_std_fd(int cur_in_out, int std_in_out)
 	}
 }
 
-int	execute_redirections(t_token *redir_list, int curr_in, int curr_out)
+int	execute_redirections_output(t_token *redir_list, int curr_out)
 {
 	char	*file_name;
 
-	if (curr_in != STDIN_FILENO)
-		close(curr_in);
 	if (curr_out != STDOUT_FILENO)
 		close(curr_out);
 	while (redir_list)
 	{
 		file_name = (char *)redir_list->value;
+		if (redir_list->token == OUT_FILE_TRUNC)
+			curr_out = open(file_name, O_CREAT | O_TRUNC | O_WRONLY, 0777);
+		else if (redir_list->token == OUT_FILE_APPEND)
+			curr_out = open(file_name, O_CREAT | O_APPEND | O_WRONLY, 0777);
+		printf("%s, curr out %d, type %d\n", file_name, curr_out, redir_list->token);
+		if (curr_out == -1)
+		{
+			printf("minishell : %s: error creting file\n", file_name);
+			return (1);
+		}
+		redir_list = redir_list->next;
+	}
+	dup_std_fd(curr_out, STDOUT_FILENO);
+	return (0);
+}
+
+int	execute_redirections_input(t_token *redir_list, int curr_in)
+{
+	char	*file_name;
+
+	if (curr_in != STDIN_FILENO)
+		close(curr_in);
+	while (redir_list)
+	{
+		file_name = (char *)redir_list->value;
 		if (redir_list->token == IN_FILE_TRUNC || redir_list->token == HERE_DOC)
 			curr_in = open(file_name, O_RDONLY);
-		else if (redir_list->token == OUT_FILE_TRUNC)
-			curr_out = open(file_name, O_CREAT | O_TRUNC | O_WRONLY, 0777);
-		else
-			curr_out = open(file_name, O_CREAT | O_APPEND | O_WRONLY, 0777);
-		if (curr_in == -1 || curr_out == -1)
+		printf("%s, curr in %d, type %d\n", file_name, curr_in, redir_list->token);
+		if (curr_in == -1)
 		{
 			printf("minishell : %s: No such file or directory\n", file_name);
 			return (1);
@@ -46,7 +66,6 @@ int	execute_redirections(t_token *redir_list, int curr_in, int curr_out)
 		redir_list = redir_list->next;
 	}
 	dup_std_fd(curr_in, STDIN_FILENO);
-	dup_std_fd(curr_out, STDOUT_FILENO);
 	return (0);
 }
 
@@ -115,6 +134,35 @@ char	*get_cmd_name_path(char *cmd_name, char **split_paths)
 	}
 	return (NULL);
 }
+void	signal_handler_execve(int signum)
+{
+	if (signum == SIGINT)
+		last_exit_status_cmd = 130;
+	if (signum == SIGQUIT)
+		last_exit_status_cmd = 131;
+}
+
+int	have_inputs(t_token *redir_list)
+{
+	while (redir_list)
+	{
+		if (redir_list->token == HERE_DOC || redir_list->token == IN_FILE_TRUNC)
+			return (1);
+		redir_list = redir_list->next;
+	}
+	return (0);
+}
+
+int	have_outputs(t_token *redir_list)
+{
+	while (redir_list)
+	{
+		if (redir_list->token == OUT_FILE_TRUNC || redir_list->token == OUT_FILE_APPEND)
+			return (1);
+		redir_list = redir_list->next;
+	}
+	return (0);
+}
 
 void	execve_cmd(t_simple_cmd *simple_cmd)
 {
@@ -138,36 +186,33 @@ void	execve_cmd(t_simple_cmd *simple_cmd)
 	execve(cmd_name, cmd_args, env);
 }
 
-void	signal_handler_execve(int signum)
-{
-	(void)signum;
-	printf("\n");
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
-	exit(130);
-}
 
 void	execute_integrated(t_tree *tree, int curr_in, int curr_out)
 {
 	t_simple_cmd	*simple_cmd;
 	t_token			*redir_list;
 
-	signal(SIGINT, signal_handler_execve);
 	if (!tree)
 		return ;
 	simple_cmd = (t_simple_cmd	*)tree->content;
 	if (simple_cmd->redir_list != NULL)
 	{
 		redir_list = (t_token *)simple_cmd->redir_list;
-		if (execute_redirections(redir_list, curr_in, curr_out))
-			exit (1);
+		if (have_inputs(redir_list))
+			if (execute_redirections_input(redir_list, curr_in))
+				exit (1);
 	}
 	else
-	{
 		dup_std_fd(curr_in, STDIN_FILENO);
-		dup_std_fd(curr_out, STDOUT_FILENO);
+	if (simple_cmd->redir_list != NULL)
+	{
+		redir_list = (t_token *)simple_cmd->redir_list;
+		if (have_outputs(redir_list))
+			if (execute_redirections_output(redir_list, curr_out))
+				exit (1);
 	}
+	else
+		dup_std_fd(curr_out, STDOUT_FILENO);
 	if (simple_cmd->cmd == NULL)
 		exit (0);
 	else
@@ -179,21 +224,23 @@ void	process_integrated(t_tree *tree, int curr_in, int curr_out)
 	int	pid;
 	int	exit_status;
 
-	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, ign);
+	signal(SIGINT, ign);
+	signal(SIGTERM, ign);
 	pid = fork();
 	if(pid == 0)
 		execute_integrated(tree, curr_in, curr_out);
 	else
 	{
+		signal(SIGINT, signal_handler_execve);
+		signal(SIGQUIT, signal_handler_execve);
 		waitpid(pid, &exit_status, 0);
 		signal(SIGINT, signal_handler);
+		signal(SIGQUIT, ign);
+		signal(SIGTERM, signal_handler);
 		if (WIFEXITED(exit_status))
 			last_exit_status_cmd = WEXITSTATUS(exit_status);
-		unlink_here_docs(handle_list_heredocs(LIST));
-		//resolve not newline behaviour and verify the unlink of heredocs through the operators
-		// if (last_exit_status_cmd == 130)
-		// 	printf("\n");
-		// printf("%d\n", last_exit_status_cmd);
+		printf("last = %d", last_exit_status_cmd);
 	}
 }
 
@@ -313,14 +360,21 @@ static void	execute_subshell(t_tree *root, int in, int out)
 		if (parenthesis_node->redir_list != NULL)
 		{
 			redir_list = (t_token *)parenthesis_node->redir_list;
-			if (execute_redirections(redir_list, in, out))
-				exit (1);
+			if (have_inputs(redir_list))
+				if (execute_redirections_input(redir_list, in))
+					exit (1);
 		}
 		else
-		{
 			dup_std_fd(in, STDIN_FILENO);
-			dup_std_fd(out, STDOUT_FILENO);
+		if (parenthesis_node->redir_list != NULL)
+		{
+			redir_list = (t_token *)parenthesis_node->redir_list;
+			if (have_outputs(redir_list))
+				if (execute_redirections_output(redir_list, out))
+					exit (1);
 		}
+		else
+			dup_std_fd(out, STDOUT_FILENO);
 		execute(parenthesis_node->tree, in, out);
 		exit(last_exit_status_cmd);
 	}

@@ -187,28 +187,31 @@ int check_quote(char *s)
     return (1);
 }
 
-static int not_op(char c)
+static int not_op(char *c)
 {
-	if (c != '|' && c != '>' && c != '<')//c != '&' &&
-    	return (c >= 32 && c <= 126);
-	return (0);
+    if ((c[0] != '|' && c[1] != '|') || (c[0] != '&' && c[1] != '&') || c[0] != '|')
+        return (c[0] >= 32 && c[0] <= 126);
+    return (0);
 }
 
 int check_operator(char *s, int *i)
 {
-	if ((s[*i] == '>' || s[*i] == '<') && ((s[*i] == s[*i + 1] && not_op(s[*i + 3])) || (s[*i + 1] == ' '  && not_op(s[*i + 2]))))
-		return (1);
-	if (s[*i + 1] == 0 || s[*i + 2] == 0 || *i == 0)
-		return (0);
-	if (not_op(s[*i - 2]) && s[*i - 1] == ' ' && (s[*i - 2] != '&' && s[*i - 3] != '&'))
-	{
-		if (s[*i] == s[*i + 1] && s[*i + 2] == ' ' && not_op(s[*i + 3]) && (s[*i + 3] != '&' && s[*i + 4] != '&'))
-		{
-			(*i)++;
-			return (1);
-		}
-		if (s[*i] != '&' && s[*i + 1] == ' ' && not_op(s[*i + 2]) && (s[*i + 2] != '&' && s[*i + 3] != '&'))
-			return (1);
-	}
-	return (0);
+    if (s[*i] == '>' || s[*i] == '<')
+    {
+        if ((s[*i] == s[*i + 1] && s[*i + 2] == ' ' && s[*i + 3] != '>' && s[*i + 4] != '<') || (s[*i + 1] == ' ' && s[*i + 2] != '>' && s[*i + 3] != '<'))
+            return (1);
+    }
+    if (s[*i + 1] == 0 || s[*i + 2] == 0 || *i == 0)
+        return (0);
+    if ((not_op(&s[*i - 3]) || not_op(&s[*i - 2])) && s[*i - 1] == ' ')
+    {
+        if (s[*i] == s[*i + 1] && s[*i + 2] == ' ' && not_op(&s[*i + 3]))
+        {
+            (*i)++;
+            return (1);
+        }
+        if (s[*i] == '|' && s[*i + 1] == ' ' && not_op(&s[*i + 2]))
+            return (1);
+    }
+    return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/09/05 17:49:25 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/06 17:19:10 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,16 +213,28 @@ static char *mini(void)
 
 void	signal_handler(int signum)
 {
-	(void)signum;
-	printf("\n");
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
+	if (signum == SIGINT)
+	{
+		printf("\n");
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+	else if (signum == SIGTERM)
+		exit (1);
+}
+
+void	ign(int signum)
+{
+	if (signum)
+	{
+		printf("\n");
+	}
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	signal(SIGQUIT, SIG_IGN);
+	signal(SIGQUIT, ign);
 	(void)argc;
 	(void)argv;
 	char	*str;
@@ -242,6 +254,7 @@ int	main(int argc, char **argv, char **envp)
 			unlink_here_docs(handle_list_heredocs(LIST));
 			handle_list_heredocs(START);
 			signal(SIGINT, signal_handler);
+			signal(SIGTERM, signal_handler);
 			path = mini();
 			str = readline(path);
 			free(path);
