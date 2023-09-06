@@ -3,23 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fla <fla@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: fcarlucc <fcarlucc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 12:36:08 by fla               #+#    #+#             */
-/*   Updated: 2023/09/03 07:18:12 by fla              ###   ########.fr       */
+/*   Updated: 2023/09/06 09:43:49 by fcarlucc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
-# include "../minishell.h"
+# define START 0
+# define ADD 1
+# define LIST 2
+# define GET 3
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <fcntl.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+#include "../minishell.h"
 
 int		count_syntax(char *str);
 int		ft_isspace(char c);
@@ -29,6 +36,7 @@ char	*fix_syntax(char *str);
 int check(char *s);
 int check_parentheses(char *s, int *i);
 int check_number(char *s);
+int check_bad_parentheses(char *s, int i);
 int check_quote(char *s);
 int check_operator(char *s, int *i);
 int check_redirection(char *s, int *i);

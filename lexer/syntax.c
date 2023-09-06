@@ -67,7 +67,7 @@ char	*fix_syntax(char *str)
 	quote = 0;
 	i = 0;
 	j = 0;
-	res = malloc(count_syntax(str));
+	res = malloc(count_syntax(str) + 1);
 	while (str[i])
 	{
 		if (str[i] == '"' || str[i] == '\'')
