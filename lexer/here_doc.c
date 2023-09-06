@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 15:42:00 by alessiolong       #+#    #+#             */
-/*   Updated: 2023/09/05 16:35:53 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/06 18:56:15 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	del(void *str)
 void	*handle_list_heredocs(int op)
 {
 	static t_list	*here_doc_lst;
+	t_list			*res;
 	char			*here_doc;
 
 	if (op == START)
@@ -45,9 +46,10 @@ void	*handle_list_heredocs(int op)
 		return (here_doc_lst);
 	else if (op == GET)
 	{
-		return (here_doc_lst->content);
+		res = here_doc_lst;
 		if (here_doc_lst->next)
 			here_doc_lst = here_doc_lst->next;
+		return (res->content);
 	}
 	return (NULL);
 }

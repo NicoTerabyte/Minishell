@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/09/06 17:19:18 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/06 19:25:53 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	execute_redirections_output(t_token *redir_list, int curr_out)
 			curr_out = open(file_name, O_CREAT | O_TRUNC | O_WRONLY, 0777);
 		else if (redir_list->token == OUT_FILE_APPEND)
 			curr_out = open(file_name, O_CREAT | O_APPEND | O_WRONLY, 0777);
-		printf("%s, curr out %d, type %d\n", file_name, curr_out, redir_list->token);
 		if (curr_out == -1)
 		{
 			printf("minishell : %s: error creting file\n", file_name);
@@ -57,7 +56,6 @@ int	execute_redirections_input(t_token *redir_list, int curr_in)
 		file_name = (char *)redir_list->value;
 		if (redir_list->token == IN_FILE_TRUNC || redir_list->token == HERE_DOC)
 			curr_in = open(file_name, O_RDONLY);
-		printf("%s, curr in %d, type %d\n", file_name, curr_in, redir_list->token);
 		if (curr_in == -1)
 		{
 			printf("minishell : %s: No such file or directory\n", file_name);
@@ -240,7 +238,7 @@ void	process_integrated(t_tree *tree, int curr_in, int curr_out)
 		signal(SIGTERM, signal_handler);
 		if (WIFEXITED(exit_status))
 			last_exit_status_cmd = WEXITSTATUS(exit_status);
-		printf("last = %d", last_exit_status_cmd);
+		// printf("last = %d", last_exit_status_cmd);
 	}
 }
 
@@ -248,7 +246,6 @@ int	is_builtin_command(t_tree *root)
 {
 	t_simple_cmd	*simple_cmd;
 	char			*simple_name;
-
 
 	simple_cmd = (t_simple_cmd	*)root->content;
 	if (simple_cmd->cmd)
@@ -299,6 +296,14 @@ void	execute_pipe_op(t_tree *root, int curr_in, int curr_out)
 		execute(root->left, curr_in, piping[1]);
 		exit(last_exit_status_cmd);
 	}
+	waitpid(pid_left, &exit_status, 0);
+	last_exit_status_cmd = WEXITSTATUS(exit_status);
+	if (last_exit_status_cmd == 130)
+	{
+		close(piping[0]);
+		close(piping[1]);
+		return ;
+	}
 	pid_right = fork();
 	if (!pid_right)
 	{
@@ -308,7 +313,6 @@ void	execute_pipe_op(t_tree *root, int curr_in, int curr_out)
 	}
 	close(piping[0]);
 	close(piping[1]);
-	waitpid(pid_left, NULL, 0);
 	waitpid(pid_right, &exit_status, 0);
 	last_exit_status_cmd = WEXITSTATUS(exit_status);
 }
@@ -396,7 +400,8 @@ void	execute(t_tree *tree, int curr_in, int curr_out)
 {
 	if (!tree)
 		return ;
-	else if (tree->type == PARENTHESI)
+	signal(SIGINT, ign);
+	if (tree->type == PARENTHESI)
 		execute_subshell(tree, curr_in, curr_out);
 	else
 	execute_shell(tree, curr_in, curr_out);
