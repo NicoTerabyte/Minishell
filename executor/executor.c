@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alessiolongo <alessiolongo@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/09/06 19:25:53 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/07 19:00:27 by alessiolong      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
+#include <signal.h>
+#include <stdio.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 void	dup_std_fd(int cur_in_out, int std_in_out)
 {
@@ -234,8 +238,8 @@ void	process_integrated(t_tree *tree, int curr_in, int curr_out)
 		signal(SIGQUIT, signal_handler_execve);
 		waitpid(pid, &exit_status, 0);
 		signal(SIGINT, signal_handler);
-		signal(SIGQUIT, ign);
 		signal(SIGTERM, signal_handler);
+		signal(SIGQUIT, ign);
 		if (WIFEXITED(exit_status))
 			last_exit_status_cmd = WEXITSTATUS(exit_status);
 		// printf("last = %d", last_exit_status_cmd);
@@ -270,6 +274,45 @@ int	is_builtin_command(t_tree *root)
 	return (0);
 }
 
+void	execute_builtin(t_tree *tree, int curr_in, int curr_out)
+{
+
+	t_simple_cmd	*simple_cmd;
+	t_token			*redir_list;
+	int				starting_in;
+	int				starting_out;
+
+	if (!tree)
+		return ;
+	starting_in = curr_in;
+	starting_out = curr_out;
+	simple_cmd = (t_simple_cmd	*)tree->content;
+	if (simple_cmd->redir_list != NULL)
+	{
+		redir_list = (t_token *)simple_cmd->redir_list;
+		if (have_inputs(redir_list))
+			if (execute_redirections_input(redir_list, curr_in))
+				exit (1);
+	}
+	else
+		dup_std_fd(curr_in, STDIN_FILENO);
+	if (simple_cmd->redir_list != NULL)
+	{
+		redir_list = (t_token *)simple_cmd->redir_list;
+		if (have_outputs(redir_list))
+			if (execute_redirections_output(redir_list, curr_out))
+				exit (1);
+	}
+	else
+		dup_std_fd(curr_out, STDOUT_FILENO);
+	if (simple_cmd->cmd == NULL)
+		exit (0);
+	else
+		execute_builtin(simple_cmd);
+	dup_std_fd(starting_in, STDIN_FILENO);
+	dup_std_fd(starting_out, STDOUT_FILENO);
+}
+
 void	execute_simple_cmd(t_tree *tree, int curr_in, int curr_out)
 {
 	if (!tree)
@@ -298,7 +341,7 @@ void	execute_pipe_op(t_tree *root, int curr_in, int curr_out)
 	}
 	waitpid(pid_left, &exit_status, 0);
 	last_exit_status_cmd = WEXITSTATUS(exit_status);
-	if (last_exit_status_cmd == 130)
+	if (last_exit_status_cmd == 130 || last_exit_status_cmd == 131)
 	{
 		close(piping[0]);
 		close(piping[1]);

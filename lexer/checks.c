@@ -6,7 +6,7 @@ char	*create_del(char *s)
 	int		i;
 
 	i = 0;
-	while (s[i] && !isspace(s[i]))
+	while (s[i] && !ft_isspace(s[i]))
 	{
 		if (s[i] == '"' || s[i] == '\'')
 		{

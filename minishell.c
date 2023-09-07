@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alessiolongo <alessiolongo@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/09/06 17:19:10 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/07 18:00:37 by alessiolong      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,8 +215,9 @@ void	signal_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
+		last_exit_status_cmd = EXIT_FAILURE;
 		printf("\n");
-		rl_replace_line("", 0);
+		// rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 	}
@@ -228,7 +229,7 @@ void	ign(int signum)
 {
 	if (signum)
 	{
-		printf("\n");
+		;
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alessiolongo <alessiolongo@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 15:42:00 by alessiolong       #+#    #+#             */
-/*   Updated: 2023/09/06 18:56:15 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/07 17:22:00 by alessiolong      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	*handle_list_heredocs(int op)
 		return (here_doc);
 	}
 	else if (op == LIST)
-		return (here_doc_lst);
+		return (start_back(here_doc_lst));
 	else if (op == GET)
 	{
 		res = here_doc_lst;
@@ -80,6 +80,7 @@ int	reading(int fd, char *del)
 			break ;
 		//esp str
 		write(fd, str, ft_strlen(str));
+		write(fd, &"\n", 1);
 		free(str);
 	}
 	free(str);
