@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessiolongo <alessiolongo@student.42.f    +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 11:35:53 by mlongo            #+#    #+#             */
-/*   Updated: 2023/09/07 18:10:22 by alessiolong      ###   ########.fr       */
+/*   Updated: 2023/09/08 14:48:53 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,16 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <fcntl.h>
+# define SET 10
+# define GET_TREE 11
+# define GET_TOKENS 12
 
 char	**env_container(int action, void *arg);
 void	signal_handler(int signum);
 void	ign(int signum);
+void	*var_container(t_token *token_lst, t_tree *tree, int op);
+void	ft_free_all(t_token *token_lst, t_tree *tree);
+void	free_tree(t_tree *tree);
+void	free_tokens(t_token *token_lst);
 
 #endif

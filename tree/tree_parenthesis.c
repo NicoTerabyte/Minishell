@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:23:37 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/18 13:27:25 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/08 19:27:33 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,18 @@ int	verify_parenthesis(t_token *token_lst)
 		token_lst = token_lst->next;
 	}
 	return (0);
+}
+
+t_token	*copy_tok_parenthesis(t_token *to_copy)
+{
+	t_token	*res;
+
+	res = (t_token *)malloc(sizeof(t_token));
+	res->next = NULL;
+	res->token = to_copy->token;
+	res->value = to_copy->value;
+	res->prev = NULL;
+	return(res);
 }
 
 t_token	*skip_par_tokens(t_token *token_lst)
@@ -44,7 +56,7 @@ t_token	*skip_par_tokens(t_token *token_lst)
 		}
 		if (n_parenthesis)
 		{
-			tok_add_back(&new_token_lst, copy_tok(token_lst));
+			tok_add_back(&new_token_lst, copy_tok_parenthesis(token_lst));
 			token_lst = token_lst->next;
 		}
 	}
@@ -67,6 +79,20 @@ t_token	*parenthesis_redirections(t_token *token_lst)
 	return (redir_lst);
 }
 
+
+void	free_tokens_parenthesis(t_token *token_lst)
+{
+	t_token			*tmp;
+
+	while (token_lst)
+	{
+		tmp = token_lst;
+		token_lst = token_lst->next;
+		free(tmp);
+	}
+	free(token_lst);
+}
+
 t_parenthesis	*parenthesis_node(t_token *token_lst)
 {
 	t_parenthesis	*parenthesis_node;
@@ -80,5 +106,9 @@ t_parenthesis	*parenthesis_node(t_token *token_lst)
 			while (new_token_lst->next)
 				new_token_lst = new_token_lst->next;
 	parenthesis_node->tree = tree_create(new_token_lst, OP);
+	if (new_token_lst)
+		while (new_token_lst->prev)
+			new_token_lst = new_token_lst->prev;
+	free_tokens_parenthesis(new_token_lst);
 	return (parenthesis_node);
 }

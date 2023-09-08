@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:28:00 by mlongo            #+#    #+#             */
-/*   Updated: 2023/09/05 12:57:15 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/08 18:52:13 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_token	*copy_tok(t_token *to_copy)
 	res->next = NULL;
 	res->token = to_copy->token;
 	if (to_copy->token == OPERATOR || to_copy->token == OUT_FILE_APPEND || to_copy->token == OUT_FILE_TRUNC
-		|| to_copy->token == IN_FILE_TRUNC || to_copy->token == OPERATOR || to_copy->token == CMD_NAME)
+		|| to_copy->token == IN_FILE_TRUNC || to_copy->token == CMD_NAME)
 		res->value = ft_strdup((char *)to_copy->value);
 	else
 		res->value = to_copy->value;

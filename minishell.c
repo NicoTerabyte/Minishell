@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessiolongo <alessiolongo@student.42.f    +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/09/07 18:00:37 by alessiolong      ###   ########.fr       */
+/*   Updated: 2023/09/08 19:22:41 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ void	free_tree(t_tree *tree)
 
 	if (!tree)
 		return ;
-
 	if (tree->type == PARENTHESI)
 	{
 		par = (t_parenthesis *)tree->content;
@@ -144,7 +143,6 @@ void	free_tree(t_tree *tree)
 
 void	ft_free_all(t_token *token_lst, t_tree *tree)
 {
-	(void)tree;
 	free_tokens(token_lst);
 	free_tree(tree);
 }
@@ -217,7 +215,7 @@ void	signal_handler(int signum)
 	{
 		last_exit_status_cmd = EXIT_FAILURE;
 		printf("\n");
-		// rl_replace_line("", 0);
+		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 	}
@@ -231,6 +229,24 @@ void	ign(int signum)
 	{
 		;
 	}
+}
+
+void	*var_container(t_token *token_lst, t_tree *tree, int op)
+{
+	static t_token *this_token_lst;
+	static t_tree *this_tree;
+
+	if (op == SET)
+	{
+		this_token_lst = token_lst;
+		this_tree = tree;
+		return (NULL);
+	}
+	else if (op == GET_TREE)
+		return (this_tree);
+	else if (op == GET_TOKENS)
+		return (this_token_lst);
+	return (NULL);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -250,50 +266,47 @@ int	main(int argc, char **argv, char **envp)
 	token_list = NULL;
 	while (1)
 	{
-		while (1)
+		unlink_here_docs(handle_list_heredocs(LIST));
+		handle_list_heredocs(START);
+		signal(SIGINT, signal_handler);
+		signal(SIGTERM, signal_handler);
+		path = mini();
+		str = readline(path);
+		free(path);
+		if (str == NULL)
 		{
-			unlink_here_docs(handle_list_heredocs(LIST));
-			handle_list_heredocs(START);
-			signal(SIGINT, signal_handler);
-			signal(SIGTERM, signal_handler);
-			path = mini();
-			str = readline(path);
-			free(path);
-			if (str == NULL)
-			{
-				printf("\n");
-				free(str);
-				exit(0);
-			}
-			add_history(str);
-			fixed = fix_syntax(str);
-			if (!check(fixed))
-			{
-				free(fixed);
-				free(str);
-				if (last_exit_status_cmd == 130)
-					break ;
-				printf("Syntax error\n");
-				last_exit_status_cmd = 2;
-				break;
-			}
-			splitcmd = ft_split(fixed, ' ');
-			free(fixed);
-			token_list = tokenizer(splitcmd);
-			// print_tokens(token_list);
-			if (token_list)
-				while (token_list->next)
-					token_list = token_list->next;
-			tree = tree_create(token_list, OP);
-			// printTree(tree, 0, "ROOT");
-			execute(tree, STDIN_FILENO, STDOUT_FILENO);
-			if (token_list)
-				while (token_list->prev)
-					token_list = token_list->prev;
-			// printf("%d\n", last_exit_status_cmd);
-			free_matrix(splitcmd);
-			ft_free_all(token_list, tree);
+			printf("\n");
 			free(str);
+			exit(0);
 		}
+		add_history(str);
+		fixed = fix_syntax(str);
+		free(str);
+		if (!check(fixed))
+		{
+			free(fixed);
+			if (last_exit_status_cmd == 130)
+				continue ;
+			printf("Syntax error\n");
+			last_exit_status_cmd = 2;
+			continue ;
+		}
+		splitcmd = ft_split(fixed, ' ');
+		free(fixed);
+		token_list = tokenizer(splitcmd);
+		if (token_list)
+			while (token_list->next)
+				token_list = token_list->next;
+		tree = tree_create(token_list, OP);
+		// free_matrix(splitcmd);
+		// free_tokens(token_list);
+		if (token_list)
+			while (token_list->prev)
+				token_list = token_list->prev;
+		var_container(token_list, tree, SET);
+		execute(tree, STDIN_FILENO, STDOUT_FILENO);
+		// free_tree(tree);
+		free_matrix(splitcmd);
+		ft_free_all(token_list, tree);
 	}
 }

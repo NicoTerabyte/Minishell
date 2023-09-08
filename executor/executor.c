@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessiolongo <alessiolongo@student.42.f    +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/09/07 20:41:39 by alessiolong      ###   ########.fr       */
+/*   Updated: 2023/09/08 18:33:31 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,69 +282,74 @@ int	is_builtin_command(t_tree *root)
 // 		ft_unset(env->value);
 // }
 
-// void	execute_builtin_cmd(t_cmd *cmd)
-// {
-// 	if (ft_strcmp(cmd->cmd_name->value, "echo") == 0)
-// 		ft_echo(cmd->cmd_arg->value);
+void	execute_builtin_cmd(t_cmd *cmd)
+{
+	char	**args;
+
+	if (cmd->cmd_arg)
+		args = cmd->cmd_arg->value;
+	else
+		args = NULL;
+	// if (ft_strcmp(cmd->cmd_name->value, "echo") == 0)
+	// 	ft_echo(args);
 	// if (ft_strcmp(cmd->cmd_name->value, "cd") == 0)
-// 		ft_cd(cmd->cmd_arg->value);
-// 	if (ft_strcmp(cmd->cmd_name->value, "pwd") == 0)
-// 		ft_pwd(cmd->cmd_arg->value);
-// 	if (ft_strcmp(cmd->cmd_name->value, "exit") == 0)
-// 		ft_exit(cmd->cmd_arg->value);
-// 	if (ft_strcmp(cmd->cmd_name->value, "env") == 0)
-// 		ft_env();
-// }
+	// 	ft_cd(args);
+	// if (ft_strcmp(cmd->cmd_name->value, "pwd") == 0)
+	// 	ft_pwd(args);
+	if (ft_strcmp(cmd->cmd_name->value, "exit") == 0)
+		ft_exit(args);
+	// if (ft_strcmp(cmd->cmd_name->value, "env") == 0)
+	// 	ft_env();
+}
 
-// void	execute_builtin(t_tree *tree, int curr_in, int curr_out)
-// {
+void	execute_builtin(t_tree *tree, int curr_in, int curr_out)
+{
 
-// 	t_simple_cmd	*simple_cmd;
-// 	t_token			*redir_list;
-// 	int				starting_in;
-// 	int				starting_out;
+	t_simple_cmd	*simple_cmd;
+	t_token			*redir_list;
+	int				starting_in;
+	int				starting_out;
 
-// 	if (!tree)
-// 		return ;
-// 	starting_in = curr_in;
-// 	starting_out = curr_out;
-// 	simple_cmd = (t_simple_cmd	*)tree->content;
-// 	if (simple_cmd->redir_list != NULL)
-// 	{
-// 		redir_list = (t_token *)simple_cmd->redir_list;
-// 		if (have_inputs(redir_list))
-// 			if (execute_redirections_input(redir_list, curr_in))
-// 				exit (1);
-// 	}
-// 	else
-// 		dup_std_fd(curr_in, STDIN_FILENO);
-// 	if (simple_cmd->redir_list != NULL)
-// 	{
-// 		redir_list = (t_token *)simple_cmd->redir_list;
-// 		if (have_outputs(redir_list))
-// 			if (execute_redirections_output(redir_list, curr_out))
-// 				exit (1);
-// 	}
-// 	else
-// 		dup_std_fd(curr_out, STDOUT_FILENO);
-// 	if (simple_cmd->cmd == NULL)
-// 	{
-// 		if (simple_cmd->env != NULL)
-// 			execute_builtin_env(simple_cmd->env);
-// 	}
-// 	else
-// 		execute_builtin_cmd(simple_cmd->cmd);
-// 	dup_std_fd(starting_in, STDIN_FILENO);
-// 	dup_std_fd(starting_out, STDOUT_FILENO);
-// }
+	if (!tree)
+		return ;
+	starting_in = curr_in;
+	starting_out = curr_out;
+	simple_cmd = (t_simple_cmd	*)tree->content;
+	if (simple_cmd->redir_list != NULL)
+	{
+		redir_list = (t_token *)simple_cmd->redir_list;
+		if (have_inputs(redir_list))
+			if (execute_redirections_input(redir_list, curr_in))
+				exit (1);
+	}
+	else
+		dup_std_fd(curr_in, STDIN_FILENO);
+	if (simple_cmd->redir_list != NULL)
+	{
+		redir_list = (t_token *)simple_cmd->redir_list;
+		if (have_outputs(redir_list))
+			if (execute_redirections_output(redir_list, curr_out))
+				exit (1);
+	}
+	else
+		dup_std_fd(curr_out, STDOUT_FILENO);
+	// if (simple_cmd->cmd == NULL)
+	// {
+	// 	if (simple_cmd->env != NULL)
+	// 		execute_builtin_env(simple_cmd->env);
+	// }
+	// else
+		execute_builtin_cmd(simple_cmd->cmd);
+	dup_std_fd(starting_in, STDIN_FILENO);
+	dup_std_fd(starting_out, STDOUT_FILENO);
+}
 
 void	execute_simple_cmd(t_tree *tree, int curr_in, int curr_out)
 {
 	if (!tree)
 		return ;
 	if (is_builtin_command(tree))
-		// execute_builtin(tree, curr_in, curr_out);
-		;
+		execute_builtin(tree, curr_in, curr_out);
 	else
 		process_integrated(tree, curr_in, curr_out);
 }
@@ -391,7 +396,7 @@ void	execute_and_op(t_tree *tree, int curr_in, int curr_out)
 		return ;
 	execute(tree->left, curr_in, curr_out);
 	if (last_exit_status_cmd == 0)
-		execute(tree->right, curr_in, curr_in);
+		execute(tree->right, curr_in, curr_out);
 }
 
 void	execute_or_op(t_tree *tree, int curr_in, int curr_out)

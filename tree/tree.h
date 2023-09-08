@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 14:19:48 by mlongo            #+#    #+#             */
-/*   Updated: 2023/09/04 17:38:16 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/08 17:42:31 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ t_token			*skip_forward_parenthesis(t_token *token_lst);
 t_token			*copy_tok(t_token *to_copy);
 t_simple_cmd	*simple_cmd_redirections(t_token *token_lst);
 void			simple_cmd(t_token *token_lst, t_simple_cmd *simple_cmd);
+void			free_tokens(t_token *token_lst);
 
 #endif
