@@ -6,7 +6,7 @@
 /*   By: alessiolongo <alessiolongo@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/09/07 19:00:27 by alessiolong      ###   ########.fr       */
+/*   Updated: 2023/09/07 20:41:39 by alessiolong      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,7 +260,7 @@ int	is_builtin_command(t_tree *root)
 				return (0);
 			return (1);
 		}
-		simple_name = (char *)simple_cmd->cmd->cmd_name;
+		simple_name = (char *)simple_cmd->cmd->cmd_name->value;
 		if (0 == ft_strcmp(simple_name, "cd")
 			|| 0 == ft_strcmp(simple_name, "exit")
 			|| 0 == ft_strcmp(simple_name, "echo")
@@ -274,44 +274,69 @@ int	is_builtin_command(t_tree *root)
 	return (0);
 }
 
-void	execute_builtin(t_tree *tree, int curr_in, int curr_out)
-{
+// void	execute_builtin_env(t_token *env)
+// {
+// 	if (env->token == ENV_VAR_DECL)
+// 		ft_export(env->value);
+// 	if (env->token == ENV_VAR_UNSET)
+// 		ft_unset(env->value);
+// }
 
-	t_simple_cmd	*simple_cmd;
-	t_token			*redir_list;
-	int				starting_in;
-	int				starting_out;
+// void	execute_builtin_cmd(t_cmd *cmd)
+// {
+// 	if (ft_strcmp(cmd->cmd_name->value, "echo") == 0)
+// 		ft_echo(cmd->cmd_arg->value);
+	// if (ft_strcmp(cmd->cmd_name->value, "cd") == 0)
+// 		ft_cd(cmd->cmd_arg->value);
+// 	if (ft_strcmp(cmd->cmd_name->value, "pwd") == 0)
+// 		ft_pwd(cmd->cmd_arg->value);
+// 	if (ft_strcmp(cmd->cmd_name->value, "exit") == 0)
+// 		ft_exit(cmd->cmd_arg->value);
+// 	if (ft_strcmp(cmd->cmd_name->value, "env") == 0)
+// 		ft_env();
+// }
 
-	if (!tree)
-		return ;
-	starting_in = curr_in;
-	starting_out = curr_out;
-	simple_cmd = (t_simple_cmd	*)tree->content;
-	if (simple_cmd->redir_list != NULL)
-	{
-		redir_list = (t_token *)simple_cmd->redir_list;
-		if (have_inputs(redir_list))
-			if (execute_redirections_input(redir_list, curr_in))
-				exit (1);
-	}
-	else
-		dup_std_fd(curr_in, STDIN_FILENO);
-	if (simple_cmd->redir_list != NULL)
-	{
-		redir_list = (t_token *)simple_cmd->redir_list;
-		if (have_outputs(redir_list))
-			if (execute_redirections_output(redir_list, curr_out))
-				exit (1);
-	}
-	else
-		dup_std_fd(curr_out, STDOUT_FILENO);
-	if (simple_cmd->cmd == NULL)
-		exit (0);
-	else
-		execute_builtin(simple_cmd);
-	dup_std_fd(starting_in, STDIN_FILENO);
-	dup_std_fd(starting_out, STDOUT_FILENO);
-}
+// void	execute_builtin(t_tree *tree, int curr_in, int curr_out)
+// {
+
+// 	t_simple_cmd	*simple_cmd;
+// 	t_token			*redir_list;
+// 	int				starting_in;
+// 	int				starting_out;
+
+// 	if (!tree)
+// 		return ;
+// 	starting_in = curr_in;
+// 	starting_out = curr_out;
+// 	simple_cmd = (t_simple_cmd	*)tree->content;
+// 	if (simple_cmd->redir_list != NULL)
+// 	{
+// 		redir_list = (t_token *)simple_cmd->redir_list;
+// 		if (have_inputs(redir_list))
+// 			if (execute_redirections_input(redir_list, curr_in))
+// 				exit (1);
+// 	}
+// 	else
+// 		dup_std_fd(curr_in, STDIN_FILENO);
+// 	if (simple_cmd->redir_list != NULL)
+// 	{
+// 		redir_list = (t_token *)simple_cmd->redir_list;
+// 		if (have_outputs(redir_list))
+// 			if (execute_redirections_output(redir_list, curr_out))
+// 				exit (1);
+// 	}
+// 	else
+// 		dup_std_fd(curr_out, STDOUT_FILENO);
+// 	if (simple_cmd->cmd == NULL)
+// 	{
+// 		if (simple_cmd->env != NULL)
+// 			execute_builtin_env(simple_cmd->env);
+// 	}
+// 	else
+// 		execute_builtin_cmd(simple_cmd->cmd);
+// 	dup_std_fd(starting_in, STDIN_FILENO);
+// 	dup_std_fd(starting_out, STDOUT_FILENO);
+// }
 
 void	execute_simple_cmd(t_tree *tree, int curr_in, int curr_out)
 {
