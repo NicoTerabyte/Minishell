@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/08 13:06:59 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/08 22:11:09 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,20 @@ int is_wildcard(t_data *shell_data, char *input)
 	return 0;
 }
 
+char *extension(t_data *shell_data, char *wildstring){
+	getcwd
+}
+
+char *filename(t_data *shell_data, char *wildstring){
+
+}
+
+
+char *partial(t_data *shell_data, char *wildstring){
+
+}
+
+
 char *translate_exp(t_data *shell_data, char *input){
 
 	char *wildstring = malloc(strlen(input) + 1);
@@ -33,15 +47,15 @@ char *translate_exp(t_data *shell_data, char *input){
 			if(input[i] == '.'){
 				while(ft_isalpha(input[i]))
 					wildstring[x++] = input[i++];
-				return extension();
+				return extension(shell_data, wildstring);
 			}else if(ft_isalpha(input[i]))
 			{
 				while(ft_isalpha(input[i]) || input[i] == '*'){
 					if(input[i] == '*')
-						return partial();
+						return partial(shell_data, wildstring);
 					wildstring[x++] = input[i++];
 				}
-				return filename();
+				return filename(shell_data, wildstring);
 			}
 		}
 	}
