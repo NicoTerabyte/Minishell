@@ -6,7 +6,7 @@
 #    By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/01 14:36:32 by fcarlucc          #+#    #+#              #
-#    Updated: 2023/08/09 22:05:33 by lnicoter         ###   ########.fr        #
+#    Updated: 2023/08/24 15:53:01 by lnicoter         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRC = $(wildcard *.c)\
 
 OBJ = $(SRC:.c=.o)
 
-FLAGS = 
+FLAGS = -g
 
 LIBFT_PATH = ./libft
 
@@ -53,3 +53,6 @@ fclean: clean
 	@echo "$(RED)all deleted!$(DEFAULT)"
 
 re: clean fclean all
+
+error:
+	@sl

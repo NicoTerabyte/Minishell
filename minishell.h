@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/08/18 14:57:22 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/08/24 15:48:53 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <time.h>
 # include "./libft/libft.h"
 # define AND 0
 # define OR 1
@@ -75,6 +76,9 @@ void	insert_declaration(t_declaration **list, int concatenation, const char *nam
 void	print_list(t_declaration *list);
 void	arguments_separation(char **command_line, int conc, t_declaration **identity);
 void	add_env(t_data *shell_data, t_declaration **values);
-void	super_strjoin(t_data *shell_data, t_declaration *values);
+char	*super_strjoin(t_data *shell_data, t_declaration *values);
 // void	insert_in_env(t_data shell_data, char *final_string, t_declaration *values);
+void	init_structs(t_declaration	**identity, t_data **shell_data, char **envp);
+void	env_adding(char *final_string, t_data *shell_data);
+
 #endif

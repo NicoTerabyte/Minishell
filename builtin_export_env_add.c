@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 23:38:43 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/08/18 15:47:14 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/09 16:20:04 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,37 +34,69 @@ e che gli aggiunga le "" all'inizio e alla fine
 10. commmentare se necessario
 */
 
-// void	insert_in_env(t_data *shell_data, char *final_string, t_declaration *values)
-// {
-// 	//ft_strjoin
-// }
+void	env_adding(char *final_string, t_data *shell_data)
+{
+	size_t	new_size;
+	size_t	i;
 
-void	super_strjoin(t_data *shell_data, t_declaration *values)
+	new_size = env_rows(shell_data) + 1;
+	printf("realloc\n");
+	shell_data->copy_env = ft_realloc(shell_data->copy_env, new_size * sizeof(char *));
+	shell_data->copy_env[new_size - 1] = ft_strdup(final_string);  // Assicurati che final_string sia allocato
+	shell_data->copy_env[new_size] = 0;
+	i = -1;
+	while (++i < new_size)
+	{
+		printf("contenuto realloccato %s\n", shell_data->copy_env[i]);
+		printf("total %zu\n\n", i);
+	}
+}
+
+int	overwrite(t_data *shell_data, t_declaration *values) //funzione concatena la stringa nel caso ci fosse il +=
+{
+
+}
+
+
+char	*super_strjoin(t_data *shell_data, t_declaration *values) //bocciata....
 {
 	char			*final_string;
 	int				i;
 	t_declaration	*current;
 
+	printf("malloc della stringa\n");
 	final_string = malloc(ft_strlen(values->name) * sizeof(char));
 	ft_strlcpy(final_string, values->name, ft_strlen(values->name) + 1);
 	current = values;
 	i = 0;
+	printf("serie di strjoin per creare il valore da inserire in env\n");
 	if (values->value)
 	{
 		if (values->concatenation == 1)
-			final_string = ft_strjoin(final_string, "+=");
+			final_string = ft_strjoin(final_string, "=");
 		else
 			final_string = ft_strjoin(final_string, "=");
 		final_string = ft_strjoin(final_string, "\"");
 		final_string = ft_strjoin(final_string, values->value);
 		final_string = ft_strjoin(final_string, "\"");
 	}
-	current = values;
-	printf("test %s\n", final_string);
+	values = current;
+	return (final_string);
 }
 
 void	add_env(t_data *shell_data, t_declaration **values)
 {
-	super_strjoin(shell_data, *values);
-	printf("test %s\n", final_string);
+	char			*final_string;
+	t_declaration	*head;
+	int	i;
+
+	i = 0;
+	printf("richiamo della funzione superstrjoin\n");
+	final_string = super_strjoin(shell_data, *values);
+	printf("la superstringa %s\n", final_string);
+	env_adding(final_string, shell_data);
+	*values = (*values)->next;
+	printf("free della stringa\n");
+	free(final_string);
+	*values = head;
 }

@@ -6,18 +6,19 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 20:30:03 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/08/18 15:00:40 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/08/25 19:54:07 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void insert_declaration(t_declaration **list, int concatenation, const char *name, const char *value)
+void	insert_declaration(t_declaration **list, int concatenation, const char *name, const char *value)
 {
 	t_declaration *new_declaration = malloc(sizeof(t_declaration));
 	if (!new_declaration)
 	{
 		perror("Memory allocation failed");
+		free(new_declaration);
 		exit(EXIT_FAILURE);
 	}
 	new_declaration->concatenation = concatenation;
@@ -27,7 +28,6 @@ void insert_declaration(t_declaration **list, int concatenation, const char *nam
 	else
 		new_declaration->value = NULL;
 	new_declaration->next = *list;
-
 	*list = new_declaration;
 }
 
@@ -75,6 +75,7 @@ void	arguments_separation(char **command_line, int conc, t_declaration **identit
 	{
 		if (put_arguments_in_list(*identity, command_line[i]) == 1)
 		{
+			printf("split\n");
 			separated_args = ft_split(command_line[i], '=');
 			if (ft_strchr(separated_args[0], '+'))
 			{
@@ -86,8 +87,10 @@ void	arguments_separation(char **command_line, int conc, t_declaration **identit
 					plus_finder++;
 				}
 			}
+			printf("richiamo della funzione insert_declaration\n");
 			insert_declaration(identity, conc, separated_args[0], separated_args[1]);
 		}
 	}
+	printf("free della matrice\n");
 	free_matrix(separated_args);
 }

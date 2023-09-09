@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:48:20 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/08/18 12:10:05 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/08/25 17:53:15 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ void	ft_export(char **command_line, t_data *shell_data, t_declaration *identity)
 	if (!command_line[1])
 		sort_and_print_export(shell_data);
 	else
+	{
 		arguments_separation(command_line, conc, &identity);
+		add_env(shell_data, &identity);
+	}
 	printf("in the original\n");
-	print_list(identity);
-	//adesso rielaboro il lavoro
-	add_env(shell_data, &identity);
 }

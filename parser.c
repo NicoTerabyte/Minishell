@@ -53,10 +53,6 @@ void	parser(char **splitcmd)
 			printf("WILDCARD ");
 		else if (strchr(splitcmd[i], '"'))
 		{
-			//da fixare
-			//legge anche una singola
-			//e se ne metti due attaccate stampa due volte
-			//manca il controllo generico degli spazi
 			if (strchr(&splitcmd[i][1], '"'))
 			{
 				printf("DOUBLE_QUOTES");
@@ -71,16 +67,12 @@ void	parser(char **splitcmd)
 			}
 			if (strchr(splitcmd[i], '\0'))
 			{
-				printf(" minishell: %s: command not found\n", splitcmd[i]);
+				printf("\033[1;33mminishell: %s: command not found\n", splitcmd[i]);
 				return ;
 			}
 		}
 		else if (strchr(splitcmd[i], '\''))
 		{
-			//controllo in caso di spazi
-			//da fixare
-			//legge anche una singola
-			//e se ne metti due attaccate stampa due volte
 			if (strchr(&splitcmd[i][1], '\''))
 			{
 				printf("SINGLE_QUOTES\n");

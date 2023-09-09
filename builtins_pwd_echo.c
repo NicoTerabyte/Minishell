@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 16:34:36 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/08/09 22:06:10 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/08/24 17:36:39 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,4 +103,5 @@ void	builtin_reader(char **command_line, t_data *shell_data, t_declaration *iden
 		ft_env(shell_data);
 	if (!ft_strcmp(command_line[0], "export"))
 		ft_export(command_line, shell_data, identity);
+	printf("tutto ok?\n");
 }
