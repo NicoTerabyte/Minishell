@@ -6,27 +6,25 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/12 17:04:45 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/12 18:29:52 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int is_wildcard(char *input)
+char *extension(t_data *shell_data, char *wildstring)
 {
-	while(*input){
-		if(*input == '*')
-			return 1;
-		input++;
-	}
-	return 0;
-}
-
-char *extension(t_data *shell_data, char *wildstring){
 	return wildstring;
 }
 
+//Searching Specific File with Filename and ‘*’
+	//‘ls’ command is used to find out the list of files and folders of the current directory.
+	//‘ls a*’ command will search and print all filenames of the current directory that
+	//starts with the character, ‘a’.
+
+
 char *filename(t_data *shell_data, char *wildstring){
+
 	return wildstring;
 }
 
@@ -37,10 +35,7 @@ char *partial(t_data *shell_data, char *wildstring){
 
 
 
-//Searching Specific File with Filename and ‘*’
-	//‘ls’ command is used to find out the list of files and folders of the current directory.
-	//‘ls a*’ command will search and print all filenames of the current directory that
-	//starts with the character, ‘a’.
+
 
 //Searching File with Particular Extension and ‘*’
 	//You can search any file by using the asterisk (*) and the file extension.

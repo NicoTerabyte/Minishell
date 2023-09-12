@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/12 16:57:52 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/12 18:19:12 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ char *translate_exp(t_data *shell_data, char *input)
 	char *value_start;
 
 	ret_index = 0;
-	if(is_wildcard(input)){
+	if(is_wildcard(input))
+	{
+		shell_data->dir_list = matrix_dir(shell_data);
 		ret = translate_wild(shell_data, input);
 		return ret;
 	}
@@ -56,9 +58,9 @@ char *translate_exp(t_data *shell_data, char *input)
 		return ("ERRORE DI ALLOCAZIONE");
 	while (*input)
 	{
-		if(*input == 39){
+		if(*input == 39)
 			input = handle_single_quote(input, &ret, &ret_index);
-		}else if (*input == '$' && *(input + 1) && ft_isalpha(*(input + 1)))
+		else if (*input == '$' && *(input + 1) && ft_isalpha(*(input + 1)))
 		{
 			input++;
 			var_index = 0; // Indice per la posizione corrente nel nome della variabile

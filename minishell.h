@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/09/12 15:27:04 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/12 18:30:06 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <string.h>
+# include <dirent.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "./libft/libft.h"
@@ -39,6 +40,7 @@ typedef struct s_data
 	char	*path;
 	char	*old_path;
 	char	**copy_env;
+	char	**dir_list;
 } t_data;
 
 typedef struct s_declaration
