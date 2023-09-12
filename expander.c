@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/08 11:45:31 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/12 16:57:52 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ char *translate_exp(t_data *shell_data, char *input)
 {
 	int i = 0;
 	int var_index;
-	char *ret = malloc(strlen(input) + 1);
+	char *ret = malloc(ft_strlen(input) + 1);
 	int ret_index; // Indice per la posizione corrente nell'output
 	char var[100];	   // Array temporaneo per memorizzare il nome della variabile
 	char *value_start;
 
 	ret_index = 0;
-	if(is_wildcard(input) == 1){
+	if(is_wildcard(input)){
 		ret = translate_wild(shell_data, input);
 		return ret;
 	}
@@ -112,28 +112,3 @@ char *translate_exp(t_data *shell_data, char *input)
 	ret[ret_index] = '\0'; // Termina la stringa di output
 	return ret;
 }
-
-int is_wildcard(t_data *shell_data, char *input)
-{
-	while(*input){
-		if(*input == '*')
-			return 1;
-	}
-	return 0;
-}
-
-void
-//Searching Specific File with Filename and ‘*’
-	//‘ls’ command is used to find out the list of files and folders of the current directory.
-	//‘ls a*’ command will search and print all filenames of the current directory that
-	//starts with the character, ‘a’.
-
-//Searching File with Particular Extension and ‘*’
-	//You can search any file by using the asterisk (*) and the file extension.
-	//If you want to search all files with the ‘.txt’ extension from the current directory
-	//then run the following command from the terminal. Here, the filename can be any
-	//character(s) and any number of characters.
-
-//Removing File by Partial Match and ‘*’
-	//You can use the asterisk (*) for matching any filename partially. The following command
-	//will remove the file which contains the ‘test’ word in any part of the filename.
