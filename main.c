@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/09/09 17:16:47 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/09 18:41:45 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,20 @@ int	main(int argc, char **argv, char **envp)
 
 	i = 0;
 	init_structs(&identity, &shell_data, envp);
+	if (shell_data->copy_env == NULL)
+	{
+		printf("la morte\n");
+		return (0);
+	}
 	(void)argc;
 	(void)argv;
 	while (1)
 	{
+		if (shell_data->copy_env == NULL)
+		{
+			printf("la morte\n");
+			return (0);
+		}
 		i = 0;
 		str = readline("minishell> ");
 		add_history(str);
