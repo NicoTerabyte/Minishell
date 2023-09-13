@@ -44,7 +44,7 @@ void	parser(char **splitcmd)
 	i = 0;
 	expected_cmd_name = 1;
 	expected_cmd_arg = 0;
-	printf("valore letto stringa %s\n", *splitcmd);
+		printf("valore letto stringa %s\n", *splitcmd);
 	while (splitcmd[i])
 	{
 		if (strchr(splitcmd[i], '=') && ft_isalpha(splitcmd[i][0]))

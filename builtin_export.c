@@ -90,6 +90,7 @@ void	ft_export(char **command_line, t_data *shell_data, t_declaration *identity)
 	{
 		arguments_separation(command_line, conc, &identity);
 		add_env(shell_data, &identity);
+		//puppamelo(identity);
 	}
 	printf("in the original\n");
 }

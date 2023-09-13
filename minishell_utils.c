@@ -83,21 +83,29 @@ int	env_rows(t_data *shell_data)
 	return (size);
 }
 
-void	init_structs(t_declaration	**identity, t_data **shell_data, char **envp)
+void	init_structs(t_data **shell_data, char **envp)
 {
 
-	*identity = (t_declaration *)malloc(sizeof(t_declaration));
+	//*identity = (t_declaration *)malloc(sizeof(t_declaration));
 	*shell_data = (t_data *)malloc(sizeof(t_data));
-	if (!*identity || !*shell_data)
+	if (!*shell_data)
 	{
-		free(*identity);
+		//free(identity);
 		free(*shell_data);
 		exit(0);
 	}
 	if(!copy_env(envp, *shell_data))
 	{
-		free(*identity);
+		//free(*identity);
 		free(*shell_data);
 		exit(0);
 	}
+}
+
+void	puppamelo(t_declaration *lnico)
+{
+	if (lnico)
+		puppamelo(lnico->next);
+	free(lnico);
+	printf("si stat liberat\n");
 }

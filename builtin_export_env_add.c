@@ -40,16 +40,9 @@ void	env_adding(char *final_string, t_data *shell_data)
 	size_t	i;
 
 	new_size = env_rows(shell_data) + 1;
-	printf("realloc\n");
-	shell_data->copy_env = ft_realloc(shell_data->copy_env, new_size * sizeof(char *));
+	shell_data->copy_env = realloc(shell_data->copy_env, (new_size + 1) * sizeof(char *));
 	shell_data->copy_env[new_size - 1] = ft_strdup(final_string);  // Assicurati che final_string sia allocato
 	shell_data->copy_env[new_size] = 0;
-	i = -1;
-	while (++i < new_size)
-	{
-		printf("contenuto realloccato %s\n", shell_data->copy_env[i]);
-		printf("total %zu\n\n", i);
-	}
 }
 
 int	overwrite(t_data *shell_data, t_declaration *values) //funzione concatena la stringa nel caso ci fosse il +=
@@ -58,18 +51,16 @@ int	overwrite(t_data *shell_data, t_declaration *values) //funzione concatena la
 }
 
 
-char	*super_strjoin(t_data *shell_data, t_declaration *values) //bocciata....
+char	*super_strjoin(t_data *shell_data, t_declaration *values)
 {
 	char			*final_string;
 	int				i;
 	t_declaration	*current;
 
-	printf("malloc della stringa\n");
-	final_string = malloc(ft_strlen(values->name) * sizeof(char));
+	final_string = malloc(ft_strlen(values->name) + 1 * sizeof(char));
 	ft_strlcpy(final_string, values->name, ft_strlen(values->name) + 1);
 	current = values;
 	i = 0;
-	printf("serie di strjoin per creare il valore da inserire in env\n");
 	if (values->value)
 	{
 		if (values->concatenation == 1)
@@ -88,15 +79,13 @@ void	add_env(t_data *shell_data, t_declaration **values)
 {
 	char			*final_string;
 	t_declaration	*head;
-	int	i;
+	int				i;
 
 	i = 0;
-	printf("richiamo della funzione superstrjoin\n");
+
 	final_string = super_strjoin(shell_data, *values);
-	printf("la superstringa %s\n", final_string);
 	env_adding(final_string, shell_data);
 	*values = (*values)->next;
-	printf("free della stringa\n");
 	free(final_string);
 	*values = head;
 }

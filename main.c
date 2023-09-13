@@ -22,47 +22,24 @@ int	main(int argc, char **argv, char **envp)
 	int				i;
 
 	i = 0;
-	init_structs(&identity, &shell_data, envp);
-	if (shell_data->copy_env == NULL)
-	{
-		printf("la morte\n");
-		return (0);
-	}
+	init_structs(&shell_data, envp);
+
 	(void)argc;
 	(void)argv;
 	while (1)
 	{
-		if (shell_data->copy_env == NULL)
-		{
-			printf("la morte\n");
-			return (0);
-		}
-		i = 0;
+		identity = (t_declaration *)malloc(sizeof(t_declaration));
 		str = readline("minishell> ");
 		add_history(str);
-
+		splitcmd = ft_split(str, ' ');
 		//syntax = fix_syntax(str); //il fottuto problema!!!!
-		printf("check del readline\n");
-		if (str && *str)
-			splitcmd = ft_split(str, ' ');
-		else
-		{
-			printf("la morte incombe\n");
-			return (0);
-		}
-		while (str[i]) //dopo la quinta aggiunta l'errore si ferma qui
-		{
-			printf("%c\n", str[i]);
-			i++;
-		}
-		printf("input : %s \n", str);
 		parser(splitcmd);
 		builtin_reader(splitcmd, shell_data, identity);
 		free_matrix(splitcmd);
-		//free(syntax);
-		printf("Again\n");
+		puppamelo(identity);
 	}
 	//i free veri vanno fatti quando verrà implementato l'exit
 	//e i SEGNALI SOPRATUTTO
 	free_matrix(shell_data->copy_env);
 }
+

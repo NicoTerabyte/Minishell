@@ -22,13 +22,16 @@ void	insert_declaration(t_declaration **list, int concatenation, const char *nam
 		exit(EXIT_FAILURE);
 	}
 	new_declaration->concatenation = concatenation;
-	new_declaration->name = strdup(name);
+	new_declaration->name = ft_strdup(name);
 	if (value)
-		new_declaration->value = strdup(value);
+		new_declaration->value = ft_strdup(value);
 	else
 		new_declaration->value = NULL;
 	new_declaration->next = *list;
 	*list = new_declaration;
+	free(new_declaration->name);
+	free(new_declaration->value);
+	puppamelo(new_declaration);
 }
 
 //in realtà questo mi serve a simulare la cosa che fa manu

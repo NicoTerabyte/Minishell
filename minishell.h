@@ -78,7 +78,7 @@ void	arguments_separation(char **command_line, int conc, t_declaration **identit
 void	add_env(t_data *shell_data, t_declaration **values);
 char	*super_strjoin(t_data *shell_data, t_declaration *values);
 // void	insert_in_env(t_data shell_data, char *final_string, t_declaration *values);
-void	init_structs(t_declaration	**identity, t_data **shell_data, char **envp);
+void	init_structs(t_data **shell_data, char **envp);
 void	env_adding(char *final_string, t_data *shell_data);
-
+void	puppamelo(t_declaration *lnico);
 #endif
