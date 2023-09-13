@@ -1,7 +1,0 @@
-
-Handle environment variables ($ followed by a sequence of characters) which
-should expand to their values.
-
-
-• Handle ’ (single quote) which should prevent the shell from interpreting the metacharacters in the quoted sequence.
-• Handle " (double quote) which should prevent the shell from interpreting the metacharacters in the quoted sequence except for $ (dollar sign).
