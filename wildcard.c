@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/13 17:27:06 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/13 18:19:51 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@
 	//If you want to search all files with the ‘.txt’ extension from the current directory
 	//then run the following command from the terminal. Here, the filename can be any
 	//character(s) and any number of characters.
+
 char	*extension(t_data *shell_data, char *wildstring)
 {
-	shell_data->dir_list
+	char *ret;
+	ret = malloc(mcharnum(shell_data->dir_list) * sizeof(char));
 	return (wildstring);
 }
 
@@ -27,16 +29,22 @@ char	*extension(t_data *shell_data, char *wildstring)
 	//‘ls’ command is used to find out the list of files and folders of the current directory.
 	//‘ls a*’ command will search and print all filenames of the current directory that
 	//starts with the character, ‘a’.
+
 char	*filename(t_data *shell_data, char *wildstring)
 {
+	char *ret;
+	ret = malloc(mcharnum(shell_data->dir_list) * sizeof(char));
 	return (wildstring);
 }
 
 //Removing File by Partial Match and ‘*’
 	//You can use the asterisk (*) for matching any filename partially. The following command
 	//will remove the file which contains the ‘test’ word in any part of the filename.
+
 char	*partial(t_data *shell_data, char *wildstring)
 {
+	char *ret;
+	ret = malloc(mcharnum(shell_data->dir_list) * sizeof(char));
 	return (wildstring);
 }
 

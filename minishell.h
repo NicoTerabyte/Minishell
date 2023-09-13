@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/09/13 15:02:07 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/13 17:58:14 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,6 @@ void	super_strjoin(t_data *shell_data, t_declaration *values);
 char	*translate_exp(t_data *shell_data, char *input);
 char	*translate_wild(t_data *shell_data, char *input);
 int		is_wildcard(char *input);
-char **matrix_dir(t_data *shell_data);
+char	**matrix_dir(t_data *shell_data);
+int		mcharnum(char** matrice);
 #endif
