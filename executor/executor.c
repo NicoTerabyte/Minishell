@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/09/08 18:33:31 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/13 18:52:03 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -369,14 +369,14 @@ void	execute_pipe_op(t_tree *root, int curr_in, int curr_out)
 		execute(root->left, curr_in, piping[1]);
 		exit(last_exit_status_cmd);
 	}
-	waitpid(pid_left, &exit_status, 0);
-	last_exit_status_cmd = WEXITSTATUS(exit_status);
-	if (last_exit_status_cmd == 130 || last_exit_status_cmd == 131)
-	{
-		close(piping[0]);
-		close(piping[1]);
-		return ;
-	}
+	// waitpid(pid_left, &exit_status, 0);
+	// last_exit_status_cmd = WEXITSTATUS(exit_status);
+	// if (last_exit_status_cmd == 130 || last_exit_status_cmd == 131)
+	// {
+	// 	close(piping[0]);
+	// 	close(piping[1]);
+	// 	return ;
+	// }
 	pid_right = fork();
 	if (!pid_right)
 	{
@@ -386,6 +386,7 @@ void	execute_pipe_op(t_tree *root, int curr_in, int curr_out)
 	}
 	close(piping[0]);
 	close(piping[1]);
+	waitpid(pid_left, &exit_status, 0);
 	waitpid(pid_right, &exit_status, 0);
 	last_exit_status_cmd = WEXITSTATUS(exit_status);
 }

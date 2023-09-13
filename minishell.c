@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/09/08 19:22:41 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/13 18:44:56 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,6 +268,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		unlink_here_docs(handle_list_heredocs(LIST));
 		handle_list_heredocs(START);
+		signal(SIGQUIT, ign);
 		signal(SIGINT, signal_handler);
 		signal(SIGTERM, signal_handler);
 		path = mini();
