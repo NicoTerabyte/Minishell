@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/13 18:19:51 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/14 16:21:16 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,26 @@ char	*filename(t_data *shell_data, char *wildstring)
 	return (wildstring);
 }
 
-//Removing File by Partial Match and ‘*’
 	//You can use the asterisk (*) for matching any filename partially. The following command
 	//will remove the file which contains the ‘test’ word in any part of the filename.
 
 char	*partial(t_data *shell_data, char *wildstring)
 {
+	int i;
 	char *ret;
+
+	i = 0;
 	ret = malloc(mcharnum(shell_data->dir_list) * sizeof(char));
-	return (wildstring);
+	while (shell_data->dir_list[i] != NULL)
+	{
+		if(shell_data->dir_list[i][0] != '.')
+		{
+		if (ft_strnstr(shell_data->dir_list[i], wildstring, strlen(shell_data->dir_list[i])) != NULL)
+			ret = ft_strjoin_wild(ret,shell_data->dir_list[i]);
+		i++;
+		}
+	}
+	return (ret);
 }
 
 char	*translate_wild(t_data *shell_data, char *input){

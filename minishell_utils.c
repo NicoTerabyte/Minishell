@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:46:34 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/08/17 17:56:24 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/14 16:45:38 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,22 @@ int	copy_env(char **env, t_data *mini_data)
 	i = 0;
 	while (env[env_size])
 		env_size++;
-	mini_data->copy_env = (char **)malloc(env_size * sizeof(char *) + 1);
+
+	// Allocazione di spazio per env_size + 1 puntatori
+	mini_data->copy_env = (char **)malloc((env_size + 1) * sizeof(char *));
 	if (!mini_data->copy_env)
 	{
-		free(mini_data->copy_env);
-		return (0);
+		printf("Incombenza rilevata!!!\n");
+		return (0); // Non c'è bisogno di liberare la memoria qui
 	}
-	while (env[i])
+
+	while (i < env_size)
 	{
-		mini_data->copy_env[i] = env[i];
+		mini_data->copy_env[i] = ft_strdup(env[i]);
 		i++;
 	}
-	mini_data->copy_env[i] = env[i];
-	i++;
-	mini_data->copy_env[i] = 0;
+	mini_data->copy_env[i] = NULL; // Imposta l'ultimo puntatore a NULL
+
 	return (1);
 }
 

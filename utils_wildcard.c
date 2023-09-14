@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:52:51 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/13 16:27:30 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/14 16:31:53 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ char	**matrix_dir(t_data *shell_data)
 		dir_matrix[rows++] = entry->d_name;
 	}
 	dir_matrix[rows] = 0;
-	stampaMatrice(dir_matrix);
 	closedir(dir);
 	return (dir_matrix);
 }
