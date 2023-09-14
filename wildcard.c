@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/14 16:21:16 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/14 19:20:29 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 char	*extension(t_data *shell_data, char *wildstring)
 {
 	char *ret;
-	ret = malloc(mcharnum(shell_data->dir_list) * sizeof(char));
+	ret = malloc(mcharnum(shell_data) * sizeof(char));
 	return (wildstring);
 }
 
@@ -33,7 +33,7 @@ char	*extension(t_data *shell_data, char *wildstring)
 char	*filename(t_data *shell_data, char *wildstring)
 {
 	char *ret;
-	ret = malloc(mcharnum(shell_data->dir_list) * sizeof(char));
+	ret = malloc(mcharnum(shell_data) * sizeof(char));
 	return (wildstring);
 }
 
@@ -46,15 +46,16 @@ char	*partial(t_data *shell_data, char *wildstring)
 	char *ret;
 
 	i = 0;
-	ret = malloc(mcharnum(shell_data->dir_list) * sizeof(char));
+	ret = "";
 	while (shell_data->dir_list[i] != NULL)
 	{
 		if(shell_data->dir_list[i][0] != '.')
 		{
-		if (ft_strnstr(shell_data->dir_list[i], wildstring, strlen(shell_data->dir_list[i])) != NULL)
+		if (ft_strnstr(shell_data->dir_list[i], wildstring, strlen(shell_data->dir_list[i])) != NULL){
 			ret = ft_strjoin_wild(ret,shell_data->dir_list[i]);
-		i++;
 		}
+		}
+		i++;
 	}
 	return (ret);
 }
@@ -83,8 +84,10 @@ char	*translate_wild(t_data *shell_data, char *input){
 			}else if(ft_isalpha(input[i]))
 			{
 				while(ft_isalpha(input[i]) || input[i] == '*'){
-					if(input[i] == '*')
-						return (partial(shell_data, wildstring));
+					if(input[i] == '*'){
+						wildstring[x] = 0;
+						return partial(shell_data, wildstring);
+					}
 					wildstring[x++] = input[i++];
 				}
 				wildstring[x] = 0;

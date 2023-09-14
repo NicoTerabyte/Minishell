@@ -6,13 +6,13 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 17:23:26 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/14 16:28:45 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/14 19:31:28 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	mcharnum(char **matrice)
+int	mcharnum(t_data *shell_data)
 {
 	int	lenght;
 	int	num_s;
@@ -21,10 +21,9 @@ int	mcharnum(char **matrice)
 	lenght = 0;
 	num_s = 0;
 	i = 0;
-	printf("%s",matrice[i]);
-	while (matrice[i] != NULL)
+	while (shell_data->dir_list[i] != NULL)
 	{
-		lenght += strlen(matrice[i]);
+		lenght += ft_strlen(shell_data->dir_list[i]);
 		num_s++;
 		i++;
 	}
@@ -51,11 +50,32 @@ char	*ft_strjoin_wild(char const *s1, char const *s2)
 		res[i] = s1[i];
 		i++;
 	}
+	if(ft_strlen(s1) != 0)
+	{
 	res[i++] = ' ';
 	res[i++] = ' ';
+	}
 	j = 0;
 	while (j < ft_strlen(s2))
 		res[i++] = s2[j++];
 	res[i] = '\0';
 	return (res);
+}
+
+
+void stampaMatrice(char **matrice) {
+    if (matrice == NULL) {
+        printf("La matrice è vuota.\n");
+        return;
+    }
+    char **ptr = matrice;
+    while (*ptr != NULL) {
+        char *riga = *ptr;
+        while (*riga != '\0') {
+            printf("%c", *riga);
+            riga++;
+        }
+        printf("\n");
+        ptr++;
+    }
 }

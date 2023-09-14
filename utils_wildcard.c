@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:52:51 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/14 16:31:53 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/14 18:53:38 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,17 @@ char	**matrix_dir(t_data *shell_data)
 	DIR				*dir;
 
 	dir = opendir(current_dir());
+	if(!dir)
+		return NULL;
 	rows = matrix_dimension(shell_data);
 	dir_matrix = (char **) malloc((rows + 1) * sizeof(char *));
 	rows = 0;
-	entry = readdir(dir);
-	while (entry != NULL)
+	while ((entry = readdir(dir)) != NULL)
 	{
-		entry = readdir(dir);
-		dir_matrix[rows++] = entry->d_name;
+		dir_matrix[rows] = ft_strdup(entry->d_name);
+		rows++;
 	}
-	dir_matrix[rows] = 0;
+	dir_matrix[rows] = NULL;
 	closedir(dir);
 	return (dir_matrix);
 }

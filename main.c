@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/09/12 18:31:38 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/14 19:24:24 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		str = readline("\nminishell> ");
-		printf("input : %s \n", str);
-		printf("output: %s",translate_exp(shell_data,str));
+		printf("%s",translate_exp(shell_data,str));
 	}
 }
 
