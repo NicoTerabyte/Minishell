@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:48:20 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/08/25 17:53:15 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/15 19:01:54 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	sort_and_print_export(t_data *shell_data)
 //se inizia con una lettera e dopo ci sono valori non alfanumerici errore
 //ex: a123 va bene a@ non va bene
 //devo fare chiarezza e capire come poter definire gli argomenti uno ad uno
-void	ft_export(char **command_line, t_data *shell_data, t_declaration *identity)
+void	ft_export(char **command_line, t_data *shell_data, t_declaration **identity)
 {
 	int		conc;
 
@@ -88,9 +88,11 @@ void	ft_export(char **command_line, t_data *shell_data, t_declaration *identity)
 		sort_and_print_export(shell_data);
 	else
 	{
-		arguments_separation(command_line, conc, &identity);
-		add_env(shell_data, &identity);
+		arguments_separation(command_line, conc, identity);
+		//print_list(*identity);
+		printf("risultato del check: %d\n", check_doubles(shell_data, *identity) == 0);
+		if (check_doubles(shell_data, *identity) == 0 && check_arguments_validation((*identity)->name))
+			add_env(shell_data,identity);
 		//puppamelo(identity);
 	}
-	printf("in the original\n");
 }

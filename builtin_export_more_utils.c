@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 20:30:03 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/08/25 19:54:07 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/15 19:00:24 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,28 +28,29 @@ void	insert_declaration(t_declaration **list, int concatenation, const char *nam
 	else
 		new_declaration->value = NULL;
 	new_declaration->next = *list;
-	*list = new_declaration;
-	free(new_declaration->name);
-	free(new_declaration->value);
-	puppamelo(new_declaration);
+	if (!*list)
+		*list = new_declaration;
+	// free(new_declaration->name);
+	// free(new_declaration->value);
+	// puppamelo(new_declaration);
 }
 
 //in realtà questo mi serve a simulare la cosa che fa manu
-int	put_arguments_in_list(t_declaration *identity, char *command_line)
+int	check_arguments_validation(char *identity_name_only)
 {
 	int	i;
 
 	i = 0;
-	if (!ft_isalpha(command_line[0]))
+	if (!ft_isalpha(identity_name_only[0]))
 	{
-		printf("\033[1;31mbash: export: `%s': not a valid identifier\n", command_line);
+		printf("\033[1;31mbash: export: `%s': not a valid identifier\n", identity_name_only);
 		return (0);
 	}
-	while (command_line[i])
+	while (identity_name_only[i])
 	{
-		if (!ft_isalnum(command_line[i]) && command_line[i]!= '=' && command_line[i] != '+')
+		if (!ft_isalnum(identity_name_only[i]) && identity_name_only[i]!= '=' && identity_name_only[i] != '+')
 		{
-			printf("\033[1;31mbash: export: `%s': not a valid identifier\n", command_line);
+			printf("\033[1;31mbash: export: `%s': not a valid identifier\n", identity_name_only);
 			return (0);
 		}
 		i++;
@@ -76,24 +77,18 @@ void	arguments_separation(char **command_line, int conc, t_declaration **identit
 	i = 0;
 	while(command_line[++i])
 	{
-		if (put_arguments_in_list(*identity, command_line[i]) == 1)
+		separated_args = ft_split(command_line[i], '=');
+		if (ft_strchr(separated_args[0], '+'))
 		{
-			printf("split\n");
-			separated_args = ft_split(command_line[i], '=');
-			if (ft_strchr(separated_args[0], '+'))
+			conc = 1;
+			while(separated_args[0][plus_finder])
 			{
-				conc = 1;
-				while(separated_args[0][plus_finder])
-				{
-					if (separated_args[0][plus_finder] == '+')
-						separated_args[0][plus_finder] = '\0';
-					plus_finder++;
-				}
+				if (separated_args[0][plus_finder] == '+')
+					separated_args[0][plus_finder] = '\0';
+				plus_finder++;
 			}
-			printf("richiamo della funzione insert_declaration\n");
-			insert_declaration(identity, conc, separated_args[0], separated_args[1]);
 		}
+		insert_declaration(identity, conc, separated_args[0], separated_args[1]);
 	}
-	printf("free della matrice\n");
 	free_matrix(separated_args);
 }

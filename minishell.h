@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/08/24 15:48:53 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/15 19:01:25 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int		count_syntax(char *str);
 char	*fix_syntax(char *str);
 int		free_matrix(char **s);
 //lnicoter
-void	builtin_reader(char **command_line, t_data *shell_data, t_declaration *identity);
+void	builtin_reader(char **command_line, t_data *shell_data, t_declaration **identity);
 void	ft_echo(char **command_line);
 void	ft_cd(char **command_line, t_data *shell_data);
 void	ft_env(t_data *shell_data);
@@ -66,12 +66,12 @@ void	update_oldpwd(t_data *shell_data);
 void	update_pwd(t_data *shell_data);
 int		ft_strcmp(const char *s1, const char *s2);
 void	*ft_realloc(void *ptr, size_t size);
-void	ft_export(char **command_line, t_data *shell_data, t_declaration *identity);
+void	ft_export(char **command_line, t_data *shell_data, t_declaration **identity);
 void	print_export(char **export_matrix);
 void	sort_and_print_export(t_data *shell_data);
 char	**setting_the_matrix(t_data *shell_data);
 int		env_rows(t_data *shell_data);
-int		put_arguments_in_list(t_declaration *identity, char *command_line);
+int		check_arguments_validation(char *command_line);
 void	insert_declaration(t_declaration **list, int concatenation, const char *name, const char *value);
 void	print_list(t_declaration *list);
 void	arguments_separation(char **command_line, int conc, t_declaration **identity);
@@ -81,4 +81,6 @@ char	*super_strjoin(t_data *shell_data, t_declaration *values);
 void	init_structs(t_data **shell_data, char **envp);
 void	env_adding(char *final_string, t_data *shell_data);
 void	puppamelo(t_declaration *lnico);
+int		check_doubles(t_data *shell_data, t_declaration *identity);
+void	change_if_needed(t_data *shelll_data, t_declaration *identity, int pos);
 #endif

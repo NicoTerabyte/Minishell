@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/09/09 18:41:45 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/14 18:19:34 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,16 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	while (1)
 	{
-		identity = (t_declaration *)malloc(sizeof(t_declaration));
+		identity = NULL;
 		str = readline("minishell> ");
 		add_history(str);
 		splitcmd = ft_split(str, ' ');
 		//syntax = fix_syntax(str); //il fottuto problema!!!!
 		parser(splitcmd);
-		builtin_reader(splitcmd, shell_data, identity);
+		builtin_reader(splitcmd, shell_data, &identity);
 		free_matrix(splitcmd);
-		puppamelo(identity);
+		if (identity)
+			puppamelo(identity);
 	}
 	//i free veri vanno fatti quando verrà implementato l'exit
 	//e i SEGNALI SOPRATUTTO

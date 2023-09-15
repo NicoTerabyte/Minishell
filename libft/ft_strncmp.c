@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 19:17:37 by mlongo            #+#    #+#             */
-/*   Updated: 2023/04/04 19:17:39 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/14 19:15:16 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	size_t	i;
 
 	i = 0;
+	//printf("valori a confronto: str1: %s, str2: %s\n", s1, s2);
 	if (!n)
 		return (0);
 	while (s1[i] && s2[i] && i < n && s1[i] == s2[i])

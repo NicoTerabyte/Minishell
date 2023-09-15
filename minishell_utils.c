@@ -104,8 +104,11 @@ void	init_structs(t_data **shell_data, char **envp)
 
 void	puppamelo(t_declaration *lnico)
 {
-	if (lnico)
+	printf("entrato\n");
+	if (lnico->next)
 		puppamelo(lnico->next);
+	free(lnico->name);
+	free(lnico->value);
 	free(lnico);
 	printf("si stat liberat\n");
 }

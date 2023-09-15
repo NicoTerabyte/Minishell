@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 19:18:07 by mlongo            #+#    #+#             */
-/*   Updated: 2023/09/09 16:33:18 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/15 19:20:50 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		i++;
 	}
 	str[j] = 0;
+	printf("il piu importante dei return %s\n", str);
 	return (str);
 }
