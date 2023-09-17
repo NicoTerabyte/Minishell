@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 19:17:17 by mlongo            #+#    #+#             */
-/*   Updated: 2023/04/04 19:17:20 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/17 20:46:55 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,25 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	while (src[i])
 		i++;
 	return (i);
+}
+
+char	*i_hate_this_strcpy_for_apix(char *dst, char *src)
+{
+	int		i;
+	int		j;
+
+	j = 1;
+	i = 0;
+	dst = malloc((ft_strlen(src) + 2) * sizeof(char));
+	ft_memset(dst, 0, ft_strlen(src) + 2);
+	dst[0] = '\"';
+	while (src[i] && src[i + 1] != '\'')
+	{
+		dst[j] = src[i + 1];
+		i++;
+		j++;
+	}
+	dst = ft_strjoin(dst, "\"");
+	
+	return (dst);
 }

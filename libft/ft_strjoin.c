@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 19:17:02 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/19 22:12:48 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/17 20:33:23 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,5 @@ char	*ft_strjoin(char *s1, char  *s2)
 		res[ft_strlen(s1) + i] = s2[i];
 		i++;
 	}
-	// free(s1);
-	// free(s2);
 	return (res);
 }

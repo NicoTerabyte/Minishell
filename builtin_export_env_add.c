@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 23:38:43 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/09/15 19:21:43 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/17 21:08:45 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,47 +45,41 @@ void	env_adding(char *final_string, t_data *shell_data)
 	shell_data->copy_env[new_size] = 0;
 }
 
-char	*super_strjoin(t_data *shell_data, t_declaration *values)
+char *super_strjoin(t_data *shell_data, t_declaration *values)
 {
-	char			*final_string;
-	int				i;
-	t_declaration	*current;
+	char *final_string = ft_strdup(values->name);
 
-	final_string = (char *)malloc((ft_strlen(values->name) + 1) * sizeof(char));
-	ft_strlcpy(final_string, values->name, ft_strlen(values->name) + 1);
-	current = values;
-	i = 0;
 	if (values->value)
 	{
 		if (values->concatenation == 1)
 			final_string = ft_strjoin(final_string, "=");
-		else
-			final_string = ft_strjoin(final_string, "=");
-		if (!ft_strchr(values->value, '\"'))
+		if (!ft_strchr(values->value, '\"') && !ft_strchr(values->value, '\''))
 		{
 			final_string = ft_strjoin(final_string, "\"");
 			final_string = ft_strjoin(final_string, values->value);
 			final_string = ft_strjoin(final_string, "\"");
 		}
 		else if (ft_strchr(values->value, '\''))
-			final_string = ft_strjoin(final_string, ft_substr(values->value, 2, (ft_strlen(values->value) - 2)));
+		{
+			char *support_str = i_hate_this_strcpy_for_apix(NULL, values->value);
+			final_string = ft_strjoin(final_string, support_str);
+			free(support_str);
+		}
 		else
 			final_string = ft_strjoin(final_string, values->value);
 	}
-	values = current;
-	return (final_string);
+
+	return final_string;
 }
 
 void	add_env(t_data *shell_data, t_declaration **identity)
 {
 	char			*final_string;
-	//t_declaration	*head;
-	int				i;
-	i = 0;
 
 	final_string = super_strjoin(shell_data, *identity);
+	printf("%p\n", final_string);
 	env_adding(final_string, shell_data);
-	// *values = (*values)->next;
 	free(final_string);
+	// *values = (*values)->next;
 	// *values = head;
 }

@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/09/14 18:19:34 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/17 20:52:52 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ int	main(int argc, char **argv, char **envp)
 		parser(splitcmd);
 		builtin_reader(splitcmd, shell_data, &identity);
 		free_matrix(splitcmd);
-		if (identity)
-			puppamelo(identity);
 	}
 	//i free veri vanno fatti quando verrà implementato l'exit
 	//e i SEGNALI SOPRATUTTO

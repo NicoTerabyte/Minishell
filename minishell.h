@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/09/15 19:01:25 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/17 21:01:25 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,5 @@ void	env_adding(char *final_string, t_data *shell_data);
 void	puppamelo(t_declaration *lnico);
 int		check_doubles(t_data *shell_data, t_declaration *identity);
 void	change_if_needed(t_data *shelll_data, t_declaration *identity, int pos);
+char	*i_hate_this_strcpy_for_apix(char *dst, char *src);
 #endif
