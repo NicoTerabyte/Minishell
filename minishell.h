@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/09/14 18:32:40 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/18 18:42:05 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,7 @@ int		is_wildcard(char *input);
 char	**matrix_dir(t_data *shell_data);
 int		mcharnum(t_data *shell_data);
 char	*ft_strjoin_wild(char const *s1, char const *s2);
-void stampaMatrice(char **matrice);
+void	stampaMatrice(char **matrice);
+char	*get_extension(const char *filename);
+int		ft_strcmp_env(const char *input, const char *env);
 #endif

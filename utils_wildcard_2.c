@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 17:23:26 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/14 19:31:28 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/18 18:38:33 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,12 @@ void stampaMatrice(char **matrice) {
         printf("\n");
         ptr++;
     }
+}
+
+char *get_extension(const char *filename)
+{
+	char *dot = ft_strchr(filename, '.');
+	if (!dot || dot == filename)
+		return NULL;
+	return dot + 1;
 }

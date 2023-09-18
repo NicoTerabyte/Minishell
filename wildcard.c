@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/14 19:20:29 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/18 18:52:48 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,19 @@
 char	*extension(t_data *shell_data, char *wildstring)
 {
 	char *ret;
-	ret = malloc(mcharnum(shell_data) * sizeof(char));
-	return (wildstring);
+	int i;
+	char *extension;
+
+	i = 0;
+	ret = "";
+	while (shell_data->dir_list[i] != NULL)
+	{
+		extension = get_extension(shell_data->dir_list[i]);
+		if(extension && ft_strcmp(extension,wildstring) == 0)
+			ret = ft_strjoin_wild(ret,shell_data->dir_list[i]);
+		i++;
+	}
+	return (ret);
 }
 
 //Searching Specific File with Filename and ‘*’
@@ -45,6 +56,7 @@ char	*partial(t_data *shell_data, char *wildstring)
 	int i;
 	char *ret;
 
+	printf("PARTIAL");
 	i = 0;
 	ret = "";
 	while (shell_data->dir_list[i] != NULL)
@@ -76,7 +88,7 @@ char	*translate_wild(t_data *shell_data, char *input){
 			i++;
 			if (input[i] == '.')
 			{
-				wildstring[x++] = input[i++];
+				i++;
 				while (ft_isalpha(input[i]))
 					wildstring[x++] = input[i++];
 				wildstring[x] = 0;
