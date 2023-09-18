@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/18 18:52:48 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/18 18:55:43 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*extension(t_data *shell_data, char *wildstring)
 char	*filename(t_data *shell_data, char *wildstring)
 {
 	char *ret;
-	ret = malloc(mcharnum(shell_data) * sizeof(char));
+	ret = "";
 	return (wildstring);
 }
 
