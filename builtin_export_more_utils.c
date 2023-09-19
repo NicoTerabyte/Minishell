@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 20:30:03 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/09/15 19:00:24 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/18 13:20:38 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,12 @@ void	arguments_separation(char **command_line, int conc, t_declaration **identit
 	i = 0;
 	while(command_line[++i])
 	{
+		if (ft_strchr(command_line[i], '='))
+			conc = 1;
 		separated_args = ft_split(command_line[i], '=');
 		if (ft_strchr(separated_args[0], '+'))
 		{
-			conc = 1;
+			conc = 2;
 			while(separated_args[0][plus_finder])
 			{
 				if (separated_args[0][plus_finder] == '+')

@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:46:45 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/09/16 21:40:28 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/18 21:57:52 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,28 @@ void	change_if_needed(t_data *shell_data, t_declaration *identity, int pos)
 	{
 		free(shell_data->copy_env[pos]);
 		shell_data->copy_env[pos] = ft_strdup(identity->name);
-		shell_data->copy_env[pos] = ft_strjoin(shell_data->copy_env[pos], "=");
+		shell_data->copy_env[pos] = ft_strjoin_damn_you_leaks(shell_data->copy_env[pos], "=");
 		if (!ft_strchr(identity->value, '\"') && !ft_strchr(identity->value, '\''))
 		{
-			shell_data->copy_env[pos] = ft_strjoin(shell_data->copy_env[pos], "\"");
-			shell_data->copy_env[pos] = ft_strjoin(shell_data->copy_env[pos], identity->value);
-			shell_data->copy_env[pos] = ft_strjoin(shell_data->copy_env[pos], "\"");
+			shell_data->copy_env[pos] = ft_strjoin_damn_you_leaks(shell_data->copy_env[pos], "\"");
+			shell_data->copy_env[pos] = ft_strjoin_damn_you_leaks(shell_data->copy_env[pos], identity->value);
+			shell_data->copy_env[pos] = ft_strjoin_damn_you_leaks(shell_data->copy_env[pos], "\"");
 		}
 		else if (ft_strchr(identity->value, '\''))
 		{
 			support_str = i_hate_this_strcpy_for_apix(support_str, identity->value);
-			shell_data->copy_env[pos] = ft_strjoin(shell_data->copy_env[pos], support_str);
+			shell_data->copy_env[pos] = ft_strjoin_damn_you_leaks(shell_data->copy_env[pos], support_str);
 			free(support_str);
 		}
 		else
-			shell_data->copy_env[pos] = ft_strjoin(shell_data->copy_env[pos], identity->value);
+			shell_data->copy_env[pos] = ft_strjoin_damn_you_leaks(shell_data->copy_env[pos], identity->value);
+	}
+	else if (identity->concatenation != 0)
+	{
+		shell_data->copy_env[pos] = ft_strdup(identity->name);
+		shell_data->copy_env[pos] = ft_strjoin_damn_you_leaks(shell_data->copy_env[pos], "=");
+		shell_data->copy_env[pos] = ft_strjoin_damn_you_leaks(shell_data->copy_env[pos], "\"");
+		shell_data->copy_env[pos] = ft_strjoin_damn_you_leaks(shell_data->copy_env[pos], "\"");
 	}
 }
 

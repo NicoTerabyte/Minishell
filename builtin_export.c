@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:48:20 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/09/17 20:22:32 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/18 12:54:29 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ void	ft_export(char **command_line, t_data *shell_data, t_declaration **identity
 	{
 		arguments_separation(command_line, conc, identity);
 		//print_list(*identity);
-		printf("risultato del check: %d\n", check_doubles(shell_data, *identity) == 0);
 		if (check_doubles(shell_data, *identity) == 0 && check_arguments_validation((*identity)->name))
 			add_env(shell_data,identity);
 		if (*identity)
