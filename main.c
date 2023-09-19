@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/09/17 20:52:52 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/19 15:16:54 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,10 @@ int	main(int argc, char **argv, char **envp)
 {
 	char			*str;
 	char			**splitcmd;
-	char			*syntax;
+	//char			*syntax;
 	t_data			*shell_data;
 	t_declaration	*identity;
-	int				i;
 
-	i = 0;
 	init_structs(&shell_data, envp);
 
 	(void)argc;

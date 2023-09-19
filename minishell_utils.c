@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:46:34 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/09/17 20:22:17 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/19 15:35:21 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ int	copy_env(char **env, t_data *mini_data)
 	i = 0;
 	while (env[env_size])
 		env_size++;
-
-	// Allocazione di spazio per env_size + 1 puntatori
+	mini_data->export_env = (char **)malloc((env_size + 1) * sizeof(char *));
 	mini_data->copy_env = (char **)malloc((env_size + 1) * sizeof(char *));
 	if (!mini_data->copy_env)
 	{
@@ -33,10 +32,11 @@ int	copy_env(char **env, t_data *mini_data)
 	while (i < env_size)
 	{
 		mini_data->copy_env[i] = ft_strdup(env[i]);
+		mini_data->export_env[i] = ft_strdup(env[i]);
 		i++;
 	}
-	mini_data->copy_env[i] = NULL; // Imposta l'ultimo puntatore a NULL
-
+	mini_data->copy_env[i] = NULL;
+	mini_data->export_env[i] = NULL;
 	return (1);
 }
 
@@ -78,7 +78,7 @@ int	env_rows(t_data *shell_data)
 	int	size;
 
 	size = 0;
-	while (shell_data->copy_env[size])
+	while (shell_data->export_env[size])
 		size++;
 	return (size);
 }

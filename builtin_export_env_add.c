@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 23:38:43 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/09/18 21:59:11 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/19 16:04:56 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	env_adding(char *final_string, t_data *shell_data)
 	size_t	i;
 
 	new_size = env_rows(shell_data) + 1;
-	shell_data->copy_env = realloc(shell_data->copy_env, (new_size + 1) * sizeof(char *));
-	shell_data->copy_env[new_size - 1] = ft_strdup(final_string);  // Assicurati che final_string sia allocato
-	shell_data->copy_env[new_size] = 0;
+	shell_data->export_env = realloc(shell_data->export_env, (new_size + 1) * sizeof(char *));
+	shell_data->export_env[new_size - 1] = ft_strdup(final_string);  // Assicurati che final_string sia allocato
+	shell_data->export_env[new_size] = 0;
 }
 
 char *super_strjoin(t_data *shell_data, t_declaration *values)
@@ -80,7 +80,7 @@ char *super_strjoin(t_data *shell_data, t_declaration *values)
 	return final_string;
 }
 
-void	add_env(t_data *shell_data, t_declaration **identity)
+void	add_export_env(t_data *shell_data, t_declaration **identity)
 {
 	char			*final_string;
 

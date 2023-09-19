@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/09/18 21:57:26 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/19 18:42:27 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_data
 	char	*path;
 	char	*old_path;
 	char	**copy_env;
+	char	**export_env;
 } t_data;
 
 typedef struct s_declaration
@@ -75,7 +76,7 @@ int		check_arguments_validation(char *command_line);
 void	insert_declaration(t_declaration **list, int concatenation, const char *name, const char *value);
 void	print_list(t_declaration *list);
 void	arguments_separation(char **command_line, int conc, t_declaration **identity);
-void	add_env(t_data *shell_data, t_declaration **values);
+void	add_export_env(t_data *shell_data, t_declaration **values);
 char	*super_strjoin(t_data *shell_data, t_declaration *values);
 // void	insert_in_env(t_data shell_data, char *final_string, t_declaration *values);
 void	init_structs(t_data **shell_data, char **envp);
@@ -85,4 +86,6 @@ int		check_doubles(t_data *shell_data, t_declaration *identity);
 void	change_if_needed(t_data *shelll_data, t_declaration *identity, int pos);
 char	*i_hate_this_strcpy_for_apix(char *dst, char *src);
 char	*ft_strjoin_damn_you_leaks(char *s1, char  *s2);
+void	add_to_the_real_env(t_data *shell_data, t_declaration *identity);
+int		check_if_good_for_env(t_data *shell_data, t_declaration *identity, int index);
 #endif

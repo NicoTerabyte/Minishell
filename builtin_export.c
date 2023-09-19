@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:48:20 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/09/18 12:54:29 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/19 16:14:45 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	**setting_the_matrix(t_data *shell_data)
 		printf("Errore nell'allocazione della memoria\n");
 	i = -1;
 	while (++i < size)
-		the_export_copy[i] = shell_data->copy_env[i];
+		the_export_copy[i] = shell_data->export_env[i];
 	the_export_copy[size] = NULL;  // Terminatore dell'array
 	return (the_export_copy);
 }
@@ -91,7 +91,11 @@ void	ft_export(char **command_line, t_data *shell_data, t_declaration **identity
 		arguments_separation(command_line, conc, identity);
 		//print_list(*identity);
 		if (check_doubles(shell_data, *identity) == 0 && check_arguments_validation((*identity)->name))
-			add_env(shell_data,identity);
+		{
+			add_export_env(shell_data,identity);
+			if ((*identity)->value != NULL)
+				add_to_the_real_env(shell_data, *identity);
+		}
 		if (*identity)
 			puppamelo(*identity);
 		//puppamelo(identity);
