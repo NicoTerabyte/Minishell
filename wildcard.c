@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/20 19:55:01 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/20 20:50:08 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,11 @@ char *extension(t_data *shell_data, const char *wildstring)
 	return ret;
 }
 
-// Searching Specific File with Filename and ‘*’
-// ‘ls’ command is used to find out the list of files and folders of the current directory.
-// ‘ls a*’ command will search and print all filenames of the current directory that
-// starts with the character, ‘a’.
-
 char *filename(t_data *shell_data, char *wildstring)
 {
 	char *ret;
 	int i;
+
 
 	ret = ft_strdup("");
 	i = 0;
@@ -58,6 +54,15 @@ char *filename(t_data *shell_data, char *wildstring)
 			ret = ft_strjoin_wild(ret, shell_data->file_list[i]);
 		i++;
 	}
+
+	while (shell_data->dir_list[i] != NULL)
+	{
+		if (ft_strncmp(shell_data->dir_list[i], wildstring, ft_strlen(wildstring)) == 0)
+			ret = ft_strjoin_wild(ret, shell_data->file_list[i]);
+		i++;
+	}
+	}
+
 	return (ret);
 }
 
