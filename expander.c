@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/14 19:09:36 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/20 16:15:06 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char *translate_exp(t_data *shell_data, char *input)
 	ret_index = 0;
 	if(is_wildcard(input))
 	{
-		shell_data->dir_list = matrix_dir(shell_data);
+		shell_data->file_list = matrix_file(shell_data);
 		ret = translate_wild(shell_data, input);
 		return ret;
 	}
@@ -113,4 +113,22 @@ char *translate_exp(t_data *shell_data, char *input)
 	}
 	ret[ret_index] = '\0'; // Termina la stringa di output
 	return ret;
+}
+
+
+
+
+void stampaMatriceChar(char **matrice) {
+    int riga = 0;
+    while (matrice[riga] != NULL) {
+        int colonna = 0;
+
+        while (matrice[riga][colonna] != '\0') {
+            printf("%c ", matrice[riga][colonna]);
+            colonna++;
+        }
+
+        printf("\n");
+        riga++;
+    }
 }

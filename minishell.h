@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/09/18 18:56:24 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/19 20:18:43 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <unistd.h>
 # include <string.h>
 # include <dirent.h>
+# include <sys/types.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "./libft/libft.h"
@@ -40,6 +41,7 @@ typedef struct s_data
 	char	*path;
 	char	*old_path;
 	char	**copy_env;
+	char	**file_list;
 	char	**dir_list;
 } t_data;
 
@@ -83,9 +85,10 @@ void	super_strjoin(t_data *shell_data, t_declaration *values);
 char	*translate_exp(t_data *shell_data, char *input);
 char	*translate_wild(t_data *shell_data, char *input);
 int		is_wildcard(char *input);
-char	**matrix_dir(t_data *shell_data);
+char	**matrix_directory(t_data *shell_data);
 char	*ft_strjoin_wild(char const *s1, char const *s2);
-void	stampaMatrice(char **matrice);
 char	*get_extension(const char *filename);
 int		ft_strcmp_env(const char *input, const char *env);
+char	**matrix_file(t_data *shell_data);
+void stampaMatriceChar(char **matrice);
 #endif
