@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 17:23:26 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/21 18:23:43 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/21 19:39:18 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,18 @@ char *get_extension(const char *filename)
 	return dot + 1;
 }
 
-char *create_path(char *directory)
+char *create_path(const char *directory)
 {
-	char *path;
-	path = current_dir();
-	ft_strcat(path, "/"); // Aggiungi uno slash
-	ft_strcat(path, directory);
-	return (path);
+    char	*path;
+    char	*dir;
+	int		l;
+	dir = current_dir();
+    l = ft_strlen(dir) + ft_strlen(directory) + 2;
+    path = (char *)malloc(l);
+	if(!path)
+		return NULL;
+    ft_strcpy(path, dir);
+    ft_strlcat(path, "/", l);
+    ft_strlcat(path, directory,l);
+    return path;
 }

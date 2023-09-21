@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/09/21 18:23:56 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/21 20:16:05 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,10 @@
 
 typedef struct s_data
 {
-	char	*path;
-	char	*old_path;
-	char	**copy_env;
-	char	**file_list;
-	char	**dir_list;
+	char			*path;
+	char			*old_path;
+	char			**copy_env;
+	struct dirent	**file;
 } t_data;
 
 typedef struct s_declaration
@@ -82,13 +81,15 @@ void	add_env(t_data *shell_data, t_declaration **values);
 void	super_strjoin(t_data *shell_data, t_declaration *values);
 // void	insert_in_env(t_data shell_data, char *final_string, t_declaration *values);
 // abuonomo
-char	*translate_exp(t_data *shell_data, char *input);
-char	*translate_wild(t_data *shell_data, char *input);
-int		is_wildcard(char *input);
-char	**matrix_directory(t_data *shell_data);
-char	*ft_strjoin_wild(char const *s1, char const *s2);
-char	*get_extension(const char *filename);
-int		ft_strcmp_env(const char *input, const char *env);
-char	**matrix_file(t_data *shell_data);
-void	stampaMatriceChar(char **matrice);
+char			*translate_exp(t_data *shell_data, char *input);
+char			*translate_wild(t_data *shell_data, char *input);
+int				is_wildcard(char *input);
+char			**matrix_directory(t_data *shell_data);
+char			*ft_strjoin_wild(char const *s1, char const *s2);
+char			*get_extension(const char *filename);
+int				ft_strcmp_env(const char *input, const char *env);
+struct dirent	**matrix_file(t_data *shell_data);
+void			stampaMatriceChar(char **matrice);
+char			*current_dir(void);
+char			*ft_strcpy(char *dest, char *src);
 #endif

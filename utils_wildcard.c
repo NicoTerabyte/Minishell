@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:52:51 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/21 13:38:22 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/21 20:25:34 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,77 +33,41 @@ char *current_dir(void)
 	return (cd);
 }
 
-int matrix_dimension(t_data *shell_data, int flag,DIR *dir)
+int matrix_dimension(t_data *shell_data)
 {
 	struct dirent *entry;
 	int count;
-
+	DIR *dir;
+	dir = opendir(current_dir());
 	count = 0;
 	entry = readdir(dir);
 	while (entry != NULL)
 	{
-		if (flag == 1)
-		{
-			if (entry->d_type == DT_DIR)
-				count++;
-		}
-		else
-			count++;
+		count++;
 		entry = readdir(dir);
 	}
 	closedir(dir);
 	return (count);
 }
 
-char **matrix_directory(t_data *shell_data)
+struct dirent **matrix_file(t_data *shell_data)
 {
 	int rows;
-	char **dir_matrix;
+	struct dirent **dir_matrix;
 	struct dirent *entry;
 	DIR *dir;
 
 	dir = opendir(current_dir());
 	if (!dir)
 		return NULL;
-	rows = matrix_dimension(shell_data, 1,dir);
-	dir_matrix = (char **)malloc((rows + 1) * sizeof(char *));
+	rows = matrix_dimension(shell_data);
+	dir_matrix = (struct dirent **)malloc((rows + 1) * sizeof(struct dirent *));
 	rows = 0;
 	entry = readdir(dir);
 	while (entry != NULL)
 	{
-		if (entry->d_type == DT_DIR)
-		{
-			dir_matrix[rows] = ft_strdup(entry->d_name);
-			rows++;
-		}
-		entry = readdir(dir);
-	}
-	dir_matrix[rows] = NULL;
-	closedir(dir);
-	return (dir_matrix);
-}
-
-char **matrix_file(t_data *shell_data)
-{
-	int rows;
-	char **dir_matrix;
-	struct dirent *entry;
-	DIR *dir;
-
-	dir = opendir(current_dir());
-	if (!dir)
-		return NULL;
-	rows = matrix_dimension(shell_data, 0,dir);
-	dir_matrix = (char **)malloc((rows + 1) * sizeof(char *));
-	rows = 0;
-	entry = readdir(dir);
-	while (entry != NULL)
-	{
-		if (entry->d_type == DT_REG)
-		{
-			dir_matrix[rows] = ft_strdup(entry->d_name);
-			rows++;
-		}
+		dir_matrix[rows] = entry;
+		rows++;
 		entry = readdir(dir);
 	}
 	dir_matrix[rows] = NULL;

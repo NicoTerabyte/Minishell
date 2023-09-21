@@ -6,19 +6,20 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/21 18:24:56 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/21 20:16:23 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int ends_with(const char *str1, const char *str2) {
-    int len1 = strlen(str1);
-    int len2 = strlen(str2);
+    int len1;
+    int len2;
 
+	len1 = ft_strlen(str1);
+	len2 = ft_strlen(str2);
     if (len2 > len1)
         return 0;
-
     return ft_strcmp(str1 + (len1 - len2), str2) == 0;
 }
 
@@ -26,19 +27,13 @@ char *extension(t_data *shell_data, const char *wildstring)
 {
 	char *ret;
 	int i;
-	
+
 	i = 0;
 	ret = ft_strdup("");
-	while (shell_data->file_list[i] != NULL)
+	while (shell_data->file[i] != NULL)
 	{
-		if (ends_with(shell_data->file_list[i], wildstring))
-			ret = ft_strjoin_wild(ret, shell_data->file_list[i]);
-		i++;
-	}
-	while (shell_data->dir_list[i] != NULL)
-	{
-		if (ends_with(shell_data->dir_list[i], wildstring))
-			ret = ft_strjoin_wild(ret, directory_manager(shell_data->dir_list[i],flag));
+		if (ends_with(shell_data->file[i]->d_name, wildstring))
+			ret = ft_strjoin_wild(ret, shell_data->file[i]->d_name);
 		i++;
 	}
 	return ret;
@@ -51,16 +46,10 @@ char *filename(t_data *shell_data, char *wildstring)
 
 	ret = ft_strdup("");
 	i = 0;
-	while (shell_data->file_list[i] != NULL)
+	while (shell_data->file[i] != NULL)
 	{
-		if (ft_strncmp(shell_data->file_list[i], wildstring, ft_strlen(wildstring)) == 0)
-			ret = ft_strjoin_wild(ret, shell_data->file_list[i]);
-		i++;
-	}
-	while (shell_data->dir_list[i] != NULL)
-	{
-		if (ft_strncmp(shell_data->dir_list[i], wildstring, ft_strlen(wildstring)) == 0)
-			ret = ft_strjoin_wild(ret, shell_data->file_list[i]);
+		if (ft_strncmp(shell_data->file[i]->d_name, wildstring, ft_strlen(wildstring)) == 0)
+			ret = ft_strjoin_wild(ret, shell_data->file[i]->d_name);
 		i++;
 	}
 	return (ret);
@@ -73,12 +62,12 @@ char *partial(t_data *shell_data, char *wildstring)
 
 	i = 0;
 	ret = ft_strdup("");
-	while (shell_data->file_list[i] != NULL)
+	while (shell_data->file[i] != NULL)
 	{
-		if (shell_data->file_list[i][0] != '.')
+		if (shell_data->file[i]->d_name[0] != '.')
 		{
-			if (ft_strnstr(shell_data->file_list[i], wildstring, strlen(shell_data->file_list[i])) != NULL)
-				ret = ft_strjoin_wild(ret, shell_data->file_list[i]);
+			if (ft_strnstr(shell_data->file[i]->d_name, wildstring, strlen(shell_data->file[i]->d_name)) != NULL)
+				ret = ft_strjoin_wild(ret, shell_data->file[i]->d_name);
 		}
 		i++;
 	}

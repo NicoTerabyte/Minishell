@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/21 13:37:45 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/21 20:15:47 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int ft_strcmp_env(const char *input, const char *env)
 	return (*env != '=' || *input != '\0');
 }
 
-char *handle_single_quote(char *input, char **ret, int *ret_index){
+char *handle_single_quote(char *input, char **ret, int *ret_index)
+{
 	input++;
 			while(*input != 39){
 				*ret += *ret_index;
@@ -43,15 +44,14 @@ char *translate_exp(t_data *shell_data, char *input)
 	int i = 0;
 	int var_index;
 	char *ret = malloc(ft_strlen(input) + 1);
-	int ret_index; // Indice per la posizione corrente nell'output
-	char var[100];	   // Array temporaneo per memorizzare il nome della variabile
+	int ret_index;
+	char var[100];
 	char *value_start;
 
 	ret_index = 0;
 	if(is_wildcard(input))
 	{
-		shell_data->file_list = matrix_file(shell_data);
-		shell_data->dir_list = matrix_directory(shell_data);
+		shell_data->file = matrix_file(shell_data);
 		ret = translate_wild(shell_data, input);
 		return ret;
 	}
