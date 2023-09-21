@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/21 20:15:47 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/21 20:59:15 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,6 @@ char *translate_exp(t_data *shell_data, char *input)
 	char *value_start;
 
 	ret_index = 0;
-	if(is_wildcard(input))
-	{
-		shell_data->file = matrix_file(shell_data);
-		ret = translate_wild(shell_data, input);
-		return ret;
-	}
 	if (!ret)
 		return ("ERRORE DI ALLOCAZIONE");
 	while (*input)

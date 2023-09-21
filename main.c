@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/09/14 19:24:24 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/21 21:09:13 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		str = readline("\nminishell> ");
-		printf("%s",translate_exp(shell_data,str));
+		printf("%s",launch_exp_wild(shell_data,str));
 	}
 }
 

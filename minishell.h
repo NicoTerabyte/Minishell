@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/09/21 20:16:05 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/21 21:03:15 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,5 @@ struct dirent	**matrix_file(t_data *shell_data);
 void			stampaMatriceChar(char **matrice);
 char			*current_dir(void);
 char			*ft_strcpy(char *dest, char *src);
+char			*launch_exp_wild(t_data *shell_data, char *input);
 #endif
