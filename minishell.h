@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/09/21 17:58:24 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/21 18:23:56 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,4 @@ char	*get_extension(const char *filename);
 int		ft_strcmp_env(const char *input, const char *env);
 char	**matrix_file(t_data *shell_data);
 void	stampaMatriceChar(char **matrice);
-int		select_case_fn(t_data *shell_data, char *wildstring);
-int		select_case_ex(t_data *shell_data, char *wildstring);
-int		select_case_pr(t_data *shell_data, char *wildstring);
-char	*ft_strcpy(char *dest, char *src);
 #endif
