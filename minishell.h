@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/09/21 10:59:36 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/21 17:58:24 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,5 @@ void	stampaMatriceChar(char **matrice);
 int		select_case_fn(t_data *shell_data, char *wildstring);
 int		select_case_ex(t_data *shell_data, char *wildstring);
 int		select_case_pr(t_data *shell_data, char *wildstring);
+char	*ft_strcpy(char *dest, char *src);
 #endif

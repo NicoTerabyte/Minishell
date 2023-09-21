@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/21 12:28:57 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/21 17:28:10 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ char *filename(t_data *shell_data, char *wildstring)
 			ret = ft_strjoin_wild(ret, shell_data->file_list[i]);
 		i++;
 	}
-
 	return (ret);
 }
 

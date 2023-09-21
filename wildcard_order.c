@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:34:58 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/21 15:36:00 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/21 17:58:13 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,18 @@ void recursive_sort(char **matrix, int rows, int i, int j)
 void sort_string_matrix(char **matrix, int rows)
 {
 	recursive_sort(matrix, rows, 0, 0);
+}
+
+char *ft_strcpy(char *dest, char *src)
+{
+	int i;
+
+	i = 0;
+	while (src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
 }

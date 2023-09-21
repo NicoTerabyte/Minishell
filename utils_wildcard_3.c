@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 17:23:26 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/21 15:45:17 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/21 17:37:59 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char *directory_manager(char *directory,int flag)
 	struct dirent *entry;
 	DIR *dir;
 
-	dir = opendir(create_path());
+	dir = opendir(create_path(directory));
 	if (!dir)
 		return NULL;
 	rows = matrix_dimension(0,dir);
@@ -109,6 +109,6 @@ char *directory_manager(char *directory,int flag)
 	closedir(dir);
 	sort_string_matrix(matrix, rows);
 	if(flag = 1)
-		return print_file();  //da scrivere
-	return print_name_file(); //da scrivere
+		return print_file(matrix,rows);
+	return print_name_file(matrix,rows,directory);
 }
