@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/20 16:15:06 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/21 13:37:45 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ char *translate_exp(t_data *shell_data, char *input)
 	if(is_wildcard(input))
 	{
 		shell_data->file_list = matrix_file(shell_data);
+		shell_data->dir_list = matrix_directory(shell_data);
 		ret = translate_wild(shell_data, input);
 		return ret;
 	}
