@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:52:51 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/21 13:38:22 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/21 15:29:35 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char *current_dir(void)
 	return (cd);
 }
 
-int matrix_dimension(t_data *shell_data, int flag,DIR *dir)
+int matrix_dimension(int flag,DIR *dir)
 {
 	struct dirent *entry;
 	int count;

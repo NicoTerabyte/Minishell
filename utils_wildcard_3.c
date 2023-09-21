@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 17:23:26 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/21 13:27:07 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/21 15:45:17 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int select_case_ex(t_data *shell_data, char *wildstring)
 	return (count);
 }
 
-char *directory_manager(t_data *shell_data,char *directory,int flag)
+char *directory_manager(char *directory,int flag)
 {
 	int rows;
 	char **matrix;
@@ -95,17 +95,20 @@ char *directory_manager(t_data *shell_data,char *directory,int flag)
 	dir = opendir(create_path());
 	if (!dir)
 		return NULL;
-	rows = matrix_dimension(shell_data, 1);
+	rows = matrix_dimension(0,dir);
 	matrix = (char **)malloc((rows + 1) * sizeof(char *));
 	rows = 0;
 	entry = readdir(dir);
 	while (entry != NULL)
 	{
-			dir_matrix[rows] = ft_strdup(entry->d_name);
+			matrix[rows] = ft_strdup(entry->d_name);
 			rows++;
 			entry = readdir(dir);
 	}
-	dir_matrix[rows] = NULL;
+	matrix[rows] = NULL;
 	closedir(dir);
-	return (dir_matrix);
+	sort_string_matrix(matrix, rows);
+	if(flag = 1)
+		return print_file();  //da scrivere
+	return print_name_file(); //da scrivere
 }
