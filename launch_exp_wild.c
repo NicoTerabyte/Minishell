@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 20:57:02 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/21 21:10:31 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/21 21:15:52 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ char *launch_exp_wild(t_data *shell_data, char *input)
 			ret = ft_strdup("");
 			while (shell_data->file[i] != NULL)
 			{
-			ret = ft_strjoin_wild(ret, shell_data->file[i]->d_name);
+			if(shell_data->file[i]->d_name[0] != '.')
+				ret = ft_strjoin_wild(ret, shell_data->file[i]->d_name);
 			i++;
 			}
 			return ret;
