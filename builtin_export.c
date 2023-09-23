@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:48:20 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/09/19 16:14:45 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/22 02:24:12 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	sort_and_print_export(t_data *shell_data)
 //se inizia con una lettera e dopo ci sono valori non alfanumerici errore
 //ex: a123 va bene a@ non va bene
 //devo fare chiarezza e capire come poter definire gli argomenti uno ad uno
-void	ft_export(char **command_line, t_data *shell_data, t_declaration **identity)
+void	ft_export(char **command_line, t_data *shell_data)
 {
 	int		conc;
 
@@ -88,16 +88,16 @@ void	ft_export(char **command_line, t_data *shell_data, t_declaration **identity
 		sort_and_print_export(shell_data);
 	else
 	{
-		arguments_separation(command_line, conc, identity);
+		arguments_separation(shell_data, command_line, conc);
 		//print_list(*identity);
-		if (check_doubles(shell_data, *identity) == 0 && check_arguments_validation((*identity)->name))
+		if (check_doubles(shell_data) == 0 && check_arguments_validation(shell_data->identity->name))
 		{
-			add_export_env(shell_data,identity);
-			if ((*identity)->value != NULL)
-				add_to_the_real_env(shell_data, *identity);
+			add_export_env(shell_data);
+			if (shell_data->identity->value != NULL)
+				add_to_the_real_env(shell_data);
 		}
-		if (*identity)
-			puppamelo(*identity);
+		if (shell_data->identity)
+			puppamelo(shell_data);
 		//puppamelo(identity);
 	}
 }

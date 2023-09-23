@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:46:34 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/09/19 15:35:21 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/22 22:18:59 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,10 @@ int	copy_env(char **env, t_data *mini_data)
 		printf("Incombenza rilevata!!!\n");
 		return (0); // Non c'è bisogno di liberare la memoria qui
 	}
-
 	while (i < env_size)
 	{
-		mini_data->copy_env[i] = ft_strdup(env[i]);
-		mini_data->export_env[i] = ft_strdup(env[i]);
+		mini_data->copy_env[i] = env[i];
+		mini_data->export_env[i] = env[i];
 		i++;
 	}
 	mini_data->copy_env[i] = NULL;
@@ -96,19 +95,29 @@ void	init_structs(t_data **shell_data, char **envp)
 	}
 	if(!copy_env(envp, *shell_data))
 	{
-		//free(*identity);
 		free(*shell_data);
 		exit(0);
 	}
 }
 
-void	puppamelo(t_declaration *lnico)
+void	puppamelo(t_data *lnico)
 {
-	printf("entrato\n");
-	if (lnico->next)
-		puppamelo(lnico->next);
-	free(lnico->name);
-	free(lnico->value);
-	free(lnico);
+	t_declaration	*tmp;
+	int				i;
+
+	i = 0;
+	while (lnico->identity)
+	{
+		printf("stampa n %d\n", i);
+		print_list(lnico->identity);
+		tmp = lnico->identity;
+		lnico->identity = lnico->identity->next;
+		free(tmp->name);
+		i++;
+		printf("liberato %d volte\n", i);
+		if (tmp->value)
+			free(tmp->value); //invalid free stranamente
+		free(tmp);
+	}
 	printf("si stat liberat\n");
 }

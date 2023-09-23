@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/09/19 18:42:27 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/22 15:28:06 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,6 @@
 # define DOUBLE_QUOTES 7
 # define SINGLE_QUOTES 8
 
-typedef struct s_data
-{
-	char	*path;
-	char	*old_path;
-	char	**copy_env;
-	char	**export_env;
-} t_data;
-
 typedef struct s_declaration
 {
 	int						concatenation; //true o false
@@ -51,13 +43,23 @@ typedef struct s_declaration
 	struct	s_declaration	*next; //la variabile successiva
 }	t_declaration;
 
+typedef struct s_data
+{
+	char			*path;
+	char			*old_path;
+	char			**copy_env;
+	char			**export_env;
+	t_declaration	*identity;
+} t_data;
+
+
 int		cmd_name(char *str);
 void	parser(char **splitcmd);
 int		count_syntax(char *str);
 char	*fix_syntax(char *str);
 int		free_matrix(char **s);
 //lnicoter
-void	builtin_reader(char **command_line, t_data *shell_data, t_declaration **identity);
+void	builtin_reader(char **command_line, t_data *shell_data);
 void	ft_echo(char **command_line);
 void	ft_cd(char **command_line, t_data *shell_data);
 void	ft_env(t_data *shell_data);
@@ -67,25 +69,25 @@ void	update_oldpwd(t_data *shell_data);
 void	update_pwd(t_data *shell_data);
 int		ft_strcmp(const char *s1, const char *s2);
 void	*ft_realloc(void *ptr, size_t size);
-void	ft_export(char **command_line, t_data *shell_data, t_declaration **identity);
+void	ft_export(char **command_line, t_data *shell_data);
 void	print_export(char **export_matrix);
 void	sort_and_print_export(t_data *shell_data);
 char	**setting_the_matrix(t_data *shell_data);
 int		env_rows(t_data *shell_data);
 int		check_arguments_validation(char *command_line);
-void	insert_declaration(t_declaration **list, int concatenation, const char *name, const char *value);
+void	insert_declaration(t_data *shell_data, int concatenation, const char *name, const char *value);
 void	print_list(t_declaration *list);
-void	arguments_separation(char **command_line, int conc, t_declaration **identity);
-void	add_export_env(t_data *shell_data, t_declaration **values);
-char	*super_strjoin(t_data *shell_data, t_declaration *values);
+void	arguments_separation(t_data *shell_data, char **command_line, int conc);
+void	add_export_env(t_data *shell_data);
+char	*super_strjoin(t_data *shell_data);
 // void	insert_in_env(t_data shell_data, char *final_string, t_declaration *values);
 void	init_structs(t_data **shell_data, char **envp);
 void	env_adding(char *final_string, t_data *shell_data);
-void	puppamelo(t_declaration *lnico);
-int		check_doubles(t_data *shell_data, t_declaration *identity);
-void	change_if_needed(t_data *shelll_data, t_declaration *identity, int pos);
+void	puppamelo(t_data *lnico);
+int		check_doubles(t_data *shell_data);
+void	change_if_needed(t_data *shelll_data, int pos);
 char	*i_hate_this_strcpy_for_apix(char *dst, char *src);
 char	*ft_strjoin_damn_you_leaks(char *s1, char  *s2);
-void	add_to_the_real_env(t_data *shell_data, t_declaration *identity);
-int		check_if_good_for_env(t_data *shell_data, t_declaration *identity, int index);
+void	add_to_the_real_env(t_data *shell_data);
+int		check_if_good_for_env(t_data *shell_data, int index);
 #endif

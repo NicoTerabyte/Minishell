@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 23:38:43 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/09/19 16:04:56 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/21 18:07:17 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,32 +45,32 @@ void	env_adding(char *final_string, t_data *shell_data)
 	shell_data->export_env[new_size] = 0;
 }
 
-char *super_strjoin(t_data *shell_data, t_declaration *values)
+char *super_strjoin(t_data *shell_data)
 {
 	char	*final_string;
 
-	final_string = ft_strdup(values->name);
+	final_string = ft_strdup(shell_data->identity->name);
 
-	if (values->value)
+	if (shell_data->identity->value)
 	{
-		if (values->concatenation == 1)
+		if (shell_data->identity->concatenation == 1)
 			final_string = ft_strjoin_damn_you_leaks(final_string, "=");
-		if (!ft_strchr(values->value, '\"') && !ft_strchr(values->value, '\''))
+		if (!ft_strchr(shell_data->identity->value, '\"') && !ft_strchr(shell_data->identity->value, '\''))
 		{
 			final_string = ft_strjoin_damn_you_leaks(final_string, "\""); //fare funzione per liberare e rifare
-			final_string = ft_strjoin_damn_you_leaks(final_string, values->value); //non liberi la stringa precedente
+			final_string = ft_strjoin_damn_you_leaks(final_string, shell_data->identity->value); //non liberi la stringa precedente
 			final_string = ft_strjoin_damn_you_leaks(final_string, "\"");
 		}
-		else if (ft_strchr(values->value, '\''))
+		else if (ft_strchr(shell_data->identity->value, '\''))
 		{
-			char *support_str = i_hate_this_strcpy_for_apix(NULL, values->value);
+			char *support_str = i_hate_this_strcpy_for_apix(NULL, shell_data->identity->value);
 			final_string = ft_strjoin_damn_you_leaks(final_string, support_str);
 			free(support_str);
 		}
 		else
-			final_string = ft_strjoin_damn_you_leaks(final_string, values->value);
+			final_string = ft_strjoin_damn_you_leaks(final_string, shell_data->identity->value);
 	}
-	else if (values->concatenation)
+	else if (shell_data->identity->concatenation)
 	{
 		final_string = ft_strjoin_damn_you_leaks(final_string, "=");
 		final_string = ft_strjoin_damn_you_leaks(final_string, "\"");
@@ -80,13 +80,13 @@ char *super_strjoin(t_data *shell_data, t_declaration *values)
 	return final_string;
 }
 
-void	add_export_env(t_data *shell_data, t_declaration **identity)
+void	add_export_env(t_data *shell_data)
 {
 	char			*final_string;
 
-	final_string = super_strjoin(shell_data, *identity);
+	final_string = super_strjoin(shell_data);
 	env_adding(final_string, shell_data);
 	free(final_string);
-	// *values = (*values)->next;
-	// *values = head;
+	// *shell_data->identity = (*shell_data->identity)->next;
+	// *shell_data->identity = head;
 }

@@ -6,33 +6,31 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 20:30:03 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/09/18 13:20:38 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/22 22:18:26 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	insert_declaration(t_declaration **list, int concatenation, const char *name, const char *value)
+void	insert_declaration(t_data *shell_data, int concatenation, const char *name, const char *value)
 {
-	t_declaration *new_declaration = malloc(sizeof(t_declaration));
-	if (!new_declaration)
-	{
-		perror("Memory allocation failed");
-		free(new_declaration);
-		exit(EXIT_FAILURE);
-	}
-	new_declaration->concatenation = concatenation;
-	new_declaration->name = ft_strdup(name);
-	if (value)
-		new_declaration->value = ft_strdup(value);
+	if (shell_data->identity == NULL)
+		shell_data->identity = ft_calloc(1, sizeof(t_declaration));
 	else
-		new_declaration->value = NULL;
-	new_declaration->next = *list;
-	if (!*list)
-		*list = new_declaration;
-	// free(new_declaration->name);
-	// free(new_declaration->value);
-	// puppamelo(new_declaration);
+	{
+		shell_data->identity->next = ft_calloc(1, sizeof(t_declaration));
+		shell_data->identity = shell_data->identity->next;
+	}
+	shell_data->identity->concatenation = concatenation;
+	shell_data->identity->name = ft_strdup(name);
+	//shell_data->identity->value = NULL;
+	if (value)
+		shell_data->identity->value = ft_strdup(value);
+	shell_data->identity->next = NULL;
+	// free(shell_data->identity->name);
+	// free(shell_data->identity->value);
+	// puppamelo(shell_data->identity);
+	print_list(shell_data->identity);
 }
 
 //in realtà questo mi serve a simulare la cosa che fa manu
@@ -43,14 +41,14 @@ int	check_arguments_validation(char *identity_name_only)
 	i = 0;
 	if (!ft_isalpha(identity_name_only[0]))
 	{
-		printf("\033[1;31mbash: export: `%s': not a valid identifier\n", identity_name_only);
+		printf("\033[1;31mbash: export: `%s': not a valid identifier\n\033\e[0m", identity_name_only);
 		return (0);
 	}
 	while (identity_name_only[i])
 	{
 		if (!ft_isalnum(identity_name_only[i]) && identity_name_only[i]!= '=' && identity_name_only[i] != '+')
 		{
-			printf("\033[1;31mbash: export: `%s': not a valid identifier\n", identity_name_only);
+			printf("\033[31mbash: export: `%s': not a valid identifier\n\e[0m", identity_name_only);
 			return (0);
 		}
 		i++;
@@ -67,7 +65,7 @@ void	print_list(t_declaration *list)
 	}
 }
 
-void	arguments_separation(char **command_line, int conc, t_declaration **identity)
+void	arguments_separation(t_data *shell_data, char **command_line, int conc)
 {
 	char	**separated_args;
 	int		plus_finder;
@@ -90,7 +88,7 @@ void	arguments_separation(char **command_line, int conc, t_declaration **identit
 				plus_finder++;
 			}
 		}
-		insert_declaration(identity, conc, separated_args[0], separated_args[1]);
+		insert_declaration(shell_data, conc, separated_args[0], separated_args[1]);
 	}
 	free_matrix(separated_args);
 }
