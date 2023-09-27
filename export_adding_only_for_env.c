@@ -6,22 +6,31 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:05:44 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/09/22 15:16:01 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/26 20:54:43 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+qua devi aggiustare per la sovrascrittura e poi
+passa alla concatenazione
+la versione alternativa di change_if_needed deve praticamente sistemare i valori
+togliendo nel caso le " o gli '
+*/
 int	check_if_good_for_env(t_data *shell_data, int index)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	char	*tmp;
 
+	tmp = NULL;
 	if (shell_data->identity->value != NULL && (ft_strchr(shell_data->identity->value, '\'')
 		|| ft_strchr(shell_data->identity->value, '\"')))
 	{
-		shell_data->identity->value = &shell_data->identity->value[1]; //logica puntatori
-		shell_data->identity->value[ft_strlen(shell_data->identity->value) - 1] = '\0';
+		tmp = ft_strndup(shell_data->identity->value, 1, ft_strlen(shell_data->identity->value));
+		free(shell_data->identity->value);
+		shell_data->identity->value = tmp; //logica puntatori
 		return(0);
 	}
 	return (1);

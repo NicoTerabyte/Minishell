@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:48:20 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/09/22 02:24:12 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/26 20:56:38 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	ft_export(char **command_line, t_data *shell_data)
 	{
 		arguments_separation(shell_data, command_line, conc);
 		//print_list(*identity);
+		//in questa riga devi gestire le doppie sia per env che per export
 		if (check_doubles(shell_data) == 0 && check_arguments_validation(shell_data->identity->name))
 		{
 			add_export_env(shell_data);

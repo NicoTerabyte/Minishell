@@ -6,7 +6,7 @@
 #    By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/01 14:36:32 by fcarlucc          #+#    #+#              #
-#    Updated: 2023/09/22 21:57:14 by lnicoter         ###   ########.fr        #
+#    Updated: 2023/09/24 19:23:35 by lnicoter         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRC = $(wildcard *.c)\
 
 OBJ = $(SRC:.c=.o)
 
-FLAGS = -g -O1
+FLAGS =
 
 LIBFT_PATH = ./libft
 
@@ -34,7 +34,7 @@ DEFAULT = \033[0m
 all: $(NAME)
 
 %.o : %.c
-	@cc $(FLAGS) -c $< -o $@
+	@gcc -g $(FLAGS) -c $< -o  $@
 
 $(NAME): $(OBJ)
 	@make -C libft

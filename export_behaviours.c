@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:46:45 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/09/21 20:48:49 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/26 20:59:43 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,10 @@ void	change_if_needed(t_data *shell_data, int pos)
 	}
 }
 
+/*per ora gestisce solo il caso export bisogna
+fare la chiamata di una funzione a parte per gestire anche i doppioni in env
+ancora da sistemare inserita nell'env con = e la roba dei doppioni daje lo famo sta sera
+me la sento*/
 int		check_doubles(t_data *shell_data)
 {
 	int		i;
