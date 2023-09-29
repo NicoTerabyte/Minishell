@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 20:57:02 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/21 21:15:52 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/29 20:27:12 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char *launch_exp_wild(t_data *shell_data, char *input)
 	int i;
 
 	i = 0;
-	ret = translate_exp(shell_data, input);
+	ret = expander(shell_data, input);
 	if (is_wildcard(input))
 	{
 		shell_data->file = matrix_file(shell_data);

@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/09/21 21:03:15 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/29 20:27:44 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	add_env(t_data *shell_data, t_declaration **values);
 void	super_strjoin(t_data *shell_data, t_declaration *values);
 // void	insert_in_env(t_data shell_data, char *final_string, t_declaration *values);
 // abuonomo
-char			*translate_exp(t_data *shell_data, char *input);
+char			*expander(t_data *shell_data, char *input);
 char			*translate_wild(t_data *shell_data, char *input);
 int				is_wildcard(char *input);
 char			**matrix_directory(t_data *shell_data);
