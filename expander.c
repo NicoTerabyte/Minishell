@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/30 14:33:56 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/30 23:58:50 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	jump_to_next(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == ' ' || str[i] == '$')
+		if (str[i] == ' ' || str[i] == '$'
+			|| str[i] == '\'' || str[i] == '\"')
 			return (i);
 		i++;
 	}
@@ -73,11 +74,25 @@ char	*expander(t_data *shell_data, char *input)
 	char	*ret;
 	int		i;
 	char	*v;
+	int		quote;
 
+	quote = 0;
 	i = 0;
 	ret = ft_strdup("");
 	while (input[i] != '\0')
 	{
+		if (input[i] == '\"')
+		{
+			quote = !quote;
+			i++;
+		}
+		if (input[i] == '\'' && quote == 0)
+		{
+			i++;
+			while (input[i] != '\'')
+				ft_strncat(ret, &input[i++], 1);
+			i++;
+		}
 		if (input[i] == '$')
 		{
 			i++;
