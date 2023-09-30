@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/09/29 20:27:44 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/30 14:39:57 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,7 @@ void			stampaMatriceChar(char **matrice);
 char			*current_dir(void);
 char			*ft_strcpy(char *dest, char *src);
 char			*launch_exp_wild(t_data *shell_data, char *input);
+char			*ft_strncpy(char *dest, char *src, unsigned int n);
+char			*ft_strncat(char *dest, char *src, int nb);
+char			*ft_strcat(char *dest, char *src);
 #endif

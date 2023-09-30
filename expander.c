@@ -6,20 +6,18 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/29 21:54:23 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/30 14:33:56 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int ft_strcmp_env(const char *input, const char *env)
+int	ft_strcmp_env(const char *input, const char *env)
 {
 	while (*env != '=' && (*input != ' ' || *input != '$'))
 	{
 		if (*input != *env)
-		{
-			return 1;
-		}
+			return (1);
 		input++;
 		env++;
 	}
@@ -28,71 +26,71 @@ int ft_strcmp_env(const char *input, const char *env)
 
 int	jump_to_next(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(str[i]){
-		if(str[i] == ' ' || str[i] == '$')
+	while (str[i])
+	{
+		if (str[i] == ' ' || str[i] == '$')
 			return (i);
 		i++;
 	}
 	return (i);
 }
-char *expander(t_data *shell_data, char *input)
+
+char	*expand_env_variable(t_data *shell_data, const char *var_name)
 {
-	char *ret;
-	int i;
-	int k;
+	int	k;
+
+	k = 0;
+	while (shell_data->copy_env[k] != NULL)
+	{
+		if (ft_strcmp_env(var_name, shell_data->copy_env[k]) == 0)
+			return (ft_strdup(strchr(shell_data->copy_env[k], '=') + 1));
+		k++;
+	}
+	return (NULL);
+}
+
+char	*expand_variable(t_data *shell_data, char *input, int *i)
+{
+	int		var_name_len;
+	char	*var_name;
+	char	*expanded_value;
+
+	var_name_len = jump_to_next(&input[*i]);
+	var_name = (char *)malloc(var_name_len + 1);
+	ft_strncpy(var_name, &input[*i], var_name_len);
+	var_name[var_name_len] = '\0';
+	*i += var_name_len;
+	expanded_value = expand_env_variable(shell_data, var_name);
+	free(var_name);
+	return (expanded_value);
+}
+
+char	*expander(t_data *shell_data, char *input)
+{
+	char	*ret;
+	int		i;
+	char	*v;
 
 	i = 0;
 	ret = ft_strdup("");
 	while (input[i] != '\0')
 	{
-		if(input[i] == '$'){
+		if (input[i] == '$')
+		{
 			i++;
-			k = 0;
-			while(shell_data->copy_env[k] != NULL){
-				printf("Valore di input: %s\n",&input[i]);
-				printf("Valore di copy_env: %s\n", shell_data->copy_env[k]);
-				printf("Valore di ft_strcmp: %d\n",ft_strcmp_env(&input[i], shell_data->copy_env[k]));
-				if(ft_strcmp_env(&input[i], shell_data->copy_env[k]) == 0){
-					printf("PRE REALLOC: %s\n",ret);
-					ret = realloc(ret, ft_strlen(ret) + ft_strlen(ft_strchr(shell_data->copy_env[k], '=') + 1));
-					printf("POST REALLOC: %s\n",ret);
-					strncat(ret, strchr(shell_data->copy_env[k],'=') + 1, ft_strlen(strchr(shell_data->copy_env[k],'=') + 1));
-					printf("POST COPY: %s\n",ret);
-					break;
-				}
-				k++;
+			v = expand_variable(shell_data, input, &i);
+			if (v != NULL)
+			{
+				ret = ft_realloc(ret, ft_strlen(ret) + ft_strlen(v) + 1);
+				ft_strcat(ret, v);
+				free(v);
 			}
-			printf("VALORE DI I PRE FUNC: %d\n",i);
-			i += jump_to_next(&input[i]);
-			printf("VALORE DI I POST FUNC: %d\n",i);
 		}
-		else{
-			printf("VALORE DI RET pre STRC: %s\n",ret);
-			strncat(ret, &input[i],1);
-			printf("VALORE DI RET Post STRC: %s\n",ret);
-			i++;
-		}
+		else
+			ft_strncat(ret, &input[i++], 1);
 	}
-	return ret;
-}
-
-
-
-
-void stampaMatriceChar(char **matrice) {
-    int riga = 0;
-    while (matrice[riga] != NULL) {
-        int colonna = 0;
-
-        while (matrice[riga][colonna] != '\0') {
-            printf("%c ", matrice[riga][colonna]);
-            colonna++;
-        }
-
-        printf("\n");
-        riga++;
-    }
+	return (ret);
 }

@@ -6,14 +6,16 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/09/29 20:26:07 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/09/30 14:09:35 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void printEnvironment(char **envp) {
-	int i = 0;
+void	printEnvironment(char **envp){
+	int i;
+
+	i = 0;
 	while (envp[i] != NULL) {
 		printf("%s\n", envp[i]);
 		i++;
@@ -21,8 +23,7 @@ void printEnvironment(char **envp) {
 }
 
 
-int	main(int argc, char **argv, char **envp)
-{
+int	main(int argc, char **argv, char **envp){
 	char	*str;
 	char	**splitcmd;
 	char	*syntax;

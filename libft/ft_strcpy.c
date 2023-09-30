@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   launch_exp_wild.c                                  :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/21 20:57:02 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/30 14:40:43 by abuonomo         ###   ########.fr       */
+/*   Created: 2023/09/30 14:37:52 by abuonomo          #+#    #+#             */
+/*   Updated: 2023/09/30 14:37:53 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-char *launch_exp_wild(t_data *shell_data, char *input)
+char *ft_strcpy(char *dest, char *src)
 {
-	char *ret;
 	int i;
 
 	i = 0;
-	ret = expander(shell_data, input);
-	return (ret);
+	while (src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
 }

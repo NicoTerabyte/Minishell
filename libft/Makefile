@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+         #
+#    By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 19:18:35 by mlongo            #+#    #+#              #
-#    Updated: 2023/08/07 21:48:42 by lnicoter         ###   ########.fr        #
+#    Updated: 2023/09/30 14:38:24 by abuonomo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ OBJS := ft_strlcpy.o ft_calloc.o ft_putnbr_fd.o ft_strdup.o ft_tolower.o \
 	ft_putchar_fd.o ft_split.o ft_strnstr.o ft_bzero.o ft_atoi.o ft_isalpha.o \
 	ft_strjoin.o ft_memmove.o ft_isascii.o ft_strlen.o ft_strrchr.o \
 	ft_toupper.o ft_isalnum.o ft_strmapi.o ft_strtrim.o ft_itoa.o ft_strchr.o \
-	ft_memcpy.o ft_putstr_fd.o
+	ft_memcpy.o ft_putstr_fd.o ft_strcpy.o
 	# ft_lstlast.o ft_lstiter.o ft_lstsize.o \
 	# ft_lstadd_back.o ft_lstadd_front.o ft_lstclear.o ft_lstdelone.o \
 	# ft_lstmap.o ft_lstnew.o ft_strcmp.o \
