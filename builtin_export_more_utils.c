@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 20:30:03 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/09/22 22:18:26 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/01 20:32:36 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 void	insert_declaration(t_data *shell_data, int concatenation, const char *name, const char *value)
 {
 	if (shell_data->identity == NULL)
+	{
 		shell_data->identity = ft_calloc(1, sizeof(t_declaration));
+	}
 	else
 	{
 		shell_data->identity->next = ft_calloc(1, sizeof(t_declaration));
@@ -23,13 +25,9 @@ void	insert_declaration(t_data *shell_data, int concatenation, const char *name,
 	}
 	shell_data->identity->concatenation = concatenation;
 	shell_data->identity->name = ft_strdup(name);
-	//shell_data->identity->value = NULL;
 	if (value)
 		shell_data->identity->value = ft_strdup(value);
 	shell_data->identity->next = NULL;
-	// free(shell_data->identity->name);
-	// free(shell_data->identity->value);
-	// puppamelo(shell_data->identity);
 	print_list(shell_data->identity);
 }
 

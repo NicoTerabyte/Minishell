@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/10/01 15:58:36 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/01 20:24:51 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef struct s_declaration
 	char					*name; //nome della variabile da inserire nell'export
 	char					*value; //il valore di quest'ultima
 	struct	s_declaration	*next; //la variabile successiva
-	struct	s_declaration	*head;
 }	t_declaration;
 
 typedef struct s_data

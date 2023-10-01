@@ -6,12 +6,12 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/09/30 19:15:33 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/01 18:48:51 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*head sta facendo casino toglilo e rifallo torna ad uno stadio precedente*/
 int	main(int argc, char **argv, char **envp)
 {
 	char			*str;

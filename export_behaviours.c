@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:46:45 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/01 13:04:33 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/01 20:46:47 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	concatenation_export(t_data *shell_data, int pos)
 	//la stringa perché essa viene mallocata precedentemente con malloc prima
 	//fai na versione che libera prima di creare un duplicato di strdup
 	tmp_value = ft_strndup(shell_data->export_env[pos], 0, ft_strlen(shell_data->export_env[pos]) - 1);
-	free(shell_data->export_env[pos]);
+	//free(shell_data->export_env[pos]);
 	shell_data->export_env[pos] = tmp_value;
 	shell_data->export_env[pos] = ft_strjoin_damn_you_leaks(shell_data->export_env[pos], shell_data->identity->value);
 	shell_data->export_env[pos] = ft_strjoin_damn_you_leaks(shell_data->export_env[pos], "\"");
@@ -38,30 +38,30 @@ void	change_if_needed(t_data *shell_data, int pos)
 	support_str = NULL;
 	if (shell_data->identity->value != NULL)
 	{
-		free(shell_data->export_env[pos - 1]);
-		shell_data->export_env[pos - 1] = ft_strdup(shell_data->identity->name);
-		shell_data->export_env[pos - 1] = ft_strjoin_damn_you_leaks(shell_data->export_env[pos - 1], "=");
+		free(shell_data->export_env[pos]); //problema da sistemare munmap_chunk
+		shell_data->export_env[pos] = ft_strdup(shell_data->identity->name);
+		shell_data->export_env[pos] = ft_strjoin_damn_you_leaks(shell_data->export_env[pos], "=");
 		if (!ft_strchr(shell_data->identity->value, '\"') && !ft_strchr(shell_data->identity->value, '\''))
 		{
-			shell_data->export_env[pos - 1] = ft_strjoin_damn_you_leaks(shell_data->export_env[pos - 1], "\"");
-			shell_data->export_env[pos - 1] = ft_strjoin_damn_you_leaks(shell_data->export_env[pos - 1], shell_data->identity->value);
-			shell_data->export_env[pos - 1] = ft_strjoin_damn_you_leaks(shell_data->export_env[pos - 1], "\"");
+			shell_data->export_env[pos] = ft_strjoin_damn_you_leaks(shell_data->export_env[pos], "\"");
+			shell_data->export_env[pos] = ft_strjoin_damn_you_leaks(shell_data->export_env[pos], shell_data->identity->value);
+			shell_data->export_env[pos] = ft_strjoin_damn_you_leaks(shell_data->export_env[pos], "\"");
 		}
 		else if (ft_strchr(shell_data->identity->value, '\''))
 		{
 			support_str = i_hate_this_strcpy_for_apix(support_str, shell_data->identity->value);
-			shell_data->export_env[pos - 1] = ft_strjoin_damn_you_leaks(shell_data->export_env[pos - 1], support_str);
+			shell_data->export_env[pos] = ft_strjoin_damn_you_leaks(shell_data->export_env[pos], support_str);
 			free(support_str);
 		}
 		else
-			shell_data->export_env[pos - 1] = ft_strjoin_damn_you_leaks(shell_data->export_env[pos - 1], shell_data->identity->value);
+			shell_data->export_env[pos] = ft_strjoin_damn_you_leaks(shell_data->export_env[pos], shell_data->identity->value);
 	}
 	else if (shell_data->identity->concatenation != 0)
 	{
-		shell_data->export_env[pos - 1] = ft_strdup(shell_data->identity->name);
-		shell_data->export_env[pos - 1] = ft_strjoin_damn_you_leaks(shell_data->export_env[pos - 1], "=");
-		shell_data->export_env[pos - 1] = ft_strjoin_damn_you_leaks(shell_data->export_env[pos - 1], "\"");
-		shell_data->export_env[pos - 1] = ft_strjoin_damn_you_leaks(shell_data->export_env[pos - 1], "\"");
+		shell_data->export_env[pos] = ft_strdup(shell_data->identity->name);
+		shell_data->export_env[pos] = ft_strjoin_damn_you_leaks(shell_data->export_env[pos], "=");
+		shell_data->export_env[pos] = ft_strjoin_damn_you_leaks(shell_data->export_env[pos], "\"");
+		shell_data->export_env[pos] = ft_strjoin_damn_you_leaks(shell_data->export_env[pos], "\"");
 	}
 }
 
@@ -69,17 +69,17 @@ void	change_if_needed_env_ver(t_data	*shell_data, int pos)
 {
 	if (shell_data->identity->value != NULL)
 	{
-		free(shell_data->copy_env[pos - 1]);
-		shell_data->copy_env[pos - 1] = ft_strdup(shell_data->identity->name);
-		check_if_good_for_env(shell_data, pos - 1);
-		shell_data->copy_env[pos - 1] = ft_strjoin_damn_you_leaks(shell_data->copy_env[pos - 1], "=");
-		shell_data->copy_env[pos - 1] = ft_strjoin_damn_you_leaks(shell_data->copy_env[pos - 1], shell_data->identity->value);
+		free(shell_data->copy_env[pos]);
+		shell_data->copy_env[pos] = ft_strdup(shell_data->identity->name);
+		check_if_good_for_env(shell_data, pos);
+		shell_data->copy_env[pos] = ft_strjoin_damn_you_leaks(shell_data->copy_env[pos], "=");
+		shell_data->copy_env[pos] = ft_strjoin_damn_you_leaks(shell_data->copy_env[pos], shell_data->identity->value);
 	}
 	else if (shell_data->identity->concatenation == 1)
 	{
 		free(shell_data->copy_env[pos]);
-		shell_data->copy_env[pos - 1] = ft_strdup(shell_data->identity->name);
-		shell_data->copy_env[pos - 1] = ft_strjoin_damn_you_leaks(shell_data->copy_env[pos - 1], "=");
+		shell_data->copy_env[pos] = ft_strdup(shell_data->identity->name);
+		shell_data->copy_env[pos] = ft_strjoin_damn_you_leaks(shell_data->copy_env[pos], "=");
 	}
 }
 /*per ora gestisce solo il caso export bisogna
