@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 23:38:43 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/09/21 18:07:17 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/30 19:06:37 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char *super_strjoin(t_data *shell_data)
 
 	if (shell_data->identity->value)
 	{
-		if (shell_data->identity->concatenation == 1)
+		if (shell_data->identity->concatenation != 0)
 			final_string = ft_strjoin_damn_you_leaks(final_string, "=");
 		if (!ft_strchr(shell_data->identity->value, '\"') && !ft_strchr(shell_data->identity->value, '\''))
 		{

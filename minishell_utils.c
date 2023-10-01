@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:46:34 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/09/22 22:18:59 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/29 20:35:46 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,13 +108,11 @@ void	puppamelo(t_data *lnico)
 	i = 0;
 	while (lnico->identity)
 	{
-		printf("stampa n %d\n", i);
 		print_list(lnico->identity);
 		tmp = lnico->identity;
 		lnico->identity = lnico->identity->next;
 		free(tmp->name);
 		i++;
-		printf("liberato %d volte\n", i);
 		if (tmp->value)
 			free(tmp->value); //invalid free stranamente
 		free(tmp);

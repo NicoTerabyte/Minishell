@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 19:18:28 by mlongo            #+#    #+#             */
-/*   Updated: 2023/09/18 22:01:06 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/29 17:35:21 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,5 @@ int	ft_strcmp(const char *s1, const char *s2);
 //minishell
 char	*i_hate_this_strcpy_for_apix(char *dst, char *src);
 char	*ft_strjoin_damn_you_leaks(char *s1, char  *s2);
+void	ft_strcat(char *dst, const char *src);
 #endif

@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/09/26 20:54:09 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/01 15:58:36 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_declaration
 	char					*name; //nome della variabile da inserire nell'export
 	char					*value; //il valore di quest'ultima
 	struct	s_declaration	*next; //la variabile successiva
+	struct	s_declaration	*head;
 }	t_declaration;
 
 typedef struct s_data
@@ -51,7 +52,6 @@ typedef struct s_data
 	char			**export_env;
 	t_declaration	*identity;
 } t_data;
-
 
 int		cmd_name(char *str);
 void	parser(char **splitcmd);
@@ -88,7 +88,11 @@ int		check_doubles(t_data *shell_data);
 void	change_if_needed(t_data *shelll_data, int pos);
 char	*i_hate_this_strcpy_for_apix(char *dst, char *src);
 char	*ft_strjoin_damn_you_leaks(char *s1, char  *s2);
+void	ft_strcat(char	*dst, const char *src);
 void	add_to_the_real_env(t_data *shell_data);
 int		check_if_good_for_env(t_data *shell_data, int index);
 char	*ft_strndup(char *str, int start, int finish);
+void	change_if_needed_env_ver(t_data	*shell_data, int pos);
+void	concatenation_export(t_data *shell_data, int pos);
+void	ft_strcat(char *dst, const char *src);
 #endif

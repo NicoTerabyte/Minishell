@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:05:44 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/09/26 20:54:43 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/01 13:35:47 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ togliendo nel caso le " o gli '
 */
 int	check_if_good_for_env(t_data *shell_data, int index)
 {
-	int		i;
-	int		j;
 	char	*tmp;
 
 	tmp = NULL;
@@ -43,11 +41,11 @@ void	add_to_the_real_env(t_data *shell_data)
 	i = 0;
 	while(shell_data->copy_env[i])
 		i++;
-	shell_data->copy_env = realloc(shell_data->copy_env, (i + 1) * sizeof(char *));
-	shell_data->copy_env[i - 1] = ft_strdup(shell_data->identity->name);
-	shell_data->copy_env[i] = 0;
-	check_if_good_for_env(shell_data, i - 1);
-	shell_data->copy_env[i - 1] = ft_strjoin_damn_you_leaks(shell_data->copy_env[i - 1], "=");
-	shell_data->copy_env[i - 1] = ft_strjoin_damn_you_leaks(shell_data->copy_env[i - 1], shell_data->identity->value);
-
+	shell_data->copy_env = realloc(shell_data->copy_env, (i + 2) * sizeof(char *));
+	shell_data->copy_env[i] = ft_strdup(shell_data->identity->name);
+	shell_data->copy_env[i + 1] = 0;
+	check_if_good_for_env(shell_data, i);
+	shell_data->copy_env[i] = ft_strjoin_damn_you_leaks(shell_data->copy_env[i], "=");
+	if (shell_data->identity->value)
+		shell_data->copy_env[i] = ft_strjoin_damn_you_leaks(shell_data->copy_env[i], shell_data->identity->value);
 }
