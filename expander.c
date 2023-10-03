@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/30 23:58:50 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/10/03 14:03:54 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,40 +69,42 @@ char	*expand_variable(t_data *shell_data, char *input, int *i)
 	return (expanded_value);
 }
 
+int	is_doublequote(char *input, int *i)
+{
+	int	quote;
+
+	quote = 0;
+	if (input[*i] == '\"')
+	{
+		quote = !quote;
+		(*i)++;
+	}
+	return (quote);
+}
+
+char	*ret_cat(char *ret, char *v)
+{
+	ret = ft_realloc(ret, ft_strlen(ret) + ft_strlen(v) + 1);
+	ft_strcat(ret, v);
+	free(v);
+	return (ret);
+}
 char	*expander(t_data *shell_data, char *input)
 {
 	char	*ret;
 	int		i;
 	char	*v;
-	int		quote;
-
-	quote = 0;
+	
 	i = 0;
 	ret = ft_strdup("");
 	while (input[i] != '\0')
 	{
-		if (input[i] == '\"')
-		{
-			quote = !quote;
-			i++;
-		}
-		if (input[i] == '\'' && quote == 0)
-		{
-			i++;
-			while (input[i] != '\'')
-				ft_strncat(ret, &input[i++], 1);
-			i++;
-		}
 		if (input[i] == '$')
 		{
 			i++;
 			v = expand_variable(shell_data, input, &i);
 			if (v != NULL)
-			{
-				ret = ft_realloc(ret, ft_strlen(ret) + ft_strlen(v) + 1);
-				ft_strcat(ret, v);
-				free(v);
-			}
+				ret = ret_cat(ret, v);
 		}
 		else
 			ft_strncat(ret, &input[i++], 1);
