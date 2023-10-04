@@ -1,23 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   launch_exp_wild.c                                  :+:      :+:    :+:   */
+/*   single_quote.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/21 20:57:02 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/10/04 14:12:24 by abuonomo         ###   ########.fr       */
+/*   Created: 2023/10/03 14:07:07 by abuonomo          #+#    #+#             */
+/*   Updated: 2023/10/04 14:13:47 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-char *launch_exp_wild(t_data *shell_data, char *input)
-{
-	char *ret;
-	int i;
-
-	i = 0;
-	ret = expander(shell_data, input);
-	return (ret);
-}
