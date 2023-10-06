@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:48:20 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/01 20:35:57 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/03 17:43:30 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,17 +88,33 @@ void	ft_export(char **command_line, t_data *shell_data)
 		sort_and_print_export(shell_data);
 	else
 	{
-		arguments_separation(shell_data, command_line, conc);
-		printf("valore che verra' inserito\n");
-		print_list(shell_data->identity);
-		if (check_doubles(shell_data) == 0 && check_arguments_validation(shell_data->identity->name))
+		// check_arguments_validation qui perché l'= è un problema
+		arguments_separation(shell_data, command_line, conc); //segfault gestire casi con nomevalue = "="
+		while (shell_data->identity)
 		{
-			add_export_env(shell_data);
-			if (shell_data->identity->concatenation != 0)
-				add_to_the_real_env(shell_data);
+			if (check_doubles(shell_data) == 0 && check_arguments_validation(shell_data->identity->name))
+			{
+				add_export_env(shell_data);
+				if (shell_data->identity->concatenation != 0)
+					add_to_the_real_env(shell_data);
+			}
+			shell_data->identity = shell_data->identity->next;
 		}
-		// shell_data->identity = shell_data->identity->next;
+		shell_data->identity = shell_data->head;
 		if (shell_data->identity)
 			puppamelo(shell_data);
 	}
 }
+
+/*
+bug da sistemare
+1)l'aggiunta di più elementi comporta
+l'inserimento dell'= in maniera automatica (fixato)
+2)sembra che non riesca a reggere due test di fila
+i test sono: daje=roma pesce=noncane (le due variabili dovrebbero essere sovrascritte) (fixato)
+3)se una variabile è dichiarata senza = e poi si fa la concatenazione si rompe un po' (fixato)
+4) leaks sembra non ci siano altre pecche
+5) //segfault gestire casi con nomevalue = "=" (fixato)
+6) Sistemare la split in modo che dopo l'= si fa mantenendo i valori
+	è come se dovessi splittare una volta sola.... mantenendo quello che c'è dopo
+*/

@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/10/01 20:24:51 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/06 17:50:26 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_data
 	char			**copy_env;
 	char			**export_env;
 	t_declaration	*identity;
+	t_declaration	*head;
 } t_data;
 
 int		cmd_name(char *str);
@@ -94,4 +95,9 @@ char	*ft_strndup(char *str, int start, int finish);
 void	change_if_needed_env_ver(t_data	*shell_data, int pos);
 void	concatenation_export(t_data *shell_data, int pos);
 void	ft_strcat(char *dst, const char *src);
+char	**split_bt_nt_t_mc(char *str, char c);
+//unset
+void	ft_unset(t_data *shell_data, char **command_line);
+void	copy_check_unset(t_data *shell_data, char **command_line, int pos);
+void	swap_mat(char **str1, char **str2);
 #endif

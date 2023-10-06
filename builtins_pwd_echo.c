@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 16:34:36 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/09/21 17:39:06 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/06 18:01:12 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,4 +103,6 @@ void	builtin_reader(char **command_line, t_data *shell_data) //aggiornare con st
 		ft_env(shell_data);
 	if (!ft_strcmp(command_line[0], "export"))
 		ft_export(command_line, shell_data);
+	if (!ft_strcmp(command_line[0], "unset"))
+		ft_unset(shell_data, command_line);
 }

@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:46:34 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/01 20:37:29 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/05 19:44:37 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ int	copy_env(char **env, t_data *mini_data)
 	}
 	while (i < env_size)
 	{
-		mini_data->copy_env[i] = env[i];
-		mini_data->export_env[i] = env[i];
+		mini_data->copy_env[i] = ft_strdup(env[i]);
+		mini_data->export_env[i] = ft_strdup(env[i]);
 		i++;
 	}
-	mini_data->copy_env[i] = NULL;
-	mini_data->export_env[i] = NULL;
+	mini_data->copy_env[i] = 0;
+	mini_data->export_env[i] = 0;
 	return (1);
 }
 
@@ -85,6 +85,12 @@ int	env_rows(t_data *shell_data)
 void	init_structs(t_data **shell_data, char **envp)
 {
 
+	// char			*path;
+	// char			*old_path;
+	// char			**copy_env;
+	// char			**export_env;
+	// t_declaration	*identity;
+	// t_declaration	*head;
 	//*identity = (t_declaration *)malloc(sizeof(t_declaration));
 	*shell_data = (t_data *)malloc(sizeof(t_data));
 	if (!*shell_data)
@@ -98,6 +104,10 @@ void	init_structs(t_data **shell_data, char **envp)
 		free(*shell_data);
 		exit(0);
 	}
+	(*shell_data)->identity = NULL;
+	(*shell_data)->head = NULL;
+	(*shell_data)->path = NULL;
+	(*shell_data)->old_path = NULL;
 }
 
 void	puppamelo(t_data *lnico)
@@ -108,14 +118,19 @@ void	puppamelo(t_data *lnico)
 	i = 0;
 	while (lnico->identity)
 	{
-		print_list(lnico->identity);
 		tmp = lnico->identity;
 		lnico->identity = lnico->identity->next;
 		free(tmp->name);
 		i++;
 		if (tmp->value)
 			free(tmp->value); //invalid free stranamente
+		tmp->concatenation = 0;
 		free(tmp);
 	}
+	if (lnico->identity)
+		printf("qualcosa e' andato male liberazione della memoria fatta a buffo\n");
+	else
+		printf("tutto ok liberato in maniera corretta\n");
+	lnico->head = NULL;
 	printf("si stat liberat\n");
 }

@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 16:34:03 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/08/21 14:42:54 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/05 19:45:42 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	update_oldpwd(t_data *shell_data)
 {
 	char	*new_value;
 	char	*final_string;
+	char	*tmp;
 	int		i;
 
 	new_value = getcwd(0, 0);
@@ -25,11 +26,13 @@ void	update_oldpwd(t_data *shell_data)
 		if (ft_strncmp(shell_data->copy_env[i], "OLDPWD", 6) == 0)
 		{
 			final_string = ft_strjoin("OLDPWD=", new_value);
-			shell_data->copy_env[i] = final_string;
-			free(new_value);
-			return ;
+			free(shell_data->copy_env[i]);
+			shell_data->copy_env[i] = ft_strdup(final_string);
+			free(final_string);
+			break ;
 		}
 	}
+	free(new_value);
 }
 
 void	update_pwd(t_data *shell_data)
@@ -45,11 +48,13 @@ void	update_pwd(t_data *shell_data)
 		if (ft_strncmp(shell_data->copy_env[i], "PWD", 3) == 0)
 		{
 			final_string = ft_strjoin("PWD=", new_value);
-			shell_data->copy_env[i] = final_string;
-			free(new_value);
-			return ;
+			free(shell_data->copy_env[i]);
+			shell_data->copy_env[i] = ft_strdup(final_string);
+			free(final_string);
+			break ;
 		}
 	}
+	free(new_value);
 }
 
 void	ft_cd(char **command_line, t_data *shell_data)

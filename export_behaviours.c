@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:46:45 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/01 20:46:47 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/05 15:08:23 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,21 @@ void	concatenation_export(t_data *shell_data, int pos)
 	//prima di fare questa operazione devi trovare il modo di liberare
 	//la stringa perché essa viene mallocata precedentemente con malloc prima
 	//fai na versione che libera prima di creare un duplicato di strdup
-	tmp_value = ft_strndup(shell_data->export_env[pos], 0, ft_strlen(shell_data->export_env[pos]) - 1);
-	//free(shell_data->export_env[pos]);
+	if (ft_strchr(shell_data->export_env[pos], '='))
+		tmp_value = ft_strndup(shell_data->export_env[pos], 0, ft_strlen(shell_data->export_env[pos]) - 1);
+	else
+		tmp_value = ft_strdup(shell_data->export_env[pos]);
+	printf("CONTROLLO TMP VALUE %s\n", tmp_value);
+	free(shell_data->export_env[pos]);
 	shell_data->export_env[pos] = tmp_value;
+	if (!ft_strchr(shell_data->export_env[pos], '='))
+	{
+		shell_data->export_env[pos] = ft_strjoin_damn_you_leaks(shell_data->export_env[pos], "=");
+		shell_data->export_env[pos] = ft_strjoin_damn_you_leaks(shell_data->export_env[pos], "\"");
+		shell_data->copy_env[pos] = ft_strjoin(shell_data->identity->name, "=");
+	}
 	shell_data->export_env[pos] = ft_strjoin_damn_you_leaks(shell_data->export_env[pos], shell_data->identity->value);
 	shell_data->export_env[pos] = ft_strjoin_damn_you_leaks(shell_data->export_env[pos], "\"");
-	printf("copienv prima dell'aggiornamento %s\n", shell_data->copy_env[pos]); //non c'è assolutamente NULLA
 	shell_data->copy_env[pos] = ft_strjoin_damn_you_leaks(shell_data->copy_env[pos], shell_data->identity->value);
 }
 

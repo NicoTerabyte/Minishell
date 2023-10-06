@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 23:38:43 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/01 17:52:45 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/05 15:03:44 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char *super_strjoin(t_data *shell_data)
 		final_string = ft_strjoin_damn_you_leaks(final_string, "\"");
 	}
 
-	return final_string;
+	return (final_string);
 }
 
 void	add_export_env(t_data *shell_data)
