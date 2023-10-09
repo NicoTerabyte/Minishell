@@ -6,22 +6,15 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:46:45 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/05 15:08:23 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/09 20:02:37 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-aggiunta della funzione per la concatenazione verrà evocata se c'è un duplicato
-Sviluppo delle casistiche
-*/
 void	concatenation_export(t_data *shell_data, int pos)
 {
 	char	*tmp_value;
-	//prima di fare questa operazione devi trovare il modo di liberare
-	//la stringa perché essa viene mallocata precedentemente con malloc prima
-	//fai na versione che libera prima di creare un duplicato di strdup
 	if (ft_strchr(shell_data->export_env[pos], '='))
 		tmp_value = ft_strndup(shell_data->export_env[pos], 0, ft_strlen(shell_data->export_env[pos]) - 1);
 	else
@@ -44,27 +37,8 @@ void	change_if_needed(t_data *shell_data, int pos)
 {
 	char			*support_str;
 
-	support_str = NULL;
 	if (shell_data->identity->value != NULL)
-	{
-		free(shell_data->export_env[pos]); //problema da sistemare munmap_chunk
-		shell_data->export_env[pos] = ft_strdup(shell_data->identity->name);
-		shell_data->export_env[pos] = ft_strjoin_damn_you_leaks(shell_data->export_env[pos], "=");
-		if (!ft_strchr(shell_data->identity->value, '\"') && !ft_strchr(shell_data->identity->value, '\''))
-		{
-			shell_data->export_env[pos] = ft_strjoin_damn_you_leaks(shell_data->export_env[pos], "\"");
-			shell_data->export_env[pos] = ft_strjoin_damn_you_leaks(shell_data->export_env[pos], shell_data->identity->value);
-			shell_data->export_env[pos] = ft_strjoin_damn_you_leaks(shell_data->export_env[pos], "\"");
-		}
-		else if (ft_strchr(shell_data->identity->value, '\''))
-		{
-			support_str = i_hate_this_strcpy_for_apix(support_str, shell_data->identity->value);
-			shell_data->export_env[pos] = ft_strjoin_damn_you_leaks(shell_data->export_env[pos], support_str);
-			free(support_str);
-		}
-		else
-			shell_data->export_env[pos] = ft_strjoin_damn_you_leaks(shell_data->export_env[pos], shell_data->identity->value);
-	}
+		overwrite(shell_data, pos);
 	else if (shell_data->identity->concatenation != 0)
 	{
 		shell_data->export_env[pos] = ft_strdup(shell_data->identity->name);
@@ -108,9 +82,8 @@ int		check_doubles(t_data *shell_data)
 	while (shell_data->export_env[i])
 	{
 		if (ft_strncmp(shell_data->export_env[i], shell_data->identity->name, word_len) == 0
-			&& shell_data->identity->concatenation == 1)
+			&& (shell_data->identity->concatenation == 1 || shell_data->identity->concatenation == 0))
 		{
-			printf("copia trovata \n");
 			change_if_needed(shell_data, i);
 			change_if_needed_env_ver(shell_data, i);
 			return (1);

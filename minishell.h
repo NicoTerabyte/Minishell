@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/10/06 17:50:26 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/09 19:59:00 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,11 @@ void	change_if_needed_env_ver(t_data	*shell_data, int pos);
 void	concatenation_export(t_data *shell_data, int pos);
 void	ft_strcat(char *dst, const char *src);
 char	**split_bt_nt_t_mc(char *str, char c);
+void	phase1(t_data *shell_data, char **final_string);
+void	phase2(char **final_string);
+void	list_update(t_data *shell_data, int conc, char **com_line, int i);
+void	updating(char	***separg);
+void	overwrite(t_data *shell_data, int pos);
 //unset
 void	ft_unset(t_data *shell_data, char **command_line);
 void	copy_check_unset(t_data *shell_data, char **command_line, int pos);

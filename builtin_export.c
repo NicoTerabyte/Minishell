@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:48:20 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/03 17:43:30 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/09 19:57:33 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	sort_and_print_export(t_data *shell_data)
 		}
 	}
 	print_export(export_matrix);
-	free(export_matrix);  // Ricordati di liberare la memoria allocata
+	free(export_matrix);
 }
 
 
@@ -88,7 +88,6 @@ void	ft_export(char **command_line, t_data *shell_data)
 		sort_and_print_export(shell_data);
 	else
 	{
-		// check_arguments_validation qui perché l'= è un problema
 		arguments_separation(shell_data, command_line, conc); //segfault gestire casi con nomevalue = "="
 		while (shell_data->identity)
 		{

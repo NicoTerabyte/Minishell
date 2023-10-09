@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:46:34 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/05 19:44:37 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/09 20:07:05 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,32 +43,25 @@ void *ft_realloc(void *ptr, size_t size)
 {
 	void *new_ptr;
 
-	// if (ptr)
-	// {
-	// 	if (size)
-	// 	{
-	// 		new_ptr = malloc(size);
-	// 		if (!new_ptr)
-	// 			return (NULL);
-	// 		ft_bzero(new_ptr, size);
-	// 		ft_memcpy(new_ptr, ptr, size);
-	// 	}
-	// 	else
-	// 	{
-	// 		new_ptr = (unsigned char *)malloc(sizeof(ptr));
-	// 		if (!new_ptr)
-	// 			return (NULL);
-	// 	}
-	// 	free(ptr);
-	// 	return (new_ptr);
-	// }
-	if (!ptr)
-		return (malloc(size));
-	new_ptr = malloc(size);
-	if (!new_ptr)
-		return (NULL);
-	ft_memcpy(new_ptr, ptr, size);
-	free(ptr);
+	if (ptr)
+	{
+		if (size)
+		{
+			new_ptr = malloc(size);
+			if (!new_ptr)
+				return (NULL);
+			ft_bzero(new_ptr, size);
+			ft_memcpy(new_ptr, ptr, size);
+		}
+		else
+		{
+			new_ptr = (unsigned char *)malloc(sizeof(ptr));
+			if (!new_ptr)
+				return (NULL);
+		}
+		free(ptr);
+		return (new_ptr);
+	}
 	return (new_ptr);
 }
 
@@ -84,18 +77,9 @@ int	env_rows(t_data *shell_data)
 
 void	init_structs(t_data **shell_data, char **envp)
 {
-
-	// char			*path;
-	// char			*old_path;
-	// char			**copy_env;
-	// char			**export_env;
-	// t_declaration	*identity;
-	// t_declaration	*head;
-	//*identity = (t_declaration *)malloc(sizeof(t_declaration));
 	*shell_data = (t_data *)malloc(sizeof(t_data));
 	if (!*shell_data)
 	{
-		//free(identity);
 		free(*shell_data);
 		exit(0);
 	}
@@ -132,5 +116,4 @@ void	puppamelo(t_data *lnico)
 	else
 		printf("tutto ok liberato in maniera corretta\n");
 	lnico->head = NULL;
-	printf("si stat liberat\n");
 }

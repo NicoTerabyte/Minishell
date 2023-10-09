@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 20:30:03 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/04 00:43:50 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/09 19:27:35 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,34 +77,10 @@ void	print_list(t_declaration *list)
 
 void	arguments_separation(t_data *shell_data, char **command_line, int conc)
 {
-	char	**separated_args;
-	int		plus_finder;
 	int		i;
 
-	plus_finder = 0;
 	i = 0;
 	while(command_line[++i])
-	{
-		if (check_arguments_validation(command_line[i]))
-		{
-			if (ft_strchr(command_line[i], '='))
-				conc = 1;
-			separated_args = split_bt_nt_t_mc(command_line[i], '='); // ciao,    comeva=ds
-			printf("check arguments %s\n value %s\n",separated_args[0], separated_args[1]);
-			if (ft_strchr(separated_args[0], '+'))
-			{
-				conc = 2;
-				while(separated_args[0][plus_finder])
-				{
-					if (separated_args[0][plus_finder] == '+')
-						separated_args[0][plus_finder] = '\0';
-					plus_finder++;
-				}
-			}
-			insert_declaration(shell_data, conc, separated_args[0], separated_args[1]);
-			conc = 0;
-		}
-	}
+		list_update(shell_data, conc, command_line, i);
 	shell_data->identity = shell_data->head;
-	free_matrix(separated_args);
 }

@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 23:38:43 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/05 15:03:44 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/09 16:27:23 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,43 +50,20 @@ char *super_strjoin(t_data *shell_data)
 	char	*final_string;
 
 	final_string = ft_strdup(shell_data->identity->name);
-
+	printf("pronto a combattere\n");
+	print_list(shell_data->identity);
 	if (shell_data->identity->value)
-	{
-		if (shell_data->identity->concatenation != 0)
-			final_string = ft_strjoin_damn_you_leaks(final_string, "=");
-		if (!ft_strchr(shell_data->identity->value, '\"') && !ft_strchr(shell_data->identity->value, '\''))
-		{
-			final_string = ft_strjoin_damn_you_leaks(final_string, "\""); //fare funzione per liberare e rifare
-			final_string = ft_strjoin_damn_you_leaks(final_string, shell_data->identity->value); //non liberi la stringa precedente
-			final_string = ft_strjoin_damn_you_leaks(final_string, "\"");
-		}
-		else if (ft_strchr(shell_data->identity->value, '\''))
-		{
-			char *support_str = i_hate_this_strcpy_for_apix(NULL, shell_data->identity->value);
-			final_string = ft_strjoin_damn_you_leaks(final_string, support_str);
-			free(support_str);
-		}
-		else
-			final_string = ft_strjoin_damn_you_leaks(final_string, shell_data->identity->value);
-	}
+		phase1(shell_data, &final_string);
 	else if (shell_data->identity->concatenation)
-	{
-		final_string = ft_strjoin_damn_you_leaks(final_string, "=");
-		final_string = ft_strjoin_damn_you_leaks(final_string, "\"");
-		final_string = ft_strjoin_damn_you_leaks(final_string, "\"");
-	}
-
+		phase2(&final_string);
 	return (final_string);
 }
 
 void	add_export_env(t_data *shell_data)
 {
-	char			*final_string;
+	char	*final_string;
 
 	final_string = super_strjoin(shell_data);
 	env_adding(final_string, shell_data);
 	free(final_string);
-	// *shell_data->identity = (*shell_data->identity)->next;
-	// *shell_data->identity = head;
 }
