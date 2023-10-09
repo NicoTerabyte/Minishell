@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   tok_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/05 13:48:48 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/09 22:15:12 by lnicoter         ###   ########.fr       */
+/*   Created: 2023/08/11 11:43:58 by mlongo            #+#    #+#             */
+/*   Updated: 2023/08/11 15:50:08 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "tokenizer.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	tok_add_back(t_token **lst, t_token *new)
 {
-	if (!lst)
-		return ;
-	if (!*lst)
+	static t_token	*tail = NULL;
+
+	if (!(*lst))
 	{
 		*lst = new;
-		return ;
+		tail = *lst;
 	}
-	ft_lstlast(*lst)->next = new;
+	else
+	{
+		tail->next = new;
+		tail = tail->next;
+	}
+	tail->next = NULL;
 }

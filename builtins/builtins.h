@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/05 13:48:48 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/09 22:15:12 by lnicoter         ###   ########.fr       */
+/*   Created: 2023/09/08 14:37:40 by mlongo            #+#    #+#             */
+/*   Updated: 2023/09/08 16:02:33 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef BUILTINS_H
+#define BUILTINS_H
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
-{
-	if (!lst)
-		return ;
-	if (!*lst)
-	{
-		*lst = new;
-		return ;
-	}
-	ft_lstlast(*lst)->next = new;
-}
+#include "../minishell.h"
+
+int	ft_exit(char **args);
+
+#endif
