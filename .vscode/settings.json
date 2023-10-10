@@ -9,6 +9,7 @@
 		"executor.h": "c",
 		"tree.h": "c",
 		"string.h": "c",
-		"minishell.h": "c"
+		"minishell.h": "c",
+		"builtins.h": "c"
 	}
 }

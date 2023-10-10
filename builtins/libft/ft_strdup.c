@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/07 13:41:27 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/10 22:33:12 by lnicoter         ###   ########.fr       */
+/*   Created: 2023/04/04 19:16:44 by mlongo            #+#    #+#             */
+/*   Updated: 2023/09/22 17:22:07 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_BONUS_H
-# define GET_NEXT_LINE_BONUS_H
+#include "libft.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <string.h>
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 32
-# endif
+char	*ft_strdup(const char *s)
+{
+	char	*res;
+	int		len;
 
-// void	ft_bzero(void *s, size_t n);
-// void	*ft_memcpy(void *dst, const void *src, int n);
-// void	*ft_calloc(int count, int size);
-char	*get_next_line(int fd);
-// int		ft_strlen(char *str);
-
-#endif
+	len = ft_strlen(s);
+	res = malloc(len + 1);
+	if (res == NULL)
+		return (NULL);
+	res[len] = 0;
+	while (len--)
+		res[len] = s[len];
+	return (res);
+}

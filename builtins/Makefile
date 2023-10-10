@@ -6,23 +6,17 @@
 #    By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/01 14:36:32 by fcarlucc          #+#    #+#              #
-#    Updated: 2023/10/10 22:44:34 by lnicoter         ###   ########.fr        #
+#    Updated: 2023/09/24 19:23:35 by lnicoter         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 SRC = $(wildcard *.c)\
-		$(wildcard executor/*.c) \
-		$(wildcard gnl/*.c) \
-		$(wildcard tokenizer/*.c) \
-		$(wildcard tree/*.c) \
-		$(wildcard builtins/*.c) \
-		$(wildcard lexer/*.c)
 
-OBJS = $(SRC:.c=.o)
+OBJ = $(SRC:.c=.o)
 
-FLAGS := -Wall -Werror -Wextra -g
+FLAGS =
 
 LIBFT_PATH = ./libft
 
@@ -40,17 +34,17 @@ DEFAULT = \033[0m
 all: $(NAME)
 
 %.o : %.c
-	@cc $(FLAGS) -c $< -o $@
+	@gcc -g $(FLAGS) -c $< -o  $@
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJ)
 	@make -C libft
 	@make bonus -C libft
-	@cc $(FLAGS) $(OBJS) $(LIBFT) -o $(NAME) -lreadline
+	@cc $(FLAGS) $(OBJ) $(LIBFT) -o $(NAME) -lreadline
 	@echo "$(GREEN)$(NAME) created!$(DEFAULT)"
 
 clean:
 	@make clean -C libft
-	@rm -f $(OBJS)
+	@rm -f $(OBJ)
 	@echo "$(YELLOW)object files deleted!$(DEFAULT)"
 
 fclean: clean
@@ -59,3 +53,6 @@ fclean: clean
 	@echo "$(RED)all deleted!$(DEFAULT)"
 
 re: clean fclean all
+
+error:
+	@sl

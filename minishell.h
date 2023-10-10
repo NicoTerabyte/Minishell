@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 11:35:53 by mlongo            #+#    #+#             */
-/*   Updated: 2023/09/08 14:48:53 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/10/10 22:29:14 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "./tokenizer/tokenizer.h"
 # include "./tree/tree.h"
 # include "./executor/executor.h"
+# include "./builtins/builtins.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>

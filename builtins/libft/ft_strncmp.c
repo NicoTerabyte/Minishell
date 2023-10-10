@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/07 13:41:27 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/10 22:33:12 by lnicoter         ###   ########.fr       */
+/*   Created: 2023/04/04 19:17:37 by mlongo            #+#    #+#             */
+/*   Updated: 2023/10/07 19:04:56 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_BONUS_H
-# define GET_NEXT_LINE_BONUS_H
+#include "libft.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <string.h>
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 32
-# endif
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t	i;
 
-// void	ft_bzero(void *s, size_t n);
-// void	*ft_memcpy(void *dst, const void *src, int n);
-// void	*ft_calloc(int count, int size);
-char	*get_next_line(int fd);
-// int		ft_strlen(char *str);
-
-#endif
+	i = 0;
+	//printf("valori a confronto: str1: %s, str2: %s\n", s1, s2);
+	if (!n)
+		return (0);
+	while (s1[i] && s2[i] && i < n && s1[i] == s2[i])
+		i++;
+	if (i == n)
+		i--;
+	return ((unsigned char) s1[i] - (unsigned char) s2[i]);
+}
