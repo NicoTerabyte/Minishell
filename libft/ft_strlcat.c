@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 19:17:09 by mlongo            #+#    #+#             */
-/*   Updated: 2023/04/04 19:17:12 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/09/29 22:07:33 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,21 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 	else
 		return (ft_strlen(src) + size);
 	return (lenght);
+}
+
+void	ft_strcat(char *dst, const char *src)
+{
+	int		i;
+	int		size;
+
+	size = ft_strlen(dst);
+	i = 0;
+
+	while (src[i])
+	{
+		printf("processo %c\n", src[i]);
+		dst[size + i] = src[i];
+		i++;
+	}
+	dst[size + i] = '\0';
 }
