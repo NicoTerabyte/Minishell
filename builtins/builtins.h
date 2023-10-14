@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/10/10 22:51:35 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/13 21:48:54 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,29 +62,26 @@ void	parser(char **splitcmd);
 char	*fix_syntax(char *str);
 //int		free_matrix(char **s);
 //lnicoter
-void	builtin_reader(char **command_line, t_data *shell_data);
 void	ft_echo(char **command_line);
-void	ft_cd(char **command_line, t_data *shell_data);
-void	ft_env(t_data *shell_data);
-int		copy_env(char **env, t_data *mini_data);
+void	ft_cd(char **command_line); //prima ci stava anche shell_data ma non serve al momento grazie alla funzione env_container
+void	ft_env(void);
+char	**copy_env(char **env, char **env_copy);
 void	ft_pwd();
-void	update_oldpwd(t_data *shell_data);
-void	update_pwd(t_data *shell_data);
+void	update_oldpwd(void); //aggiornati perché env è gestita in maniera differente
+void	update_pwd(void); //per info guardare funzione env_container
 //int		ft_strcmp(const char *s1, const char *s2);
 void	*ft_realloc(void *ptr, size_t size);
-void	ft_export(char **command_line, t_data *shell_data);
+void	ft_export(t_declaration *node);
 void	print_export(char **export_matrix);
-void	sort_and_print_export(t_data *shell_data);
-char	**setting_the_matrix(t_data *shell_data);
-int		env_rows(t_data *shell_data);
+void	sort_and_print_export(char **env);
+char	**setting_the_matrix(char **env);
+int		env_rows(char **env);
 int		check_arguments_validation(char *command_line);
 void	insert_declaration(t_data *shell_data, int concatenation, const char *name, const char *value);
 void	print_list(t_declaration *list);
 void	arguments_separation(t_data *shell_data, char **command_line, int conc);
 void	add_export_env(t_data *shell_data);
 char	*super_strjoin(t_data *shell_data);
-// void	insert_in_env(t_data shell_data, char *final_string, t_declaration *values);
-void	init_structs(t_data **shell_data, char **envp);
 void	env_adding(char *final_string, t_data *shell_data);
 void	puppamelo(t_data *lnico);
 int		check_doubles(t_data *shell_data);
@@ -105,8 +102,8 @@ void	list_update(t_data *shell_data, int conc, char **com_line, int i);
 void	updating(char	***separg);
 void	overwrite(t_data *shell_data, int pos);
 //unset
-void	ft_unset(t_data *shell_data, char **command_line);
-void	copy_check_unset(t_data *shell_data, char **command_line, int pos);
+void	ft_unset(t_declaration *node);
+void	copy_check_unset(char *str);
 void	swap_mat(char **str1, char **str2);
 //exit mlongo deve farci ancora qualcosa
 int		ft_exit(char **args);

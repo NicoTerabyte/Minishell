@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:28:00 by mlongo            #+#    #+#             */
-/*   Updated: 2023/09/08 18:52:13 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/10/13 15:42:14 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	simple_cmd(t_token *token_lst, t_simple_cmd *simple_cmd)
 	simple_cmd->cmd = (t_cmd *)malloc(sizeof(t_cmd));
 	simple_cmd->cmd->cmd_arg = NULL;
 	simple_cmd->cmd->cmd_name = NULL;
+	simple_cmd->env = NULL;
 	while (token_lst && token_lst->token != OPERATOR)
 	{
 		if (token_lst->token == CMD_ARG)
@@ -33,6 +34,7 @@ void	simple_cmd(t_token *token_lst, t_simple_cmd *simple_cmd)
 		else if (token_lst->token == ENV_VAR_DECL || token_lst->token == ENV_VAR_UNSET)
 		{
 			tok_add_back(&simple_cmd->env, copy_tok(token_lst));
+			simple_cmd->cmd = NULL;
 			return ;
 		}
 		else

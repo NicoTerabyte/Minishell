@@ -10,6 +10,7 @@
 		"tree.h": "c",
 		"string.h": "c",
 		"minishell.h": "c",
-		"builtins.h": "c"
+		"builtins.h": "c",
+		"limits": "c"
 	}
 }

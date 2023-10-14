@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 20:30:03 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/10 22:45:09 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/11 17:28:35 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,6 @@ void	insert_declaration(t_data *shell_data, int concatenation, const char *name,
 		printf("checkout bro...\n");
 		shell_data->head = shell_data->identity;
 	}
-	printf("CHECK PER IL SECONDO GIRO DELLA LISTA\n");
-	print_list(shell_data->head);
-	printf("FINE CONTROLLO PER IL SECONDO GIRO\n");
 }
 
 //in realtà questo mi serve a simulare la cosa che fa manu

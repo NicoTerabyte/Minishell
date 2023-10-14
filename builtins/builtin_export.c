@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:48:20 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/10 22:45:15 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/13 22:07:09 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,43 @@
 void	print_export(char **export_matrix)
 {
 	int	i;
+	int	j;
 
 	i = -1;
 	while (export_matrix[++i])
-		printf("declare -x %s\n", export_matrix[i]);
+	{
+		j = -1;
+		printf("declare -x ");
+		while (export_matrix[i][++j])
+		{
+			printf("%c", export_matrix[i][j]);
+			if (export_matrix[i][j] == '=');
+				printf("found %c\n", export_matrix[i][j]);
+		}
+		printf("\"");
+		printf("\n");
+	}
+
 }
 
-char	**setting_the_matrix(t_data *shell_data)
+char	**setting_the_matrix(char **env)
 {
 	char	**the_export_copy;
 	int		size;
 	int		i;
 
-	size = env_rows(shell_data);
+	size = env_rows(env);
 	the_export_copy = (char **)malloc((size + 1) * sizeof(char *));
 	if (!the_export_copy)
 		printf("Errore nell'allocazione della memoria\n");
 	i = -1;
 	while (++i < size)
-		the_export_copy[i] = shell_data->export_env[i];
+		the_export_copy[i] = env[i];
 	the_export_copy[size] = NULL;  // Terminatore dell'array
 	return (the_export_copy);
 }
 
-void	sort_and_print_export(t_data *shell_data)
+void	sort_and_print_export(char **env)
 {
 	int		i;
 	int		j;
@@ -46,8 +59,8 @@ void	sort_and_print_export(t_data *shell_data)
 	char	**export_matrix;
 	int		size;
 
-	size = env_rows(shell_data);
-	export_matrix = setting_the_matrix(shell_data);
+	size = env_rows(env);
+	export_matrix = setting_the_matrix(env);
 	i = -1;
 	while (++i < size - 1)
 	{
@@ -67,44 +80,50 @@ void	sort_and_print_export(t_data *shell_data)
 }
 
 
-//le casistiche di export con argomenti
-//+= stampo errore con +=
-//lo stesso con =
-//nomevar= NULL risultato su env nomevar="" in uqesto caso cambia con il risultato spiegato
-//nomevar (senza uguale ne niente) diventa nomevar="" però se esiste già la varia la variabile
-//12nomevar= ecc è un errore stampa nomevar errore se hai la concatenazione attiva (+=) stampi
-//nomevar+=12 non valida, altrimenti
-//esempio: export 1a, 2 value, concatenzazione attiva (+=), = 1a+=2 errore
-//altrimenti può uscire 1a errore o 1a=value errore
-//se inizia con una lettera e dopo ci sono valori non alfanumerici errore
-//ex: a123 va bene a@ non va bene
-//devo fare chiarezza e capire come poter definire gli argomenti uno ad uno
-void	ft_export(char **command_line, t_data *shell_data)
+/*
+	export secono manu:
+	allora bisogna cambiare leggermente export
+	per inquadrare in maniera corretta come funziona secondo
+	la logica di manu in maniera che io possa applicare meglio anche la
+	mia ecco cosa bisogna tenere in considerazione:
+	1) export lavora con la lista già pronta di conseguenza sai di avere:
+		nome, concatenazione valore di conseguenza alcune cose sono semplificate
+	2) manu tratta la concatenazione con 0 e 1 che non va bene da un certo punto di vista perché se
+		vogliamo differenziare come si deve la concatenazione verificando la casistica del
+		c= che diventa c="" dobbiamo
+		la domanda è: come gli dico di inserire il valore se non so che concatenazione c'è?
+	3) ci saranno meno controlli da fare nel codice di conseguenza conviene riadattare export
+		E forse come dice Mlongo va bene nel senso io la cosa dell'= lo usavo per la matrice
+		dell'environment di conseguenza se io procedo a stamparla correttamente non penso ci sia
+		un problema quindi se lavoro bene nella stampa ci saranno 100% in meno di controlli da fare
+*/
+void	ft_export(t_declaration *node)
 {
 	int		conc;
+	char	**env;
 
+	env = env_container(7, env);
 	conc = 0;
-	if (!command_line[1])
-		sort_and_print_export(shell_data);
+	if (!node)
+		sort_and_print_export(env);
 	else
-	{
-		arguments_separation(shell_data, command_line, conc); //segfault gestire casi con nomevalue = "="
-		while (shell_data->identity)
-		{
-			if (check_doubles(shell_data) == 0 && check_arguments_validation(shell_data->identity->name))
-			{
-				add_export_env(shell_data);
-				if (shell_data->identity->concatenation != 0)
-					add_to_the_real_env(shell_data);
-			}
-			shell_data->identity = shell_data->identity->next;
-		}
-		shell_data->identity = shell_data->head;
-		if (shell_data->identity)
-			puppamelo(shell_data);
-	}
-}
+		// arguments_separation(shell_data, command_line, conc); //segfault gestire casi con nomevalue = "="
+		// while (shell_data->identity)
+		// {
+		// 	if (check_doubles(shell_data) == 0 && check_arguments_validation(shell_data->identity->name))
+		// 	{
+		// 		add_export_env(shell_data);
+		// 		if (shell_data->identity->concatenation != 0)
+		// 			add_to_the_real_env(shell_data);
+		// 	}
+		// 	shell_data->identity = shell_data->identity->next;
+		// }
+		// shell_data->identity = shell_data->head;
+		// if (shell_data->identity)
+		// 	puppamelo(shell_data);
+		printf("daje\n");
 
+}
 /*
 bug da sistemare
 1)l'aggiunta di più elementi comporta

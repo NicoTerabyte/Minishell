@@ -6,7 +6,7 @@
 #    By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/01 14:36:32 by fcarlucc          #+#    #+#              #
-#    Updated: 2023/10/10 22:44:34 by lnicoter         ###   ########.fr        #
+#    Updated: 2023/10/12 14:30:28 by lnicoter         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRC = $(wildcard *.c)\
 
 OBJS = $(SRC:.c=.o)
 
-FLAGS := -Wall -Werror -Wextra -g
+FLAGS := -g
 
 LIBFT_PATH = ./libft
 

@@ -3,191 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/09/13 18:52:03 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/10/13 19:11:26 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../tree/tree.h"
+void printTree(t_tree *node, int level, char *message);
 
 #include "executor.h"
 #include <signal.h>
 #include <stdio.h>
 #include <sys/types.h>
 #include <unistd.h>
-
-void	dup_std_fd(int cur_in_out, int std_in_out)
-{
-	if (cur_in_out != std_in_out)
-	{
-		dup2(cur_in_out, std_in_out);
-		close(cur_in_out);
-	}
-}
-
-int	execute_redirections_output(t_token *redir_list, int curr_out)
-{
-	char	*file_name;
-
-	if (curr_out != STDOUT_FILENO)
-		close(curr_out);
-	while (redir_list)
-	{
-		file_name = (char *)redir_list->value;
-		if (redir_list->token == OUT_FILE_TRUNC)
-			curr_out = open(file_name, O_CREAT | O_TRUNC | O_WRONLY, 0777);
-		else if (redir_list->token == OUT_FILE_APPEND)
-			curr_out = open(file_name, O_CREAT | O_APPEND | O_WRONLY, 0777);
-		if (curr_out == -1)
-		{
-			printf("minishell : %s: error creting file\n", file_name);
-			return (1);
-		}
-		redir_list = redir_list->next;
-	}
-	dup_std_fd(curr_out, STDOUT_FILENO);
-	return (0);
-}
-
-int	execute_redirections_input(t_token *redir_list, int curr_in)
-{
-	char	*file_name;
-
-	if (curr_in != STDIN_FILENO)
-		close(curr_in);
-	while (redir_list)
-	{
-		file_name = (char *)redir_list->value;
-		if (redir_list->token == IN_FILE_TRUNC || redir_list->token == HERE_DOC)
-			curr_in = open(file_name, O_RDONLY);
-		if (curr_in == -1)
-		{
-			printf("minishell : %s: No such file or directory\n", file_name);
-			return (1);
-		}
-		redir_list = redir_list->next;
-	}
-	dup_std_fd(curr_in, STDIN_FILENO);
-	return (0);
-}
-
-char	**get_paths(char **env)
-{
-	int		i;
-
-	i = 0;
-	while (env[i])
-	{
-		if (ft_strnstr(env[i], "PATH=", 5) != 0)
-			break ;
-		i++;
-	}
-	return (ft_split(env[i], ':'));
-}
-
-char	**get_cmd_args(t_simple_cmd *simple_cmd)
-{
-	char	**res;
-	int		i;
-	char	**args;
-
-	i = 0;
-	if (simple_cmd->cmd->cmd_arg != NULL)
-	{
-		args = (char **)simple_cmd->cmd->cmd_arg->value;
-		while (args[i])
-			i++;
-	}
-	res = (char **)malloc(sizeof(char *) * (i + 2));
-	i = 1;
-	res[0] = simple_cmd->cmd->cmd_name->value;
-	if (simple_cmd->cmd->cmd_arg != NULL)
-	{
-		args = (char **)simple_cmd->cmd->cmd_arg->value;
-		while (args[i - 1])
-		{
-			res[i] = args[i - 1];
-			i++;
-		}
-	}
-	res[i] = NULL;
-	return (res);
-}
-
-char	*get_cmd_name_path(char *cmd_name, char **split_paths)
-{
-	char	*path;
-	int		i;
-	char	*tmp;
-
-	i = 0;
-	if (access(cmd_name, X_OK) == 0)
-		return (cmd_name);
-	while (split_paths[i])
-	{
-		path = ft_strjoin(split_paths[i], "/");
-		tmp = path;
-		path = ft_strjoin(path, cmd_name);
-		free(tmp);
-		if (access(path, X_OK) == 0)
-			return (path);
-		free(path);
-		i++;
-	}
-	return (NULL);
-}
-void	signal_handler_execve(int signum)
-{
-	if (signum == SIGINT)
-		last_exit_status_cmd = 130;
-	if (signum == SIGQUIT)
-		last_exit_status_cmd = 131;
-}
-
-int	have_inputs(t_token *redir_list)
-{
-	while (redir_list)
-	{
-		if (redir_list->token == HERE_DOC || redir_list->token == IN_FILE_TRUNC)
-			return (1);
-		redir_list = redir_list->next;
-	}
-	return (0);
-}
-
-int	have_outputs(t_token *redir_list)
-{
-	while (redir_list)
-	{
-		if (redir_list->token == OUT_FILE_TRUNC || redir_list->token == OUT_FILE_APPEND)
-			return (1);
-		redir_list = redir_list->next;
-	}
-	return (0);
-}
-
-void	execve_cmd(t_simple_cmd *simple_cmd)
-{
-	char	**env;
-	char	**split_paths;
-	char	*cmd_name;
-	char	**cmd_args;
-
-	env = env_container(1, NULL);
-	split_paths = get_paths(env);
-	split_paths[0] = ft_strtrim(split_paths[0], "PATH=");
-	cmd_name = get_cmd_name_path((char *)simple_cmd->cmd->cmd_name->value, split_paths);
-	if (cmd_name == NULL)
-	{
-		printf("minishell : %s command not found\n", (char *)simple_cmd->cmd->cmd_name->value);
-		free_matrix(split_paths);
-		exit(1);
-	}
-	cmd_args = get_cmd_args(simple_cmd);
-	free_matrix(split_paths);
-	execve(cmd_name, cmd_args, env);
-}
-
 
 void	execute_integrated(t_tree *tree, int curr_in, int curr_out)
 {
@@ -208,10 +38,10 @@ void	execute_integrated(t_tree *tree, int curr_in, int curr_out)
 		dup_std_fd(curr_in, STDIN_FILENO);
 	if (simple_cmd->redir_list != NULL)
 	{
-		redir_list = (t_token *)simple_cmd->redir_list;
-		if (have_outputs(redir_list))
-			if (execute_redirections_output(redir_list, curr_out))
-				exit (1);
+		// redir_list = (t_token *)simple_cmd->redir_list;
+		// if (have_outputs(redir_list))
+		// 	if (execute_redirections_output(redir_list, curr_out))
+		// 		exit (1); sembra funzionare
 	}
 	else
 		dup_std_fd(curr_out, STDOUT_FILENO);
@@ -252,14 +82,10 @@ int	is_builtin_command(t_tree *root)
 	char			*simple_name;
 
 	simple_cmd = (t_simple_cmd	*)root->content;
+	if (simple_cmd->env)
+		return 1;
 	if (simple_cmd->cmd)
 	{
-		if (simple_cmd->cmd->cmd_name == NULL)
-		{
-			if (simple_cmd->env == NULL)
-				return (0);
-			return (1);
-		}
 		simple_name = (char *)simple_cmd->cmd->cmd_name->value;
 		if (0 == ft_strcmp(simple_name, "cd")
 			|| 0 == ft_strcmp(simple_name, "exit")
@@ -274,14 +100,31 @@ int	is_builtin_command(t_tree *root)
 	return (0);
 }
 
-// void	execute_builtin_env(t_token *env)
-// {
-// 	if (env->token == ENV_VAR_DECL)
-// 		ft_export(env->value);
-// 	if (env->token == ENV_VAR_UNSET)
-// 		ft_unset(env->value);
-// }
+void	execute_builtin_env(t_token *env)
+{
+	if (env->token == ENV_VAR_DECL)
+		ft_export(env->value);
+	if (env->token == ENV_VAR_UNSET)
+		ft_unset((t_declaration *)env->value);
+}
 
+//parte da collegare con la mia
+/*
+	il piano:
+	in pratica devo gestire bene e giocare con
+	l'env fornitomi da Manuele che funziona in una maniera
+	abbastanza particolare
+	infatti questo environment è statico ciò significa che per utilizzarlo me
+	lo devo sempre salvare questo env viene inizializzato solo una volta visto che
+	è statico non c'è bisogno di ripetere l'azione 0, la quale verrà inizializzata a modo
+	mio di conseguenza non si punterà al valore envp e non avremo problemi con l'env originale.
+	quindi cosa famo
+	1) finisco di aggiustare cd per collegarlo con l'interpretazione di manu (fatto)
+	2) cambio l'inizializzazione di env all'interno della funzione env_container di manu
+		perché se no faccio un macello e cd non funzionerà (fatto)
+	3) controllo che cd funzioni per vedere se ho fatto le cose corrette (fatto)
+	4) scelgo la prossima builtin da modificare (fatto)
+*/
 void	execute_builtin_cmd(t_cmd *cmd)
 {
 	char	**args;
@@ -290,16 +133,16 @@ void	execute_builtin_cmd(t_cmd *cmd)
 		args = cmd->cmd_arg->value;
 	else
 		args = NULL;
-	// if (ft_strcmp(cmd->cmd_name->value, "echo") == 0)
-	// 	ft_echo(args);
-	// if (ft_strcmp(cmd->cmd_name->value, "cd") == 0)
-	// 	ft_cd(args);
-	// if (ft_strcmp(cmd->cmd_name->value, "pwd") == 0)
-	// 	ft_pwd(args);
+	if (ft_strcmp(cmd->cmd_name->value, "echo") == 0)
+		ft_echo(args);
+	if (ft_strcmp(cmd->cmd_name->value, "cd") == 0)
+		ft_cd(args);
+	if (ft_strcmp(cmd->cmd_name->value, "pwd") == 0)
+		ft_pwd();
 	if (ft_strcmp(cmd->cmd_name->value, "exit") == 0)
 		ft_exit(args);
-	// if (ft_strcmp(cmd->cmd_name->value, "env") == 0)
-	// 	ft_env();
+	if (ft_strcmp(cmd->cmd_name->value, "env") == 0)
+		ft_env();
 }
 
 void	execute_builtin(t_tree *tree, int curr_in, int curr_out)
@@ -333,12 +176,12 @@ void	execute_builtin(t_tree *tree, int curr_in, int curr_out)
 	}
 	else
 		dup_std_fd(curr_out, STDOUT_FILENO);
-	// if (simple_cmd->cmd == NULL)
-	// {
-	// 	if (simple_cmd->env != NULL)
-	// 		execute_builtin_env(simple_cmd->env);
-	// }
-	// else
+	if (simple_cmd->cmd == NULL)
+	{
+		if (simple_cmd->env != NULL)
+			execute_builtin_env(simple_cmd->env);
+	}
+	else
 		execute_builtin_cmd(simple_cmd->cmd);
 	dup_std_fd(starting_in, STDIN_FILENO);
 	dup_std_fd(starting_out, STDOUT_FILENO);

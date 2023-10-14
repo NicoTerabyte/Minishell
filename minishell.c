@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/10/10 23:28:12 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/13 15:52:52 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ int	last_exit_status_cmd = 0;
 	if (node->type == SIMPLE_CMD) {
 		t_simple_cmd *cmd = (t_simple_cmd *)node->content;
 		printf("SIMPLE_CMD\n");
-		print_tokens(cmd->redir_list);
-		for (int i = 0; i < level; i++) {
-			printf("  ");
-		}
-		print_tokens(cmd->cmd->cmd_arg);
-		for (int i = 0; i < level; i++) {
-			printf("  ");
-		}
-		print_tokens(cmd->cmd->cmd_name);
+		// print_tokens(cmd->redir_list);
+		// for (int i = 0; i < level; i++) {
+		// 	printf("  ");
+		// }
+		// print_tokens(cmd->cmd->cmd_arg);
+		// for (int i = 0; i < level; i++) {
+		// 	printf("  ");
+		// }
+		// print_tokens(cmd->cmd->cmd_name);
 		print_tokens(cmd->env);
 	} else if (node->type == OP) {
 		printf("OP\n");
@@ -55,12 +55,25 @@ int	last_exit_status_cmd = 0;
 	printTree(node->right, level + 1, "RIGHT");
 	}
 
-char	**env_container(int action, void *arg)
+char	**env_container(int action, void *arg) //action corrisponde ad un'azione
 {
 	static char **env;
 
-	if (action == 0)
+	// char		**tmp;
+
+
+	if (action == 0) //inizializzazione base lo fai una volta
+		env = copy_env((char **)arg, env);
+		// env = (char **)arg;
+	if (action == 1) //update dell'enviroment lo fai per l'export e per unset
 		env = (char **)arg;
+		//free env
+		//creare variabile temporanea per
+		//gestire l'env
+	//il caso 2 copre quando stampiamo con export
+	//di conseguenza conviene cambiare export per gestire meglio il caso senza argomenti
+	//senza creare due matrici :)
+	// if (action == 2) export case
 	return (env);
 }
 
@@ -271,9 +284,9 @@ int	main(int argc, char **argv, char **envp)
 		signal(SIGQUIT, ign);
 		signal(SIGINT, signal_handler);
 		signal(SIGTERM, signal_handler);
-		path = mini();
-		str = readline(path);
-		free(path);
+		// path = mini();
+		str = readline("MinishellMerdaccia> ");
+		// free(path);
 		if (str == NULL)
 		{
 			printf("\n");
@@ -295,10 +308,12 @@ int	main(int argc, char **argv, char **envp)
 		splitcmd = ft_split(fixed, ' ');
 		free(fixed);
 		token_list = tokenizer(splitcmd);
+		print_tokens(token_list);
 		if (token_list)
 			while (token_list->next)
 				token_list = token_list->next;
 		tree = tree_create(token_list, OP);
+		printTree(tree, 0, "root");
 		// free_matrix(splitcmd);
 		// free_tokens(token_list);
 		if (token_list)
@@ -308,6 +323,6 @@ int	main(int argc, char **argv, char **envp)
 		execute(tree, STDIN_FILENO, STDOUT_FILENO);
 		// free_tree(tree);
 		free_matrix(splitcmd);
-		ft_free_all(token_list, tree);
+		// ft_free_all(token_list, tree);
 	}
 }
