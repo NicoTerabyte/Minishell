@@ -6,11 +6,11 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 14:29:18 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/09 19:40:50 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/10 22:45:29 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "builtins.h"
 
 void	phase1(t_data *shell_data, char **final_string)
 {

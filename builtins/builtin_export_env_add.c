@@ -6,11 +6,11 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 23:38:43 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/09 16:27:23 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/17 16:35:53 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "builtins.h"
 
 /*cosa fare
 1. io voglio ottenere una stringa nuova inserita ll'interno del mio env
@@ -34,15 +34,14 @@ e che gli aggiunga le "" all'inizio e alla fine
 10. commmentare se necessario
 */
 
-void	env_adding(char *final_string, t_data *shell_data)
+void	env_adding(char *final_string, char **env)
 {
 	size_t	new_size;
-	size_t	i;
 
-	new_size = env_rows(shell_data) + 1;
-	shell_data->export_env = realloc(shell_data->export_env, (new_size + 1) * sizeof(char *));
-	shell_data->export_env[new_size - 1] = ft_strdup(final_string);  // Assicurati che final_string sia allocato
-	shell_data->export_env[new_size] = 0;
+	new_size = env_rows(env) + 1;
+	env = realloc(env, (new_size + 1) * sizeof(char *));
+	env[new_size - 1] = ft_strdup(final_string);  // Assicurati che final_string sia allocato
+	env[new_size] = 0;
 }
 
 char *super_strjoin(t_data *shell_data)
@@ -59,11 +58,11 @@ char *super_strjoin(t_data *shell_data)
 	return (final_string);
 }
 
-void	add_export_env(t_data *shell_data)
+void	add_export_env(char **env)
 {
 	char	*final_string;
 
-	final_string = super_strjoin(shell_data);
-	env_adding(final_string, shell_data);
+	//final_string = super_strjoin(env);
+	env_adding(final_string, env);
 	free(final_string);
 }

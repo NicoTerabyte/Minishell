@@ -6,11 +6,11 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 20:30:03 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/09 19:27:35 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/18 17:11:32 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "builtins.h"
 
 void	insert_declaration(t_data *shell_data, int concatenation, const char *name, const char *value)
 {
@@ -29,13 +29,8 @@ void	insert_declaration(t_data *shell_data, int concatenation, const char *name,
 		shell_data->identity->value = ft_strdup(value);
 	shell_data->identity->next = NULL;
 	if (!shell_data->head)
-	{
-		printf("checkout bro...\n");
 		shell_data->head = shell_data->identity;
-	}
-	printf("CHECK PER IL SECONDO GIRO DELLA LISTA\n");
-	print_list(shell_data->head);
-	printf("FINE CONTROLLO PER IL SECONDO GIRO\n");
+
 }
 
 //in realtà questo mi serve a simulare la cosa che fa manu

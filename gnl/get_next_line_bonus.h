@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alessiolongo <alessiolongo@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/20 12:04:32 by alessiolong       #+#    #+#             */
-/*   Updated: 2023/08/20 12:06:43 by alessiolong      ###   ########.fr       */
+/*   Created: 2023/04/07 13:41:27 by mlongo            #+#    #+#             */
+/*   Updated: 2023/08/10 15:09:34 by alessiolong      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
-int	ft_strcmp(char *s1, char *s2)
-{
-	size_t	i;
+# include <unistd.h>
+# include <stdlib.h>
+# include <string.h>
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 32
+# endif
 
-	if (!s1 || !s2)
-		return (1);
-	i = 0;
-	while (1)
-	{
-		if (s1[i] == '\0' || s2[i] == '\0'
-			|| s1[i] != s2[i])
-			break ;
-		i++;
-	}
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-}
+// void	ft_bzero(void *s, size_t n);
+// void	*ft_memcpy(void *dst, const void *src, int n);
+// void	*ft_calloc(int count, int size);
+char	*get_next_line(int fd);
+// int		ft_strlen(char *str);
+
+#endif

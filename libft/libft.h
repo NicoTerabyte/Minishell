@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 19:18:28 by mlongo            #+#    #+#             */
-/*   Updated: 2023/09/29 17:35:21 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/17 15:56:36 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdio.h>
 
 typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
+	struct s_list	*prev;
 }	t_list;
 
 void	*ft_memset(void *s, int c, size_t n);
@@ -50,7 +50,7 @@ int		ft_tolower(int c);
 void	*ft_calloc(size_t count, size_t size);
 char	*ft_strdup(const char *s1);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char *s, char c);
 char	*ft_itoa(int n);
@@ -69,10 +69,8 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
-int	ft_strcmp(const char *s1, const char *s2);
-
-//minishell
+int		ft_strcmp(char *s1, char *s2);
 char	*i_hate_this_strcpy_for_apix(char *dst, char *src);
 char	*ft_strjoin_damn_you_leaks(char *s1, char  *s2);
-void	ft_strcat(char *dst, const char *src);
+
 #endif

@@ -6,11 +6,11 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/10/02 00:54:36 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/10 22:45:59 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+/*#include "builtins.h"
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -39,3 +39,4 @@ int	main(int argc, char **argv, char **envp)
 	free_matrix(shell_data->copy_env);
 }
 
+*/

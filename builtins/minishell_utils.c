@@ -6,13 +6,23 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:46:34 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/09 20:07:05 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/19 17:02:52 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-int	copy_env(char **env, t_data *mini_data)
+#include "builtins.h"
+/*
+	la copy_env va cambiata rispettivamente per gestire come si deve
+	la copiatura dell'environment, i dubbi che mi vengono sono due però
+	1)come cambio in maniera permanente un valore per far sì che
+		non dia problemi? (perché lo sto passando con un cast magari se faccio
+		un cast triplo (char ***) si risolve)
+	2) posso cambiare la funzione in modo tale che il valore passato
+		venga ritornato alla fine senza dovermi fare troppe pippe con il triplo
+		cast?
+	in ogni
+*/
+char	**copy_env(char **env, char **env_copy)
 {
 	int	env_size;
 	int	i;
@@ -21,28 +31,31 @@ int	copy_env(char **env, t_data *mini_data)
 	i = 0;
 	while (env[env_size])
 		env_size++;
-	mini_data->export_env = (char **)malloc((env_size + 1) * sizeof(char *));
-	mini_data->copy_env = (char **)malloc((env_size + 1) * sizeof(char *));
-	if (!mini_data->copy_env)
+	env_copy = (char **)malloc((env_size + 1) * sizeof(char *));
+	// env_copy = (char **)malloc((env_size + 1) * sizeof(char *));
+	if (!env_copy)
 	{
 		printf("Incombenza rilevata!!!\n");
-		return (0); // Non c'è bisogno di liberare la memoria qui
+		return (NULL); // Non c'è bisogno di liberare la memoria qui
 	}
-	while (i < env_size)
+	while (env[i])
 	{
-		mini_data->copy_env[i] = ft_strdup(env[i]);
-		mini_data->export_env[i] = ft_strdup(env[i]);
+		printf("stiamo alla frutta\n");
+		printf("valore copiato: %s\n", env[i]);
+		env_copy[i] = ft_strdup(env[i]);
+		//export
 		i++;
 	}
-	mini_data->copy_env[i] = 0;
-	mini_data->export_env[i] = 0;
-	return (1);
+	env_copy[i] = 0;
+	// export
+	return (env_copy);
 }
 
 void *ft_realloc(void *ptr, size_t size)
 {
 	void *new_ptr;
 
+	new_ptr = NULL;
 	if (ptr)
 	{
 		if (size)
@@ -65,17 +78,18 @@ void *ft_realloc(void *ptr, size_t size)
 	return (new_ptr);
 }
 
-int	env_rows(t_data *shell_data)
+int	env_rows(char **env)
 {
 	int	size;
 
 	size = 0;
-	while (shell_data->export_env[size])
+	while (env[size])
 		size++;
 	return (size);
 }
 
-void	init_structs(t_data **shell_data, char **envp)
+//da eliminare mi sa
+/*void	init_structs(t_data **shell_data, char **envp)
 {
 	*shell_data = (t_data *)malloc(sizeof(t_data));
 	if (!*shell_data)
@@ -92,7 +106,7 @@ void	init_structs(t_data **shell_data, char **envp)
 	(*shell_data)->head = NULL;
 	(*shell_data)->path = NULL;
 	(*shell_data)->old_path = NULL;
-}
+}*/
 
 void	puppamelo(t_data *lnico)
 {
@@ -107,7 +121,7 @@ void	puppamelo(t_data *lnico)
 		free(tmp->name);
 		i++;
 		if (tmp->value)
-			free(tmp->value); //invalid free stranamente
+			free(tmp->value);
 		tmp->concatenation = 0;
 		free(tmp);
 	}

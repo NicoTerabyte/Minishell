@@ -6,26 +6,26 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 16:34:36 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/06 18:01:12 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:14:17 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "builtins.h"
 
-void ft_pwd()
+void ft_pwd(void)
 {
 	char	pwd[4096];
 
 	getcwd(pwd, sizeof(pwd));
 	printf("%s\n", pwd);
-	exit(0);
+	// exit(0);
 }
 
 static int		echo_case(char **command_line)
 {
-	if (!command_line[1])
+	if (!command_line)
 		return (1);
-	else if (!command_line[2] && !ft_strcmp(command_line[1], "-n"))
+	else if (!command_line[1] && !ft_strcmp(command_line[0], "-n"))
 		return (2);
 	return (0);
 }
@@ -51,12 +51,12 @@ static int	flag_checker(char **command_line, int flag)
 	int	n_counter;
 
 	n_counter = 1;
-	if (command_line[1][0] == '-' && command_line[1][1] == 'n')
+	if (command_line[0][0] == '-' && command_line[0][1] == 'n')
 	{
 		flag = 1;
-		while(command_line[1][++n_counter])
+		while(command_line[0][++n_counter])
 		{
-			if (command_line[1][n_counter] != '\0' && command_line[1][n_counter] != 'n')
+			if (command_line[0][n_counter] != '\0' && command_line[0][n_counter] != 'n')
 			{
 				flag = 0;
 			}
@@ -73,7 +73,8 @@ void	ft_echo(char **command_line)
 
 	mat_size = 0;
 	flag = 0;
-	i = 0;
+	i = -1;
+//	printf("che è arrivato? %s\n", command_line[0]);
 	if (echo_case(command_line) == 2)
 		return ;
 	else if (echo_case(command_line) == 1)
@@ -85,24 +86,3 @@ void	ft_echo(char **command_line)
 	echo_printer(command_line, flag, mat_size, i);
 }
 
-void	builtin_reader(char **command_line, t_data *shell_data) //aggiornare con struct
-{
-	char	pwd[4096];
-
-	printf("lettura %s\n", command_line[0]);
-	if (!ft_strcmp(command_line[0], "pwd" ))
-	{
-		getcwd(pwd, sizeof(pwd));
-		printf("%s\n", pwd);
-	}
-	if (!ft_strcmp(command_line[0], "echo" ))
-		ft_echo(command_line);
-	if (!ft_strcmp(command_line[0], "cd"))
-		ft_cd(command_line, shell_data);
-	if (!ft_strcmp(command_line[0], "env"))
-		ft_env(shell_data);
-	if (!ft_strcmp(command_line[0], "export"))
-		ft_export(command_line, shell_data);
-	if (!ft_strcmp(command_line[0], "unset"))
-		ft_unset(shell_data, command_line);
-}

@@ -6,11 +6,11 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 21:54:06 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/08 20:20:14 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/10 22:47:58 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "builtins.h"
 
 void	swap_mat(char **str1, char **str2)
 {
@@ -53,16 +53,14 @@ ovviamente nel primo caso */
 char	**split_bt_nt_t_mc(char *str, char c)
 {
 	int		i;
-	int		j;
 	char	**mat;
 
 	i = -1;
-	j = -1;
 	mat = (char **)malloc(3 * sizeof(char *));
 	for (i = 0; i < 3; i++) {
 		mat[i] = NULL;
 	}
-	if (ft_strchr(str, '=') != 0);
+	if (ft_strchr(str, '=') != 0)
 	{
 		while(str[++i] != '=')
 			;

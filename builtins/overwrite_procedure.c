@@ -6,11 +6,11 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 19:44:10 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/09 19:57:00 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/10 22:45:43 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "builtins.h"
 
 void	overwrite(t_data *shell_data, int pos)
 {

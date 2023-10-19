@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/05 14:58:53 by mlongo            #+#    #+#             */
-/*   Updated: 2023/09/05 12:47:48 by mlongo           ###   ########.fr       */
+/*   Created: 2023/08/04 16:11:25 by lnicoter          #+#    #+#             */
+/*   Updated: 2023/10/12 15:55:15 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "builtins.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+void	ft_env(void)
 {
-	t_list	*tmp;
+	int		i;
+	char	**env;
 
-	if (!lst || !del)
-		return ;
-	while (*lst)
+	env = env_container(7, env);
+	i = 0;
+	while (env[i])
 	{
-		tmp = (*lst)->next;
-		free((*lst)->content);
-		free(*lst);
-		*lst = tmp;
+		printf("%s\n", env[i]);
+		i++;
 	}
-	*lst = NULL;
 }
+

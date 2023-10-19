@@ -1,36 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*   tok_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/04 19:17:09 by mlongo            #+#    #+#             */
-/*   Updated: 2023/04/04 19:17:12 by mlongo           ###   ########.fr       */
+/*   Created: 2023/08/11 11:43:58 by mlongo            #+#    #+#             */
+/*   Updated: 2023/08/11 15:50:08 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "tokenizer.h"
 
-size_t	ft_strlcat(char *dst, const char *src, size_t size)
+void	tok_add_back(t_token **lst, t_token *new)
 {
-	int		lenght;
-	size_t	dstlen;
-	size_t	i;
+	static t_token	*tail = NULL;
 
-	if (size == 0)
-		return (ft_strlen(src));
-	lenght = ft_strlen(src) + ft_strlen(dst);
-	dstlen = ft_strlen(dst);
-	i = 0;
-	while (src[i] && i + dstlen < size - 1)
+	if (!(*lst))
 	{
-		dst[i + dstlen] = src[i];
-		i++;
+		*lst = new;
+		tail = *lst;
 	}
-	if (dstlen < size)
-		dst[i + dstlen] = 0;
 	else
-		return (ft_strlen(src) + size);
-	return (lenght);
+	{
+		tail->next = new;
+		tail = tail->next;
+	}
+	tail->next = NULL;
 }

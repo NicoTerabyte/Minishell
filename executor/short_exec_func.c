@@ -1,42 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_libft.c                                      :+:      :+:    :+:   */
+/*   short_exec_func.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/07 21:51:50 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/08/24 18:31:17 by lnicoter         ###   ########.fr       */
+/*   Created: 2023/10/12 20:06:33 by lnicoter          #+#    #+#             */
+/*   Updated: 2023/10/12 20:17:00 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "executor.h"
+#include <signal.h>
+#include <stdio.h>
+#include <sys/types.h>
+#include <unistd.h>
 
-int	free_matrix(char **s)
+void	redir_simple_command(t_token *r_list, t_simple_cmd *sim_cmd, int curr_out)
 {
-	int i;
-
-	i = 0;
-	while (s[i])
-		free(s[i++]);
-	free(s);
-	return (0);
+	r_list = (t_token *)sim_cmd->redir_list;
+		if (have_outputs(r_list))
+			if (execute_redirections_output(r_list, curr_out))
+				exit (1);
 }
-
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] && s2[i] && s1[i] == s2[i])
-		i++;
-	if (s1[i] == '\0' && s2[i] == '\0')
-		return (0);
-	else if (s1[i] == '\0')
-		return (-1);
-	else if (s2[i] == '\0')
-		return (1);
-	else
-		return (s1[i] - s2[i]);
-}
-
