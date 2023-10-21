@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/10/19 17:31:30 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/21 19:51:33 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,7 @@ char	**env_container(int action, void *arg)
 	static char **env;
 
 	if (action == 0)
-		env = copy_env((char **)arg, env);
-	else if (action == 1)
-	{
-		free_matrix(env);
-		copy_env((char **)arg, env);
-	}
-
+		env = (char **)arg;
 	return (env);
 }
 
@@ -91,11 +85,11 @@ void	free_tokens(t_token *token_lst)
 			{
 				tmpdecl = type_decl;
 				type_decl = type_decl->next;
-//				free(tmpdecl->name);
+				if (tmpdecl->name)
+					free(tmpdecl->name);
 				if (tmpdecl->value)
-					;
-//					free(tmpdecl->value);
-//				free(tmpdecl);
+					free(tmpdecl->value);
+				free(tmpdecl);
 			}
 		}
 		else if (token_lst->token == CMD_ARG)
@@ -278,8 +272,8 @@ int	main(int argc, char **argv, char **envp)
 		signal(SIGQUIT, ign);
 		signal(SIGINT, signal_handler);
 		signal(SIGTERM, signal_handler);
-		//path = mini();
-		str = readline("nienteDiSerioMini> ");
+//		path = mini();
+		str = readline("Minishell> ");
 		//free(path);
 		if (str == NULL)
 		{

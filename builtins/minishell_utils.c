@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:46:34 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/19 17:02:52 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/21 03:32:40 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,26 +108,26 @@ int	env_rows(char **env)
 	(*shell_data)->old_path = NULL;
 }*/
 
-void	puppamelo(t_data *lnico)
-{
-	t_declaration	*tmp;
-	int				i;
+// void	puppamelo(t_data *lnico)
+// {
+// 	t_declaration	*tmp;
+// 	int				i;
 
-	i = 0;
-	while (lnico->identity)
-	{
-		tmp = lnico->identity;
-		lnico->identity = lnico->identity->next;
-		free(tmp->name);
-		i++;
-		if (tmp->value)
-			free(tmp->value);
-		tmp->concatenation = 0;
-		free(tmp);
-	}
-	if (lnico->identity)
-		printf("qualcosa e' andato male liberazione della memoria fatta a buffo\n");
-	else
-		printf("tutto ok liberato in maniera corretta\n");
-	lnico->head = NULL;
-}
+// 	i = 0;
+// 	while (lnico->identity)
+// 	{
+// 		tmp = lnico->identity;
+// 		lnico->identity = lnico->identity->next;
+// 		free(tmp->name);
+// 		i++;
+// 		if (tmp->value)
+// 			free(tmp->value);
+// 		tmp->concatenation = 0;
+// 		free(tmp);
+// 	}
+// 	if (lnico->identity)
+// 		printf("qualcosa e' andato male liberazione della memoria fatta a buffo\n");
+// 	else
+// 		printf("tutto ok liberato in maniera corretta\n");
+// 	lnico->head = NULL;
+// }

@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:48:20 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/19 17:32:54 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/21 19:40:04 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	**setting_the_matrix(char **env)
 		printf("Errore nell'allocazione della memoria\n");
 	i = -1;
 	while (++i < size)
-		the_export_copy[i] = env[i];
+		the_export_copy[i] = ft_strdup(env[i]);
 	the_export_copy[size] = NULL;  // Terminatore dell'array
 	return (the_export_copy);
 }

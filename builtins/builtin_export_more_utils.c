@@ -6,32 +6,32 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 20:30:03 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/18 17:11:32 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/21 03:29:34 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-void	insert_declaration(t_data *shell_data, int concatenation, const char *name, const char *value)
-{
-	if (shell_data->identity == NULL)
-	{
-		shell_data->identity = ft_calloc(1, sizeof(t_declaration));
-	}
-	else
-	{
-		shell_data->identity->next = ft_calloc(1, sizeof(t_declaration));
-		shell_data->identity = shell_data->identity->next;
-	}
-	shell_data->identity->concatenation = concatenation;
-	shell_data->identity->name = ft_strdup(name);
-	if (value)
-		shell_data->identity->value = ft_strdup(value);
-	shell_data->identity->next = NULL;
-	if (!shell_data->head)
-		shell_data->head = shell_data->identity;
+// void	insert_declaration(t_data *shell_data, int concatenation, const char *name, const char *value)
+// {
+// 	if (shell_data->identity == NULL)
+// 	{
+// 		shell_data->identity = ft_calloc(1, sizeof(t_declaration));
+// 	}
+// 	else
+// 	{
+// 		shell_data->identity->next = ft_calloc(1, sizeof(t_declaration));
+// 		shell_data->identity = shell_data->identity->next;
+// 	}
+// 	shell_data->identity->concatenation = concatenation;
+// 	shell_data->identity->name = ft_strdup(name);
+// 	if (value)
+// 		shell_data->identity->value = ft_strdup(value);
+// 	shell_data->identity->next = NULL;
+// 	if (!shell_data->head)
+// 		shell_data->head = shell_data->identity;
 
-}
+// }
 
 //in realtà questo mi serve a simulare la cosa che fa manu
 int	check_arguments_validation(char *identity_name_only)
@@ -70,12 +70,12 @@ void	print_list(t_declaration *list)
 	}
 }
 
-void	arguments_separation(t_data *shell_data, char **command_line, int conc)
-{
-	int		i;
+// void	arguments_separation(t_data *shell_data, char **command_line, int conc)
+// {
+// 	int		i;
 
-	i = 0;
-	while(command_line[++i])
-		list_update(shell_data, conc, command_line, i);
-	shell_data->identity = shell_data->head;
-}
+// 	i = 0;
+// 	while(command_line[++i])
+// 		list_update(shell_data, conc, command_line, i);
+// 	shell_data->identity = shell_data->head;
+// }

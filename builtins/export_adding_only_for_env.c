@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:05:44 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/19 20:29:41 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/21 19:55:46 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,23 @@ int	check_if_good_for_env(t_declaration *node) //teniamolo aiuta per rendere le 
 	return (1);
 }
 
-void	add_to_the_real_env(t_declaration *node, char ***env)
+void	add_to_the_real_env(t_declaration *node, char **env)
 {
-	int	i;
-	printf("export cheeeck n1\n");
+	int		i;
+	char	**tmp;
 	i = 0;
 	while(env[i])
 		i++;
-	env = realloc(env, (i + 2) * sizeof(char *));
-	env[i] = ft_strdup(node->name);
-	env[i + 1] = 0;
+	tmp = ft_calloc((i + 2), sizeof(char *));
+	tmp[i] = ft_strdup(node->name);
+	tmp[i + 1] = 0;
 	check_if_good_for_env(node);
-	env[i] = ft_strjoin_damn_you_leaks(env[i], "=");
+	tmp[i] = ft_strjoin_damn_you_leaks(tmp[i], "=");
 	if (node->value)
-		env[i] = ft_strjoin_damn_you_leaks(env[i], node->value);
+		tmp[i] = ft_strjoin_damn_you_leaks(tmp[i], node->value);
 	i = -1;
-	while (env[++i])
+	while (tmp[++i])
 		printf("%s\n", env[i]);
-	env_container(1, env);
+	env = tmp;
+	//env_container(1, env);
 }

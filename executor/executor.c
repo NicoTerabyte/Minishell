@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/18 17:54:38 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/13 19:11:26 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,7 @@ int	is_builtin_command(t_tree *root)
 		return 1;
 	if (simple_cmd->cmd)
 	{
-		printf("entrato dove non dovrebbe\n");
 		simple_name = (char *)simple_cmd->cmd->cmd_name->value;
-		printf("valore letto %s\n", simple_name);
 		if (0 == ft_strcmp(simple_name, "cd")
 			|| 0 == ft_strcmp(simple_name, "exit")
 			|| 0 == ft_strcmp(simple_name, "echo")
@@ -99,7 +97,6 @@ int	is_builtin_command(t_tree *root)
 		else
 			return (0);
 	}
-	printf("uscito in maniera corretta?\n");
 	return (0);
 }
 
@@ -150,6 +147,7 @@ void	execute_builtin_cmd(t_cmd *cmd)
 
 void	execute_builtin(t_tree *tree, int curr_in, int curr_out)
 {
+
 	t_simple_cmd	*simple_cmd;
 	t_token			*redir_list;
 	int				starting_in;

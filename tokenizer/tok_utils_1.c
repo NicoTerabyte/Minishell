@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_utils_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:44:30 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/19 02:54:39 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/08/31 18:38:28 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	free_matrix(char **s)
 {
 	int i;
 
-	printf("la malattia e' arrivata\n"); //il problema sta nei free guarda meglio la cosa
 	i = 0;
 	while (s[i])
 		free(s[i++]);

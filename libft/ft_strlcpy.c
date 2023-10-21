@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 19:17:17 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/10 22:54:11 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/21 04:23:49 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 		i++;
 	return (i);
 }
-
 char	*i_hate_this_strcpy_for_apix(char *dst, char *src)
 {
 	int		i;

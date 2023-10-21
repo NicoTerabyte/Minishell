@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/10/19 20:53:11 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/21 19:39:59 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # include "../libft/libft.h"
 # include "../minishell.h"
 # include "../lexer/lexer.h"
-#include 	"../global.h"
+# include "../global.h"
 # include "../lexer/lexer.h"
 # include "../libft/libft.h"
 # include "../tokenizer/tokenizer.h"
@@ -75,19 +75,19 @@ void	sort_and_print_export(char **env);
 char	**setting_the_matrix(char **env);
 int		env_rows(char **env);
 int		check_arguments_validation(char *command_line);
-void	insert_declaration(t_data *shell_data, int concatenation, const char *name, const char *value);
+// void	insert_declaration(t_data *shell_data, int concatenation, const char *name, const char *value);
 void	print_list(t_declaration *list);
-void	arguments_separation(t_data *shell_data, char **command_line, int conc);
+// void	arguments_separation(t_data *shell_data, char **command_line, int conc);
 void	add_export_env(char **env);
-char	*super_strjoin(t_data *shell_data);
+// char	*super_strjoin(t_data *shell_data);
 void	env_adding(char *final_string, char **env);
-void	puppamelo(t_data *lnico);
+// void	puppamelo(t_data *lnico);
 int		check_doubles(t_declaration *node, char **env);
 // void	change_if_needed(t_data *shell_data, int pos);
 char	*i_hate_this_strcpy_for_apix(char *dst, char *src);
 char	*ft_strjoin_damn_you_leaks(char *s1, char  *s2);
 // void	ft_strcat(char	*dst, const char *src);
-void	(t_declaration	*node, char **env);
+void	add_to_the_real_env(t_declaration *node, char **env);
 int		check_if_good_for_env(t_declaration *node);
 char	*ft_strndup(char *str, int start, int finish);
 void	change_if_needed_env_ver(t_declaration *node, int pos, char **env);

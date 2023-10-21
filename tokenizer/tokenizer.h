@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alessiolongo <alessiolongo@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 15:47:11 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/19 20:49:32 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/09/07 20:24:37 by alessiolong      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 # include "../libft/libft.h"
 # include "../gnl/get_next_line_bonus.h"
 # include "../lexer/lexer.h"
-# include "../executor/executor.h"
-# include "../builtins/builtins.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>

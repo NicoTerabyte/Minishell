@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 23:38:43 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/17 16:35:53 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/21 03:28:32 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,19 @@ void	env_adding(char *final_string, char **env)
 	env[new_size] = 0;
 }
 
-char *super_strjoin(t_data *shell_data)
-{
-	char	*final_string;
+// char *super_strjoin(t_data *shell_data)
+// {
+// 	char	*final_string;
 
-	final_string = ft_strdup(shell_data->identity->name);
-	printf("pronto a combattere\n");
-	print_list(shell_data->identity);
-	if (shell_data->identity->value)
-		phase1(shell_data, &final_string);
-	else if (shell_data->identity->concatenation)
-		phase2(&final_string);
-	return (final_string);
-}
+// 	final_string = ft_strdup(shell_data->identity->name);
+// 	printf("pronto a combattere\n");
+// 	print_list(shell_data->identity);
+// 	if (shell_data->identity->value)
+// 		phase1(shell_data, &final_string);
+// 	else if (shell_data->identity->concatenation)
+// 		phase2(&final_string);
+// 	return (final_string);
+// }
 
 void	add_export_env(char **env)
 {

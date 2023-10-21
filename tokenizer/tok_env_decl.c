@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_env_decl.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:43:54 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/18 17:40:29 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/08/31 15:02:28 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,9 @@ int	set_decl_mode(char *word)
 	while (word[i] && word[i] != '=')
 		i++;
 	if (word[i] == '=' && word[i - 1] == '+')
-		return (2);
-	else if (word[i] == '=')
 		return (1);
 	else
-		return (0); //cambiamento lnicoter
+		return (0);
 }
 
 t_declaration	*set_decl(char **splitcmd, int *i, t_token_enum token_enum)
