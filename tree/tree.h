@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 14:19:48 by mlongo            #+#    #+#             */
-/*   Updated: 2023/09/08 17:42:31 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/10/23 00:12:19 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../libft/libft.h"
 # include "../gnl/get_next_line_bonus.h"
 # include "../tokenizer/tokenizer.h"
+//# include "../minishell.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -51,6 +52,7 @@ typedef struct s_tree
 	struct s_tree	*right;
 	struct s_tree	*left;
 	struct s_tree	*prev;
+	char			**env;
 }	t_tree;
 
 typedef struct s_parenthesis

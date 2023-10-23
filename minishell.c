@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/10/21 19:51:33 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/23 18:28:51 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,13 @@ void printTree(t_tree *node, int level, char *message)
     printTree(node->right, level + 1, "RIGHT");
 }
 
-char	**env_container(int action, void *arg)
+void	env_container(int action, void *arg, t_mini *the_copy)
 {
-	static char **env;
+	//usare una struct,
 
 	if (action == 0)
-		env = (char **)arg;
-	return (env);
+		copy_env((char **)arg, the_copy);
+	// return (env);
 }
 
 void	free_tokens(t_token *token_lst)
@@ -84,6 +84,8 @@ void	free_tokens(t_token *token_lst)
 			while (type_decl)
 			{
 				tmpdecl = type_decl;
+				if (!type_decl->next)
+					break ;
 				type_decl = type_decl->next;
 				if (tmpdecl->name)
 					free(tmpdecl->name);
@@ -249,7 +251,11 @@ void	*var_container(t_token *token_lst, t_tree *tree, int op)
 		return (this_token_lst);
 	return (NULL);
 }
-
+/*
+ATTENZIONE:
+	SE NON SAI DOVE MANU HA INIZIALIZZATO IL TREE DEVI FAR GIRARE L'ENV CON UN'ALTRA STRUCT
+	OCCHIO FALLO DOMANI
+*/
 int	main(int argc, char **argv, char **envp)
 {
 	signal(SIGQUIT, ign);
@@ -261,8 +267,9 @@ int	main(int argc, char **argv, char **envp)
 	char	*path;
 	t_token	*token_list;
 	t_tree	*tree;
-
-	env_container(0, envp);
+	t_mini	*mini;
+	mini = ft_calloc(1, sizeof(t_mini));
+	env_container(0, envp, mini);
 
 	token_list = NULL;
 	while (1)
@@ -306,7 +313,7 @@ int	main(int argc, char **argv, char **envp)
 			while (token_list->prev)
 				token_list = token_list->prev;
 		var_container(token_list, tree, SET);
-		execute(tree, STDIN_FILENO, STDOUT_FILENO);
+		execute(tree, STDIN_FILENO, STDOUT_FILENO, mini);
 		// free_tree(tree);
 		free_matrix(splitcmd);
 		ft_free_all(token_list, tree);

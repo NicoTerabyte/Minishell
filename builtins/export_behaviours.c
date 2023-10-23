@@ -6,31 +6,31 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:46:45 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/18 19:55:40 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/23 18:06:14 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-void	concatenation_export(t_declaration *node, int pos, char **env)
+void	concatenation_export(t_declaration *node, int pos, t_mini *mini)
 {
 	char	*tmp_value;
-	if (ft_strchr(env[pos], '='))
-		tmp_value = ft_strndup(env[pos], 0, ft_strlen(env[pos]) - 1);
+	if (ft_strchr(mini->env[pos], '='))
+		tmp_value = ft_strndup(mini->env[pos], 0, ft_strlen(mini->env[pos]) - 1);
 	else
-		tmp_value = ft_strdup(env[pos]);
+		tmp_value = ft_strdup(mini->env[pos]);
 	printf("CONTROLLO TMP VALUE %s\n", tmp_value);
-	free(env[pos]);
-	env[pos] = tmp_value;
-	if (!ft_strchr(env[pos], '='))
+	free(mini->env[pos]);
+	mini->env[pos] = tmp_value;
+	if (!ft_strchr(mini->env[pos], '='))
 	{
-		env[pos] = ft_strjoin_damn_you_leaks(env[pos], "=");
-		env[pos] = ft_strjoin_damn_you_leaks(env[pos], "\"");
-		env[pos] = ft_strjoin(node->name, "=");
+		mini->env[pos] = ft_strjoin_damn_you_leaks(mini->env[pos], "=");
+		mini->env[pos] = ft_strjoin_damn_you_leaks(mini->env[pos], "\"");
+		mini->env[pos] = ft_strjoin(node->name, "=");
 	}
-	env[pos] = ft_strjoin_damn_you_leaks(env[pos], node->value);
-	env[pos] = ft_strjoin_damn_you_leaks(env[pos], "\"");
-	env[pos] = ft_strjoin_damn_you_leaks(env[pos], node->value);
+	mini->env[pos] = ft_strjoin_damn_you_leaks(mini->env[pos], node->value);
+	mini->env[pos] = ft_strjoin_damn_you_leaks(mini->env[pos], "\"");
+	mini->env[pos] = ft_strjoin_damn_you_leaks(mini->env[pos], node->value);
 }
 
 //questa parte è molto problabile che venga esclusa perché le stampe sono state corrette
@@ -42,28 +42,28 @@ void	concatenation_export(t_declaration *node, int pos, char **env)
 // 		overwrite(shell_data, pos);
 // 	else if (node->concatenation != 0)
 // 	{
-// 		env[pos] = ft_strdup(node->name);
-// 		env[pos] = ft_strjoin_damn_you_leaks(env[pos], "=");
-// 		env[pos] = ft_strjoin_damn_you_leaks(env[pos], "\"");
-// 		env[pos] = ft_strjoin_damn_you_leaks(env[pos], "\"");
+// 		all->env[pos] = ft_strdup(node->name);
+// 		all->env[pos] = ft_strjoin_damn_you_leaks(all->env[pos], "=");
+// 		all->env[pos] = ft_strjoin_damn_you_leaks(all->env[pos], "\"");
+// 		all->env[pos] = ft_strjoin_damn_you_leaks(all->env[pos], "\"");
 // 	}
 // }
 
-void	change_if_needed_env_ver(t_declaration *node, int pos, char **env)
+void	change_if_needed_env_ver(t_declaration *node, int pos, t_mini *mini)
 {
 	if (node->value != NULL)
 	{
-		free(env[pos]);
-		env[pos] = ft_strdup(node->name);
+		free(mini->env[pos]);
+		mini->env[pos] = ft_strdup(node->name);
 		check_if_good_for_env(node);
-		env[pos] = ft_strjoin_damn_you_leaks(env[pos], "=");
-		env[pos] = ft_strjoin_damn_you_leaks(env[pos], node->value);
+		mini->env[pos] = ft_strjoin_damn_you_leaks(mini->env[pos], "=");
+		mini->env[pos] = ft_strjoin_damn_you_leaks(mini->env[pos], node->value);
 	}
 	else if (node->concatenation == 1)
 	{
-		free(env[pos]);
-		env[pos] = ft_strdup(node->name);
-		env[pos] = ft_strjoin_damn_you_leaks(env[pos], "=");
+		free(mini->env[pos]);
+		mini->env[pos] = ft_strdup(node->name);
+		mini->env[pos] = ft_strjoin_damn_you_leaks(mini->env[pos], "=");
 	}
 }
 /*per ora gestisce solo il caso export bisogna
@@ -72,7 +72,7 @@ ancora da sistemare inserita nell'env con = e la roba dei doppioni daje lo famo 
 me la sento
 fare un change_if_needed per l'env dove devo gestire diversi casi
 Se non c'è value non applichi nessun cambiamento */
-int		check_doubles(t_declaration *node, char **env)
+int		check_doubles(t_declaration *node, t_mini *mini)
 {
 	int		i;
 	int		word_len;
@@ -80,19 +80,19 @@ int		check_doubles(t_declaration *node, char **env)
 	word_len = ft_strlen(node->name);
 	i = 0;
 
-	while (env[i]) //env
+	while (mini->env[i]) //env
 	{
-		if (ft_strncmp(env[i], node->name, word_len) == 0
+		if (ft_strncmp(mini->env[i], node->name, word_len) == 0
 			&& (node->concatenation == 1 || node->concatenation == 0))
 		{
 			//change_if_needed(shell_data, i);
-			change_if_needed_env_ver(node, i, env);
+			change_if_needed_env_ver(node, i, mini);
 			return (1);
 		}
-		if (ft_strncmp(env[i], node->name, word_len) == 0
+		if (ft_strncmp(mini->env[i], node->name, word_len) == 0
 				&& node->concatenation == 2)
 		{
-			concatenation_export(node, i, env);
+			concatenation_export(node, i, mini);
 			return (1);
 		}
 		i++;

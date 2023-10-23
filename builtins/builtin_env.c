@@ -6,18 +6,16 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 16:11:25 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/12 15:55:15 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/22 23:39:04 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-void	ft_env(void)
+void	ft_env(char **env)
 {
 	int		i;
-	char	**env;
 
-	env = env_container(7, env);
 	i = 0;
 	while (env[i])
 	{

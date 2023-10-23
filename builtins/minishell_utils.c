@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:46:34 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/21 03:32:40 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/23 18:27:21 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 		cast?
 	in ogni
 */
-char	**copy_env(char **env, char **env_copy)
+int	copy_env(char **env, t_mini *all)
 {
 	int	env_size;
 	int	i;
@@ -31,24 +31,24 @@ char	**copy_env(char **env, char **env_copy)
 	i = 0;
 	while (env[env_size])
 		env_size++;
-	env_copy = (char **)malloc((env_size + 1) * sizeof(char *));
-	// env_copy = (char **)malloc((env_size + 1) * sizeof(char *));
-	if (!env_copy)
+	all->env = ft_calloc((env_size + 1), sizeof(char *));
+	// all->env = (char **)malloc((env_size + 1) * sizeof(char *));
+	if (!all->env)
 	{
 		printf("Incombenza rilevata!!!\n");
-		return (NULL); // Non c'è bisogno di liberare la memoria qui
+		return (0); // Non c'è bisogno di liberare la memoria qui
 	}
 	while (env[i])
 	{
 		printf("stiamo alla frutta\n");
 		printf("valore copiato: %s\n", env[i]);
-		env_copy[i] = ft_strdup(env[i]);
+		all->env[i] = ft_strdup(env[i]);
 		//export
 		i++;
 	}
-	env_copy[i] = 0;
+	all->env[i] = 0;
 	// export
-	return (env_copy);
+	return (1);
 }
 
 void *ft_realloc(void *ptr, size_t size)

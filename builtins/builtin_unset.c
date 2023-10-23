@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:16:03 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/13 19:10:48 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/23 18:17:05 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,47 +18,45 @@
 //per sistemare l'unset, come? scalando la matrice
 //e tenendo conto di quanto è grande l'array mettere
 //in size - 1 il null byte cosicché aggiorni bene
-//l'env
-void	fix_mat(char **env, int i)
+//l'all->env
+void	fix_mat(t_mini *mini, int i)
 {
-	while (env[i + 1])
+	while (mini->env[i + 1])
 	{
-		swap_mat(&env[i], &env[i + 1]);
-		//swap_mat(&shell_data->export_env[i], &shell_data->export_env[i + 1]); export version da fare
+		swap_mat(&mini->env[i], &mini->env[i + 1]);
+		//swap_mat(&shell_data->export_mini->env[i], &shell_data->export_mini->env[i + 1]); export version da fare
 		i++;
 	}
-	env[i] = 0;
-	//shell_data->export_env[i] = 0;
+	mini->env[i] = 0;
+	//shell_data->export_mini->env[i] = 0;
 }
 
-void	copy_check_unset(char *str)
+void	copy_check_unset(char *str, t_mini *mini)
 {
 	int		i;
 	int		j;
-	char	**env;
 
-	env = env_container(7, env);
 	i = -1;
-	while (env[++i])
+	while (mini->env[++i])
 	{
 		j = -1;
-		while (env[i][++j] == '=' && env[i][j])
+		while (mini->env[i][++j] == '=' && mini->env[i][j])
 			;
-		if (ft_strncmp(env[i], str, j) == 0)
+		if (ft_strncmp(mini->env[i], str, j) == 0)
 		{
-			if (ft_strncmp(env[i], str,
+			if (ft_strncmp(mini->env[i], str,
 				ft_strlen(str)) == 0)
 			{
-				free(env[i]);
-				//free(shell_data->export_env[pos]); export version
+				free(mini->env[i]);
+				//free(shell_data->export_all->env[pos]); export version
 				break ;
 			}
 		}
 	}
-	fix_mat(env, i);
+	fix_mat(mini, i);
 }
 
-void	ft_unset(t_declaration *node)
+void	ft_unset(t_declaration *node, t_mini *mini)
 {
 	int	i;
 
@@ -67,7 +65,7 @@ void	ft_unset(t_declaration *node)
 		return ;
 	while (node)
 	{
-		copy_check_unset(node->name);
+		copy_check_unset(node->name, mini);
 		node = node->next;
 	}
 }

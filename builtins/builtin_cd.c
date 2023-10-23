@@ -6,73 +6,61 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 16:34:03 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/17 17:18:41 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/23 18:01:03 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-void	update_oldpwd(void)
+void	update_oldpwd(t_mini *mini)
 {
 	char	*new_value;
 	char	*final_string;
 	int		i;
-	char	**env;
 
-	env = NULL;
-	env = env_container(7, env);
 	new_value = getcwd(0, 0);
 	i = -1;
 	//shell_data->copy_env
-	while (env[++i])
+	while (mini->env[++i])
 	{
 		//shell_data->copy_env
-		if (ft_strncmp(env[i], "OLDPWD", 6) == 0)
+		if (ft_strncmp(mini->env[i], "OLDPWD", 6) == 0)
 		{
 			final_string = ft_strjoin("OLDPWD=", new_value);
 			//shell_data->copy_env
-//			free(env[i]);
+			free(mini->env[i]);
 			//shell_data->copy_env
-			env[i] = ft_strdup(final_string);
+			mini->env[i] = ft_strdup(final_string);
 			free(final_string);
 			break ;
 		}
 	}
 	free(new_value);
-	//aggiornare env_container per eseguire l'aggiornamento della
-	//matrice con la variabile action 1
-	//
 }
 
-void	update_pwd(void)
+void	update_pwd(t_mini *mini)
 {
 	char	*new_value;
 	char	*final_string;
 	int		i;
-	char	**env;
 
-	env = NULL;
-	env = env_container(7, env);
 	new_value = getcwd(0, 0);
 	i = -1;
 	//shell_data->copy_env[++i]
-	while (env[++i])
+	while (mini->env[++i])
 	{
 		//shell_data->copy_env[i]
-		if (ft_strncmp(env[i], "PWD", 3) == 0)
+		if (ft_strncmp(mini->env[i], "PWD", 3) == 0)
 		{
 			final_string = ft_strjoin("PWD=", new_value);
-			//shell_data->copy_env[i]
+			free(mini->env[i]);
 //			free(env[i]);
-			env[i] = ft_strdup(final_string);
+			mini->env[i] = ft_strdup(final_string);
 			free(final_string);
 			break ;
 		}
 	}
 	free(new_value);
-	//aggiornare env_container per eseguire l'aggiornamento della
-	//matrice con la variabile action 1
-	env_container(1, env);
 }
 /*
 	cambiamenti che intendo fare su cd:
@@ -86,26 +74,26 @@ cosa da fare rimanenti:
 		della matrice per poi sistemarla di nuovo
 		nel dubbio ricontrolla bene env_container
 */
-void	ft_cd(char **command_line)
+void	ft_cd(char **command_line, t_mini *mini)
 {
 	char	*home;
 
-	update_oldpwd();
+	update_oldpwd(mini);
 	home = getenv("HOME");
 	if (command_line != NULL && !ft_strcmp(command_line[0], "$HOME"))
 	{
 		chdir(home);
-		update_pwd();
+		update_pwd(mini);
 	}
 	else if (!command_line)
 	{
 		chdir(home);
-		update_pwd();
+		update_pwd(mini);
 	}
 	else
 	{
 		chdir(command_line[0]);
-		update_pwd();
+		update_pwd(mini);
 
 	}
 	//exit(0);

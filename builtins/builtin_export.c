@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:48:20 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/21 19:40:04 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/23 17:56:55 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,25 +106,23 @@ void	sort_and_print_export(char **env)
 		dell'environment di conseguenza se io procedo a stamparla correttamente non penso ci sia
 		un problema quindi se lavoro bene nella stampa ci saranno 100% in meno di controlli da fare
 */
-void	ft_export(t_declaration *node)
+void	ft_export(t_declaration *node, t_mini *mini)
 {
 	int		conc;
-	char	**env;
 
-	env = env_container(7, env);
 	conc = 0;
 	if (!node)
-		sort_and_print_export(env);
+		sort_and_print_export(mini->env);
 	else
 	{
 		// arguments_separation(shell_data, command_line, conc); //segfault gestire casi con nomevalue = "="
 		while (node)
 		{
-			if (check_doubles(node, env) == 0 && check_arguments_validation(node->name))
+			if (check_doubles(node, mini) == 0 && check_arguments_validation(node->name))
 			{
 				//add_export_env(env);
 				// if (node->concatenation != 0)
-				add_to_the_real_env(node, env);
+				add_to_the_real_env(node, mini);
 			}
 			node = node->next;
 		}

@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:05:44 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/21 19:55:46 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/23 18:06:44 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,24 +33,25 @@ int	check_if_good_for_env(t_declaration *node) //teniamolo aiuta per rendere le 
 	}
 	return (1);
 }
-
-void	add_to_the_real_env(t_declaration *node, char **env)
+/*
+	l'approccio per l'export è sbagliato un'idea per risolverlo può essere
+	creare una struct principale che possiende l'environment
+	in modo tale che i cambiamenti siano permanenti
+	farò una variabile nella struct datas, e poi la modifichero con env
+	con env_co
+*/
+void	add_to_the_real_env(t_declaration *node, t_mini *mini)
 {
-	int		i;
-	char	**tmp;
+	int	i;
+
 	i = 0;
-	while(env[i])
+	while(mini->env[i])
 		i++;
-	tmp = ft_calloc((i + 2), sizeof(char *));
-	tmp[i] = ft_strdup(node->name);
-	tmp[i + 1] = 0;
+	mini->env = realloc(mini->env, (i + 2) * sizeof(char *));
+	mini->env[i] = ft_strdup(node->name);
+	mini->env[i + 1] = 0;
 	check_if_good_for_env(node);
-	tmp[i] = ft_strjoin_damn_you_leaks(tmp[i], "=");
+	mini->env[i] = ft_strjoin_damn_you_leaks(mini->env[i], "=");
 	if (node->value)
-		tmp[i] = ft_strjoin_damn_you_leaks(tmp[i], node->value);
-	i = -1;
-	while (tmp[++i])
-		printf("%s\n", env[i]);
-	env = tmp;
-	//env_container(1, env);
+		mini->env[i] = ft_strjoin_damn_you_leaks(mini->env[i], node->value);
 }

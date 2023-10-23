@@ -6,18 +6,12 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/13 19:11:26 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/23 17:53:22 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../tree/tree.h"
-void printTree(t_tree *node, int level, char *message);
-
 #include "executor.h"
-#include <signal.h>
-#include <stdio.h>
-#include <sys/types.h>
-#include <unistd.h>
+
 
 void	execute_integrated(t_tree *tree, int curr_in, int curr_out)
 {
@@ -48,7 +42,7 @@ void	execute_integrated(t_tree *tree, int curr_in, int curr_out)
 	if (simple_cmd->cmd == NULL)
 		exit (0);
 	else
-		execve_cmd(simple_cmd);
+		execve_cmd(simple_cmd, tree);
 }
 
 void	process_integrated(t_tree *tree, int curr_in, int curr_out)
@@ -100,12 +94,12 @@ int	is_builtin_command(t_tree *root)
 	return (0);
 }
 
-void	execute_builtin_env(t_token *env)
+void	execute_builtin_env(t_token *env, t_mini *mini)
 {
 	if (env->token == ENV_VAR_DECL)
-		ft_export(env->value);
+		ft_export(env->value, mini);
 	if (env->token == ENV_VAR_UNSET)
-		ft_unset((t_declaration *)env->value);
+		ft_unset((t_declaration *)env->value, mini);
 }
 
 //parte da collegare con la mia
@@ -125,7 +119,7 @@ void	execute_builtin_env(t_token *env)
 	3) controllo che cd funzioni per vedere se ho fatto le cose corrette (fatto)
 	4) scelgo la prossima builtin da modificare (fatto)
 */
-void	execute_builtin_cmd(t_cmd *cmd)
+void	execute_builtin_cmd(t_cmd *cmd, t_mini *mini)
 {
 	char	**args;
 
@@ -136,16 +130,16 @@ void	execute_builtin_cmd(t_cmd *cmd)
 	if (ft_strcmp(cmd->cmd_name->value, "echo") == 0)
 		ft_echo(args);
 	if (ft_strcmp(cmd->cmd_name->value, "cd") == 0)
-		ft_cd(args);
+		ft_cd(args, mini);
 	if (ft_strcmp(cmd->cmd_name->value, "pwd") == 0)
 		ft_pwd();
 	if (ft_strcmp(cmd->cmd_name->value, "exit") == 0)
 		ft_exit(args);
 	if (ft_strcmp(cmd->cmd_name->value, "env") == 0)
-		ft_env();
+		ft_env(mini->env);
 }
 
-void	execute_builtin(t_tree *tree, int curr_in, int curr_out)
+void	execute_builtin(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 {
 
 	t_simple_cmd	*simple_cmd;
@@ -179,25 +173,25 @@ void	execute_builtin(t_tree *tree, int curr_in, int curr_out)
 	if (simple_cmd->cmd == NULL)
 	{
 		if (simple_cmd->env != NULL)
-			execute_builtin_env(simple_cmd->env);
+			execute_builtin_env(simple_cmd->env, mini);
 	}
 	else
-		execute_builtin_cmd(simple_cmd->cmd);
+		execute_builtin_cmd(simple_cmd->cmd, mini);
 	dup_std_fd(starting_in, STDIN_FILENO);
 	dup_std_fd(starting_out, STDOUT_FILENO);
 }
 
-void	execute_simple_cmd(t_tree *tree, int curr_in, int curr_out)
+void	execute_simple_cmd(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 {
 	if (!tree)
 		return ;
 	if (is_builtin_command(tree))
-		execute_builtin(tree, curr_in, curr_out);
+		execute_builtin(tree, curr_in, curr_out, mini);
 	else
 		process_integrated(tree, curr_in, curr_out);
 }
 
-void	execute_pipe_op(t_tree *root, int curr_in, int curr_out)
+void	execute_pipe_op(t_tree *root, int curr_in, int curr_out, t_mini *mini)
 {
 	int	piping[2];
 	int	pid_left;
@@ -209,7 +203,7 @@ void	execute_pipe_op(t_tree *root, int curr_in, int curr_out)
 	if (!pid_left)
 	{
 		close(piping[0]);
-		execute(root->left, curr_in, piping[1]);
+		execute(root->left, curr_in, piping[1], mini);
 		exit(last_exit_status_cmd);
 	}
 	// waitpid(pid_left, &exit_status, 0);
@@ -224,7 +218,7 @@ void	execute_pipe_op(t_tree *root, int curr_in, int curr_out)
 	if (!pid_right)
 	{
 		close(piping[1]);
-		execute(root->right, piping[0], curr_out);
+		execute(root->right, piping[0], curr_out, mini);
 		exit(last_exit_status_cmd);
 	}
 	close(piping[0]);
@@ -234,25 +228,25 @@ void	execute_pipe_op(t_tree *root, int curr_in, int curr_out)
 	last_exit_status_cmd = WEXITSTATUS(exit_status);
 }
 
-void	execute_and_op(t_tree *tree, int curr_in, int curr_out)
+void	execute_and_op(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 {
 	if (!tree)
 		return ;
-	execute(tree->left, curr_in, curr_out);
+	execute(tree->left, curr_in, curr_out, mini);
 	if (last_exit_status_cmd == 0)
-		execute(tree->right, curr_in, curr_out);
+		execute(tree->right, curr_in, curr_out, mini);
 }
 
-void	execute_or_op(t_tree *tree, int curr_in, int curr_out)
+void	execute_or_op(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 {
 	if (!tree)
 		return ;
-	execute(tree->left, curr_in, curr_out);
+	execute(tree->left, curr_in, curr_out, mini);
 	if (last_exit_status_cmd == 1)
-		execute(tree->right, curr_in, curr_in);
+		execute(tree->right, curr_in, curr_in, mini);
 }
 
-void	execute_operator(t_tree *tree, int curr_in, int curr_out)
+void	execute_operator(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 {
 	if (!tree)
 		return ;
@@ -260,14 +254,14 @@ void	execute_operator(t_tree *tree, int curr_in, int curr_out)
 
 	operator = (char *)tree->content;
 	if (!ft_strcmp(operator, "&&"))
-		execute_and_op(tree, curr_in, curr_out);
+		execute_and_op(tree, curr_in, curr_out, mini);
 	else if (!ft_strcmp(operator, "||"))
-		execute_or_op(tree, curr_in, curr_out);
+		execute_or_op(tree, curr_in, curr_out, mini);
 	else
-		execute_pipe_op(tree, curr_in, curr_out);
+		execute_pipe_op(tree, curr_in, curr_out, mini);
 }
 
-static void	execute_subshell(t_tree *root, int in, int out)
+static void	execute_subshell(t_tree *root, int in, int out, t_mini *mini)
 {
 	int				subshell_pid;
 	int				subshell_exit_status;
@@ -296,30 +290,30 @@ static void	execute_subshell(t_tree *root, int in, int out)
 		}
 		else
 			dup_std_fd(out, STDOUT_FILENO);
-		execute(parenthesis_node->tree, in, out);
+		execute(parenthesis_node->tree, in, out, mini);
 		exit(last_exit_status_cmd);
 	}
 	waitpid(subshell_pid, &subshell_exit_status, 0);
 	last_exit_status_cmd = WEXITSTATUS(subshell_exit_status);
 }
 
-void	execute_shell(t_tree *tree, int curr_in, int curr_out)
+void	execute_shell(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 {
 	if (!tree)
 		return ;
 	else if (tree->type == SIMPLE_CMD)
-		execute_simple_cmd(tree, curr_in, curr_out);
+		execute_simple_cmd(tree, curr_in, curr_out, mini);
 	else
-		execute_operator(tree, curr_in, curr_out);
+		execute_operator(tree, curr_in, curr_out, mini);
 }
 
-void	execute(t_tree *tree, int curr_in, int curr_out)
+void	execute(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 {
 	if (!tree)
 		return ;
 	signal(SIGINT, ign);
 	if (tree->type == PARENTHESI)
-		execute_subshell(tree, curr_in, curr_out);
+		execute_subshell(tree, curr_in, curr_out, mini);
 	else
-	execute_shell(tree, curr_in, curr_out);
+	execute_shell(tree, curr_in, curr_out, mini);
 }
