@@ -6,14 +6,14 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/23 17:53:22 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/24 18:15:16 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
 
 
-void	execute_integrated(t_tree *tree, int curr_in, int curr_out)
+void	execute_integrated(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 {
 	t_simple_cmd	*simple_cmd;
 	t_token			*redir_list;
@@ -42,10 +42,10 @@ void	execute_integrated(t_tree *tree, int curr_in, int curr_out)
 	if (simple_cmd->cmd == NULL)
 		exit (0);
 	else
-		execve_cmd(simple_cmd, tree);
+		execve_cmd(simple_cmd, mini);
 }
 
-void	process_integrated(t_tree *tree, int curr_in, int curr_out)
+void	process_integrated(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 {
 	int	pid;
 	int	exit_status;
@@ -55,7 +55,7 @@ void	process_integrated(t_tree *tree, int curr_in, int curr_out)
 	signal(SIGTERM, ign);
 	pid = fork();
 	if(pid == 0)
-		execute_integrated(tree, curr_in, curr_out);
+		execute_integrated(tree, curr_in, curr_out, mini);
 	else
 	{
 		signal(SIGINT, signal_handler_execve);
@@ -139,7 +139,7 @@ void	execute_builtin_cmd(t_cmd *cmd, t_mini *mini)
 		ft_env(mini->env);
 }
 
-void	execute_builtin(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
+void	execute_builtin(t_tree *tree, int curr_in, int curr_out, t_mini *mini) //diff numero 2
 {
 
 	t_simple_cmd	*simple_cmd;
@@ -188,7 +188,7 @@ void	execute_simple_cmd(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 	if (is_builtin_command(tree))
 		execute_builtin(tree, curr_in, curr_out, mini);
 	else
-		process_integrated(tree, curr_in, curr_out);
+		process_integrated(tree, curr_in, curr_out, mini);
 }
 
 void	execute_pipe_op(t_tree *root, int curr_in, int curr_out, t_mini *mini)

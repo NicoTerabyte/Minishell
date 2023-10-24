@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/10/23 18:28:51 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/24 16:05:13 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -313,7 +313,7 @@ int	main(int argc, char **argv, char **envp)
 			while (token_list->prev)
 				token_list = token_list->prev;
 		var_container(token_list, tree, SET);
-		execute(tree, STDIN_FILENO, STDOUT_FILENO, mini);
+		execute(tree, STDIN_FILENO, STDOUT_FILENO, mini); //allora qui passo la mia matrice env
 		// free_tree(tree);
 		free_matrix(splitcmd);
 		ft_free_all(token_list, tree);

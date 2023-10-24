@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:37:51 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/23 17:43:49 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/24 18:14:13 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,5 @@ char	*get_cmd_name_path(char *cmd_name, char **split_paths);
 void	signal_handler_execve(int signum);
 int		have_inputs(t_token *redir_list);
 int		have_outputs(t_token *redir_list);
-void	execve_cmd(t_simple_cmd *simple_cmd, t_tree *tree);
+void	execve_cmd(t_simple_cmd *simple_cmd, t_mini *mini);
 #endif

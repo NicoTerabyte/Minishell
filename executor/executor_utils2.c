@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 20:27:59 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/23 00:49:31 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/24 18:13:54 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,13 @@ int	have_outputs(t_token *redir_list)
 	return (0);
 }
 
-void	execve_cmd(t_simple_cmd *simple_cmd, t_tree *tree)
+void	execve_cmd(t_simple_cmd *simple_cmd, t_mini *mini)
 {
 	char	**split_paths;
 	char	*cmd_name;
 	char	**cmd_args;
 
-	split_paths = get_paths(tree->env);
+	split_paths = get_paths(mini->env);
 	split_paths[0] = ft_strtrim(split_paths[0], "PATH=");
 	cmd_name = get_cmd_name_path((char *)simple_cmd->cmd->cmd_name->value, split_paths);
 	if (cmd_name == NULL)
@@ -86,5 +86,5 @@ void	execve_cmd(t_simple_cmd *simple_cmd, t_tree *tree)
 	}
 	cmd_args = get_cmd_args(simple_cmd);
 	free_matrix(split_paths);
-	execve(cmd_name, cmd_args, tree->env);
+	execve(cmd_name, cmd_args, mini->env);
 }
