@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:46:34 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/23 18:27:21 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/24 18:37:39 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	copy_env(char **env, t_mini *all)
 	while (env[env_size])
 		env_size++;
 	all->env = ft_calloc((env_size + 1), sizeof(char *));
-	// all->env = (char **)malloc((env_size + 1) * sizeof(char *));
 	if (!all->env)
 	{
 		printf("Incombenza rilevata!!!\n");
@@ -40,14 +39,10 @@ int	copy_env(char **env, t_mini *all)
 	}
 	while (env[i])
 	{
-		printf("stiamo alla frutta\n");
-		printf("valore copiato: %s\n", env[i]);
 		all->env[i] = ft_strdup(env[i]);
-		//export
 		i++;
 	}
 	all->env[i] = 0;
-	// export
 	return (1);
 }
 

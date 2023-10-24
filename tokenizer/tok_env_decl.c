@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:43:54 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/22 17:37:25 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/24 18:41:31 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ int	set_decl_mode(char *word)
 	while (word[i] && word[i] != '=')
 		i++;
 	if (word[i] == '=' && word[i - 1] == '+')
+		return (2);
+	else if (word[i] == '=')
 		return (1);
 	else
 		return (0);

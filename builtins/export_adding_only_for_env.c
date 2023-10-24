@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:05:44 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/23 18:06:44 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/24 19:17:34 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ void	add_to_the_real_env(t_declaration *node, t_mini *mini)
 	mini->env[i] = ft_strdup(node->name);
 	mini->env[i + 1] = 0;
 	check_if_good_for_env(node);
-	mini->env[i] = ft_strjoin_damn_you_leaks(mini->env[i], "=");
+	if (node->concatenation != 0)
+		mini->env[i] = ft_strjoin_damn_you_leaks(mini->env[i], "=");
 	if (node->value)
 		mini->env[i] = ft_strjoin_damn_you_leaks(mini->env[i], node->value);
 }

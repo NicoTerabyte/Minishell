@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 16:11:25 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/22 23:39:04 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/24 19:18:25 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	ft_env(char **env)
 	i = 0;
 	while (env[i])
 	{
-		printf("%s\n", env[i]);
+		if (ft_strchr(env[i], '='))
+			printf("%s\n", env[i]);
 		i++;
 	}
 }

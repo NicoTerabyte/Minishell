@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:46:45 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/23 18:06:14 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/24 19:15:13 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ void	concatenation_export(t_declaration *node, int pos, t_mini *mini)
 	mini->env[pos] = tmp_value;
 	if (!ft_strchr(mini->env[pos], '='))
 	{
-		mini->env[pos] = ft_strjoin_damn_you_leaks(mini->env[pos], "=");
-		mini->env[pos] = ft_strjoin_damn_you_leaks(mini->env[pos], "\"");
 		mini->env[pos] = ft_strjoin(node->name, "=");
+		// mini->env[pos] = ft_strjoin_damn_you_leaks(mini->env[pos], "=");
+		// mini->env[pos] = ft_strjoin_damn_you_leaks(mini->env[pos], "\"");
 	}
 	mini->env[pos] = ft_strjoin_damn_you_leaks(mini->env[pos], node->value);
-	mini->env[pos] = ft_strjoin_damn_you_leaks(mini->env[pos], "\"");
+	// mini->env[pos] = ft_strjoin_damn_you_leaks(mini->env[pos], "\"");
 	mini->env[pos] = ft_strjoin_damn_you_leaks(mini->env[pos], node->value);
 }
 
@@ -85,7 +85,6 @@ int		check_doubles(t_declaration *node, t_mini *mini)
 		if (ft_strncmp(mini->env[i], node->name, word_len) == 0
 			&& (node->concatenation == 1 || node->concatenation == 0))
 		{
-			//change_if_needed(shell_data, i);
 			change_if_needed_env_ver(node, i, mini);
 			return (1);
 		}
