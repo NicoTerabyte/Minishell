@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:46:45 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/24 19:15:13 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/25 18:06:11 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	concatenation_export(t_declaration *node, int pos, t_mini *mini)
 {
 	char	*tmp_value;
 	if (ft_strchr(mini->env[pos], '='))
-		tmp_value = ft_strndup(mini->env[pos], 0, ft_strlen(mini->env[pos]) - 1);
+		tmp_value = ft_strndup(mini->env[pos], 0, ft_strlen(mini->env[pos]));
 	else
 		tmp_value = ft_strdup(mini->env[pos]);
 	printf("CONTROLLO TMP VALUE %s\n", tmp_value);
@@ -30,7 +30,6 @@ void	concatenation_export(t_declaration *node, int pos, t_mini *mini)
 	}
 	mini->env[pos] = ft_strjoin_damn_you_leaks(mini->env[pos], node->value);
 	// mini->env[pos] = ft_strjoin_damn_you_leaks(mini->env[pos], "\"");
-	mini->env[pos] = ft_strjoin_damn_you_leaks(mini->env[pos], node->value);
 }
 
 //questa parte è molto problabile che venga esclusa perché le stampe sono state corrette
