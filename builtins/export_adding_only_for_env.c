@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:05:44 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/24 19:17:34 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/26 16:20:36 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	check_if_good_for_env(t_declaration *node) //teniamolo aiuta per rendere le 
 	if (node->value != NULL && (ft_strchr(node->value, '\'')
 		|| ft_strchr(node->value, '\"')))
 	{
-		tmp = ft_strndup(node->value, 1, ft_strlen(node->value));
+		tmp = ft_strndup(node->value, 1, ft_strlen(node->value) - 1);
 		free(node->value);
 		node->value = tmp; //logica puntatori
 		return(0);
