@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:48:20 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/24 19:21:23 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/28 18:41:33 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,23 +115,15 @@ void	ft_export(t_declaration *node, t_mini *mini)
 		sort_and_print_export(mini->env);
 	else
 	{
-		// arguments_separation(shell_data, command_line, conc); //segfault gestire casi con nomevalue = "="
 		while (node)
 		{
-			if (check_doubles(node, mini) == 0 && check_arguments_validation(node->name))
-			{
-				//add_export_env(env);
-				// if (node->concatenation != 0)
+			if (!check_arguments_validation(node->name))
+				last_exit_status_cmd = 1;
+			else if (check_doubles(node, mini) == 0)
 				add_to_the_real_env(node, mini);
-			}
 			node = node->next;
 		}
-		// shell_data->identity = shell_data->head;
-		// if (node)
-		// 	puppamelo(node); //in teoria lo libera Manuele
-		printf("daje\n");
 	}
-
 }
 /*
 bug da sistemare

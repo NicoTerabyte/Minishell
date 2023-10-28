@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/10/23 18:25:25 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/28 18:36:22 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,11 @@ typedef struct s_data
 // char	*fix_syntax(char *str);
 //int		free_matrix(char **s);
 //lnicoter
-void	ft_echo(char **command_line);
-void	ft_cd(char **command_line, t_mini *mini); //prima ci stava anche shell_data ma non serve al momento grazie alla funzione env_container
-void	ft_env(char **env);
+int		ft_echo(char **command_line);
+int		ft_cd(char **command_line, t_mini *mini); //prima ci stava anche shell_data ma non serve al momento grazie alla funzione env_container
+int		ft_env(char **env);
 int		copy_env(char **env, t_mini *all);
-void	ft_pwd(void);
+int		ft_pwd(void);
 void	update_oldpwd(t_mini *mini); //aggiornati perché env è gestita in maniera differente
 void	update_pwd(t_mini *mini); //per info guardare funzione env_container
 //int		ft_strcmp(const char *s1, const char *s2);
@@ -99,7 +99,7 @@ char	**split_bt_nt_t_mc(char *str, char c);
 // void	updating(char	***separg);
 // void	overwrite(t_data *shell_data, int pos);
 //unset
-void	ft_unset(t_declaration *node, t_mini *mini);
+int		ft_unset(t_declaration *node, t_mini *mini);
 void	copy_check_unset(char *str, t_mini *mini);
 void	swap_mat(char **str1, char **str2);
 //exit mlongo deve farci ancora qualcosa

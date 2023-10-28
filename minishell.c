@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/10/26 16:23:05 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/28 16:57:19 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -313,5 +313,6 @@ int	main(int argc, char **argv, char **envp)
 		// free_tree(tree);
 		free_matrix(splitcmd);
 		ft_free_all(token_list, tree);
+		printf("exit status: %d\n", last_exit_status_cmd);
 	}
 }

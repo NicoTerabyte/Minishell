@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:46:45 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/25 18:06:11 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/28 18:36:56 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,6 @@ int		check_doubles(t_declaration *node, t_mini *mini)
 		}
 		i++;
 	}
+	last_exit_status_cmd = 0;
 	return (0);
 }

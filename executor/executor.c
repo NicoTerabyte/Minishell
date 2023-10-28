@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/24 18:15:16 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/28 18:40:15 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	execute_builtin_env(t_token *env, t_mini *mini)
 	if (env->token == ENV_VAR_DECL)
 		ft_export(env->value, mini);
 	if (env->token == ENV_VAR_UNSET)
-		ft_unset((t_declaration *)env->value, mini);
+		last_exit_status_cmd = ft_unset((t_declaration *)env->value, mini);
 }
 
 //parte da collegare con la mia
@@ -128,15 +128,15 @@ void	execute_builtin_cmd(t_cmd *cmd, t_mini *mini)
 	else
 		args = NULL;
 	if (ft_strcmp(cmd->cmd_name->value, "echo") == 0)
-		ft_echo(args);
+		last_exit_status_cmd = ft_echo(args);
 	if (ft_strcmp(cmd->cmd_name->value, "cd") == 0)
-		ft_cd(args, mini);
+		last_exit_status_cmd = ft_cd(args, mini);
 	if (ft_strcmp(cmd->cmd_name->value, "pwd") == 0)
-		ft_pwd();
+		last_exit_status_cmd = ft_pwd();
 	if (ft_strcmp(cmd->cmd_name->value, "exit") == 0)
 		ft_exit(args);
 	if (ft_strcmp(cmd->cmd_name->value, "env") == 0)
-		ft_env(mini->env);
+		last_exit_status_cmd = ft_env(mini->env);
 }
 
 void	execute_builtin(t_tree *tree, int curr_in, int curr_out, t_mini *mini) //diff numero 2

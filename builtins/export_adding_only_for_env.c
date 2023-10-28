@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:05:44 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/26 16:20:36 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/28 18:37:45 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,5 @@ void	add_to_the_real_env(t_declaration *node, t_mini *mini)
 		mini->env[i] = ft_strjoin_damn_you_leaks(mini->env[i], "=");
 	if (node->value)
 		mini->env[i] = ft_strjoin_damn_you_leaks(mini->env[i], node->value);
+	last_exit_status_cmd = 0;
 }

@@ -6,13 +6,13 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 16:11:25 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/24 19:18:25 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/28 18:03:38 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-void	ft_env(char **env)
+int		ft_env(char **env)
 {
 	int		i;
 
@@ -23,5 +23,6 @@ void	ft_env(char **env)
 			printf("%s\n", env[i]);
 		i++;
 	}
+	return (0);
 }
 

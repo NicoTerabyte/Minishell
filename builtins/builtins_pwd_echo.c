@@ -6,19 +6,19 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 16:34:36 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/12 17:14:17 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/28 17:21:16 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-void ft_pwd(void)
+int	ft_pwd(void)
 {
 	char	pwd[4096];
 
 	getcwd(pwd, sizeof(pwd));
 	printf("%s\n", pwd);
-	// exit(0);
+	return (0);
 }
 
 static int		echo_case(char **command_line)
@@ -65,7 +65,7 @@ static int	flag_checker(char **command_line, int flag)
 	return (flag);
 }
 
-void	ft_echo(char **command_line)
+int	ft_echo(char **command_line)
 {
 	int	i;
 	int	flag;
@@ -76,13 +76,14 @@ void	ft_echo(char **command_line)
 	i = -1;
 //	printf("che è arrivato? %s\n", command_line[0]);
 	if (echo_case(command_line) == 2)
-		return ;
+		return (0);
 	else if (echo_case(command_line) == 1)
 	{
 		printf("\n");
-		return ;
+		return (0);
 	}
 	flag = flag_checker(command_line, flag);
 	echo_printer(command_line, flag, mat_size, i);
+	return (0);
 }
 

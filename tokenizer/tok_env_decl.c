@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:43:54 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/24 18:41:31 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/28 20:33:18 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ t_token	*set_token_env_id(char **splitcmd, int *i)
 {
 	t_token	*env_token;
 
-	//espansione no quotes
+	// no quotes
 	env_token = (t_token *)malloc(sizeof(t_token));
 	env_token->next = NULL;
 	if (ft_strlen(splitcmd[*i]) >= 5 && ft_strncmp(splitcmd[*i], "unset", 5) == 0 && (ft_isspace(splitcmd[*i][5]) || splitcmd[*i][5] == 0))
@@ -137,7 +137,7 @@ t_token	*set_token_env_id(char **splitcmd, int *i)
 
 int	verify_env_decl(char **splitcmd, int *i)
 {
-	//espansione
+	//
 	if (!splitcmd[*i])
 		return (0);
 	else if ((ft_strlen(splitcmd[*i]) >= 6 && ft_strncmp(splitcmd[*i], "export", 6) == 0 && (ft_isspace(splitcmd[*i][6]) || splitcmd[*i][6] == 0))

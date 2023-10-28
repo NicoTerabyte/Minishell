@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 16:34:03 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/23 18:01:03 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/28 17:44:12 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ cosa da fare rimanenti:
 		della matrice per poi sistemarla di nuovo
 		nel dubbio ricontrolla bene env_container
 */
-void	ft_cd(char **command_line, t_mini *mini)
+int	ft_cd(char **command_line, t_mini *mini)
 {
 	char	*home;
 
@@ -94,7 +94,6 @@ void	ft_cd(char **command_line, t_mini *mini)
 	{
 		chdir(command_line[0]);
 		update_pwd(mini);
-
 	}
-	//exit(0);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:16:03 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/23 18:17:05 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/28 18:25:54 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,18 @@ void	copy_check_unset(char *str, t_mini *mini)
 	fix_mat(mini, i);
 }
 
-void	ft_unset(t_declaration *node, t_mini *mini)
+int		ft_unset(t_declaration *node, t_mini *mini)
 {
 	int	i;
 
 	i = 0;
 	if (!node)
-		return ;
+		return (0);
 	while (node)
 	{
 		copy_check_unset(node->name, mini);
 		node = node->next;
 	}
+	return (0);
 }
 
