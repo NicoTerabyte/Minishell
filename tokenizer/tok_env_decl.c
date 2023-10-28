@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:43:54 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/28 20:33:18 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/28 22:32:28 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	set_decl_mode(char *word)
 		return (0);
 }
 
-t_declaration	*set_decl(char **splitcmd, int *i, t_token_enum token_enum)
+t_declaration	*set_decl(char **splitcmd, int *i, t_token_enum token_enum, t_mini *mini)
 {
 	t_declaration	*res_decl;
 
@@ -148,7 +148,7 @@ int	verify_env_decl(char **splitcmd, int *i)
 	return (0);
 }
 
-void	scan_env_decl(char **splitcmd, int *i, t_token **token_lst)
+void	scan_env_decl(char **splitcmd, int *i, t_token **token_lst, t_mini *mini)
 {
 	t_token			*token;
 	t_declaration	*decl_lst;
@@ -164,7 +164,7 @@ void	scan_env_decl(char **splitcmd, int *i, t_token **token_lst)
 	{
 		scan_redirections(splitcmd, i, token_lst);
 		cursor = *i;
-		tmpdecl = set_decl(splitcmd, i, token->token);
+		tmpdecl = set_decl(splitcmd, i, token->token, mini);
 		if (cursor == *i)
 			break;
 		add_decl_back(&decl_lst, tmpdecl);

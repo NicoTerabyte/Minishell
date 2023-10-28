@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 15:47:11 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/25 18:30:46 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/28 22:34:08 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../libft/libft.h"
 # include "../gnl/get_next_line_bonus.h"
 # include "../lexer/lexer.h"
+# include "../minishell.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -59,15 +60,15 @@ typedef struct s_token
 
 // command line adjusters
 
-t_token	*tokenizer(char **splitcmd);
+t_token	*tokenizer(char **splitcmd, t_mini *mini);
 int		free_matrix(char **s);
 
 //scanners
 
 void	scan_parenthesis(char **splitcmd, int *i, t_token **token_lst);
-void	scan_redirections(char **splitcmd, int *i, t_token **token_lst);
-void	scan_env_decl(char **splitcmd, int *i, t_token **token_lst);
-void	scan_cmd(char **splitcmd, int *i, t_token **token_lst);
+void	scan_redirections(char **splitcmd, int *i, t_token **token_lst, t_mini *mini);
+void	scan_env_decl(char **splitcmd, int *i, t_token **token_lst, t_mini *mini);
+void	scan_cmd(char **splitcmd, int *i, t_token **token_lst, t_mini *mini);
 void	scan_operator(char **splitcmd, int *i, t_token **token_lst);
 int		verify_env_decl(char **splitcmd, int *i);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:44:38 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/22 16:26:38 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/10/28 21:14:22 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	print_tokens(t_token *token_lst)
 	// free(token_lst);
 }
 
-t_token	*tokenizer(char **splitcmd)
+t_token	*tokenizer(char **splitcmd, t_mini *mini)
 {
 	t_token *token_lst;
 	int	i;
@@ -90,7 +90,7 @@ t_token	*tokenizer(char **splitcmd)
 		if (verify_env_decl(splitcmd, &i))
 			scan_env_decl(splitcmd, &i, &token_lst);
 		else
-			scan_cmd(splitcmd, &i, &token_lst);
+			scan_cmd(splitcmd, &i, &token_lst, mini);
 		scan_redirections(splitcmd, &i, &token_lst);
 		scan_parenthesis(splitcmd, &i, &token_lst);
 		scan_redirections(splitcmd, &i, &token_lst);

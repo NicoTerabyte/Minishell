@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_redir.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:44:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/09/06 18:57:42 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/10/28 22:33:49 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_token_enum set_redir_type(char **splitcmd, int *i)
 	return (enum_tok);
 }
 
-char	*set_redir_value(char **splitcmd, int *i)
+char	*set_redir_value(char **splitcmd, int *i, t_mini *mini)
 {
 	char	*res;
 
@@ -74,7 +74,7 @@ void	*unlink_here_docs(t_list *here_docs_lst)
 	return (NULL);
 }
 
-void	scan_redirections(char **splitcmd, int *i, t_token **token_lst)
+void	scan_redirections(char **splitcmd, int *i, t_token **token_lst, t_mini *mini)
 {
 	t_token	*token;
 
@@ -93,7 +93,7 @@ void	scan_redirections(char **splitcmd, int *i, t_token **token_lst)
 			(*i)++;
 		}
 		else
-			token->value = set_redir_value(splitcmd, i);
+			token->value = set_redir_value(splitcmd, i, mini);
 		token->next = NULL;
 		tok_add_back(token_lst, token);
 	}

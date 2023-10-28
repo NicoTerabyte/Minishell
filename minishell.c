@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/10/28 16:57:19 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/28 21:11:19 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,7 +298,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		splitcmd = ft_split(fixed, ' ');
 		free(fixed);
-		token_list = tokenizer(splitcmd);
+		token_list = tokenizer(splitcmd, mini);
 		if (token_list)
 			while (token_list->next)
 				token_list = token_list->next;
