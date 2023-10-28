@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:37:51 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/24 18:14:13 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/28 20:45:09 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,9 @@ void	signal_handler_execve(int signum);
 int		have_inputs(t_token *redir_list);
 int		have_outputs(t_token *redir_list);
 void	execve_cmd(t_simple_cmd *simple_cmd, t_mini *mini);
+void	execute_integrated(t_tree *tree, int curr_in, int curr_out, t_mini *mini);
+void	process_integrated(t_tree *tree, int curr_in, int curr_out, t_mini *mini);
+int		is_builtin_command(t_tree *root);
+void	execute_builtin_env(t_token *env, t_mini *mini);
+void	execute_builtin_cmd(t_cmd *cmd, t_mini *mini);
 #endif
