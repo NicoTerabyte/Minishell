@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/10/04 17:59:25 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/10/31 12:35:31 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int jump_to_next(char *str)
 	while (str[i])
 	{
 		if (str[i] == ' ' || str[i] == '$' || str[i] == '\'' || str[i] == '\"')
-			return (i);
+			return (printf("i value %d\n",i), i);
 		i++;
 	}
 	return (i);
@@ -54,11 +54,11 @@ char *expand_env_variable(t_data *shell_data, const char *var_name)
 
 char *expand_variable(t_data *shell_data, char *input, int *i)
 {
-	int var_name_len;
-	char *var_name;
-	char *expanded_value;
-
-	var_name_len = jump_to_next(&input[*i]);
+	int		var_name_len;
+	char	*var_name;
+	char	*expanded_value;
+	//QUI AVVIENE TUTTO CORRETAMENTE IL PROBLEMA NON RISIEDE QUI
+	var_name_len = jump_to_next(&input[*i]); //funzione che va al valore chiave successivo (" o ' o $ o lo spazio)
 	printf("VAR_NAME LEN: %d\n", var_name_len);
 	var_name = (char *)malloc(var_name_len + 1);
 	printf("INPUT STRING: %s\n", &input[*i]);
@@ -68,6 +68,7 @@ char *expand_variable(t_data *shell_data, char *input, int *i)
 	*i += var_name_len;
 	expanded_value = expand_env_variable(shell_data, var_name);
 	free(var_name);
+	printf("expansion %s\n", expanded_value);
 	return (expanded_value);
 }
 
@@ -76,23 +77,27 @@ char *reallocConcatFreeNorm(char *ret, char *v)
 	char *new_ret;
 	size_t new_lenght;
 
-	new_lenght = ft_strlen(ret) + ft_strlen(v) + 1;
+	printf("ret before the new one %s\n", ret);
+	printf("v before the new_ret %s\n", v);
+	new_lenght = ft_strlen(v) + 1; //il problema è qui tipo con ft_strlen(ret);
 	new_ret = (char *)malloc(new_lenght);
 
 	if (new_ret == NULL)
 		return ret;
-	ft_strcpy(new_ret, ret);
-	ft_strcat(new_ret, v);
+	// ft_strcpy(new_ret, ret);
+	ft_strcpy(new_ret, v);
+	//ft_strcat(new_ret, v);
 	free(ret);
+	printf("new ret %s\n", new_ret);
 	return new_ret;
 }
 
 char *expander(t_data *shell_data, char *input)
 {
-	char *ret;
-	int i;
-	char *v;
-	char quote;
+	char	*ret;
+	int		i;
+	char	*v;
+	char	quote;
 
 	i = 0;
 	ret = ft_strdup("");
@@ -132,5 +137,6 @@ char *expander(t_data *shell_data, char *input)
 		else
 			ft_strncat(ret, &input[i++], 1);
 	}
-	return ret;
+	printf("qui? %s\n", ret);
+	return (ret);
 }

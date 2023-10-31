@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/09/30 14:09:35 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/10/31 12:02:08 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	printEnvironment(char **envp){
+void	printEnvironment(char **envp)
+{
 	int i;
 
 	i = 0;
@@ -23,11 +24,12 @@ void	printEnvironment(char **envp){
 }
 
 
-int	main(int argc, char **argv, char **envp){
+int	main(int argc, char **argv, char **envp)
+{
 	char	*str;
 	char	**splitcmd;
 	char	*syntax;
-	t_data	*shell_data;
+	t_data		*shell_data;
 	t_declaration	*identity;
 
 	identity = (t_declaration *)malloc(sizeof(t_declaration));
