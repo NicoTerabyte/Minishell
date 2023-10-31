@@ -6,16 +6,17 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 15:47:11 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/28 22:34:08 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/31 10:03:11 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENIZER_H
 # define TOKENIZER_H
 
-# include "../libft/libft.h"
-# include "../gnl/get_next_line_bonus.h"
-# include "../lexer/lexer.h"
+// # include "../libft/libft.h"
+// # include "../gnl/get_next_line_bonus.h"
+// # include "../lexer/lexer.h"
+# include "../tree/tree.h"
 # include "../minishell.h"
 # include <stdio.h>
 # include <stdlib.h>

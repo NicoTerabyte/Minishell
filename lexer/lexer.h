@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 15:54:57 by alessiolong       #+#    #+#             */
-/*   Updated: 2023/09/05 17:14:40 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/10/31 09:58:32 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 # define ADD 1
 # define LIST 2
 # define GET 3
-# include "../libft/libft.h"
-# include "../tokenizer/tokenizer.h"
-# include "../global.h"
+// # include "../libft/libft.h"
+// # include "../tokenizer/tokenizer.h"
+// # include "../global.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>

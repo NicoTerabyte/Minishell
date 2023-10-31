@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 11:35:53 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/28 17:48:16 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/31 10:00:29 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ typedef struct s_mini
 # include "global.h"
 # include "./lexer/lexer.h"
 # include "./libft/libft.h"
-# include "./tokenizer/tokenizer.h"
 # include "./tree/tree.h"
+# include "./tokenizer/tokenizer.h"
 # include "./executor/executor.h"
+# include "./builtins/builtins.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>

@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:43:45 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/28 21:16:22 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/31 10:10:45 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	scan_args(char **splitcmd, int *i, t_token **token_lst, t_mini *mini)
 		return ;
 	while (splitcmd[*i])
 	{
-		scan_redirections(splitcmd, i, token_lst);
+		scan_redirections(splitcmd, i, token_lst, mini);
 		arg = scan_arg(splitcmd, i, mini);
 		if (arg == NULL)
 			break ;
