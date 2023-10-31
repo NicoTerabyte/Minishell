@@ -6,7 +6,7 @@
 #    By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/01 14:36:32 by fcarlucc          #+#    #+#              #
-#    Updated: 2023/10/21 01:33:29 by lnicoter         ###   ########.fr        #
+#    Updated: 2023/10/31 16:57:28 by lnicoter         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ SRC = $(wildcard *.c)\
 		$(wildcard tokenizer/*.c) \
 		$(wildcard tree/*.c) \
 		$(wildcard builtins/*.c) \
-		$(wildcard lexer/*.c)
+		$(wildcard lexer/*.c) \
+		$(wildcard expander/*.c)
 
 OBJS = $(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:43:45 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/31 11:05:58 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/31 18:57:21 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ char	*scan_arg(char **splitcmd, int *i, t_mini *mini)
 {
 	char	*res;
 
-	if (!splitcmd[*i] || ft_strbash_control(splitcmd[*i]))
+	if (!splitcmd[*i] || ft_strbash_control_args(splitcmd[*i]))
 		return (NULL);
 	//espansione e no quotes splitcmd[*i]
+	splitcmd[*i] = expander(mini, splitcmd[*i]);
 	res = ft_substr(splitcmd[*i], 0, ft_strlen(splitcmd[*i]));
 	*i += 1;
 	return (res);
@@ -72,6 +73,7 @@ void	scan_cmd(char **splitcmd, int *i, t_token **token_lst, t_mini *mini)
 	token_cmd_name = (t_token *)malloc(sizeof(t_token));
 	token_cmd_name->token = CMD_NAME;
 	//espansione e no quotes splitcmd[*i]
+	splitcmd[*i] = expander(mini, splitcmd[*i]);
 	token_cmd_name->value = ft_substr(splitcmd[*i], 0, ft_strlen(splitcmd[*i]));
 	token_cmd_name->next = NULL;
 	*i += 1;

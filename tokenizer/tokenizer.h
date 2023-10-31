@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 15:47:11 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/31 11:01:06 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/31 18:57:45 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ char	*ft_strpbrk(char *str, char *set);
 int		ft_isspace(char c);
 int		ft_stralnum(char *str);
 char	*ft_strbash_control(char *str);
+char	*ft_strbash_control_args(char *str);
 void	print_tokens(t_token *token_lst);
 void	initializePrevious(t_token *head);
 void	*unlink_here_docs(t_list *here_docs_lst);

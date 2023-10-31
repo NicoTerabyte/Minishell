@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:44:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/31 11:06:40 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/31 18:46:39 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ char	*set_redir_value(char **splitcmd, int *i, t_mini *mini)
 	char	*res;
 
 	//espansione e no quotes di splitcmd[*i]
+	splitcmd[*i] = expander(mini, splitcmd[*i]);
 	res = ft_substr(splitcmd[*i], 0, ft_strlen(splitcmd[*i]));
 	*i += 1;
 	return (res);

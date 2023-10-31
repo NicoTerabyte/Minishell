@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:46:34 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/31 11:14:27 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/31 17:59:24 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,47 +82,3 @@ int	env_rows(char **env)
 		size++;
 	return (size);
 }
-
-//da eliminare mi sa
-/*void	init_structs(t_data **shell_data, char **envp)
-{
-	*shell_data = (t_data *)malloc(sizeof(t_data));
-	if (!*shell_data)
-	{
-		free(*shell_data);
-		exit(0);
-	}
-	if(!copy_env(envp, *shell_data))
-	{
-		free(*shell_data);
-		exit(0);
-	}
-	(*shell_data)->identity = NULL;
-	(*shell_data)->head = NULL;
-	(*shell_data)->path = NULL;
-	(*shell_data)->old_path = NULL;
-}*/
-
-// void	puppamelo(t_data *lnico)
-// {
-// 	t_declaration	*tmp;
-// 	int				i;
-
-// 	i = 0;
-// 	while (lnico->identity)
-// 	{
-// 		tmp = lnico->identity;
-// 		lnico->identity = lnico->identity->next;
-// 		free(tmp->name);
-// 		i++;
-// 		if (tmp->value)
-// 			free(tmp->value);
-// 		tmp->concatenation = 0;
-// 		free(tmp);
-// 	}
-// 	if (lnico->identity)
-// 		printf("qualcosa e' andato male liberazione della memoria fatta a buffo\n");
-// 	else
-// 		printf("tutto ok liberato in maniera corretta\n");
-// 	lnico->head = NULL;
-// }

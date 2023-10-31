@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:44:30 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/31 11:06:48 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/31 18:58:11 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,15 @@ char *ft_strbash_control(char *str)
 	if (str[0] == '|' || (str[0] == '&' && str[1] == '&')|| str[0] == '<' || str[0] == '>'
 		|| str[0] == '(' || str[0] == ')' || str[0] == '$' || str[0] == '`'
 		|| str[0] == '\\' || str[0] == '"' || str[0] == '\'' || ft_isspace(str[0]))
+		return (&str[0]);
+	return (NULL);
+}
+
+char *ft_strbash_control_args(char *str)
+{
+	if (str[0] == '|' || (str[0] == '&' && str[1] == '&')|| str[0] == '<' || str[0] == '>'
+		|| str[0] == '(' || str[0] == ')' || str[0] == '`'
+		|| str[0] == '\\' || ft_isspace(str[0]))
 		return (&str[0]);
 	return (NULL);
 }

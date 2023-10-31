@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:43:54 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/31 11:06:23 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/31 18:56:44 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,13 @@ t_declaration	*set_decl(char **splitcmd, int *i, t_token_enum token_enum, t_mini
 	t_declaration	*res_decl;
 
 	printf("env_var_decl %d\n", token_enum);
-	if (!splitcmd[*i] || ft_strbash_control(splitcmd[*i]))
+	if (!splitcmd[*i] || ft_strbash_control_args(splitcmd[*i]))
 		return (NULL);
 	res_decl = (t_declaration *)malloc(sizeof(t_declaration));
 	res_decl->next = NULL;
 	res_decl->concatenation = 0;
 	//espansione e no quotes di splitcmd[*i]
+	splitcmd[*i] = expander(mini, splitcmd[*i]);
 	if (token_enum == ENV_VAR_DECL)
 	{
 		res_decl->concatenation = set_decl_mode(splitcmd[*i]);

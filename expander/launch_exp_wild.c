@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_libft.c                                      :+:      :+:    :+:   */
+/*   launch_exp_wild.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/07 21:51:50 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/31 17:59:44 by lnicoter         ###   ########.fr       */
+/*   Created: 2023/09/21 20:57:02 by abuonomo          #+#    #+#             */
+/*   Updated: 2023/10/31 17:57:00 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_strcmp(char *s1, char *s2)
+char *launch_exp_wild(t_mini *mini, char *input)
 {
-	int	i;
+	char *ret;
+	int i;
 
 	i = 0;
-	while (s1[i] && s2[i] && s1[i] == s2[i])
-		i++;
-	if (s1[i] == '\0' && s2[i] == '\0')
-		return (0);
-	else if (s1[i] == '\0')
-		return (-1);
-	else if (s2[i] == '\0')
-		return (1);
-	else
-		return (s1[i] - s2[i]);
+	ret = expander(mini, input);
+	return (ret);
 }
-
