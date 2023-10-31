@@ -6,11 +6,11 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 16:11:25 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/28 18:03:38 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/31 11:08:23 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "../minishell.h"
 
 int		ft_env(char **env)
 {

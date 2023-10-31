@@ -6,15 +6,11 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 20:20:50 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/12 20:21:27 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/31 11:07:51 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "executor.h"
-#include <signal.h>
-#include <stdio.h>
-#include <sys/types.h>
-#include <unistd.h>
+#include "../minishell.h"
 
 void	dup_std_fd(int cur_in_out, int std_in_out)
 {

@@ -6,23 +6,23 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:37:51 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/31 10:04:51 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/31 10:59:24 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTOR_H
 # define EXECUTOR_H
 
-# include "../tree/tree.h"
-# include "../lexer/lexer.h"
-# include <sys/types.h>
-# include <sys/wait.h>
+// # include "../tree/tree.h"
+// # include "../lexer/lexer.h"
+// # include <sys/types.h>
+// # include <sys/wait.h>
 # include "../minishell.h"
-# include "../builtins/builtins.h"
-# include <signal.h>
-# include <stdio.h>
-# include <sys/types.h>
-# include <unistd.h>
+// # include "../builtins/builtins.h"
+// # include <signal.h>
+// # include <stdio.h>
+// # include <sys/types.h>
+// # include <unistd.h>
 
 void	execute(t_tree *tree, int curr_in, int curr_out, t_mini *mini);
 void	redir_simple_command(t_token *r_list, t_simple_cmd *sim_cmd, int curr_out);

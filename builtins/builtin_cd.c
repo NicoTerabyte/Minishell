@@ -6,11 +6,11 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 16:34:03 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/28 17:44:12 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/31 11:08:20 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "../minishell.h"
 
 void	update_oldpwd(t_mini *mini)
 {

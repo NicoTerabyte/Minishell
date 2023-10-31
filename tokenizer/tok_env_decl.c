@@ -6,11 +6,11 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:43:54 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/28 22:32:28 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/31 11:06:23 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenizer.h"
+#include "../minishell.h"
 
 char	*set_decl_name(char *word)
 {
@@ -162,7 +162,7 @@ void	scan_env_decl(char **splitcmd, int *i, t_token **token_lst, t_mini *mini)
 	token = set_token_env_id(splitcmd, i);
 	while (splitcmd[*i])
 	{
-		scan_redirections(splitcmd, i, token_lst);
+		scan_redirections(splitcmd, i, token_lst, mini);
 		cursor = *i;
 		tmpdecl = set_decl(splitcmd, i, token->token, mini);
 		if (cursor == *i)

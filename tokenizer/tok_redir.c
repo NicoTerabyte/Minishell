@@ -6,11 +6,11 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:44:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/28 22:33:49 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/31 11:06:40 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenizer.h"
+#include "../minishell.h"
 
 t_token_enum set_redir_type(char **splitcmd, int *i)
 {

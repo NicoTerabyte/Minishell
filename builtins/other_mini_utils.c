@@ -6,11 +6,11 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 21:54:06 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/10 22:47:58 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/31 11:14:31 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "../minishell.h"
 
 void	swap_mat(char **str1, char **str2)
 {

@@ -6,11 +6,11 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:28:00 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/21 18:44:54 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/31 11:05:44 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tree.h"
+#include "../minishell.h"
 
 void	simple_cmd(t_token *token_lst, t_simple_cmd *simple_cmd)
 {

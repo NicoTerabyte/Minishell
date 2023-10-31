@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/10/31 10:07:51 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/31 10:58:19 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,22 @@
 #  define BUFFER_SIZE 10
 # endif
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <string.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <time.h>
+// # include <stdio.h>
+// # include <stdlib.h>
+// # include <unistd.h>
+// # include <string.h>
+// # include <readline/readline.h>
+// # include <readline/history.h>
+// # include <time.h>
 # include "../minishell.h"
-# include "../tokenizer/tokenizer.h"
-# include "../libft/libft.h"
-# include "../lexer/lexer.h"
-# include "../global.h"
-# include "../lexer/lexer.h"
-# include "../libft/libft.h"
-# include "../tokenizer/tokenizer.h"
-# include "../tree/tree.h"
+// # include "../tokenizer/tokenizer.h"
+// # include "../libft/libft.h"
+// # include "../lexer/lexer.h"
+// # include "../global.h"
+// # include "../lexer/lexer.h"
+// # include "../libft/libft.h"
+// # include "../tokenizer/tokenizer.h"
+// # include "../tree/tree.h"
 # define AND 0
 # define OR 1
 # define PIPE 2

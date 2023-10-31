@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tok_scan_1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:44:24 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/11 15:50:25 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/10/31 11:06:44 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenizer.h"
+#include "../minishell.h"
 
 void	scan_parenthesis(char **splitcmd, int *i, t_token **token_lst)
 {

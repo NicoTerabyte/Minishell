@@ -6,11 +6,11 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 20:30:03 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/28 18:30:29 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/31 11:08:31 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "../minishell.h"
 
 // void	insert_declaration(t_data *shell_data, int concatenation, const char *name, const char *value)
 // {

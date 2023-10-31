@@ -6,11 +6,11 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:46:34 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/24 18:37:39 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/31 11:14:27 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "../minishell.h"
 /*
 	la copy_env va cambiata rispettivamente per gestire come si deve
 	la copiatura dell'environment, i dubbi che mi vengono sono due però

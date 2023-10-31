@@ -6,11 +6,11 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:43:45 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/31 10:10:45 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/31 11:05:58 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenizer.h"
+#include "../minishell.h"
 
 char	*scan_arg(char **splitcmd, int *i, t_mini *mini)
 {

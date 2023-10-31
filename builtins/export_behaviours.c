@@ -6,11 +6,11 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:46:45 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/28 18:36:56 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/31 11:13:56 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "../minishell.h"
 
 void	concatenation_export(t_declaration *node, int pos, t_mini *mini)
 {

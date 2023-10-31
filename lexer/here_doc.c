@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessiolongo <alessiolongo@student.42.f    +#+  +:+       +#+        */
+/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 15:42:00 by alessiolong       #+#    #+#             */
-/*   Updated: 2023/09/07 17:22:00 by alessiolong      ###   ########.fr       */
+/*   Updated: 2023/10/31 11:07:35 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "../minishell.h"
 
 t_list	*start_back(t_list *here_doc_lst)
 {

@@ -2,6 +2,10 @@
 	"files.associations": {
 		"tree.h": "c",
 		"fcntl.h": "c",
-		"get_next_line_bonus.h": "c"
+		"get_next_line_bonus.h": "c",
+		"minishell.h": "c",
+		"tokenizer.h": "c",
+		"lexer.h": "c",
+		"builtins.h": "c"
 	}
 }

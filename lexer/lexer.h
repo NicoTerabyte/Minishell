@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 15:54:57 by alessiolong       #+#    #+#             */
-/*   Updated: 2023/10/31 09:58:32 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/31 11:00:44 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,16 @@
 // # include "../libft/libft.h"
 // # include "../tokenizer/tokenizer.h"
 // # include "../global.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <string.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <fcntl.h>
-# include <sys/types.h>
-# include <sys/wait.h>
+// # include <stdio.h>
+// # include <stdlib.h>
+// # include <unistd.h>
+// # include <string.h>
+// # include <readline/readline.h>
+// # include <readline/history.h>
+// # include <fcntl.h>
+// # include <sys/types.h>
+// # include <sys/wait.h>
+# include "../minishell.h"
 
 void	*handle_list_heredocs(int op);
 void	handle_here_doc(char *del);

@@ -6,15 +6,11 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 20:27:59 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/24 18:13:54 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/31 11:07:59 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "executor.h"
-#include <signal.h>
-#include <stdio.h>
-#include <sys/types.h>
-#include <unistd.h>
+#include "../minishell.h"
 
 char	*get_cmd_name_path(char *cmd_name, char **split_paths)
 {

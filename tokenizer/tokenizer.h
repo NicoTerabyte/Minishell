@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 15:47:11 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/31 10:03:11 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/31 11:01:06 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@
 // # include "../libft/libft.h"
 // # include "../gnl/get_next_line_bonus.h"
 // # include "../lexer/lexer.h"
-# include "../tree/tree.h"
+// # include "../tree/tree.h"
 # include "../minishell.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <string.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <fcntl.h>
+// # include <stdio.h>
+// # include <stdlib.h>
+// # include <unistd.h>
+// # include <string.h>
+// # include <readline/readline.h>
+// # include <readline/history.h>
+// # include <fcntl.h>
 
 typedef enum e_token_enum
 {

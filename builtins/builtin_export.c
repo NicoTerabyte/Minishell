@@ -6,11 +6,11 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:48:20 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/28 18:41:33 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/31 11:14:14 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "../minishell.h"
 
 static int		find_equal(char *env)
 {

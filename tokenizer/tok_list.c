@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tok_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:43:58 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/11 15:50:08 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/10/31 11:06:11 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenizer.h"
+#include "../minishell.h"
 
 void	tok_add_back(t_token **lst, t_token *new)
 {

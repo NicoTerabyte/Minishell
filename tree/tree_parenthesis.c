@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tree_parenthesis.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:23:37 by mlongo            #+#    #+#             */
-/*   Updated: 2023/09/08 19:27:33 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/10/31 11:05:40 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tree.h"
+#include "../minishell.h"
 
 int	verify_parenthesis(t_token *token_lst)
 {

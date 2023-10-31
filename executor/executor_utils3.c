@@ -6,11 +6,11 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 20:41:37 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/28 20:43:36 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/31 11:08:03 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "executor.h"
+#include "../minishell.h"
 
 void	execute_integrated(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 {

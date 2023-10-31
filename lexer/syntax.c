@@ -1,4 +1,4 @@
-#include "lexer.h"
+#include "../minishell.h"
 
 int	count_syntax(char *str)
 {

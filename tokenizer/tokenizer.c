@@ -6,11 +6,11 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:44:38 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/28 21:14:22 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/31 11:07:18 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenizer.h"
+#include "../minishell.h"
 
 void	initializePrevious(t_token *head)
 {
@@ -86,14 +86,14 @@ t_token	*tokenizer(char **splitcmd, t_mini *mini)
 	{
 		cursor = i;
 		scan_parenthesis(splitcmd, &i, &token_lst);
-		scan_redirections(splitcmd, &i, &token_lst);
+		scan_redirections(splitcmd, &i, &token_lst, mini);
 		if (verify_env_decl(splitcmd, &i))
-			scan_env_decl(splitcmd, &i, &token_lst);
+			scan_env_decl(splitcmd, &i, &token_lst, mini);
 		else
 			scan_cmd(splitcmd, &i, &token_lst, mini);
-		scan_redirections(splitcmd, &i, &token_lst);
+		scan_redirections(splitcmd, &i, &token_lst, mini);
 		scan_parenthesis(splitcmd, &i, &token_lst);
-		scan_redirections(splitcmd, &i, &token_lst);
+		scan_redirections(splitcmd, &i, &token_lst, mini);
 		scan_operator(splitcmd, &i, &token_lst);
 		if (cursor == i)
 			break ;

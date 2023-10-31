@@ -1,4 +1,4 @@
-#include "lexer.h"
+#include "../minishell.h"
 
 char	*create_del(char *s)
 {

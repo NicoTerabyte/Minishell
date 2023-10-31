@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tree_create.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 11:51:13 by alessiolong       #+#    #+#             */
-/*   Updated: 2023/09/04 14:34:06 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/10/31 11:05:33 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tree.h"
+#include "../minishell.h"
 
 
 void	tree_node_operator(t_token *token_lst, t_tree **tree)
