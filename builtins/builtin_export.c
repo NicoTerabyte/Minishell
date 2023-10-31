@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:48:20 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/31 11:14:14 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/10/31 16:17:20 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void	print_export(char **export_matrix)
 		printf("declare -x ");
 		while (++j < len)
 			printf("%c", export_matrix[i][j]);
-		if (len < ft_strlen(export_matrix[i]));
+		if (len < ft_strlen(export_matrix[i])
+			&& ft_strchr(export_matrix[i], '='))
 			printf("=\"%s\"", export_matrix[i] + len + 1);
 		printf("\n");
 	}
