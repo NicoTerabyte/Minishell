@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:51:50 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/01 17:38:49 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/01 17:48:27 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,19 +66,14 @@ char *ft_strcat(char *dest, char *src)
 void	ft_strncat(char **dest, char c, int nb)
 {
     // Calcola la lunghezza attuale della stringa
-    size_t current_len = strlen(*dest);
+    size_t current_len;
+	int i;
+	current_len = strlen(*dest);
 
-    // Rialloca la memoria per includere il nuovo carattere e il terminatore nullo
     *dest = (char *)realloc(*dest, current_len + nb + 1);
-
-    if (*dest == NULL) {
-        // Gestione dell'errore di riallocazione della memoria
-        fprintf(stderr, "Errore di riallocazione di memoria\n");
+    if (*dest == NULL)
         exit(1);
-    }
-
-    // Aggiunge il carattere alla fine della stringa utilizzando un ciclo while
-    int i = 0;
+    i = 0;
     while (i < nb) {
         (*dest)[current_len + i] = c;
         i++;
