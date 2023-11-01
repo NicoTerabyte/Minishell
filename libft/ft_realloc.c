@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_libft.c                                      :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/07 21:51:50 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/31 17:59:44 by lnicoter         ###   ########.fr       */
+/*   Created: 2023/11/01 10:30:26 by lnicoter          #+#    #+#             */
+/*   Updated: 2023/11/01 10:45:52 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-int	ft_strcmp(char *s1, char *s2)
+void	*ft_realloc(void *p, size_t size, int dim, int new_dim)
 {
-	int	i;
+	char		*new_p;
+	size_t		i;
 
+	new_p = (char *)malloc(size * new_dim);
+	if (!new_p)
+		return (NULL);
 	i = 0;
-	while (s1[i] && s2[i] && s1[i] == s2[i])
+	while (i < size * new_dim)
+	{
+		if (i < size * dim)
+			new_p[i] = ((char *) p)[i];
+		else
+			new_p[i] = 0;
 		i++;
-	if (s1[i] == '\0' && s2[i] == '\0')
-		return (0);
-	else if (s1[i] == '\0')
-		return (-1);
-	else if (s2[i] == '\0')
-		return (1);
-	else
-		return (s1[i] - s2[i]);
+	}
+	free(p);
+	return ((void *) new_p);
 }
-

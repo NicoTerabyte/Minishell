@@ -6,33 +6,14 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/10/31 10:58:19 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/01 10:32:32 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
-# endif
-
-// # include <stdio.h>
-// # include <stdlib.h>
-// # include <unistd.h>
-// # include <string.h>
-// # include <readline/readline.h>
-// # include <readline/history.h>
-// # include <time.h>
 # include "../minishell.h"
-// # include "../tokenizer/tokenizer.h"
-// # include "../libft/libft.h"
-// # include "../lexer/lexer.h"
-// # include "../global.h"
-// # include "../lexer/lexer.h"
-// # include "../libft/libft.h"
-// # include "../tokenizer/tokenizer.h"
-// # include "../tree/tree.h"
 # define AND 0
 # define OR 1
 # define PIPE 2
@@ -43,61 +24,31 @@
 # define DOUBLE_QUOTES 7
 # define SINGLE_QUOTES 8
 
-
-typedef struct s_data
-{
-	char			*path;
-	char			*old_path;
-	char			**copy_env;
-	char			**export_env;
-	// t_declaration	*identity;
-	// t_declaration	*head;
-} t_data;
-
-// int		cmd_name(char *str);
-// void	parser(char **splitcmd);
-//int		count_syntax(char *str);
-// char	*fix_syntax(char *str);
-//int		free_matrix(char **s);
-//lnicoter
 int		ft_echo(char **command_line);
-int		ft_cd(char **command_line, t_mini *mini); //prima ci stava anche shell_data ma non serve al momento grazie alla funzione env_container
+int		ft_cd(char **command_line, t_mini *mini);
 int		ft_env(char **env);
 int		copy_env(char **env, t_mini *all);
 int		ft_pwd(void);
-void	update_oldpwd(t_mini *mini); //aggiornati perché env è gestita in maniera differente
-void	update_pwd(t_mini *mini); //per info guardare funzione env_container
-//int		ft_strcmp(const char *s1, const char *s2);
-void	*ft_realloc(void *ptr, size_t size);
+void	update_oldpwd(t_mini *mini);
+void	update_pwd(t_mini *mini);
 void	ft_export(t_declaration *node, t_mini *mini);
 void	print_export(char **export_matrix);
 void	sort_and_print_export(char **env);
 char	**setting_the_matrix(char **env);
 int		env_rows(char **env);
 int		check_arguments_validation(char *command_line);
-// void	insert_declaration(t_data *shell_data, int concatenation, const char *name, const char *value);
 void	print_list(t_declaration *list);
-// void	arguments_separation(t_data *shell_data, char **command_line, int conc);
 void	add_export_env(char **env);
-// char	*super_strjoin(t_data *shell_data);
 void	env_adding(char *final_string, char **env);
-// void	puppamelo(t_data *lnico);
 int		check_doubles(t_declaration *node, t_mini *mini);
-// void	change_if_needed(t_data *shell_data, int pos);
 char	*i_hate_this_strcpy_for_apix(char *dst, char *src);
 char	*ft_strjoin_damn_you_leaks(char *s1, char  *s2);
-// void	ft_strcat(char	*dst, const char *src);
 void	add_to_the_real_env(t_declaration *node, t_mini *mini);
 int		check_if_good_for_env(t_declaration *node);
 char	*ft_strndup(char *str, int start, int finish);
 void	change_if_needed_env_ver(t_declaration *node, int pos, t_mini *mini);
 void	concatenation_export(t_declaration *node, int pos, t_mini *mini);
 char	**split_bt_nt_t_mc(char *str, char c);
-// void	phase1(t_data *shell_data, char **final_string);
-// void	phase2(char **final_string);
-// void	list_update(t_data *shell_data, int conc, char **com_line, int i);
-// void	updating(char	***separg);
-// void	overwrite(t_data *shell_data, int pos);
 //unset
 int		ft_unset(t_declaration *node, t_mini *mini);
 void	copy_check_unset(char *str, t_mini *mini);

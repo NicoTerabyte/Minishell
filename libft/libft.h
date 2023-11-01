@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 19:18:28 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/21 04:23:59 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/01 10:50:12 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,6 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		ft_strcmp(char *s1, char *s2);
 char	*ft_strjoin_damn_you_leaks(char *s1, char  *s2);
 char	*i_hate_this_strcpy_for_apix(char *dst, char *src);
+void	*ft_realloc(void *p, size_t size, int dim, int new_dim);
+
 #endif
