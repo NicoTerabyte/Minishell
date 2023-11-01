@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:51:50 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/09/30 14:39:39 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/01 17:38:49 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,21 +63,27 @@ char *ft_strcat(char *dest, char *src)
 	return (dest);
 }
 
-char	*ft_strncat(char *dest, char *src, int nb)
+void	ft_strncat(char **dest, char c, int nb)
 {
-	int	i;
-	int	j;
+    // Calcola la lunghezza attuale della stringa
+    size_t current_len = strlen(*dest);
 
-	i = 0;
-	while (dest[i] != '\0')
-		i++;
-	j = 0;
-	while (src[j] != '\0' && j < nb)
-	{
-		dest[i] = src[j];
-		i++;
-		j++;
-	}
-	dest[i] = '\0';
-	return (dest);
+    // Rialloca la memoria per includere il nuovo carattere e il terminatore nullo
+    *dest = (char *)realloc(*dest, current_len + nb + 1);
+
+    if (*dest == NULL) {
+        // Gestione dell'errore di riallocazione della memoria
+        fprintf(stderr, "Errore di riallocazione di memoria\n");
+        exit(1);
+    }
+
+    // Aggiunge il carattere alla fine della stringa utilizzando un ciclo while
+    int i = 0;
+    while (i < nb) {
+        (*dest)[current_len + i] = c;
+        i++;
+    }
+
+    // Aggiunge il terminatore nullo alla fine della stringa
+    (*dest)[current_len + nb] = '\0';
 }

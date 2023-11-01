@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/10/31 14:30:46 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/01 17:38:56 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,13 +121,14 @@ char *expander(t_data *shell_data, char *input)
 						ret = reallocConcatFreeNorm(ret, v);
 				}
 				else{
-					ft_strncat(ret, &input[i], 1);
+					printf("%c\n",input[i]);
+					ft_strncat(&ret, input[i], 1);
 					i++;
 				}
 			}
 		}
 		else
-			ft_strncat(ret, &input[i++], 1);
+			ft_strncat(&ret, input[i++], 1);
 	}
 	return (ret);
 }
