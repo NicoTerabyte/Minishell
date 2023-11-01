@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:46:34 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/09/14 16:45:38 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/01 17:54:26 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,31 +40,27 @@ int	copy_env(char **env, t_data *mini_data)
 	return (1);
 }
 
-void *ft_realloc(void *ptr, size_t size)
+void	*ft_realloc(void *p, size_t size, int dim, int new_dim)
 {
-	void *new_ptr;
+	char		*new_p;
+	size_t		i;
 
-	if (ptr)
+	new_p = (char *)malloc(size * new_dim);
+	if (!new_p)
+		return (NULL);
+	i = 0;
+	while (i < size * new_dim)
 	{
-		if (size)
-		{
-			new_ptr = malloc(size);
-			if (!new_ptr)
-				return (NULL);
-			ft_bzero(new_ptr, size);
-			ft_memcpy(new_ptr, ptr, size);
-		}
+		if (i < size * dim)
+			new_p[i] = ((char *) p)[i];
 		else
-		{
-			new_ptr = (unsigned char *)malloc(sizeof(ptr));
-			if (!new_ptr)
-				return (NULL);
-		}
-		free(ptr);
-		return (new_ptr);
+			new_p[i] = 0;
+		i++;
 	}
-	return ((unsigned char *)malloc(sizeof(ptr) * size));
+	free(p);
+	return ((void *) new_p);
 }
+
 
 int	env_rows(t_data *shell_data)
 {

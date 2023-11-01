@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/01 17:38:52 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/01 18:10:41 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	printEnvironment(char **envp)
 
 int	main(int argc, char **argv, char **envp)
 {
+	char	*ret;
 	char	*str;
 	char	**splitcmd;
 	char	*syntax;
@@ -51,7 +52,8 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		str = readline("\nminishell> ");
-		printf("%s",launch_exp_wild(shell_data,str));
-
+		ret = launch_exp_wild(shell_data, str);
+		free(str);
+		free(ret);
 	}
 }

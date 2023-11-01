@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/01 17:38:12 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/01 17:55:23 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	ft_pwd();
 void	update_oldpwd(t_data *shell_data);
 void	update_pwd(t_data *shell_data);
 int		ft_strcmp(const char *s1, const char *s2);
-void	*ft_realloc(void *ptr, size_t size);
+void	*ft_realloc(void *p, size_t size, int dim, int new_dim);
 void	ft_export(char **command_line, t_data *shell_data, t_declaration *identity);
 void	print_export(char **export_matrix);
 void	sort_and_print_export(t_data *shell_data);

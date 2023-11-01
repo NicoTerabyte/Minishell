@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_libft.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:51:50 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/01 17:48:27 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/01 18:11:17 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ void	ft_strncat(char **dest, char c, int nb)
 	int i;
 	current_len = strlen(*dest);
 
-    *dest = (char *)realloc(*dest, current_len + nb + 1);
+	//*dest = (char *)realloc(*dest, current_len + nb + 1);
+	*dest = (char *)ft_realloc(*dest, sizeof(char), current_len,  current_len + nb + 1);
     if (*dest == NULL)
         exit(1);
     i = 0;
