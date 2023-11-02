@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_redir.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:44:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/01 15:17:47 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/02 16:08:26 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*set_redir_value(char **splitcmd, int *i, t_mini *mini)
 {
 	char	*res;
 	//espansione e no quotes di splitcmd[*i]
-	splitcmd[*i] = expander(mini, splitcmd[*i]);
+	// splitcmd[*i] = expander(mini, splitcmd[*i]);
 	res = ft_substr(splitcmd[*i], 0, ft_strlen(splitcmd[*i]));
 	*i += 1;
 	return (res);

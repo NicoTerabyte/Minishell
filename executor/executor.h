@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:37:51 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/02 15:02:47 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/02 15:29:22 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ int		have_outputs(t_token *redir_list);
 void	execve_cmd(t_simple_cmd *simple_cmd, t_mini *mini);
 void	execute_integrated(t_tree *tree, int curr_in, int curr_out, t_mini *mini);
 void	process_integrated(t_tree *tree, int curr_in, int curr_out, t_mini *mini);
-int		is_builtin_command(t_tree *root);
+int		is_builtin_command(t_tree *root, t_mini *mini);
 void	execute_builtin_env(t_token *env, t_mini *mini);
 void	execute_builtin_cmd(t_cmd *cmd, t_mini *mini);
+void	expander_simple_cmd_args(char **args, t_mini *mini);
 #endif

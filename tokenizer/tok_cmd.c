@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:43:45 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/01 15:17:18 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/02 16:08:21 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*scan_arg(char **splitcmd, int *i, t_mini *mini)
 	if (!splitcmd[*i] || ft_strbash_control_args(splitcmd[*i]))
 		return (NULL);
 	//espansione e no quotes splitcmd[*i]
-	splitcmd[*i] = expander(mini, splitcmd[*i]);
+	// splitcmd[*i] = expander(mini, splitcmd[*i]);
 	res = ft_substr(splitcmd[*i], 0, ft_strlen(splitcmd[*i]));
 	*i += 1;
 	return (res);

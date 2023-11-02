@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/02 15:12:04 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/02 16:10:35 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,13 @@ void	execute_builtin(t_tree *tree, int curr_in, int curr_out, t_mini *mini) //di
 		}
 	}
 	else
+	{
+		// for (int i = 0; mini->env[i]; i++) {
+		// 	printf("%s\n", mini->env[i]);
+		// }
+		expander_simple_cmd_args(simple_cmd->cmd->cmd_arg->value, mini);
 		execute_builtin_cmd(simple_cmd->cmd, mini);
+	}
 	dup_std_fd(starting_in, STDIN_FILENO);
 	dup_std_fd(starting_out, STDOUT_FILENO);
 }
@@ -72,7 +78,7 @@ void	execute_simple_cmd(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 {
 	if (!tree)
 		return ;
-	if (is_builtin_command(tree))
+	if (is_builtin_command(tree, mini))
 		execute_builtin(tree, curr_in, curr_out, mini);
 	else
 		process_integrated(tree, curr_in, curr_out, mini);

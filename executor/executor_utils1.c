@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 20:20:50 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/02 15:06:04 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/02 15:27:27 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	execute_redirections_output(t_token *redir_list, int curr_out, t_mini *mini)
 	while (redir_list)
 	{
 		file_name = (char *)redir_list->value;
-		// file_name = expander(mini, file_name);
+		file_name = expander(mini, file_name);
 		if (redir_list->token == OUT_FILE_TRUNC)
 			curr_out = open(file_name, O_CREAT | O_TRUNC | O_WRONLY, 0777);
 		else if (redir_list->token == OUT_FILE_APPEND)
@@ -55,7 +55,7 @@ int	execute_redirections_input(t_token *redir_list, int curr_in, t_mini *mini)
 	while (redir_list)
 	{
 		file_name = (char *)redir_list->value;
-		// file_name = expander(mini, file_name);
+		file_name = expander(mini, file_name);
 		if (redir_list->token == IN_FILE_TRUNC || redir_list->token == HERE_DOC)
 			curr_in = open(file_name, O_RDONLY);
 		if (curr_in == -1)

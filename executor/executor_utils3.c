@@ -6,11 +6,23 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 20:41:37 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/02 15:05:20 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/02 15:29:56 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	expander_simple_cmd_args(char **args, t_mini *mini)
+{
+	int	i;
+
+	i = 0;
+	while (args[i])
+	{
+		args[i] = expander(mini, args[i]);
+		i++;
+	}
+}
 
 void	execute_integrated(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 {
@@ -31,17 +43,20 @@ void	execute_integrated(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 		dup_std_fd(curr_in, STDIN_FILENO);
 	if (simple_cmd->redir_list != NULL)
 	{
-		// redir_list = (t_token *)simple_cmd->redir_list;
-		// if (have_outputs(redir_list))
-		// 	if (execute_redirections_output(redir_list, curr_out))
-		// 		exit (1); sembra funzionare
+		redir_list = (t_token *)simple_cmd->redir_list;
+		if (have_outputs(redir_list))
+			if (execute_redirections_output(redir_list, curr_out, mini))
+				exit (1);
 	}
 	else
 		dup_std_fd(curr_out, STDOUT_FILENO);
 	if (simple_cmd->cmd == NULL)
 		exit (0);
 	else
+	{
+		expander_simple_cmd_args(simple_cmd->cmd->cmd_arg->value, mini);
 		execve_cmd(simple_cmd, mini);
+	}
 }
 
 void	process_integrated(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
@@ -69,7 +84,7 @@ void	process_integrated(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 	}
 }
 
-int	is_builtin_command(t_tree *root)
+int	is_builtin_command(t_tree *root, t_mini *mini)
 {
 	t_simple_cmd	*simple_cmd;
 	char			*simple_name;
@@ -80,6 +95,7 @@ int	is_builtin_command(t_tree *root)
 	if (simple_cmd->cmd)
 	{
 		simple_name = (char *)simple_cmd->cmd->cmd_name->value;
+		simple_name = expander(mini, simple_name);
 		if (0 == ft_strcmp(simple_name, "cd")
 			|| 0 == ft_strcmp(simple_name, "exit")
 			|| 0 == ft_strcmp(simple_name, "echo")
