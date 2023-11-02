@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_libft.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:51:50 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/02 14:56:26 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/02 18:00:12 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,25 @@ char	*ft_strcat(char *dest, char *src)
 	return (dest);
 }
 
-void	ft_strncat(char **dest, char c, int nb)
+void ft_strncat(char **dest, char c, int nb)
 {
-	size_t	current_len;
-	int		i;
+	size_t current_len;
+	int i;
+	char *new_dest;
 
-	current_len = strlen(*dest);
-	*dest = (char *)ft_realloc(*dest, sizeof(char),
-			current_len, current_len + nb + 1);
-	if (*dest == NULL)
-		exit(1);
+	if (*dest != NULL)
+		current_len = ft_strlen(*dest);
+	else
+		current_len = 0;
+	new_dest = (char *)ft_realloc(*dest, sizeof(char),
+							current_len, current_len + nb + 1);
+	if (new_dest == NULL)
+	{
+		// Handle the memory allocation error here, e.g., print an error message
+		// and return without modifying *dest.
+		return;
+	}
+	*dest = new_dest;
 	i = 0;
 	while (i < nb)
 	{
@@ -80,3 +89,4 @@ void	ft_strncat(char **dest, char c, int nb)
 	}
 	(*dest)[current_len + nb] = '\0';
 }
+

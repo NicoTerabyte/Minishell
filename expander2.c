@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:57:22 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/11/02 16:07:35 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/02 17:39:32 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,9 @@ char	*manage_dollar_norm(char *input, int *i, char *ret, t_data *shell_data)
 {
 	char	*v;
 
+	printf("ret in dollars %s\n", ret);
 	v = expand_variable(shell_data, input, i);
 	if (v != NULL)
 		return (realloc_concat_free_norm(ret, v));
+	return (NULL);
 }
