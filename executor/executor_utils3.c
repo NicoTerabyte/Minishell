@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 20:41:37 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/31 11:08:03 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:05:20 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	execute_integrated(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 	{
 		redir_list = (t_token *)simple_cmd->redir_list;
 		if (have_inputs(redir_list))
-			if (execute_redirections_input(redir_list, curr_in))
+			if (execute_redirections_input(redir_list, curr_in, mini))
 				exit (1);
 	}
 	else

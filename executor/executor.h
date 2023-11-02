@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:37:51 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/31 10:59:24 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:02:47 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@
 void	execute(t_tree *tree, int curr_in, int curr_out, t_mini *mini);
 void	redir_simple_command(t_token *r_list, t_simple_cmd *sim_cmd, int curr_out);
 int		have_outputs(t_token *redir_list);
-int		execute_redirections_output(t_token *redir_list, int curr_out);
+int		execute_redirections_output(t_token *redir_list, int curr_out, t_mini *mini);
 void	dup_std_fd(int cur_in_out, int std_in_out);
-int		execute_redirections_input(t_token *redir_list, int curr_in);
+int		execute_redirections_input(t_token *redir_list, int curr_in, t_mini *mini);
 char	**get_paths(char **env);
 char	**get_cmd_args(t_simple_cmd *simple_cmd);
 char	*get_cmd_name_path(char *cmd_name, char **split_paths);
