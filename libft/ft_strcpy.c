@@ -6,11 +6,11 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:37:52 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/09/30 14:37:53 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/02 16:01:01 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char *ft_strcpy(char *dest, char *src)
+char	*ft_strcpy(char *dest, char *src)
 {
 	int i;
 

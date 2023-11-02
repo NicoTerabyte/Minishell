@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_libft.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:51:50 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/01 18:11:17 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/02 14:56:26 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	free_matrix(char **s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s[i])
@@ -25,7 +25,7 @@ int	free_matrix(char **s)
 
 char	*ft_strncpy(char *dest, char *src, unsigned int n)
 {
-	unsigned int i;
+	unsigned int	i;
 
 	i = 0;
 	while (src[i] != '\0' && i < n)
@@ -44,11 +44,10 @@ char	*ft_strncpy(char *dest, char *src, unsigned int n)
 	return (dest);
 }
 
-
-char *ft_strcat(char *dest, char *src)
+char	*ft_strcat(char *dest, char *src)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (dest[i] != '\0')
@@ -65,21 +64,19 @@ char *ft_strcat(char *dest, char *src)
 
 void	ft_strncat(char **dest, char c, int nb)
 {
-    // Calcola la lunghezza attuale della stringa
-    size_t current_len;
-	int i;
+	size_t	current_len;
+	int		i;
+
 	current_len = strlen(*dest);
-
-	//*dest = (char *)realloc(*dest, current_len + nb + 1);
-	*dest = (char *)ft_realloc(*dest, sizeof(char), current_len,  current_len + nb + 1);
-    if (*dest == NULL)
-        exit(1);
-    i = 0;
-    while (i < nb) {
-        (*dest)[current_len + i] = c;
-        i++;
-    }
-
-    // Aggiunge il terminatore nullo alla fine della stringa
-    (*dest)[current_len + nb] = '\0';
+	*dest = (char *)ft_realloc(*dest, sizeof(char),
+			current_len, current_len + nb + 1);
+	if (*dest == NULL)
+		exit(1);
+	i = 0;
+	while (i < nb)
+	{
+		(*dest)[current_len + i] = c;
+		i++;
+	}
+	(*dest)[current_len + nb] = '\0';
 }

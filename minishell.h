@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/01 17:55:23 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/02 16:00:45 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,44 +42,48 @@ typedef struct s_data
 	char			*old_path;
 	char			**copy_env;
 	struct dirent	**file;
-} t_data;
+}	t_data;
 
 typedef struct s_declaration
 {
-	int						concatenation; //true o false
-	char					*name; //nome della variabile da inserire nell'export
-	char					*value; //il valore di quest'ultima
-	struct	s_declaration	*next; //la variabile successiva
+	int						concatenation;
+	char					*name;
+	char					*value;
+	struct s_declaration	*next;
 }	t_declaration;
 
-int		cmd_name(char *str);
-void	parser(char **splitcmd);
-int		count_syntax(char *str);
-char	*fix_syntax(char *str);
-int		free_matrix(char **s);
+int				cmd_name(char *str);
+void			parser(char **splitcmd);
+int				count_syntax(char *str);
+char			*fix_syntax(char *str);
+int				free_matrix(char **s);
 //lnicoter
-void	builtin_reader(char **command_line, t_data *shell_data, t_declaration *identity);
-void	ft_echo(char **command_line);
-void	ft_cd(char **command_line, t_data *shell_data);
-void	ft_env(t_data *shell_data);
-int		copy_env(char **env, t_data *mini_data);
-void	ft_pwd();
-void	update_oldpwd(t_data *shell_data);
-void	update_pwd(t_data *shell_data);
-int		ft_strcmp(const char *s1, const char *s2);
-void	*ft_realloc(void *p, size_t size, int dim, int new_dim);
-void	ft_export(char **command_line, t_data *shell_data, t_declaration *identity);
-void	print_export(char **export_matrix);
-void	sort_and_print_export(t_data *shell_data);
-char	**setting_the_matrix(t_data *shell_data);
-int		env_rows(t_data *shell_data);
-int		put_arguments_in_list(t_declaration *identity, char *command_line);
-void	insert_declaration(t_declaration **list, int concatenation, const char *name, const char *value);
-void	print_list(t_declaration *list);
-void	arguments_separation(char **command_line, int conc, t_declaration **identity);
-void	add_env(t_data *shell_data, t_declaration **values);
-void	super_strjoin(t_data *shell_data, t_declaration *values);
-// void	insert_in_env(t_data shell_data, char *final_string, t_declaration *values);
+void			builtin_reader(char **command_line, t_data *shell_data,
+					t_declaration *identity);
+void			ft_echo(char **command_line);
+void			ft_cd(char **command_line, t_data *shell_data);
+void			ft_env(t_data *shell_data);
+int				copy_env(char **env, t_data *mini_data);
+void			ft_pwd(void);
+void			update_oldpwd(t_data *shell_data);
+void			update_pwd(t_data *shell_data);
+int				ft_strcmp(const char *s1, const char *s2);
+void			*ft_realloc(void *p, size_t size, int dim, int new_dim);
+void			ft_export(char **command_line, t_data *shell_data,
+					t_declaration *identity);
+void			print_export(char **export_matrix);
+void			sort_and_print_export(t_data *shell_data);
+char			**setting_the_matrix(t_data *shell_data);
+int				env_rows(t_data *shell_data);
+int				put_arguments_in_list(t_declaration *identity,
+					char *command_line);
+void			insert_declaration(t_declaration **list, int concatenation,
+					const char *name, const char *value);
+void			print_list(t_declaration *list);
+void			arguments_separation(char **command_line, int conc,
+					t_declaration **identity);
+void			add_env(t_data *shell_data, t_declaration **values);
+void			super_strjoin(t_data *shell_data, t_declaration *values);
 // abuonomo
 char			*expander(t_data *shell_data, char *input);
 char			*translate_wild(t_data *shell_data, char *input);
@@ -96,4 +100,12 @@ char			*launch_exp_wild(t_data *shell_data, char *input);
 char			*ft_strncpy(char *dest, char *src, unsigned int n);
 void			ft_strncat(char **dest, char c, int nb);
 char			*ft_strcat(char *dest, char *src);
+int				jump_to_next(char *str);
+char			*expand_env_variable(t_data *shell_data, const char *var_name);
+char			*expand_variable(t_data *shell_data, char *input, int *i);
+char			*realloc_concat_free_norm(char *ret, char *v);
+char			*manage_dollar_norm(char *input, int *i,
+					char *ret, t_data *shell_data);
+int				quote_logic_norm(char *input, char **ret,
+					char quote, t_data *shell_data);
 #endif
