@@ -6,13 +6,13 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/10/31 18:49:22 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/02 12:28:41 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int ft_strcmp_env(const char *input, const char *env)
+int	ft_strcmp_env(const char *input, const char *env)
 {
 	while (*env != '=' && (*input != ' ' || *input != '$'))
 	{
@@ -24,7 +24,7 @@ int ft_strcmp_env(const char *input, const char *env)
 	return (*env != '=' || *input != '\0');
 }
 
-int jump_to_next(char *str)
+int	jump_to_next(char *str)
 {
 	int i;
 	int x;
@@ -39,9 +39,10 @@ int jump_to_next(char *str)
 	return (i);
 }
 
-char *expand_env_variable(t_mini *mini, const char *var_name)
+char	*expand_env_variable(t_mini *mini, const char *var_name)
 {
-	int k;
+	int		k;
+	char	*tmp_env;
 
 	k = 0;
 	while (mini->env[k] != NULL)
@@ -53,7 +54,7 @@ char *expand_env_variable(t_mini *mini, const char *var_name)
 	return (NULL);
 }
 
-char *expand_variable(t_mini *mini, char *input, int *i)
+char	*expand_variable(t_mini *mini, char *input, int *i)
 {
 	int		var_name_len;
 	char	*var_name;
@@ -69,7 +70,7 @@ char *expand_variable(t_mini *mini, char *input, int *i)
 	return (expanded_value);
 }
 
-char *reallocConcatFreeNorm(char *ret, char *v)
+char	*reallocConcatFreeNorm(char *ret, char *v)
 {
 	char *new_ret;
 	size_t new_lenght;
@@ -85,7 +86,7 @@ char *reallocConcatFreeNorm(char *ret, char *v)
 	return new_ret;
 }
 
-char *expander(t_mini *mini, char *input)
+char	*expander(t_mini *mini, char *input)
 {
 	char	*ret;
 	int		i;
@@ -122,13 +123,14 @@ char *expander(t_mini *mini, char *input)
 				}
 				else
 				{
-					ft_strncat(ret, &input[i], 1);
+					ft_strncat(&ret, input[i], 1); //illegal
 					i++;
 				}
 			}
 		}
 		else
-			ft_strncat(ret, &input[i++], 1);
+			ft_strncat(&ret, input[i++], 1);
 	}
+	free(input);
 	return (ret);
 }

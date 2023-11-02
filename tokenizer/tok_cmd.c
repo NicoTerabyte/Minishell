@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:43:45 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/31 18:57:21 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/01 15:17:18 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	scan_cmd(char **splitcmd, int *i, t_token **token_lst, t_mini *mini)
 		return ;
 	token_cmd_name = (t_token *)malloc(sizeof(t_token));
 	token_cmd_name->token = CMD_NAME;
-	//espansione e no quotes splitcmd[*i]
+	// e no quotes splitcmd[*i]
 	splitcmd[*i] = expander(mini, splitcmd[*i]);
 	token_cmd_name->value = ft_substr(splitcmd[*i], 0, ft_strlen(splitcmd[*i]));
 	token_cmd_name->next = NULL;

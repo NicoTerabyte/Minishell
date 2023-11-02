@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_libft.c                                      :+:      :+:    :+:   */
+/*   utils_expander.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:51:50 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/31 18:07:05 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/02 12:25:37 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,23 +52,25 @@ char *ft_strcat(char *dest, char *src)
 	return (dest);
 }
 
-char	*ft_strncat(char *dest, char *src, int nb)
+void	ft_strncat(char **dest, char c, int nb)
 {
-	int	i;
-	int	j;
+	// Calcola la lunghezza attuale della stringa
+	size_t current_len;
+	int i;
+	current_len = strlen(*dest);
 
+	//*dest = (char *)realloc(*dest, current_len + nb + 1);
+	*dest = (char *)ft_realloc(*dest, sizeof(char), current_len,  current_len + nb + 1);
+	if (*dest == NULL)
+		exit(1);
 	i = 0;
-	while (dest[i] != '\0')
+	while (i < nb) {
+		(*dest)[current_len + i] = c;
 		i++;
-	j = 0;
-	while (src[j] != '\0' && j < nb)
-	{
-		dest[i] = src[j];
-		i++;
-		j++;
 	}
-	dest[i] = '\0';
-	return (dest);
+
+	// Aggiunge il terminatore nullo alla fine della stringa
+	(*dest)[current_len + nb] = '\0';
 }
 
 char	*ft_strcpy(char *dest, char *src)
@@ -84,3 +86,22 @@ char	*ft_strcpy(char *dest, char *src)
 	dest[i] = '\0';
 	return (dest);
 }
+
+// char *realloc_and_concat(char *dest, char *src, int nb)
+// {
+// 	int dest_len = strlen(dest);
+// 	int src_len = (strlen(src) < nb) ? strlen(src) : nb;
+
+// 	// Rialloca la memoria per dest.
+// 	dest = realloc(dest, dest_len + src_len + 1);
+// 	if (dest == NULL)
+// 	{
+// 		// Gestisci l'errore di realloc.
+// 		return NULL;
+// 	}
+
+// 	// Concatena src a dest.
+// 	ft_strncat(dest, src, nb);
+
+// 	return dest;
+// }

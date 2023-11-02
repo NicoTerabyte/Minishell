@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/10/31 18:02:39 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/02 12:25:48 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int				ft_strcmp_env(const char *input, const char *env);
 char			*ft_strcpy(char *dest, char *src);
 char			*launch_exp_wild(t_mini *mini, char *input);
 char			*ft_strncpy(char *dest, char *src, unsigned int n);
-char			*ft_strncat(char *dest, char *src, int nb);
+void			ft_strncat(char **dest, char c, int nb);
 char			*ft_strcat(char *dest, char *src);
+// char			*realloc_and_concat(char *dest, char *src, int nb);
 #endif
