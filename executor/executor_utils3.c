@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 20:41:37 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/02 15:29:56 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/03 17:51:47 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,23 +117,6 @@ void	execute_builtin_env(t_token *env, t_mini *mini)
 		last_exit_status_cmd = ft_unset((t_declaration *)env->value, mini);
 }
 
-//parte da collegare con la mia
-/*
-	il piano:
-	in pratica devo gestire bene e giocare con
-	l'env fornitomi da Manuele che funziona in una maniera
-	abbastanza particolare
-	infatti questo environment è statico ciò significa che per utilizzarlo me
-	lo devo sempre salvare questo env viene inizializzato solo una volta visto che
-	è statico non c'è bisogno di ripetere l'azione 0, la quale verrà inizializzata a modo
-	mio di conseguenza non si punterà al valore envp e non avremo problemi con l'env originale.
-	quindi cosa famo
-	1) finisco di aggiustare cd per collegarlo con l'interpretazione di manu (fatto)
-	2) cambio l'inizializzazione di env all'interno della funzione env_container di manu
-		perché se no faccio un macello e cd non funzionerà (fatto)
-	3) controllo che cd funzioni per vedere se ho fatto le cose corrette (fatto)
-	4) scelgo la prossima builtin da modificare (fatto)
-*/
 void	execute_builtin_cmd(t_cmd *cmd, t_mini *mini)
 {
 	char	**args;

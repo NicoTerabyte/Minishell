@@ -6,7 +6,7 @@
 #    By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/01 14:36:32 by fcarlucc          #+#    #+#              #
-#    Updated: 2023/10/31 16:57:28 by lnicoter         ###   ########.fr        #
+#    Updated: 2023/11/02 19:07:49 by lnicoter         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = minishell
 SRC = $(wildcard *.c)\
 		$(wildcard executor/*.c) \
 		$(wildcard gnl/*.c) \
-		$(wildcard tokenizer/*.c) \
+		$(wildcard tokenizer/*.c) \	
 		$(wildcard tree/*.c) \
 		$(wildcard builtins/*.c) \
 		$(wildcard lexer/*.c) \
