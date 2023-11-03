@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:57:22 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/11/03 11:39:38 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/03 14:53:37 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ char	*realloc_concat_free_norm(char *ret, char *v)
 		return (ret);
 	ft_strcpy(new_ret, ret);
 	ft_strcat(new_ret, v);
+	free(v);
 	free(ret);
 	return (new_ret);
 }
