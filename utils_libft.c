@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:51:50 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/03 12:50:37 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/03 15:27:39 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,21 +66,17 @@ void ft_strncat(char **dest, char c, int nb)
 {
 	size_t current_len;
 	int i;
-	char *new_dest;
+	// char *new_dest;
 
 	if (*dest != NULL)
 		current_len = ft_strlen(*dest);
 	else
 		current_len = 0;
-	new_dest = (char *)ft_realloc(*dest, sizeof(char),
+	(*dest) = (char *)ft_realloc(*dest, sizeof(char),
 							current_len, current_len + nb + 1);
-	if (new_dest == NULL)
-	{
-		// Handle the memory allocation error here, e.g., print an error message
-		// and return without modifying *dest.
+	if (*dest == NULL)
 		return;
-	}
-	*dest = new_dest;
+	// *dest = new_dest;
 	i = 0;
 	while (i < nb)
 	{
@@ -92,7 +88,7 @@ void ft_strncat(char **dest, char c, int nb)
 
 char	*handle_apix_case(char *ret)
 {
-	ft_realloc(ret, sizeof(char), 1, 2);
+	ret = ft_realloc(ret, sizeof(char), 2, 3);
 	ret[0] = '\'';
 	ret[1] = '\'';
 	ret[2] = '\0';
