@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/02 16:03:46 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/03 12:49:16 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	main(int argc, char **argv, char **envp)
 		str = readline("\nminishell> ");
 		ret =  launch_exp_wild(shell_data, str);
 		if(!ret)
-			printf("cacca");
+			;
 		else
 			printf("%s",ret);
 		free(str);

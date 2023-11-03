@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/02 16:00:45 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/03 12:50:47 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void			super_strjoin(t_data *shell_data, t_declaration *values);
 char			*expander(t_data *shell_data, char *input);
 char			*translate_wild(t_data *shell_data, char *input);
 int				is_wildcard(char *input);
+char			*handle_apix_case(char *ret);
 char			**matrix_directory(t_data *shell_data);
 char			*ft_strjoin_wild(char const *s1, char const *s2);
 char			*get_extension(const char *filename);

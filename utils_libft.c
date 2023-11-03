@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:51:50 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/02 18:00:12 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/03 12:50:37 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,3 +90,11 @@ void ft_strncat(char **dest, char c, int nb)
 	(*dest)[current_len + nb] = '\0';
 }
 
+char	*handle_apix_case(char *ret)
+{
+	ft_realloc(ret, sizeof(char), 1, 2);
+	ret[0] = '\'';
+	ret[1] = '\'';
+	ret[2] = '\0';
+	return (ret);
+}
