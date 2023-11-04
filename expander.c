@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/11/03 16:25:10 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/04 16:24:47 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,16 @@ int	quote_logic_norm(char *input, char **ret, char quote, t_data *shell_data)
 	i = 0;
 	while (input[i] != '\0')
 	{
-		printf("i value %d\n", i);
 		if (input[i] == quote)
 		{
 			i++;
 			break ;
 		}
 		else if (input[i] == '$' && quote == '"')
-		{
-			printf("Qui entra\n");
 			*ret = manage_dollar_norm(input, &i, *ret, shell_data);
-		}
 		else
-		{
-			ft_strncat(ret, input[i++], 1); //con "'$us'" va qui ret = '\0'
-			printf("%p - %c\n", *ret, input[i-1]);
-			printf("ret value after cat %s\n", *ret);
-		}
+			ft_strncat(ret, input[i++], 1);
 	}
-	printf("ret dopo logica %s\n", *ret);
 	return (i);
 }
 
@@ -48,7 +39,7 @@ char	*expander(t_data *shell_data, char *input)
 	char	quote;
 
 	i = 0;
-	ret = ft_strdup("");
+	ret = ft_calloc(1, sizeof(char));
 	while (input[i] != '\0')
 	{
 		if (input[i] == '$')
@@ -61,9 +52,7 @@ char	*expander(t_data *shell_data, char *input)
 		else
 			ft_strncat(&ret, input[i++], 1);
 	}
-			printf("%p\n",ret);
 	if (ret && ft_strlen(ret) <= 3 && ft_strchr(ret, '\''))
 		ret = handle_apix_case(ret);
-			printf("%p\n",ret);
 	return (ret);
 }
