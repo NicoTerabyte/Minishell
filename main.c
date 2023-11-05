@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/04 16:28:30 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/05 19:32:38 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	main(int argc, char **argv, char **envp)
 		if(!ret)
 			;
 		else
-			printf("%s",ret);
+			printf("%s", ret);
 		free(str);
 		free(ret);
 	}
