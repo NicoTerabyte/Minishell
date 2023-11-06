@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/11/04 16:24:47 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/06 18:50:34 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ char	*expander(t_data *shell_data, char *input)
 	}
 	if (ret && ft_strlen(ret) <= 3 && ft_strchr(ret, '\''))
 		ret = handle_apix_case(ret);
+	free(input);
 	return (ret);
 }

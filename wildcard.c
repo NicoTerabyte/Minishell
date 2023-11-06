@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 18:21:34 by alessiolong       #+#    #+#             */
-/*   Updated: 2023/11/06 18:14:21 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/06 19:02:46 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,11 @@ int	word_middle_filter(char *filter, char *filename, int *i)
 	else
 		return 0;
 }
-
+int free_filter_return(char *filter)
+{
+	free(filter);
+	return (0);
+}
 int	filter_word(char *input, char *filename, t_data *mini)
 {
 	int i;
@@ -214,29 +218,26 @@ int	filter_word(char *input, char *filename, t_data *mini)
 		if (!input[i])
 		{
 			if (!word_end_filter(filter, filename, &y))
-				return 0;
+				return free_filter_return(filter);
 		}
 		else if (i != 0 && !check_wildcard_before(input, i - 1))
 		{
 			if (!word_start_filter(filter, filename, &y))
-				return 0;
+				return free_filter_return(filter);
 		}
 		else
 		{
 			if (!word_middle_filter(filter, filename, &y))
-				return 0;
+				return free_filter_return(filter);
 		}
 		if (input[i] == '*')
 			i++;
+		free(filter);
 	}
 	return 1;
 }
 
 
-/*CASI CHE NON FUNGONO
-$*
-.*
-*/
 char *ft_wildcard(char *input, t_data *mini)
 {
 	struct dirent	*entry;
@@ -251,8 +252,6 @@ char *ft_wildcard(char *input, t_data *mini)
 	dirname = getcwd(0, 0);
 	dir = opendir(dirname);
 	entry = readdir(dir);
-	//qui fare lo strjoin per ogni filename accettato da filerword
-	//chiaramente se a fine ciclo non si ha nessun filenamen strjoinato si ritorna la parola originale espansa
 	while ((entry))
 	{
 		if((input[0] == '.' || entry->d_name[0] != '.') && filter_word(input, entry->d_name, mini))
@@ -262,6 +261,9 @@ char *ft_wildcard(char *input, t_data *mini)
 		}
 		entry = readdir(dir);
 	}
+	free(entry);
+	free(dirname);
+	closedir(dir);
 	if (result == NULL)
 		return (expander(mini, input));
 	else
