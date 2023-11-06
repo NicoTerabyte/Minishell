@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/03 12:50:47 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/06 15:11:51 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "./libft/libft.h"
+# include <errno.h>
+# include <fcntl.h>
+# include <signal.h>
+# include <stdarg.h>
+# include <sys/wait.h>
+# include <termios.h>
 # define AND 0
 # define OR 1
 # define PIPE 2
@@ -86,18 +92,11 @@ void			add_env(t_data *shell_data, t_declaration **values);
 void			super_strjoin(t_data *shell_data, t_declaration *values);
 // abuonomo
 char			*expander(t_data *shell_data, char *input);
-char			*translate_wild(t_data *shell_data, char *input);
-int				is_wildcard(char *input);
 char			*handle_apix_case(char *ret);
 char			**matrix_directory(t_data *shell_data);
-char			*ft_strjoin_wild(char const *s1, char const *s2);
-char			*get_extension(const char *filename);
 int				ft_strcmp_env(const char *input, const char *env);
-struct dirent	**matrix_file(t_data *shell_data);
 void			stampaMatriceChar(char **matrice);
-char			*current_dir(void);
 char			*ft_strcpy(char *dest, char *src);
-char			*launch_exp_wild(t_data *shell_data, char *input);
 char			*ft_strncpy(char *dest, char *src, unsigned int n);
 void			ft_strncat(char **dest, char c, int nb);
 char			*ft_strcat(char *dest, char *src);
@@ -109,4 +108,14 @@ char			*manage_dollar_norm(char *input, int *i,
 					char *ret, t_data *shell_data);
 int				quote_logic_norm(char *input, char **ret,
 					char quote, t_data *shell_data);
+//mlongo
+char			*ft_wildcard(char *input, t_data *mini);
+int				filter_word(char *input, char *filename, t_data *mini);
+int				word_middle_filter(char *filter, char *filename, int *i);
+int				word_start_filter(char *filter, char *filename, int *i);
+int				word_end_filter(char *filter, char *filename, int *i);
+char			*expand_strbefore(char *input, int i, t_data *mini);
+int				move_to_wildcard(char *input);
+int				is_wildcard_present(char *input);
+int				check_wildcard_before(char *input, int i);
 #endif

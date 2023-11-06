@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:57:22 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/11/06 14:38:31 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/06 18:41:09 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ char	*expand_variable(t_data *shell_data, char *input, int *i)
 	char	*var_name;
 	char	*expanded_value;
 
+	if ((input[*i] == '$' && !ft_isalnum(input[(*i) + 1])))
+	{
+		(*i)++;
+		return (ft_strdup("$"));
+	}
 	(*i)++;
 	var_name_len = jump_to_next(&input[*i]);
 	var_name = (char *)malloc(var_name_len + 1);

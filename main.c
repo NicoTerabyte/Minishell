@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/06 12:45:12 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/06 15:06:20 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		str = readline("\nminishell> ");
-		ret =  launch_exp_wild(shell_data, str);
+		ret = ft_wildcard(str, shell_data);
+		//ret = expander(str,shell_data);
 		if(!ret)
 			;
 		else
