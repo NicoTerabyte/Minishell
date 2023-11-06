@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/06 17:23:14 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/06 19:23:11 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,6 +283,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		add_history(str);
 		fixed = fix_syntax(str);
+		printf("%s\n", fixed);
 		free(str);
 		if (!check(fixed))
 		{
@@ -291,6 +292,7 @@ int	main(int argc, char **argv, char **envp)
 				continue ;
 			printf("Syntax error\n");
 			last_exit_status_cmd = 2;
+			printf("exit status: %d\n", last_exit_status_cmd);
 			continue ;
 		}
 		splitcmd = ft_split(fixed, ' ');
@@ -308,7 +310,7 @@ int	main(int argc, char **argv, char **envp)
 		var_container(token_list, tree, SET);
 		execute(tree, STDIN_FILENO, STDOUT_FILENO, mini); //allora qui passo la mia matrice env
 		// free_tree(tree);
-		free_matrix(splitcmd);
+		free_matrix(splitcmd); //unset e questa funzione non vanno d'accordo
 		ft_free_all(token_list, tree);
 		printf("exit status: %d\n", last_exit_status_cmd);
 	}

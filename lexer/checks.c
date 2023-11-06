@@ -27,11 +27,11 @@ int	check(char *s)
 	i = 0;
 	while (s[i])
 	{
-		if (s[i] == ')')
-		{
-			if (!check_number_back(&s[i], &s[0]))
-				return (0);
-		}
+		// if (s[i] == ')')
+		// {
+		// 	if (!check_number_back(&s[i], &s[0]))
+		// 		return (0);
+		// }
 		if (s[i] == '(')
 		{
 			if (!check_parentheses(s, &i))

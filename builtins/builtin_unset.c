@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:16:03 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/31 11:12:39 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/06 19:17:19 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 //e tenendo conto di quanto è grande l'array mettere
 //in size - 1 il null byte cosicché aggiorni bene
 //l'all->env
+//segfaultino cioè invalid read
 void	fix_mat(t_mini *mini, int i)
 {
 	while (mini->env[i + 1])

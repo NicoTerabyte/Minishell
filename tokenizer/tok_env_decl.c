@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_env_decl.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:43:54 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/02 16:08:23 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/06 19:16:15 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ t_declaration	*set_decl(char **splitcmd, int *i, t_token_enum token_enum, t_mini
 	}
 	else
 	{
-		res_decl->name = splitcmd[*i];
+		res_decl->name = ft_strdup(splitcmd[*i]);
 		res_decl->value = NULL;
 	}
 	*i += 1;
