@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_expander.c                                   :+:      :+:    :+:   */
+/*   utils_libft.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 21:51:50 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/02 12:25:37 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/06 15:49:52 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ft_strncpy(char *dest, char *src, unsigned int n)
 {
-	unsigned int i;
+	unsigned int	i;
 
 	i = 0;
 	while (src[i] != '\0' && i < n)
@@ -33,11 +33,10 @@ char	*ft_strncpy(char *dest, char *src, unsigned int n)
 	return (dest);
 }
 
-
-char *ft_strcat(char *dest, char *src)
+char	*ft_strcat(char *dest, char *src)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (dest[i] != '\0')
@@ -52,56 +51,35 @@ char *ft_strcat(char *dest, char *src)
 	return (dest);
 }
 
-void	ft_strncat(char **dest, char c, int nb)
+void ft_strncat(char **dest, char c, int nb)
 {
-	// Calcola la lunghezza attuale della stringa
 	size_t current_len;
 	int i;
-	current_len = strlen(*dest);
+	// char *new_dest;
 
-	//*dest = (char *)realloc(*dest, current_len + nb + 1);
-	*dest = (char *)ft_realloc(*dest, sizeof(char), current_len,  current_len + nb + 1);
+	if (*dest != NULL)
+		current_len = ft_strlen(*dest);
+	else
+		current_len = 0;
+	(*dest) = (char *)ft_realloc(*dest, sizeof(char),
+							current_len, current_len + nb + 1);
 	if (*dest == NULL)
-		exit(1);
+		return;
+	// *dest = new_dest;
 	i = 0;
-	while (i < nb) {
+	while (i < nb)
+	{
 		(*dest)[current_len + i] = c;
 		i++;
 	}
-
-	// Aggiunge il terminatore nullo alla fine della stringa
 	(*dest)[current_len + nb] = '\0';
 }
 
-char	*ft_strcpy(char *dest, char *src)
+char	*handle_apix_case(char *ret)
 {
-	int i;
-
-	i = 0;
-	while (src[i] != '\0')
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
+	ret = ft_realloc(ret, sizeof(char), 2, 3);
+	ret[0] = '\'';
+	ret[1] = '\'';
+	ret[2] = '\0';
+	return (ret);
 }
-
-// char *realloc_and_concat(char *dest, char *src, int nb)
-// {
-// 	int dest_len = strlen(dest);
-// 	int src_len = (strlen(src) < nb) ? strlen(src) : nb;
-
-// 	// Rialloca la memoria per dest.
-// 	dest = realloc(dest, dest_len + src_len + 1);
-// 	if (dest == NULL)
-// 	{
-// 		// Gestisci l'errore di realloc.
-// 		return NULL;
-// 	}
-
-// 	// Concatena src a dest.
-// 	ft_strncat(dest, src, nb);
-
-// 	return dest;
-// }
