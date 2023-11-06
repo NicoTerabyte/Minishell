@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/06 16:13:44 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/06 17:40:05 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,8 @@ void	execute_builtin(t_tree *tree, int curr_in, int curr_out, t_mini *mini) //di
 	}
 	else
 	{
-		// for (int i = 0; mini->env[i]; i++) {
-		// 	printf("%s\n", mini->env[i]);
-		// }
-
-		expander_simple_cmd_args(simple_cmd->cmd->cmd_arg->value, mini);
+		if (simple_cmd->cmd->cmd_arg)
+			expander_simple_cmd_args(simple_cmd->cmd->cmd_arg->value, mini);
 		execute_builtin_cmd(simple_cmd->cmd, mini);
 	}
 	dup_std_fd(starting_in, STDIN_FILENO);

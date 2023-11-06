@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/11/06 15:43:06 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/06 17:46:18 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ char	*expander(t_mini *mini, char *input)
 	}
 	if (ret && ft_strlen(ret) <= 3 && ft_strchr(ret, '\''))
 		ret = handle_apix_case(ret);
+	free(input);
 	return (ret);
 }

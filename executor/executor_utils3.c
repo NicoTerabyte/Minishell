@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 20:41:37 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/03 17:51:47 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/06 17:49:43 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	execute_integrated(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 		exit (0);
 	else
 	{
-		expander_simple_cmd_args(simple_cmd->cmd->cmd_arg->value, mini);
+		if (simple_cmd->cmd->cmd_arg)
+			expander_simple_cmd_args(simple_cmd->cmd->cmd_arg->value, mini);
 		execve_cmd(simple_cmd, mini);
 	}
 }
@@ -96,6 +97,7 @@ int	is_builtin_command(t_tree *root, t_mini *mini)
 	{
 		simple_name = (char *)simple_cmd->cmd->cmd_name->value;
 		simple_name = expander(mini, simple_name);
+		simple_cmd->cmd->cmd_name->value = simple_name;
 		if (0 == ft_strcmp(simple_name, "cd")
 			|| 0 == ft_strcmp(simple_name, "exit")
 			|| 0 == ft_strcmp(simple_name, "echo")
