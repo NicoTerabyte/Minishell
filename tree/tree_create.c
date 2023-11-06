@@ -6,12 +6,11 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 11:51:13 by alessiolong       #+#    #+#             */
-/*   Updated: 2023/10/31 11:05:33 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/06 17:21:46 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
 
 void	tree_node_operator(t_token *token_lst, t_tree **tree)
 {

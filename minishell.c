@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/10/28 21:11:19 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/06 17:23:14 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,54 +14,51 @@
 
 int	last_exit_status_cmd = 0;
 
-void printTree(t_tree *node, int level, char *message)
+void	printTree(t_tree *node, int level, char *message)
 {
-    if (node == NULL) {
-        return;
-    }
-    for (int i = 0; i < level; i++) {
-        printf("  ");
-    }
+	if (node == NULL) {
+		return;
+	}
+	for (int i = 0; i < level; i++) {
+		printf("  ");
+	}
 	printf("%s\n", message);
-    for (int i = 0; i < level; i++) {
-        printf("  ");
-    }
+	for (int i = 0; i < level; i++) {
+		printf("  ");
+	}
 
-    if (node->type == SIMPLE_CMD) {
-        t_simple_cmd *cmd = (t_simple_cmd *)node->content;
-        printf("SIMPLE_CMD\n");
+	if (node->type == SIMPLE_CMD) {
+		t_simple_cmd *cmd = (t_simple_cmd *)node->content;
+		printf("SIMPLE_CMD\n");
 		print_tokens(cmd->redir_list);
 		for (int i = 0; i < level; i++) {
-  	    	printf("  ");
-   		}
-        print_tokens(cmd->cmd->cmd_arg);
+			printf("  ");
+		}
+		print_tokens(cmd->cmd->cmd_arg);
 		for (int i = 0; i < level; i++) {
-  	    	printf("  ");
-   		}
-        print_tokens(cmd->cmd->cmd_name);
-        print_tokens(cmd->env);
-    } else if (node->type == OP) {
-        printf("OP\n");
-        char *cmd = (char *)node->content;
+			printf("  ");
+		}
+		print_tokens(cmd->cmd->cmd_name);
+		print_tokens(cmd->env);
+	} else if (node->type == OP) {
+		printf("OP\n");
+		char *cmd = (char *)node->content;
 		printf("content : %s\n", cmd);
-    } else if (node->type == PARENTHESI) {
-        printf("PARENTHESIS\n");
-        t_parenthesis *cmd = (t_parenthesis *)node->content;
+	} else if (node->type == PARENTHESI) {
+		printf("PARENTHESIS\n");
+		t_parenthesis *cmd = (t_parenthesis *)node->content;
 		print_tokens(cmd->redir_list);
 		printTree(cmd->tree, level, "ROOT PARENTHESIS");
-    }
+	}
 
-    printTree(node->left, level + 1, "LEFT");
-    printTree(node->right, level + 1, "RIGHT");
+	printTree(node->left, level + 1, "LEFT");
+	printTree(node->right, level + 1, "RIGHT");
 }
 
 void	env_container(int action, void *arg, t_mini *the_copy)
 {
-	//usare una struct,
-
 	if (action == 0)
 		copy_env((char **)arg, the_copy);
-	// return (env);
 }
 
 void	free_tokens(t_token *token_lst)

@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 15:42:00 by alessiolong       #+#    #+#             */
-/*   Updated: 2023/11/06 17:20:24 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/06 17:26:08 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ t_list	*start_back(t_list *here_doc_lst)
 		here_doc_lst = here_doc_lst->prev;
 	return (here_doc_lst);
 }
-
 
 void	*handle_list_heredocs(int op)
 {
