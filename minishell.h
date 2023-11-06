@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/06 12:44:24 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/03 12:50:47 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ typedef struct s_data
 	char			*old_path;
 	char			**copy_env;
 	struct dirent	**file;
-	char			*ret_exp;
 }	t_data;
 
 typedef struct s_declaration
@@ -100,7 +99,7 @@ char			*current_dir(void);
 char			*ft_strcpy(char *dest, char *src);
 char			*launch_exp_wild(t_data *shell_data, char *input);
 char			*ft_strncpy(char *dest, char *src, unsigned int n);
-void			ft_strncat(t_data *shell_data, char c, int nb);
+void			ft_strncat(char **dest, char c, int nb);
 char			*ft_strcat(char *dest, char *src);
 int				jump_to_next(char *str);
 char			*expand_env_variable(t_data *shell_data, const char *var_name);
@@ -108,5 +107,6 @@ char			*expand_variable(t_data *shell_data, char *input, int *i);
 char			*realloc_concat_free_norm(char *ret, char *v);
 char			*manage_dollar_norm(char *input, int *i,
 					char *ret, t_data *shell_data);
-int				quote_logic_norm(char *input, char quote, t_data *shell_data);
+int				quote_logic_norm(char *input, char **ret,
+					char quote, t_data *shell_data);
 #endif
