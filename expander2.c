@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:57:22 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/11/04 15:38:35 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/06 12:47:16 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,5 @@ char	*manage_dollar_norm(char *input, int *i, char *ret, t_data *shell_data)
 	v = expand_variable(shell_data, input, i);
 	if (v != NULL)
 		return (realloc_concat_free_norm(ret, v));
-	return (NULL);
+	return (ret);
 }
