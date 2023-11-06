@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/06 15:11:51 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/06 20:38:12 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,14 @@
 # include <sys/types.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "./libft/libft.h"
 # include <errno.h>
 # include <fcntl.h>
 # include <signal.h>
 # include <stdarg.h>
 # include <sys/wait.h>
 # include <termios.h>
+# include "./libft/libft.h"
+# include "global.h"
 # define AND 0
 # define OR 1
 # define PIPE 2
