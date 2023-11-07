@@ -21,12 +21,12 @@
 # include "../minishell.h"
 
 void	*handle_list_heredocs(int op);
-void	handle_here_doc(char *del);
+void	handle_here_doc(char *del, t_mini *mini);
 int		count_syntax(char *str);
 int		ft_isspace(char c);
 char	*fix_white_spaces(char *str);
 char	*fix_syntax(char *str);
-int		check(char *s);
+int		check(char *s, t_mini *mini);
 int		check_parentheses(char *s, int *i);
 int		check_number(char *s);
 int		check_number_back(char *s, char *start);

@@ -20,6 +20,7 @@ void	expander_simple_cmd_args(char **args, t_mini *mini)
 	while (args[i])
 	{
 		args[i] = expander(mini, args[i]);
+		//wildcard
 		i++;
 	}
 }
@@ -97,6 +98,7 @@ int	is_builtin_command(t_tree *root, t_mini *mini)
 	{
 		simple_name = (char *)simple_cmd->cmd->cmd_name->value;
 		simple_name = expander(mini, simple_name);
+		//wildcard
 		simple_cmd->cmd->cmd_name->value = simple_name;
 		if (0 == ft_strcmp(simple_name, "cd")
 			|| 0 == ft_strcmp(simple_name, "exit")

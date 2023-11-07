@@ -48,6 +48,10 @@ int	ft_exit(char **args)
 			if (len_args == 1)
 			{
 				exit_value = ft_atoi(args[0]);
+				while (exit_value >= 256)
+					exit_value -= 256;
+				while (exit_value < 0)
+					exit_value += 256;
 				ft_free_all(var_container(NULL, NULL, GET_TOKENS), var_container(NULL, NULL, GET_TREE));
 				printf("exit\n");
 				exit(exit_value);

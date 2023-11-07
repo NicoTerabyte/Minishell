@@ -56,7 +56,7 @@ void handle_here_doc_sig(int signum)
 	exit(130);
 }
 
-int	reading(int fd, char *del)
+int	reading(int fd, char *del, t_mini *mini)
 {
 	char	*str;
 
@@ -73,7 +73,7 @@ int	reading(int fd, char *del)
 		}
 		if (ft_strcmp(str, del) == 0)
 			break ;
-		//esp str
+		str = expander(mini, str);
 		write(fd, str, ft_strlen(str));
 		write(fd, &"\n", 1);
 		free(str);
@@ -83,20 +83,19 @@ int	reading(int fd, char *del)
 	exit(0);
 }
 
-void	handle_here_doc(char *del)
+void	handle_here_doc(char *del, t_mini *mini)
 {
 	char	*here_doc;
 	int		fd;
 	int		pid;
 	int		exit_status;
 
-	//esp del
 	here_doc = handle_list_heredocs(ADD);
 	fd = open(here_doc, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	signal(SIGINT, SIG_IGN);
 	pid = fork();
 	if (!pid)
-		reading(fd, del);
+		reading(fd, del, mini);
 	waitpid(pid, &exit_status, 0);
 	free(del);
 	last_exit_status_cmd = WEXITSTATUS(exit_status);
