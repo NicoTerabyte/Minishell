@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 16:34:03 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/01 10:26:01 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/07 13:28:11 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,11 @@ int	ft_cd(char **command_line, t_mini *mini)
 	}
 	else
 	{
-		chdir(command_line[0]);
+		if (chdir(command_line[0]))
+		{
+			printf("bash: cd: %s: No such file or directory", command_line[0]);
+			return (1);
+		}
 		update_pwd(mini);
 	}
 	return (0);

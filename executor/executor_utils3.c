@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 20:41:37 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/06 17:49:43 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/07 13:25:53 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,4 +137,5 @@ void	execute_builtin_cmd(t_cmd *cmd, t_mini *mini)
 		ft_exit(args);
 	if (ft_strcmp(cmd->cmd_name->value, "env") == 0)
 		last_exit_status_cmd = ft_env(mini->env);
+	printf("exit status %d\n", last_exit_status_cmd);
 }
