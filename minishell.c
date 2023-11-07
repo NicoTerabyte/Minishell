@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/06 19:23:11 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/07 15:14:26 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,14 @@ void	free_tokens(t_token *token_lst)
 			while (type_decl)
 			{
 				tmpdecl = type_decl;
-				// if (!type_decl->next)
-					// break ;
+				if (!type_decl->next)
+					break ;
 				type_decl = type_decl->next;
-				// if (tmpdecl->name)
-					// free(tmpdecl->name);
-				// if (tmpdecl->value)
-					// free(tmpdecl->value);
-				// free(tmpdecl);
+				if (tmpdecl->name)
+					free(tmpdecl->name);
+				if (tmpdecl->value)
+					free(tmpdecl->value);
+				free(tmpdecl);
 			}
 		}
 		else if (token_lst->token == CMD_ARG)

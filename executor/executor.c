@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/06 17:40:05 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/07 15:31:06 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	execute_builtin(t_tree *tree, int curr_in, int curr_out, t_mini *mini) //di
 	{
 		if (simple_cmd->env != NULL)
 		{
-			expander_env(simple_cmd->env->value, mini);
+			//expander_env(simple_cmd->env->value, mini);
 			execute_builtin_env(simple_cmd->env, mini);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:46:34 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/01 10:31:11 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/07 15:22:29 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,3 +45,5 @@ int	env_rows(char **env)
 		size++;
 	return (size);
 }
+
+//export x unset 

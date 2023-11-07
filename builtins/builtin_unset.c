@@ -6,20 +6,13 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:16:03 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/06 19:17:19 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/07 15:11:29 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-//funzione che cerca il valore da cambiare
-//funzione ch ecambia il valore che stai cercando
-//dopo aver scalato la matrice mettere il NULL byte
-//per sistemare l'unset, come? scalando la matrice
-//e tenendo conto di quanto è grande l'array mettere
-//in size - 1 il null byte cosicché aggiorni bene
-//l'all->env
-//segfaultino cioè invalid read
+
 void	fix_mat(t_mini *mini, int i)
 {
 	while (mini->env[i + 1])
@@ -49,17 +42,16 @@ void	copy_check_unset(char *str, t_mini *mini)
 				ft_strlen(str)) == 0)
 			{
 				free(mini->env[i]);
-				//free(shell_data->export_all->env[pos]); export version
+				fix_mat(mini, i);
 				break ;
 			}
 		}
 	}
-	fix_mat(mini, i);
 }
 
 int		ft_unset(t_declaration *node, t_mini *mini)
 {
-	int	i;
+	int				i;
 
 	i = 0;
 	if (!node)
