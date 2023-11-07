@@ -17,8 +17,10 @@ void expander_env(t_declaration *env, t_mini *mini)
 	while (env)
 	{
 		env->name = expander(mini, env->name);
+		//wildcard
 		if (env->value)
 			env->value = expander(mini, env->value);
+			//wildcard
 		env = env->next;
 	}
 }
