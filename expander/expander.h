@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/06 15:53:04 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/07 16:53:00 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,14 @@ char			*manage_dollar_norm(char *input, int *i,
 					char *ret, t_mini *mini);
 int				quote_logic_norm(char *input, char **ret,
 					char quote, t_mini *mini);
+
+char			*ft_wildcard(char *input, t_mini *mini);
+int				filter_word(char *input, char *filename, t_mini *mini);
+int				word_middle_filter(char *filter, char *filename, int *i);
+int				word_start_filter(char *filter, char *filename, int *i);
+int				word_end_filter(char *filter, char *filename, int *i);
+char			*expand_strbefore(char *input, int i, t_mini *mini);
+int				move_to_wildcard(char *input);
+int				is_wildcard_present(char *input);
+int				check_wildcard_before(char *input, int i);
 #endif
