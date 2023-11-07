@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 20:20:50 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/07 16:59:50 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/07 17:25:16 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	execute_redirections_output(t_token *redir_list, int curr_out, t_mini *mini)
 	while (redir_list)
 	{
 		file_name = (char *)redir_list->value;
-		file_name = ft_wildcard(file_name, mini);
+		file_name = expander(mini, file_name);
 		redir_list->value = file_name;
 		if (redir_list->token == OUT_FILE_TRUNC)
 			curr_out = open(file_name, O_CREAT | O_TRUNC | O_WRONLY, 0777);
@@ -56,7 +56,7 @@ int	execute_redirections_input(t_token *redir_list, int curr_in, t_mini *mini)
 	while (redir_list)
 	{
 		file_name = (char *)redir_list->value;
-		file_name = ft_wildcard(file_name, mini);
+		file_name = expander(mini, file_name);
 		redir_list->value = file_name;
 		if (redir_list->token == IN_FILE_TRUNC || redir_list->token == HERE_DOC)
 			curr_in = open(file_name, O_RDONLY);

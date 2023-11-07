@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/07 16:59:32 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/07 17:24:35 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void expander_env(t_declaration *env, t_mini *mini)
 {
 	while (env)
 	{
-		env->name = ft_wildcard(env->name, mini);
+		env->name = expander(mini, env->name);
 		if (env->value)
-			env->value = ft_wildcard(env->value, mini);
+			env->value = expander(mini, env->name);
 		env = env->next;
 	}
 }

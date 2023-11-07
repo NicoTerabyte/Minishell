@@ -6,7 +6,7 @@
 /*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 20:41:37 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/07 16:59:56 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/07 17:26:25 by lnicoter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	expander_simple_cmd_args(char **args, t_mini *mini)
 	i = 0;
 	while (args[i])
 	{
-		args[i] = ft_wildcard(args[i], mini);
+		args[i] = expander(mini, args[i]);
 		i++;
 	}
 }
@@ -96,7 +96,7 @@ int	is_builtin_command(t_tree *root, t_mini *mini)
 	if (simple_cmd->cmd)
 	{
 		simple_name = (char *)simple_cmd->cmd->cmd_name->value;
-		simple_name = ft_wildcard(simple_name, mini);
+		simple_name = expander(mini, simple_name);
 		simple_cmd->cmd->cmd_name->value = simple_name;
 		if (0 == ft_strcmp(simple_name, "cd")
 			|| 0 == ft_strcmp(simple_name, "exit")
