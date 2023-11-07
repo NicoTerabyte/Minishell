@@ -283,7 +283,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		add_history(str);
 		fixed = fix_syntax(str);
-		printf("%s\n", fixed);
+		// printf("%s\n", fixed);
 		free(str);
 		if (!check(fixed))
 		{
