@@ -249,6 +249,60 @@ void	*var_container(t_token *token_lst, t_tree *tree, int op)
 	return (NULL);
 }
 
+int	ft_isredirection(char *str)
+{
+	if (!ft_strcmp(str, ">") || !ft_strcmp(str, ">>") || !ft_strcmp(str, "<"))
+		return 1;
+	return 0;
+}
+
+char	**wildcard_split(char **splitcmd, t_mini *mini)
+{
+	int		i;
+	int		j;
+	char	*tmp;
+	char	*expanded;
+	char	**split_expanded;
+
+	i = 0;
+	j = 0;
+	while (splitcmd[i])
+	{
+		expanded = ft_wildcard(splitcmd[i], mini);
+		split_expanded = ft_split(expanded, ' ');
+		if (split_expanded[1])
+		{
+			if (i != 0 && ft_isredirection(splitcmd[i - 1]))
+			{
+				free_matrix(split_expanded);
+				splitcmd[i] = expanded;
+			}
+			else
+			{
+				splitcmd = ft_realloc(splitcmd, sizeof(char *), env_rows(splitcmd), env_rows(splitcmd) + env_rows(split_expanded) - 1);
+				int end = env_rows(splitcmd) + env_rows(split_expanded) - 3;
+				int end_new = env_rows(splitcmd) + env_rows(split_expanded) - 3 - i;
+				while (end_new > i)
+					splitcmd[end--] = splitcmd[end_new--];
+				//adesso ho traslato avanti le parole per creare spazio alle nuove
+				tmp = splitcmd[i];
+				while (split_expanded[j] && splitcmd[i])
+					splitcmd[i++] = split_expanded[j++];
+				//qui ho riempito lo spazio
+				free(tmp);
+			}
+		}
+		else
+		{
+			free_matrix(split_expanded);
+			splitcmd[i] = expanded;
+		}
+		if (splitcmd[i])
+			i++;
+		return splitcmd;
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	signal(SIGQUIT, ign);
@@ -297,6 +351,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		splitcmd = ft_split(fixed, ' ');
 		free(fixed);
+		splitcmd = wildcard_split(splitcmd, mini);
 		token_list = tokenizer(splitcmd, mini);
 		if (token_list)
 			while (token_list->next)

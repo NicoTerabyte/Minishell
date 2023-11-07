@@ -45,5 +45,3 @@ int	env_rows(char **env)
 		size++;
 	return (size);
 }
-
-//export x unset 

@@ -246,7 +246,7 @@ char *ft_wildcard(char *input, t_mini *mini)
 	DIR				*dir;
 
 	if (!is_wildcard_present(input))
-		return (expander(mini, input));
+		return (input);
 
 	result = NULL;
 	dirname = getcwd(0, 0);
@@ -256,8 +256,8 @@ char *ft_wildcard(char *input, t_mini *mini)
 	{
 		if((input[0] == '.' || entry->d_name[0] != '.') && filter_word(input, entry->d_name, mini))
 		{
-			result = ft_strjoin(result, entry->d_name);
-			result = ft_strjoin(result, " ");
+			result = ft_strjoin2(result, entry->d_name);
+			result = ft_strjoin2(result, " ");
 		}
 		entry = readdir(dir);
 	}
@@ -265,7 +265,7 @@ char *ft_wildcard(char *input, t_mini *mini)
 	free(dirname);
 	closedir(dir);
 	if (result == NULL)
-		return (expander(mini, input));
+		return (input);
 	else
 		return result;
 }
