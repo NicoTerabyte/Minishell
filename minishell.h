@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/06 20:38:12 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/07 19:49:25 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void			parser(char **splitcmd);
 int				count_syntax(char *str);
 char			*fix_syntax(char *str);
 int				free_matrix(char **s);
-//lnicoter
 void			builtin_reader(char **command_line, t_data *shell_data,
 					t_declaration *identity);
 void			ft_echo(char **command_line);
@@ -91,7 +90,6 @@ void			arguments_separation(char **command_line, int conc,
 					t_declaration **identity);
 void			add_env(t_data *shell_data, t_declaration **values);
 void			super_strjoin(t_data *shell_data, t_declaration *values);
-// abuonomo
 char			*expander(t_data *shell_data, char *input);
 char			*handle_apix_case(char *ret);
 char			**matrix_directory(t_data *shell_data);
@@ -109,7 +107,9 @@ char			*manage_dollar_norm(char *input, int *i,
 					char *ret, t_data *shell_data);
 int				quote_logic_norm(char *input, char **ret,
 					char quote, t_data *shell_data);
-//mlongo
+char			*order_result(char *result);
+void			selection_sort(char **array);
+void			swapstrings(char **a, char **b);
 char			*ft_wildcard(char *input, t_data *mini);
 int				filter_word(char *input, char *filename, t_data *mini);
 int				word_middle_filter(char *filter, char *filename, int *i);
@@ -119,4 +119,6 @@ char			*expand_strbefore(char *input, int i, t_data *mini);
 int				move_to_wildcard(char *input);
 int				is_wildcard_present(char *input);
 int				check_wildcard_before(char *input, int i);
+void			close_free_dir(struct dirent *entry,char *dirname,DIR *dir);
+void			open_read_getcwd(char **dirname, DIR **dir, struct dirent **entry);
 #endif
