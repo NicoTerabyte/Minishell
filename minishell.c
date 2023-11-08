@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/07 15:14:26 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/08 17:08:13 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,68 +147,6 @@ void	ft_free_all(t_token *token_lst, t_tree *tree)
 	free_tree(tree);
 }
 
-static char *path_create(char *s1, char *s2, char *s3, char *s4, char *s5)
-{
-	int i;
-	int j = 0;
-	char *str;
-
-	str = malloc(strlen(s1) + strlen(s2) + strlen(s3) + strlen(s4) + strlen(s5) + 1);
-	i = 0;
-	while (s1[j])
-		str[i++] = s1[j++];
-	j = 0;
-	while (s2[j])
-		str[i++] = s2[j++];
-	j = 0;
-	while (s3[j])
-		str[i++] = s3[j++];
-	j = 0;
-	while (s4[j])
-		str[i++] = s4[j++];
-	j = 0;
-	while (s5[j])
-		str[i++] = s5[j++];
-	str[i] = 0;
-	return (str);
-}
-
-static char *create(char *s1)
-{
-	int i;
-	char *str;
-
-	str = malloc(strlen(s1) + 1);
-	i = 0;
-	while (s1[i])
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	str[i] = 0;
-	return (str);
-}
-
-static char *mini(void)
-{
-	char pwd[4096];
-	char *path;
-	char *name;
-	char **dir;
-	char **tmp;
-
-	getcwd(pwd, sizeof(pwd));
-	dir = ft_split(pwd, '/');
-	tmp = dir;
-	name = create(dir[2]);
-	while (*dir)
-		dir++;
-	path = path_create("\033[31;49;3;1m", name, "@Mini$hell🔥:\033[32m~/", *--dir, "$ \033[0m");
-	free_matrix(tmp);
-	free(name);
-	return (path);
-}
-
 void	signal_handler(int signum)
 {
 	if (signum == SIGINT)
@@ -313,7 +251,6 @@ int	main(int argc, char **argv, char **envp)
 	char	*str;
 	char	**splitcmd;
 	char	*fixed;
-	char	*path;
 	t_token	*token_list;
 	t_tree	*tree;
 	t_mini	*mini;
@@ -328,9 +265,7 @@ int	main(int argc, char **argv, char **envp)
 		signal(SIGQUIT, ign);
 		signal(SIGINT, signal_handler);
 		signal(SIGTERM, signal_handler);
-//		path = mini();
 		str = readline("Minishell> ");
-		//free(path);
 		if (str == NULL)
 		{
 			printf("\n");
@@ -362,15 +297,12 @@ int	main(int argc, char **argv, char **envp)
 			while (token_list->next)
 				token_list = token_list->next;
 		tree = tree_create(token_list, OP);
-		// free_matrix(splitcmd);
-		// free_tokens(token_list);
 		if (token_list)
 			while (token_list->prev)
 				token_list = token_list->prev;
 		var_container(token_list, tree, SET);
-		execute(tree, STDIN_FILENO, STDOUT_FILENO, mini); //allora qui passo la mia matrice env
-		// free_tree(tree);
-		free_matrix(splitcmd); //unset e questa funzione non vanno d'accordo
+		execute(tree, STDIN_FILENO, STDOUT_FILENO, mini);
+		free_matrix(splitcmd);
 		ft_free_all(token_list, tree);
 		printf("exit status: %d\n", last_exit_status_cmd);
 	}

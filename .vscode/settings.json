@@ -6,6 +6,8 @@
 		"minishell.h": "c",
 		"tokenizer.h": "c",
 		"lexer.h": "c",
-		"builtins.h": "c"
+		"builtins.h": "c",
+		"unistd.h": "c",
+		"stdlib.h": "c"
 	}
 }

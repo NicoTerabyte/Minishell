@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 19:18:28 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/01 10:50:12 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/08 16:39:23 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,9 @@ int		ft_strcmp(char *s1, char *s2);
 char	*ft_strjoin_damn_you_leaks(char *s1, char  *s2);
 char	*i_hate_this_strcpy_for_apix(char *dst, char *src);
 void	*ft_realloc(void *p, size_t size, int dim, int new_dim);
+char	*ft_strcpy(char *dest, char *src);
+char	*ft_strncpy(char *dest, char *src, unsigned int n);
+int		ft_strcmp_env(const char *input, const char *env);
+char	*ft_strcat(char *dest, char *src);
 
 #endif

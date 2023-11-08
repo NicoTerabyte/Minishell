@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:57:22 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/11/07 15:12:38 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/06 21:03:26 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,33 +27,45 @@ int	jump_to_next(char *str)
 	return (i);
 }
 
-char	*expand_env_variable(t_mini *mini, const char *var_name)
+char	*expand_env_variable(t_mini *shell_data, const char *var_name)
 {
 	int	k;
 
 	k = 0;
-	while (mini->env[k] != NULL)
+	while (shell_data->env[k] != NULL)
 	{
-		if (ft_strcmp_env(var_name, mini->env[k]) == 0)
-			return (ft_strdup(strchr(mini->env[k], '=') + 1));
+		if (ft_strcmp_env(var_name, shell_data->env[k]) == 0)
+			return (ft_strdup(strchr(shell_data->env[k], '=') + 1));
 		k++;
 	}
 	return (NULL);
 }
 
-char	*expand_variable(t_mini *mini, char *input, int *i)
+char	*expand_variable(t_mini *shell_data, char *input, int *i)
 {
 	int		var_name_len;
 	char	*var_name;
 	char	*expanded_value;
 
+	if ((input[*i] == '$' && input[(*i) + 1] == '?'))
+	{
+		expanded_value = ft_itoa(last_exit_status_cmd);
+		(*i) += 2;
+		return (expanded_value);
+	}
+	if ((input[*i] == '$' && !ft_isalnum(input[(*i) + 1])))
+	{
+		(*i)++;
+		expanded_value = ft_strdup("$");
+		return (expanded_value);
+	}
 	(*i)++;
 	var_name_len = jump_to_next(&input[*i]);
 	var_name = (char *)malloc(var_name_len + 1);
 	ft_strncpy(var_name, &input[*i], var_name_len);
 	var_name[var_name_len] = '\0';
 	*i += var_name_len;
-	expanded_value = expand_env_variable(mini, var_name);
+	expanded_value = expand_env_variable(shell_data, var_name);
 	free(var_name);
 	return (expanded_value);
 }
@@ -74,11 +86,11 @@ char	*realloc_concat_free_norm(char *ret, char *v)
 	return (new_ret);
 }
 
-char	*manage_dollar_norm(char *input, int *i, char *ret, t_mini *mini)
+char	*manage_dollar_norm(char *input, int *i, char *ret, t_mini *shell_data)
 {
 	char	*v;
 
-	v = expand_variable(mini, input, i);
+	v = expand_variable(shell_data, input, i);
 	if (v != NULL)
 		return (realloc_concat_free_norm(ret, v));
 	return (ret);

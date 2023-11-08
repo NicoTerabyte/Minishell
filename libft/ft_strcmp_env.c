@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   launch_exp_wild.c                                  :+:      :+:    :+:   */
+/*   ft_strcmp_env.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/21 20:57:02 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/11/06 15:44:40 by lnicoter         ###   ########.fr       */
+/*   Created: 2023/11/08 16:36:48 by mlongo            #+#    #+#             */
+/*   Updated: 2023/11/08 16:37:11 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-char	*launch_exp_wild(t_mini *mini, char *input)
+int	ft_strcmp_env(const char *input, const char *env)
 {
-	char	*ret;
-	int		i;
-
-	i = 0;
-	ret = expander(mini, input);
-	return (ret);
+	while (*env != '=' && (*input != ' ' || *input != '$'))
+	{
+		if (*input != *env)
+			return (1);
+		input++;
+		env++;
+	}
+	return (*env != '=' || *input != '\0');
 }

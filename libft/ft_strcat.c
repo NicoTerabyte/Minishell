@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_utils.c                                  :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 17:46:34 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/06 15:45:14 by lnicoter         ###   ########.fr       */
+/*   Created: 2023/11/08 16:38:30 by mlongo            #+#    #+#             */
+/*   Updated: 2023/11/08 16:39:03 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-int	ft_strcmp_env(const char *input, const char *env)
+char	*ft_strcat(char *dest, char *src)
 {
-	while (*env != '=' && (*input != ' ' || *input != '$'))
+	int	i;
+	int	j;
+
+	i = 0;
+	while (dest[i] != '\0')
+		i++;
+	j = 0;
+	while (src[j] != '\0')
 	{
-		if (*input != *env)
-			return (1);
-		input++;
-		env++;
+		dest[i + j] = src[j];
+		j++;
 	}
-	return (*env != '=' || *input != '\0');
+	dest[i + j] = '\0';
+	return (dest);
 }

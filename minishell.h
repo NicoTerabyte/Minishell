@@ -21,6 +21,7 @@ typedef struct s_mini
 
 # include <time.h>
 # include <sys/wait.h>
+# include <dirent.h>
 # include "global.h"
 # include "./lexer/lexer.h"
 # include "./libft/libft.h"
@@ -33,7 +34,7 @@ typedef struct s_mini
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <dirent.h>
+# include <termios.h>
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
