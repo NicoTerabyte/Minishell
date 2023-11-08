@@ -18,8 +18,6 @@ char	*scan_arg(char **splitcmd, int *i, t_mini *mini)
 
 	if (!splitcmd[*i] || ft_strbash_control_args(splitcmd[*i]))
 		return (NULL);
-	//espansione e no quotes splitcmd[*i]
-	// splitcmd[*i] = expander(mini, splitcmd[*i]);
 	res = ft_substr(splitcmd[*i], 0, ft_strlen(splitcmd[*i]));
 	*i += 1;
 	return (res);
@@ -72,8 +70,6 @@ void	scan_cmd(char **splitcmd, int *i, t_token **token_lst, t_mini *mini)
 		return ;
 	token_cmd_name = (t_token *)malloc(sizeof(t_token));
 	token_cmd_name->token = CMD_NAME;
-	// e no quotes splitcmd[*i]
-	splitcmd[*i] = expander(mini, splitcmd[*i]);
 	token_cmd_name->value = ft_substr(splitcmd[*i], 0, ft_strlen(splitcmd[*i]));
 	token_cmd_name->next = NULL;
 	*i += 1;

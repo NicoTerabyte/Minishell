@@ -32,8 +32,6 @@ t_token_enum set_redir_type(char **splitcmd, int *i)
 char	*set_redir_value(char **splitcmd, int *i, t_mini *mini)
 {
 	char	*res;
-	//espansione e no quotes di splitcmd[*i]
-	// splitcmd[*i] = expander(mini, splitcmd[*i]);
 	res = ft_substr(splitcmd[*i], 0, ft_strlen(splitcmd[*i]));
 	*i += 1;
 	return (res);

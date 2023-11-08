@@ -45,10 +45,10 @@ char *ft_strpbrk(char *str, char *set)
 char *ft_strbash_control(char *str)
 {
 	if (str[0] == '|' || (str[0] == '&' && str[1] == '&')|| str[0] == '<' || str[0] == '>'
-		|| str[0] == '(' || str[0] == ')' || str[0] == '$' || str[0] == '`'
+		|| str[0] == '(' || str[0] == ')' || str[0] == '`'
 		|| str[0] == '\\' || str[0] == '"' || str[0] == '\'' || ft_isspace(str[0]))
 		return (&str[0]);
-	return (NULL);	
+	return (NULL);
 }
 
 char *ft_strbash_control_args(char *str)

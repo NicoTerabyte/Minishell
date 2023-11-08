@@ -87,9 +87,6 @@ t_declaration	*set_decl(char **splitcmd, int *i, t_token_enum token_enum, t_mini
 	res_decl = (t_declaration *)malloc(sizeof(t_declaration));
 	res_decl->next = NULL;
 	res_decl->concatenation = 0;
-	//espansione e no quotes di splitcmd[*i]
-	// splitcmd[*i] = expander(mini, splitcmd[*i]);
-
 	if (token_enum == ENV_VAR_DECL)
 	{
 		res_decl->concatenation = set_decl_mode(splitcmd[*i]);

@@ -18,7 +18,7 @@ void expander_env(t_declaration *env, t_mini *mini)
 	{
 		env->name = expander(mini, env->name);
 		if (env->value)
-			env->value = expander(mini, env->name);
+			env->value = expander(mini, env->value);
 		env = env->next;
 	}
 }
@@ -41,7 +41,10 @@ void	execute_builtin(t_tree *tree, int curr_in, int curr_out, t_mini *mini) //di
 		redir_list = (t_token *)simple_cmd->redir_list;
 		if (have_inputs(redir_list))
 			if (execute_redirections_input(redir_list, curr_in, mini))
-				exit (1);
+			{
+				ft_free_all(var_container(NULL, NULL, GET_TOKENS), var_container(NULL, NULL, GET_TREE));
+				exit(1);
+			}
 	}
 	else
 		dup_std_fd(curr_in, STDIN_FILENO);
@@ -50,7 +53,10 @@ void	execute_builtin(t_tree *tree, int curr_in, int curr_out, t_mini *mini) //di
 		redir_list = (t_token *)simple_cmd->redir_list;
 		if (have_outputs(redir_list))
 			if (execute_redirections_output(redir_list, curr_out, mini))
-				exit (1);
+			{
+				ft_free_all(var_container(NULL, NULL, GET_TOKENS), var_container(NULL, NULL, GET_TREE));
+				exit(1);
+			}
 	}
 	else
 		dup_std_fd(curr_out, STDOUT_FILENO);
@@ -97,14 +103,6 @@ void	execute_pipe_op(t_tree *root, int curr_in, int curr_out, t_mini *mini)
 		execute(root->left, curr_in, piping[1], mini);
 		exit(last_exit_status_cmd);
 	}
-	// waitpid(pid_left, &exit_status, 0);
-	// last_exit_status_cmd = WEXITSTATUS(exit_status);
-	// if (last_exit_status_cmd == 130 || last_exit_status_cmd == 131)
-	// {
-	// 	close(piping[0]);
-	// 	close(piping[1]);
-	// 	return ;
-	// }
 	pid_right = fork();
 	if (!pid_right)
 	{
@@ -168,7 +166,10 @@ static void	execute_subshell(t_tree *root, int in, int out, t_mini *mini)
 			redir_list = (t_token *)parenthesis_node->redir_list;
 			if (have_inputs(redir_list))
 				if (execute_redirections_input(redir_list, in, mini))
-					exit (1);
+				{
+					ft_free_all(var_container(NULL, NULL, GET_TOKENS), var_container(NULL, NULL, GET_TREE));
+					exit(1);
+				}
 		}
 		else
 			dup_std_fd(in, STDIN_FILENO);
@@ -177,7 +178,10 @@ static void	execute_subshell(t_tree *root, int in, int out, t_mini *mini)
 			redir_list = (t_token *)parenthesis_node->redir_list;
 			if (have_outputs(redir_list))
 				if (execute_redirections_output(redir_list, out, mini))
-					exit (1);
+				{
+					ft_free_all(var_container(NULL, NULL, GET_TOKENS), var_container(NULL, NULL, GET_TREE));
+					exit(1);
+				}
 		}
 		else
 			dup_std_fd(out, STDOUT_FILENO);

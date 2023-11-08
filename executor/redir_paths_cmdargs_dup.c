@@ -21,6 +21,28 @@ void	dup_std_fd(int cur_in_out, int std_in_out)
 	}
 }
 
+int	ft_is_one_word(char	*input)
+{
+	int		i;
+	char	quote;
+
+	i = 0;
+	while (input[i])
+	{
+		if (input[i] == ' ')
+			return 0;
+		else if (input[i] == '"' || input[i] == '\'')
+		{
+			quote = input[i];
+			while (input[i] && input[i] != quote)
+				i++;
+		}
+		if (input[i])
+			i++;
+	}
+	return 1;
+}
+
 int	execute_redirections_output(t_token *redir_list, int curr_out, t_mini *mini)
 {
 	char	*file_name;
@@ -30,6 +52,11 @@ int	execute_redirections_output(t_token *redir_list, int curr_out, t_mini *mini)
 	while (redir_list)
 	{
 		file_name = (char *)redir_list->value;
+		if (!ft_is_one_word(file_name))
+		{
+			printf("minishell : ambigous redirection\n");
+			return (1);
+		}
 		file_name = expander(mini, file_name);
 		redir_list->value = file_name;
 		if (redir_list->token == OUT_FILE_TRUNC)
@@ -56,6 +83,11 @@ int	execute_redirections_input(t_token *redir_list, int curr_in, t_mini *mini)
 	while (redir_list)
 	{
 		file_name = (char *)redir_list->value;
+		if (!ft_is_one_word(file_name))
+		{
+			printf("minishell : ambigous redirection\n");
+			return (1);
+		}
 		file_name = expander(mini, file_name);
 		redir_list->value = file_name;
 		if (redir_list->token == IN_FILE_TRUNC || redir_list->token == HERE_DOC)

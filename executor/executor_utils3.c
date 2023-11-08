@@ -37,7 +37,10 @@ void	execute_integrated(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 		redir_list = (t_token *)simple_cmd->redir_list;
 		if (have_inputs(redir_list))
 			if (execute_redirections_input(redir_list, curr_in, mini))
-				exit (1);
+			{
+				ft_free_all(var_container(NULL, NULL, GET_TOKENS), var_container(NULL, NULL, GET_TREE));
+				exit(1);
+			}
 	}
 	else
 		dup_std_fd(curr_in, STDIN_FILENO);
@@ -46,12 +49,18 @@ void	execute_integrated(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 		redir_list = (t_token *)simple_cmd->redir_list;
 		if (have_outputs(redir_list))
 			if (execute_redirections_output(redir_list, curr_out, mini))
-				exit (1);
+			{
+				ft_free_all(var_container(NULL, NULL, GET_TOKENS), var_container(NULL, NULL, GET_TREE));
+				exit(1);
+			}
 	}
 	else
 		dup_std_fd(curr_out, STDOUT_FILENO);
 	if (simple_cmd->cmd == NULL)
-		exit (0);
+	{
+		ft_free_all(var_container(NULL, NULL, GET_TOKENS), var_container(NULL, NULL, GET_TREE));
+		exit(1);
+	}
 	else
 	{
 		if (simple_cmd->cmd->cmd_arg)

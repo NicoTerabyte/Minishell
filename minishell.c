@@ -263,6 +263,8 @@ char	**wildcard_split(char **splitcmd, t_mini *mini)
 	char	*tmp;
 	char	*expanded;
 	char	**split_expanded;
+	int		end;
+	int		end_new;
 
 	i = 0;
 	j = 0;
@@ -279,14 +281,16 @@ char	**wildcard_split(char **splitcmd, t_mini *mini)
 			}
 			else
 			{
-				int end = env_rows(splitcmd) - 1;
+				end = env_rows(splitcmd) - 1;
 				splitcmd = ft_realloc(splitcmd, sizeof(char *), env_rows(splitcmd), env_rows(splitcmd) + env_rows(split_expanded));
-				int end_new = env_rows(splitcmd) + env_rows(split_expanded) - 3 - i;
+				end_new = env_rows(splitcmd) + env_rows(split_expanded) - 3 - i;
 				while (end > i)
 					splitcmd[end--] = splitcmd[end_new--];
 				tmp = splitcmd[i];
 				while (split_expanded[j])
 					splitcmd[i++] = split_expanded[j++];
+				free(expanded);
+				free(split_expanded);
 				free(tmp);
 			}
 		}
@@ -348,11 +352,11 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		splitcmd = ft_split(fixed, ' ');
+		free(fixed);
+		splitcmd = wildcard_split(splitcmd, mini);
 		// printf("Print splitcmd\n");
 		// for (int i = 0; splitcmd[i]; i++)
 		// 	printf("split = %s\n", splitcmd[i]);
-		free(fixed);
-		splitcmd = wildcard_split(splitcmd, mini);
 		token_list = tokenizer(splitcmd, mini);
 		if (token_list)
 			while (token_list->next)
