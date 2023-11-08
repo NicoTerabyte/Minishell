@@ -82,6 +82,8 @@ char	**get_paths(char **env)
 			break ;
 		i++;
 	}
+	if (!env[i])
+		return (NULL);
 	return (ft_split(env[i], ':'));
 }
 

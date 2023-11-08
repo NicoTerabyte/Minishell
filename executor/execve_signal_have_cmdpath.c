@@ -19,6 +19,8 @@ char	*get_cmd_name_path(char *cmd_name, char **split_paths)
 	char	*tmp;
 
 	i = 0;
+	if (!split_paths)
+		return (NULL);
 	if (access(cmd_name, X_OK) == 0)
 		return (cmd_name);
 	while (split_paths[i])
@@ -71,10 +73,14 @@ void	execve_cmd(t_simple_cmd *simple_cmd, t_mini *mini)
 	char	*cmd_name;
 	char	**cmd_args;
 
+	cmd_name = NULL;
 	split_paths = get_paths(mini->env);
-	split_paths[0] = ft_strtrim(split_paths[0], "PATH=");
-	cmd_name = get_cmd_name_path((char *)simple_cmd->cmd->cmd_name->value, split_paths);
-	if (cmd_name == NULL)
+	if (split_paths != NULL)
+	{
+		split_paths[0] = ft_strtrim(split_paths[0], "PATH=");
+		cmd_name = get_cmd_name_path((char *)simple_cmd->cmd->cmd_name->value, split_paths);
+	}
+	if (split_paths == NULL || cmd_name == NULL)
 	{
 		printf("minishell : %s command not found\n", (char *)simple_cmd->cmd->cmd_name->value);
 		free_matrix(split_paths);
