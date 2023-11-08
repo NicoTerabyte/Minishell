@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/07 19:49:25 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/08 17:21:33 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ char			*expand_strbefore(char *input, int i, t_data *mini);
 int				move_to_wildcard(char *input);
 int				is_wildcard_present(char *input);
 int				check_wildcard_before(char *input, int i);
-void			close_free_dir(struct dirent *entry,char *dirname,DIR *dir);
-void			open_read_getcwd(char **dirname, DIR **dir, struct dirent **entry);
+void			close_free_dir(struct dirent *entry, char *dirname, DIR *dir);
+void			open_read_getcwd(char **dirname, DIR **dir,
+					struct dirent **entry);
 #endif

@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   ft_strcasecmp.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/04 19:13:01 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/08 17:07:46 by abuonomo         ###   ########.fr       */
+/*   Created: 2023/11/08 17:15:53 by abuonomo          #+#    #+#             */
+/*   Updated: 2023/11/08 17:20:18 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_islower(int c)
+int	ft_strcasecmp(const char *str1, const char *str2)
 {
-	return (c >= 'a' && c <= 'z');
-}
-
-int	ft_isalpha(int c)
-{
-	if (ft_isupper(c) || ft_islower(c))
-		return (1);
-	return (0);
+	while (*str1 && *str2)
+	{
+		if (ft_tolower(*str1) != ft_tolower(*str2))
+		{
+			return (ft_tolower(*str1) - ft_tolower(*str2));
+		}
+		str1++;
+		str2++;
+	}
+	return (ft_tolower(*str1) - ft_tolower(*str2));
 }

@@ -6,13 +6,11 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/07 19:34:31 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/08 17:23:25 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int last_exit_status_cmd = 42;
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -42,7 +40,6 @@ int	main(int argc, char **argv, char **envp)
 	{
 		str = readline("\nminishell> ");
 		ret = ft_wildcard(str, shell_data);
-		printf("RET WILDCARD: %s\n", ret);
 		ret = expander(shell_data, ret);
 		if (!ret)
 			;

@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:47:40 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/11/07 19:51:09 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/08 17:20:00 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	selection_sort(char **array)
 		j = i + 1;
 		while (array[j])
 		{
-			if (strcmp(array[i], array[j]) > 0)
+			if (ft_strcasecmp(array[i], array[j]) > 0)
 				swapstrings(&array[i], &array[j]);
 			j++;
 		}

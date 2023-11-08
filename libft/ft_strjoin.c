@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 19:17:02 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/06 18:49:04 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/08 17:25:14 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*ft_strjoin(char *s1, char*s2)
 	i = -1;
 	while (++i < len2)
 		res[len1 + i] = s2[i];
-	if(s1 != NULL)
+	if (s1 != NULL)
 		free(s1);
 	return (res);
 }

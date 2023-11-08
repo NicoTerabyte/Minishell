@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:57:22 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/11/06 21:03:26 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/08 17:26:32 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*expand_variable(t_data *shell_data, char *input, int *i)
 
 	if ((input[*i] == '$' && input[(*i) + 1] == '?'))
 	{
-		expanded_value = ft_itoa(last_exit_status_cmd);
+		expanded_value = ft_itoa(42);
 		(*i) += 2;
 		return (expanded_value);
 	}
