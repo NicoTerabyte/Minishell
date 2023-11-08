@@ -137,5 +137,4 @@ void	execute_builtin_cmd(t_cmd *cmd, t_mini *mini)
 		ft_exit(args);
 	if (ft_strcmp(cmd->cmd_name->value, "env") == 0)
 		last_exit_status_cmd = ft_env(mini->env);
-	printf("exit status %d\n", last_exit_status_cmd);
 }

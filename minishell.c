@@ -279,17 +279,14 @@ char	**wildcard_split(char **splitcmd, t_mini *mini)
 			}
 			else
 			{
-				printf("right place = %s\n", splitcmd[i]);
-				splitcmd = ft_realloc(splitcmd, sizeof(char *), env_rows(splitcmd), env_rows(splitcmd) + env_rows(split_expanded) - 1);
-				int end = env_rows(splitcmd) + env_rows(split_expanded) - 3;
+				int end = env_rows(splitcmd) - 1;
+				splitcmd = ft_realloc(splitcmd, sizeof(char *), env_rows(splitcmd), env_rows(splitcmd) + env_rows(split_expanded));
 				int end_new = env_rows(splitcmd) + env_rows(split_expanded) - 3 - i;
-				while (end_new > i)
+				while (end > i)
 					splitcmd[end--] = splitcmd[end_new--];
-				//adesso ho traslato avanti le parole per creare spazio alle nuove
 				tmp = splitcmd[i];
-				while (split_expanded[j] && splitcmd[i])
+				while (split_expanded[j])
 					splitcmd[i++] = split_expanded[j++];
-				//qui ho riempito lo spazio
 				free(tmp);
 			}
 		}
@@ -300,8 +297,8 @@ char	**wildcard_split(char **splitcmd, t_mini *mini)
 		}
 		if (splitcmd[i])
 			i++;
-		return splitcmd;
 	}
+	return splitcmd;
 }
 
 int	main(int argc, char **argv, char **envp)
