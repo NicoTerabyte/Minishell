@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/08 17:08:13 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/08 18:02:25 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,7 +229,6 @@ char	**wildcard_split(char **splitcmd, t_mini *mini)
 					splitcmd[i++] = split_expanded[j++];
 				free(expanded);
 				free(split_expanded);
-				free(tmp);
 			}
 		}
 		else
@@ -304,6 +303,6 @@ int	main(int argc, char **argv, char **envp)
 		execute(tree, STDIN_FILENO, STDOUT_FILENO, mini);
 		free_matrix(splitcmd);
 		ft_free_all(token_list, tree);
-		printf("exit status: %d\n", last_exit_status_cmd);
+		// printf("exit status: %d\n", last_exit_status_cmd);
 	}
 }

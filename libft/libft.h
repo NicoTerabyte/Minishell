@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 19:18:28 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/08 16:39:23 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/08 17:49:15 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,6 @@ char	*ft_strcpy(char *dest, char *src);
 char	*ft_strncpy(char *dest, char *src, unsigned int n);
 int		ft_strcmp_env(const char *input, const char *env);
 char	*ft_strcat(char *dest, char *src);
+int		ft_strcasecmp(const char *str1, const char *str2);
 
 #endif
