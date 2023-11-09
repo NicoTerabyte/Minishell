@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:44:38 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/09 15:02:53 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/09 15:47:50 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,9 @@ void	debug_print_tokens(t_token *token_lst)
 			printf("tipo : %d, contenuto : ", token_lst->token);
 			while (type_decl)
 			{
-				printf("(var name : %s, var value : %s, conc mode : %d) ", type_decl->name, type_decl->value, type_decl->concatenation);
+				printf("(var name : %s, var value : %s, conc mode : %d) ",
+					type_decl->name, type_decl->value,
+					type_decl->concatenation);
 				type_decl = type_decl->next;
 			}
 			printf("\n");

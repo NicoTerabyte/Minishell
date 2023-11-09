@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_paths_cmdargs_dup.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 20:20:50 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/07 17:25:16 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/09 16:53:10 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_is_one_word(char	*input)
 	while (input[i])
 	{
 		if (input[i] == ' ')
-			return 0;
+			return (0);
 		else if (input[i] == '"' || input[i] == '\'')
 		{
 			quote = input[i];
@@ -40,7 +40,7 @@ int	ft_is_one_word(char	*input)
 		if (input[i])
 			i++;
 	}
-	return 1;
+	return (1);
 }
 
 int	execute_redirections_output(t_token *redir_list, int curr_out, t_mini *mini)
@@ -52,20 +52,20 @@ int	execute_redirections_output(t_token *redir_list, int curr_out, t_mini *mini)
 	while (redir_list)
 	{
 		file_name = (char *)redir_list->value;
+		file_name = expander(mini, file_name);
+		redir_list->value = file_name;
 		if (!ft_is_one_word(file_name))
 		{
 			printf("minishell : ambigous redirection\n");
 			return (1);
 		}
-		file_name = expander(mini, file_name);
-		redir_list->value = file_name;
 		if (redir_list->token == OUT_FILE_TRUNC)
 			curr_out = open(file_name, O_CREAT | O_TRUNC | O_WRONLY, 0777);
 		else if (redir_list->token == OUT_FILE_APPEND)
 			curr_out = open(file_name, O_CREAT | O_APPEND | O_WRONLY, 0777);
 		if (curr_out == -1)
 		{
-			printf("minishell : %s: error creting file\n", file_name);
+			printf("minishell : %s: error creating file\n", file_name);
 			return (1);
 		}
 		redir_list = redir_list->next;
@@ -83,13 +83,13 @@ int	execute_redirections_input(t_token *redir_list, int curr_in, t_mini *mini)
 	while (redir_list)
 	{
 		file_name = (char *)redir_list->value;
+		file_name = expander(mini, file_name);
+		redir_list->value = file_name;
 		if (!ft_is_one_word(file_name))
 		{
 			printf("minishell : ambigous redirection\n");
 			return (1);
 		}
-		file_name = expander(mini, file_name);
-		redir_list->value = file_name;
 		if (redir_list->token == IN_FILE_TRUNC || redir_list->token == HERE_DOC)
 			curr_in = open(file_name, O_RDONLY);
 		if (curr_in == -1)

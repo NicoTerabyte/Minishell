@@ -6,13 +6,13 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:48:20 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/09 12:14:19 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/09 15:37:13 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int		find_equal(char *env)
+static int	find_equal(char *env)
 {
 	int	i;
 
@@ -41,7 +41,6 @@ void	print_export(char **export_matrix)
 			printf("=\"%s\"", export_matrix[i] + len + 1);
 		printf("\n");
 	}
-
 }
 
 char	**setting_the_matrix(char **env)
@@ -57,7 +56,7 @@ char	**setting_the_matrix(char **env)
 	i = -1;
 	while (++i < size)
 		the_export_copy[i] = ft_strdup(env[i]);
-	the_export_copy[size] = NULL;  // Terminatore dell'array
+	the_export_copy[size] = NULL;
 	return (the_export_copy);
 }
 
@@ -89,24 +88,6 @@ void	sort_and_print_export(char **env)
 	free_matrix(export_matrix);
 }
 
-
-/*
-	export secono manu:
-	allora bisogna cambiare leggermente export
-	per inquadrare in maniera corretta come funziona secondo
-	la logica di manu in maniera che io possa applicare meglio anche la
-	mia ecco cosa bisogna tenere in considerazione:
-	1) export lavora con la lista già pronta di conseguenza sai di avere:
-		nome, concatenazione valore di conseguenza alcune cose sono semplificate
-	2) manu tratta la concatenazione con 0 e 1 che non va bene da un certo punto di vista perché se
-		vogliamo differenziare come si deve la concatenazione verificando la casistica del
-		c= che diventa c="" dobbiamo
-		la domanda è: come gli dico di inserire il valore se non so che concatenazione c'è?
-	3) ci saranno meno controlli da fare nel codice di conseguenza conviene riadattare export
-		E forse come dice Mlongo va bene nel senso io la cosa dell'= lo usavo per la matrice
-		dell'environment di conseguenza se io procedo a stamparla correttamente non penso ci sia
-		un problema quindi se lavoro bene nella stampa ci saranno 100% in meno di controlli da fare
-*/
 void	ft_export(t_declaration *node, t_mini *mini)
 {
 	int	conc;
@@ -126,15 +107,3 @@ void	ft_export(t_declaration *node, t_mini *mini)
 		}
 	}
 }
-/*
-bug da sistemare
-1)l'aggiunta di più elementi comporta
-l'inserimento dell'= in maniera automatica (fixato)
-2)sembra che non riesca a reggere due test di fila
-i test sono: daje=roma pesce=noncane (le due variabili dovrebbero essere sovrascritte) (fixato)
-3)se una variabile è dichiarata senza = e poi si fa la concatenazione si rompe un po' (fixato)
-4) leaks sembra non ci siano altre pecche
-5) //segfault gestire casi con nomevalue = "=" (fixato)
-6) Sistemare la split in modo che dopo l'= si fa mantenendo i valori
-	è come se dovessi splittare una volta sola.... mantenendo quello che c'è dopo
-*/

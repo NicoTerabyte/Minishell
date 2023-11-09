@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 15:47:11 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/09 15:01:46 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/09 16:26:58 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ char	*ft_strpbrk(char *str, char *set);
 int		ft_isspace(char c);
 int		ft_stralnum(char *str);
 char	*ft_strbash_control(char *str);
-char	*ft_strbash_control_args(char *str);
 void	debug_print_tokens(t_token *token_lst);
 void	initialize_previus(t_token *head);
 void	*unlink_here_docs(t_list *here_docs_lst);

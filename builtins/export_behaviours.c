@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:46:45 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/09 12:14:19 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/09 15:42:32 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	concatenation_export(t_declaration *node, int pos, t_mini *mini)
 {
 	char	*tmp_value;
+
 	if (ft_strchr(mini->env[pos], '='))
 		tmp_value = ft_strndup(mini->env[pos], 0, ft_strlen(mini->env[pos]));
 	else
@@ -44,14 +45,13 @@ void	change_if_needed_env_ver(t_declaration *node, int pos, t_mini *mini)
 	}
 }
 
-int		check_doubles(t_declaration *node, t_mini *mini)
+int	check_doubles(t_declaration *node, t_mini *mini)
 {
 	int		i;
 	int		word_len;
 
 	word_len = ft_strlen(node->name);
 	i = 0;
-
 	while (mini->env[i])
 	{
 		if (ft_strncmp(mini->env[i], node->name, word_len) == 0
@@ -61,7 +61,7 @@ int		check_doubles(t_declaration *node, t_mini *mini)
 			return (1);
 		}
 		if (ft_strncmp(mini->env[i], node->name, word_len) == 0
-				&& node->concatenation == 2)
+			&& node->concatenation == 2)
 		{
 			concatenation_export(node, i, mini);
 			return (1);

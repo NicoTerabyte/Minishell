@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 20:27:59 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/09 12:14:19 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/09 16:51:45 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ int	have_outputs(t_token *redir_list)
 {
 	while (redir_list)
 	{
-		if (redir_list->token == OUT_FILE_TRUNC || redir_list->token == OUT_FILE_APPEND)
+		if (redir_list->token == OUT_FILE_TRUNC
+			|| redir_list->token == OUT_FILE_APPEND)
 			return (1);
 		redir_list = redir_list->next;
 	}
@@ -78,12 +79,19 @@ void	execve_cmd(t_simple_cmd *simple_cmd, t_mini *mini)
 	if (split_paths != NULL)
 	{
 		split_paths[0] = ft_strtrim(split_paths[0], "PATH=");
-		cmd_name = get_cmd_name_path((char *)simple_cmd->cmd->cmd_name->value, split_paths);
+		cmd_name = get_cmd_name_path(
+				(char *)simple_cmd->cmd->cmd_name->value, split_paths);
 	}
 	if (split_paths == NULL || cmd_name == NULL)
 	{
-		printf("minishell : %s command not found\n", (char *)simple_cmd->cmd->cmd_name->value);
+		printf("minishell : %s command not found\n",
+			(char *)simple_cmd->cmd->cmd_name->value);
 		free_matrix(split_paths);
+		ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS),
+			var_container(NULL, NULL, NULL, GET_TREE));
+		free_matrix(((t_mini *)var_container(NULL,
+					NULL, NULL, GET_MINI))->splitcmd);
+		free_env(var_container(NULL, NULL, NULL, GET_MINI));
 		exit(1);
 	}
 	cmd_args = get_cmd_args(simple_cmd);

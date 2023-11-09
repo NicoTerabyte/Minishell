@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:41:13 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/11/09 12:41:39 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/09 17:00:26 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 typedef struct s_mini
 {
 	char	**env;
+	char	**splitcmd;
+	char	*str;
 }	t_mini;
 
 typedef enum e_token_enum

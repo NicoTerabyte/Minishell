@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   other_mini_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 21:54:06 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/01 10:31:20 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/09 15:34:01 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,19 @@ void	swap_mat(char **str1, char **str2)
 
 char	*ft_strndup(char *str, int start, int finish)
 {
-	int i;
-	char *ret;
+	int		i;
+	char	*ret;
 
 	i = 0;
 	ret = ft_calloc((finish - start) + 1, 1);
-	while(start < finish)
+	while (start < finish)
 	{
 		ret[i] = str[start];
 		i ++ ;
 		start ++;
 	}
 	ret[i] = 0;
-	return(ret);
+	return (ret);
 }
 
 char	**split_bt_nt_t_mc(char *str, char c)
@@ -45,12 +45,11 @@ char	**split_bt_nt_t_mc(char *str, char c)
 
 	i = -1;
 	mat = (char **)malloc(3 * sizeof(char *));
-	for (i = 0; i < 3; i++) {
+	for (i = 0; i < 3; i++)
 		mat[i] = NULL;
-	}
 	if (ft_strchr(str, '=') != 0)
 	{
-		while(str[++i] != '=')
+		while (str[++i] != '=')
 			;
 		mat[0] = ft_substr(str, 0, i);
 		mat[1] = ft_substr(str, i + 1, ft_strlen(str));
@@ -64,5 +63,3 @@ char	**split_bt_nt_t_mc(char *str, char c)
 	}
 	return (mat);
 }
-
-
