@@ -11,12 +11,16 @@ int is_op(char *c)
 {
 	if ((c[0] == '|' && c[1] == '|') || (c[0] == '&' && c[1] == '&') || (c[0] == '|' && c[1] == ' ') || (c[0] == '|' && c[1] == 0))
 		return (1);
+	if (c[1] == 0)
+		return (1);
 	return (0);
 }
 
 int is_red(char *c)
 {
 	if ((c[0] == '<' && c[1] == '<') || (c[0] == '>' && c[1] == '>') || (c[0] == '<' && c[1] == ' ') || (c[0] == '>' && c[1] == ' '))
+		return (1);
+	if (c[1] == 0)
 		return (1);
 	return (0);
 }
@@ -25,6 +29,8 @@ int is_op_or_red(char *s, int *i)
 {
 	if (is_op(&s[*i]) || is_red(&s[*i]))
 		return (1);
+	if (is_op(&s[*i]) < 0 || is_red(&s[*i]) < 0)
+		return (-1);
 	return (0);
 }
 

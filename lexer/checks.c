@@ -25,9 +25,9 @@ int	check(char *s, t_mini *mini)
 			if (!check_quote(s))
 				return (0);
 		}
-		else if (is_op_or_red(s, &i))
+		else if (is_op_or_red(s, &i) != 0)
 		{
-			if (!check_operator(s, &i))
+			if (!check_operator(s, &i) || !is_op_or_red(s, &i))
 				return (0);
 			if (s[i] == '<' && s[i + 1] == '<')
 			{
