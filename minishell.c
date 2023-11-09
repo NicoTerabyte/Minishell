@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/09 17:05:31 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/09 17:08:27 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -278,19 +278,18 @@ int	main(int argc, char **argv, char **envp)
 			exit(0);
 		}
 		add_history(mini->str);
-		fixed = fix_syntax(mini->str);
-		free(mini->str);
-		if (!check(fixed, mini))
+		mini->str = fix_syntax(mini->str);
+		if (!check(mini->str, mini))
 		{
-			free(fixed);
+			free(mini->str);
 			if (g_last_exit_status_cmd == 130)
 				continue ;
 			printf("Syntax error\n");
 			g_last_exit_status_cmd = 2;
 			continue ;
 		}
-		splitcmd = ft_split(fixed, ' ');
-		free(fixed);
+		splitcmd = ft_split(mini->str, ' ');
+		free(mini->str);
 		splitcmd = wildcard_split(splitcmd, mini);
 		token_list = tokenizer(splitcmd, mini);
 		if (token_list)
