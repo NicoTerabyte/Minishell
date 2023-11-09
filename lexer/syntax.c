@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:49:50 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/11/09 16:37:34 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/09 17:04:07 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ char	*fix_syntax(char *str)
 	}
 	res[j] = 0;
 	res = fix_white_spaces(res);
+	free(str);
 	return (res);
 }
 

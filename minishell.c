@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/09 16:21:31 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/09 17:05:31 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,7 +250,6 @@ void	free_env(t_mini *mini)
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*str;
 	char	**splitcmd;
 	char	*fixed;
 	t_token	*token_list;
@@ -270,17 +269,17 @@ int	main(int argc, char **argv, char **envp)
 		signal(SIGQUIT, ign);
 		signal(SIGINT, signal_handler);
 		signal(SIGTERM, signal_handler);
-		str = readline("Minishell> ");
-		if (str == NULL)
+		mini->str = readline("Minishell> ");
+		if (mini->str == NULL)
 		{
 			printf("\n");
-			free(str);
+			free(mini->str);
 			free_env(mini);
 			exit(0);
 		}
-		add_history(str);
-		fixed = fix_syntax(str);
-		free(str);
+		add_history(mini->str);
+		fixed = fix_syntax(mini->str);
+		free(mini->str);
 		if (!check(fixed, mini))
 		{
 			free(fixed);
