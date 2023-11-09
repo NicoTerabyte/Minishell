@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:49:50 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/11/09 15:51:21 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/09 16:37:34 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ char	*handle_quotes(char *str, char *res, int *i, int *j)
 	c = 0;
 	if (str[*i] == '"' || str[*i] == '\'')
 	{
-		res[(*j)++] = str[(*i)++];
 		c = str[*i];
+		res[(*j)++] = str[(*i)++];
 		while (str[*i] && str[*i] != c)
 			res[(*j)++] = str[(*i)++];
 		if (str[*i] == c)

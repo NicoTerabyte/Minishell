@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:41:13 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/11/09 12:41:39 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/09 16:22:19 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 typedef struct s_mini
 {
 	char	**env;
+	char	**splitcmd;
 }	t_mini;
 
 typedef enum e_token_enum

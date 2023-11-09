@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/09 15:01:46 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/09 16:21:31 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,18 +75,14 @@ void	free_tokens(t_token *token_lst)
 			type_decl = (t_declaration *)token_lst->value;
 			while (type_decl)
 			{
-				printf("sto freeando bro\n");
 				tmpdecl = type_decl;
-				if (!type_decl->next)
-					break ;
-				type_decl = type_decl->next;
 				if (tmpdecl->name)
 					free(tmpdecl->name);
 				if (tmpdecl->value)
 					free(tmpdecl->value);
+				type_decl = type_decl->next;
 				free(tmpdecl);
 			}
-			free(tmpdecl);
 		}
 		else if (token_lst->token == CMD_ARG)
 		{
@@ -124,7 +120,7 @@ void	free_tree(t_tree *tree)
 	{
 		simple_cmd = (t_simple_cmd *)tree->content;
 		free_tokens(simple_cmd->redir_list);
-		free_tokens(simple_cmd->env);
+		free(simple_cmd->env);
 		if (simple_cmd->cmd)
 		{
 			free(simple_cmd->cmd->cmd_arg);
@@ -292,7 +288,6 @@ int	main(int argc, char **argv, char **envp)
 				continue ;
 			printf("Syntax error\n");
 			g_last_exit_status_cmd = 2;
-			printf("exit status: %d\n", g_last_exit_status_cmd);
 			continue ;
 		}
 		splitcmd = ft_split(fixed, ' ');
@@ -306,6 +301,7 @@ int	main(int argc, char **argv, char **envp)
 		if (token_list)
 			while (token_list->prev)
 				token_list = token_list->prev;
+		mini->splitcmd = splitcmd;
 		var_container(token_list, tree, mini, SET);
 		execute(tree, STDIN_FILENO, STDOUT_FILENO, mini);
 		free_matrix(splitcmd);

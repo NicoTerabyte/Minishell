@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve_signal_have_cmdpath.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 20:27:59 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/09 12:14:19 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/09 16:33:50 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,9 @@ void	execve_cmd(t_simple_cmd *simple_cmd, t_mini *mini)
 	{
 		printf("minishell : %s command not found\n", (char *)simple_cmd->cmd->cmd_name->value);
 		free_matrix(split_paths);
+		ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
+		free_matrix(((t_mini *)var_container(NULL, NULL, NULL, GET_MINI))->splitcmd);
+		free_env(var_container(NULL, NULL, NULL, GET_MINI));
 		exit(1);
 	}
 	cmd_args = get_cmd_args(simple_cmd);

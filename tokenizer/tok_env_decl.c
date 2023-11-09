@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_env_decl.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:43:54 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/09 15:07:03 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/09 16:37:51 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,14 +82,13 @@ t_declaration	*set_decl(char **splitcmd, int *i,
 {
 	t_declaration	*res_decl;
 
-	if (!splitcmd[*i] || ft_strbash_control_args(splitcmd[*i]))
+	if (!splitcmd[*i] || ft_strbash_control(splitcmd[*i]))
 		return (NULL);
 	res_decl = (t_declaration *)malloc(sizeof(t_declaration));
 	res_decl->next = NULL;
 	res_decl->concatenation = 0;
 	if (token_enum == ENV_VAR_DECL)
 	{
-		printf("sto creando un t_declaration\n");
 		res_decl->concatenation = set_decl_mode(splitcmd[*i]);
 		res_decl->name = set_decl_name(splitcmd[*i]);
 		res_decl->value = set_decl_value(splitcmd[*i]);

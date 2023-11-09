@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:43:45 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/09 15:07:43 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/09 16:26:40 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*scan_arg(char **splitcmd, int *i, t_mini *mini)
 {
 	char	*res;
 
-	if (!splitcmd[*i] || ft_strbash_control_args(splitcmd[*i]))
+	if (!splitcmd[*i] || ft_strbash_control(splitcmd[*i]))
 		return (NULL);
 	res = ft_substr(splitcmd[*i], 0, ft_strlen(splitcmd[*i]));
 	*i += 1;

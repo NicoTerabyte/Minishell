@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/09 12:14:19 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/09 16:37:11 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void expander_env(t_declaration *env, t_mini *mini)
 	}
 }
 
-void	execute_builtin(t_tree *tree, int curr_in, int curr_out, t_mini *mini) //diff numero 2
+void	execute_builtin(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 {
 
 	t_simple_cmd	*simple_cmd;
@@ -33,8 +33,8 @@ void	execute_builtin(t_tree *tree, int curr_in, int curr_out, t_mini *mini) //di
 
 	if (!tree)
 		return ;
-	starting_in = curr_in;
-	starting_out = curr_out;
+	starting_in = dup(fileno(stdin));
+	starting_out = dup(fileno(stdout));
 	simple_cmd = (t_simple_cmd	*)tree->content;
 	if (simple_cmd->redir_list != NULL)
 	{
@@ -42,8 +42,8 @@ void	execute_builtin(t_tree *tree, int curr_in, int curr_out, t_mini *mini) //di
 		if (have_inputs(redir_list))
 			if (execute_redirections_input(redir_list, curr_in, mini))
 			{
-				ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
-				exit(1);
+				g_last_exit_status_cmd = 1;
+				return ;
 			}
 	}
 	else
@@ -54,8 +54,8 @@ void	execute_builtin(t_tree *tree, int curr_in, int curr_out, t_mini *mini) //di
 		if (have_outputs(redir_list))
 			if (execute_redirections_output(redir_list, curr_out, mini))
 			{
-				ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
-				exit(1);
+				g_last_exit_status_cmd = 1;
+				return ;
 			}
 	}
 	else
@@ -167,6 +167,7 @@ static void	execute_subshell(t_tree *root, int in, int out, t_mini *mini)
 			if (have_inputs(redir_list))
 				if (execute_redirections_input(redir_list, in, mini))
 				{
+					free_matrix(((t_mini *)var_container(NULL, NULL, NULL, GET_MINI))->splitcmd);
 					ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
 					exit(1);
 				}
@@ -179,6 +180,7 @@ static void	execute_subshell(t_tree *root, int in, int out, t_mini *mini)
 			if (have_outputs(redir_list))
 				if (execute_redirections_output(redir_list, out, mini))
 				{
+					free_matrix(((t_mini *)var_container(NULL, NULL, NULL, GET_MINI))->splitcmd);
 					ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
 					exit(1);
 				}
