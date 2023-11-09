@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   check_tokens.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 15:51:51 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/11/09 15:56:28 by abuonomo         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../minishell.h"
 
 int	check_parentheses(char *s, int *i)
@@ -33,7 +21,7 @@ int	check_parentheses(char *s, int *i)
 	return (0);
 }
 
-int	check_operator(char *s, int *i)
+int check_operator(char *s, int *i)
 {
 	// if (s[*i] == '>' || s[*i] == '<')
 	// {
@@ -58,11 +46,11 @@ int	check_operator(char *s, int *i)
 	// return (0);
 }
 
-int	check_quote(char *s)
+int check_quote(char *s)
 {
-	int		i;
-	int		count;
-	char	c;
+	int i;
+	int count;
+	char c;
 
 	i = -1;
 	count = 0;
@@ -77,17 +65,17 @@ int	check_quote(char *s)
 			while (s[i] != c && s[i] != '\0')
 				i++;
 			if (s[i] == c)
-				count--;
+			count--;
 		}
 	}
 	return (counter(count));
 }
 
-int	check_number(char *s)
+int check_number(char *s)
 {
-	int		i;
-	int		count;
-	char	c;
+	int i;
+	int count;
+	char c;
 
 	i = -1;
 	count = 0;
