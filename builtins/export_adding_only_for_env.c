@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_adding_only_for_env.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:05:44 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/07 15:23:27 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/09 12:14:19 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,5 @@ void	add_to_the_real_env(t_declaration *node, t_mini *mini)
 		mini->env[i] = ft_strjoin_damn_you_leaks(mini->env[i], "=");
 	if (node->value)
 		mini->env[i] = ft_strjoin_damn_you_leaks(mini->env[i], node->value);
-	last_exit_status_cmd = 0;
+	g_last_exit_status_cmd = 0;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_behaviours.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:46:45 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/01 10:28:40 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/09 12:14:19 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,6 @@ int		check_doubles(t_declaration *node, t_mini *mini)
 		}
 		i++;
 	}
-	last_exit_status_cmd = 0;
+	g_last_exit_status_cmd = 0;
 	return (0);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor_utils2.c                                  :+:      :+:    :+:   */
+/*   execve_signal_have_cmdpath.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 20:27:59 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/31 11:07:59 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/09 12:14:19 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ char	*get_cmd_name_path(char *cmd_name, char **split_paths)
 void	signal_handler_execve(int signum)
 {
 	if (signum == SIGINT)
-		last_exit_status_cmd = 130;
+		g_last_exit_status_cmd = 130;
 	if (signum == SIGQUIT)
-		last_exit_status_cmd = 131;
+		g_last_exit_status_cmd = 131;
 }
 
 int	have_inputs(t_token *redir_list)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 15:42:00 by alessiolong       #+#    #+#             */
-/*   Updated: 2023/11/06 17:26:08 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/09 12:14:19 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,6 @@ void	handle_here_doc(char *del, t_mini *mini)
 		reading(fd, del, mini);
 	waitpid(pid, &exit_status, 0);
 	free(del);
-	last_exit_status_cmd = WEXITSTATUS(exit_status);
+	g_last_exit_status_cmd = WEXITSTATUS(exit_status);
 	close(fd);
 }

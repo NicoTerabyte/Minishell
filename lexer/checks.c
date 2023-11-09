@@ -49,7 +49,7 @@ int	check(char *s, t_mini *mini)
 			if (s[i] == '<' && s[i + 1] == '<')
 			{
 					handle_here_doc(create_del(&s[i + 3]), mini);
-					if (last_exit_status_cmd == 130)
+					if (g_last_exit_status_cmd == 130)
 						return (0);
 			}
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:48:20 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/07 15:06:55 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/09 12:14:19 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	ft_export(t_declaration *node, t_mini *mini)
 		while (node)
 		{
 			if (!check_arguments_validation(node->name))
-				last_exit_status_cmd = 1;
+				g_last_exit_status_cmd = 1;
 			else if (check_doubles(node, mini) == 0)
 				add_to_the_real_env(node, mini);
 			node = node->next;

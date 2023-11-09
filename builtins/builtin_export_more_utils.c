@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export_more_utils.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 20:30:03 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/31 11:08:31 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/09 12:14:19 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	check_arguments_validation(char *identity_name_only)
 	if (!ft_isalpha(identity_name_only[0]))
 	{
 		printf("\033[1;31mbash: export: `%s': not a valid identifier\n\033\e[0m", identity_name_only);
-		last_exit_status_cmd = 1;
+		g_last_exit_status_cmd = 1;
 		return (0);
 	}
 	while (identity_name_only[i])
@@ -50,7 +50,7 @@ int	check_arguments_validation(char *identity_name_only)
 		if (!ft_isalnum(identity_name_only[i]) && identity_name_only[i]!= '=' && identity_name_only[i] != '+')
 		{
 			printf("\033[31mbash: export: `%s': not a valid identifier\n\e[0m", identity_name_only);
-			last_exit_status_cmd = 1;
+			g_last_exit_status_cmd = 1;
 			return (0);
 		}
 		else if (identity_name_only[i] == '=')

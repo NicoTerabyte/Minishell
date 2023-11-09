@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   global.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 18:41:00 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/22 12:43:52 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/09 12:14:30 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GLOBAL_H
-#define GLOBAL_H
+# define GLOBAL_H
 
-extern int	last_exit_status_cmd;
+extern int	g_last_exit_status_cmd;
 
 #endif

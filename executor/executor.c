@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/08 19:02:02 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/09 12:14:19 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,20 +101,20 @@ void	execute_pipe_op(t_tree *root, int curr_in, int curr_out, t_mini *mini)
 	{
 		close(piping[0]);
 		execute(root->left, curr_in, piping[1], mini);
-		exit(last_exit_status_cmd);
+		exit(g_last_exit_status_cmd);
 	}
 	pid_right = fork();
 	if (!pid_right)
 	{
 		close(piping[1]);
 		execute(root->right, piping[0], curr_out, mini);
-		exit(last_exit_status_cmd);
+		exit(g_last_exit_status_cmd);
 	}
 	close(piping[0]);
 	close(piping[1]);
 	waitpid(pid_left, &exit_status, 0);
 	waitpid(pid_right, &exit_status, 0);
-	last_exit_status_cmd = WEXITSTATUS(exit_status);
+	g_last_exit_status_cmd = WEXITSTATUS(exit_status);
 }
 
 void	execute_and_op(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
@@ -122,7 +122,7 @@ void	execute_and_op(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 	if (!tree)
 		return ;
 	execute(tree->left, curr_in, curr_out, mini);
-	if (last_exit_status_cmd == 0)
+	if (g_last_exit_status_cmd == 0)
 		execute(tree->right, curr_in, curr_out, mini);
 }
 
@@ -131,7 +131,7 @@ void	execute_or_op(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 	if (!tree)
 		return ;
 	execute(tree->left, curr_in, curr_out, mini);
-	if (last_exit_status_cmd == 1)
+	if (g_last_exit_status_cmd == 1)
 		execute(tree->right, curr_in, curr_in, mini);
 }
 
@@ -186,10 +186,10 @@ static void	execute_subshell(t_tree *root, int in, int out, t_mini *mini)
 		else
 			dup_std_fd(out, STDOUT_FILENO);
 		execute(parenthesis_node->tree, in, out, mini);
-		exit(last_exit_status_cmd);
+		exit(g_last_exit_status_cmd);
 	}
 	waitpid(subshell_pid, &subshell_exit_status, 0);
-	last_exit_status_cmd = WEXITSTATUS(subshell_exit_status);
+	g_last_exit_status_cmd = WEXITSTATUS(subshell_exit_status);
 }
 
 void	execute_shell(t_tree *tree, int curr_in, int curr_out, t_mini *mini)

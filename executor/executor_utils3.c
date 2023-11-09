@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 20:41:37 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/08 19:02:48 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/09 12:14:19 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ void	process_integrated(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 		signal(SIGTERM, signal_handler);
 		signal(SIGQUIT, ign);
 		if (WIFEXITED(exit_status))
-			last_exit_status_cmd = WEXITSTATUS(exit_status);
-		// printf("last = %d", last_exit_status_cmd);
+			g_last_exit_status_cmd = WEXITSTATUS(exit_status);
+		// printf("last = %d", g_last_exit_status_cmd);
 	}
 }
 
@@ -125,7 +125,7 @@ void	execute_builtin_env(t_token *env, t_mini *mini)
 	if (env->token == ENV_VAR_DECL)
 		ft_export(env->value, mini);
 	if (env->token == ENV_VAR_UNSET)
-		last_exit_status_cmd = ft_unset(env->value, mini);
+		g_last_exit_status_cmd = ft_unset(env->value, mini);
 }
 
 void	execute_builtin_cmd(t_cmd *cmd, t_mini *mini)
@@ -137,13 +137,13 @@ void	execute_builtin_cmd(t_cmd *cmd, t_mini *mini)
 	else
 		args = NULL;
 	if (ft_strcmp(cmd->cmd_name->value, "echo") == 0)
-		last_exit_status_cmd = ft_echo(args);
+		g_last_exit_status_cmd = ft_echo(args);
 	if (ft_strcmp(cmd->cmd_name->value, "cd") == 0)
-		last_exit_status_cmd = ft_cd(args, mini);
+		g_last_exit_status_cmd = ft_cd(args, mini);
 	if (ft_strcmp(cmd->cmd_name->value, "pwd") == 0)
-		last_exit_status_cmd = ft_pwd();
+		g_last_exit_status_cmd = ft_pwd();
 	if (ft_strcmp(cmd->cmd_name->value, "exit") == 0)
 		ft_exit(args);
 	if (ft_strcmp(cmd->cmd_name->value, "env") == 0)
-		last_exit_status_cmd = ft_env(mini->env);
+		g_last_exit_status_cmd = ft_env(mini->env);
 }

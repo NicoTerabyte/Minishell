@@ -3,21 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 11:35:53 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/08 18:58:33 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/09 12:14:52 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-typedef struct s_mini
-{
-	char	**env;
-} t_mini;
-
 
 # include <time.h>
 # include <sys/wait.h>
@@ -42,11 +36,15 @@ typedef struct s_mini
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <signal.h>
-
 # define SET 10
 # define GET_TREE 11
 # define GET_TOKENS 12
 # define GET_MINI 13
+
+typedef struct s_mini
+{
+	char	**env;
+}	t_mini;
 
 void	signal_handler(int signum);
 void	ign(int signum);

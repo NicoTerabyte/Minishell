@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/09 11:59:09 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/09 12:14:19 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	last_exit_status_cmd = 0;
+int	g_last_exit_status_cmd = 0;
 
 void	printTree(t_tree *node, int level, char *message)
 {
@@ -154,7 +154,7 @@ void	signal_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
-		last_exit_status_cmd = EXIT_FAILURE;
+		g_last_exit_status_cmd = EXIT_FAILURE;
 		printf("\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();
@@ -297,11 +297,11 @@ int	main(int argc, char **argv, char **envp)
 		if (!check(fixed, mini))
 		{
 			free(fixed);
-			if (last_exit_status_cmd == 130)
+			if (g_last_exit_status_cmd == 130)
 				continue ;
 			printf("Syntax error\n");
-			last_exit_status_cmd = 2;
-			printf("exit status: %d\n", last_exit_status_cmd);
+			g_last_exit_status_cmd = 2;
+			printf("exit status: %d\n", g_last_exit_status_cmd);
 			continue ;
 		}
 		splitcmd = ft_split(fixed, ' ');
@@ -322,6 +322,6 @@ int	main(int argc, char **argv, char **envp)
 		execute(tree, STDIN_FILENO, STDOUT_FILENO, mini);
 		free_matrix(splitcmd);
 		ft_free_all(token_list, tree);
-		// printf("exit status: %d\n", last_exit_status_cmd);
+		// printf("exit status: %d\n", g_last_exit_status_cmd);
 	}
 }
