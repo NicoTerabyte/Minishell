@@ -28,10 +28,12 @@ int check_operator(char *s, int *i)
 	// 	if ((s[*i] == s[*i + 1] && s[*i + 2] == ' ' && s[*i + 3] != '>' && s[*i + 4] != '<') || (s[*i + 1] == ' ' && s[*i + 2] != '>' && s[*i + 3] != '<'))
 	// 		return (1);
 	// }
+	if ((s[*i] == '>' || s[*i] == '<') && s[*i] == 0)
+		return (0);
 	if (s[*i + 1] == 0 || s[*i + 2] == 0 || *i == 0 || is_op(&s[0]) || is_double(s, i))
 		return (0);
-	if (!is_op(&s[*i]) || !is_red(&s[*i]))
-		return (0);
+	// if (!is_op(&s[*i]) || !is_red(&s[*i]))
+	// 	return (0);
 	return (1);
 	// if ((not_op(&s[*i - 3]) || not_op(&s[*i - 2])) && s[*i - 1] == ' ')
 	// {

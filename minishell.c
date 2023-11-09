@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fcarlucc <fcarlucc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/09 17:08:27 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/09 17:44:29 by fcarlucc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,6 +279,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		add_history(mini->str);
 		mini->str = fix_syntax(mini->str);
+		printf("\n%s\n", mini->str);
 		if (!check(mini->str, mini))
 		{
 			free(mini->str);
