@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   here_doc.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/02 15:42:00 by alessiolong       #+#    #+#             */
-/*   Updated: 2023/11/09 12:14:19 by abuonomo         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../minishell.h"
 
 t_list	*start_back(t_list *here_doc_lst)
@@ -100,4 +88,29 @@ void	handle_here_doc(char *del, t_mini *mini)
 	free(del);
 	g_last_exit_status_cmd = WEXITSTATUS(exit_status);
 	close(fd);
+}
+
+char	*create_del(char *s)
+{
+	char	quote;
+	int		i;
+
+	i = 0;
+	while (s[i] && !ft_isspace(s[i]))
+	{
+		if (s[i] == '"' || s[i] == '\'')
+		{
+			quote = s[i];
+			while (s[i] && s[i] != quote)
+				i++;
+			break ;
+		}
+		i++;
+	}
+	return (ft_substr(s, 0, i));
+}
+
+void	del(void *str)
+{
+	free(str);
 }

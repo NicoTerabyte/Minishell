@@ -45,71 +45,87 @@ char	*fix_syntax(char *str)
 {
 	int		i;
 	int		j;
-	char	quote;
 	char	*res;
 
-
-	quote = 0;
 	i = 0;
 	j = 0;
 	res = malloc(count_syntax(str) + 1);
+	if (!res)
+		return (NULL);
 	while (str[i])
 	{
 		if (str[i] == '"' || str[i] == '\'')
-		{
-			res[j++] = str[i++];
-			quote = str[i];
-			while (str[i] && str[i] != quote)
-				res[j++] = str[i++];
-			if (str[i] == quote)
-				res[j++] = str[i++];
-		}
-		else if (str[i + 1] && ((str[i] == '|' && str[i + 1] == '|') || (str[i] == '&' && str[i + 1] == '&')
-			|| (str[i] == '<' && str[i + 1] == '<') || (str[i] == '>' && str[i + 1] == '>')))
-		{
-			if ((i != 0 && str[i - 1] != ' ') && (str[i + 2] && str[i + 2] != ' '))
-			{
-				res[j++] = ' ';
-				res[j++] = str[i++];
-				res[j++] = str[i++];
-				res[j++] = ' ';
-			}
-			else if (i != 0 && str[i - 1] != ' ')
-			{
-				res[j++] = ' ';
-				res[j++] = str[i++];
-				res[j++] = str[i++];
-			}
-			else
-			{
-				res[j++] = str[i++];
-				res[j++] = str[i++];
-				res[j++] = ' ';
-			}
-		}
+			res = handle_quotes(str, res, &i, &j);
+		else if(str[i + 1] && is_two_char(&str[i]))
+			res = handle_two(str, res, &i, &j);
 		else if (ft_strchr("|()<>", str[i]))
-		{
-			if ((i != 0 && str[i - 1] != ' ') && (str[i + 1] && str[i + 1] != ' '))
-			{
-				res[j++] = ' ';
-				res[j++] = str[i++];
-				res[j++] = ' ';
-			}
-			else if (i != 0 && str[i - 1] != ' ')
-			{
-				res[j++] = ' ';
-				res[j++] = str[i++];
-			}
-			else
-			{
-				res[j++] = str[i++];
-				res[j++] = ' ';
-			}
-		}
+			res = handle_one(str, res, &i, &j);
 		else
 			res[j++] = str[i++];
 	}
 	res[j] = 0;
 	res = fix_white_spaces(res);
+	return (res);
+}
+
+char *handle_quotes(char *str, char *res, int *i, int *j)
+{
+	char c;
+
+	c = 0;
+	if (str[*i] == '"' || str[*i] == '\'')
+	{
+		res[(*j)++] = str[(*i)++];
+		c = str[*i];
+		while (str[*i] && str[*i] != c)
+			res[(*j)++] = str[(*i)++];
+		if (str[*i] == c)
+			res[(*j)++] = str[(*i)++];
+	}
+	return (res);
+}
+
+char *handle_two(char *str, char *res, int *i, int *j)
+{
+	if ((*i != 0 && str[*i - 1] != ' ') && (str[*i + 2] && str[*i + 2] != ' '))
+	{
+		res[(*j)++] = ' ';
+		res[(*j)++] = str[(*i)++];
+		res[(*j)++] = str[(*i)++];
+		res[(*j)++] = ' ';
+	}
+	else if (*i != 0 && str[*i - 1] != ' ')
+	{
+		res[(*j)++] = ' ';
+		res[(*j)++] = str[(*i)++];
+		res[(*j)++] = str[(*i)++];
+	}
+	else
+	{
+		res[(*j)++] = str[(*i)++];
+		res[(*j)++] = str[(*i)++];
+		res[(*j)++] = ' ';
+	}
+	return (res);
+}
+
+char *handle_one(char *str, char *res, int *i, int *j)
+{
+	if ((i != 0 && str[*i - 1] != ' ') && (str[*i + 1] && str[*i + 1] != ' '))
+	{
+		res[(*j)++] = ' ';
+		res[(*j)++] = str[(*i)++];
+		res[(*j)++] = ' ';
+	}
+	else if (i != 0 && str[*i - 1] != ' ')
+	{
+		res[(*j)++] = ' ';
+		res[(*j)++] = str[(*i)++];
+	}
+	else
+	{
+		res[(*j)++] = str[(*i)++];
+		res[(*j)++] = ' ';
+	}
 	return (res);
 }
