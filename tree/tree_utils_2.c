@@ -6,11 +6,19 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 18:00:54 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/11/09 18:01:06 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/09 18:54:35 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	tree_init_norm(t_tree *tree)
+{
+	tree->content = NULL;
+	tree->left = NULL;
+	tree->right = NULL;
+	tree->prev = NULL;
+}
 
 t_token	*skip_back_parenthesis(t_token *token_lst)
 {
