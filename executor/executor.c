@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/07 17:24:35 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/08 19:02:02 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	execute_builtin(t_tree *tree, int curr_in, int curr_out, t_mini *mini) //di
 		if (have_inputs(redir_list))
 			if (execute_redirections_input(redir_list, curr_in, mini))
 			{
-				ft_free_all(var_container(NULL, NULL, GET_TOKENS), var_container(NULL, NULL, GET_TREE));
+				ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
 				exit(1);
 			}
 	}
@@ -54,7 +54,7 @@ void	execute_builtin(t_tree *tree, int curr_in, int curr_out, t_mini *mini) //di
 		if (have_outputs(redir_list))
 			if (execute_redirections_output(redir_list, curr_out, mini))
 			{
-				ft_free_all(var_container(NULL, NULL, GET_TOKENS), var_container(NULL, NULL, GET_TREE));
+				ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
 				exit(1);
 			}
 	}
@@ -167,7 +167,7 @@ static void	execute_subshell(t_tree *root, int in, int out, t_mini *mini)
 			if (have_inputs(redir_list))
 				if (execute_redirections_input(redir_list, in, mini))
 				{
-					ft_free_all(var_container(NULL, NULL, GET_TOKENS), var_container(NULL, NULL, GET_TREE));
+					ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
 					exit(1);
 				}
 		}
@@ -179,7 +179,7 @@ static void	execute_subshell(t_tree *root, int in, int out, t_mini *mini)
 			if (have_outputs(redir_list))
 				if (execute_redirections_output(redir_list, out, mini))
 				{
-					ft_free_all(var_container(NULL, NULL, GET_TOKENS), var_container(NULL, NULL, GET_TREE));
+					ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
 					exit(1);
 				}
 		}

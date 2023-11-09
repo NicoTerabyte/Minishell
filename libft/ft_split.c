@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 19:16:11 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/08 19:35:02 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/08 18:56:26 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 static size_t	get_word(const char *s, char c)
 {
@@ -51,7 +50,7 @@ char	**ft_split(char *s, char c)
 			len = 0;
 			while (*s && *s != c && !(*s >= '\t' && c <= '\r') && ++len)
 			{
-				if (*s == '"') //qua salta le "
+				if (*s == '"')
 				{
 					s++;
 					len++;

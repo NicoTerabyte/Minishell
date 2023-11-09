@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 20:41:37 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/07 17:26:25 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/08 19:02:48 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	execute_integrated(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 		if (have_inputs(redir_list))
 			if (execute_redirections_input(redir_list, curr_in, mini))
 			{
-				ft_free_all(var_container(NULL, NULL, GET_TOKENS), var_container(NULL, NULL, GET_TREE));
+				ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
 				exit(1);
 			}
 	}
@@ -50,7 +50,7 @@ void	execute_integrated(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 		if (have_outputs(redir_list))
 			if (execute_redirections_output(redir_list, curr_out, mini))
 			{
-				ft_free_all(var_container(NULL, NULL, GET_TOKENS), var_container(NULL, NULL, GET_TREE));
+				ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
 				exit(1);
 			}
 	}
@@ -58,7 +58,7 @@ void	execute_integrated(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 		dup_std_fd(curr_out, STDOUT_FILENO);
 	if (simple_cmd->cmd == NULL)
 	{
-		ft_free_all(var_container(NULL, NULL, GET_TOKENS), var_container(NULL, NULL, GET_TREE));
+		ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
 		exit(1);
 	}
 	else
@@ -125,7 +125,7 @@ void	execute_builtin_env(t_token *env, t_mini *mini)
 	if (env->token == ENV_VAR_DECL)
 		ft_export(env->value, mini);
 	if (env->token == ENV_VAR_UNSET)
-		last_exit_status_cmd = ft_unset((t_declaration *)env->value, mini);
+		last_exit_status_cmd = ft_unset(env->value, mini);
 }
 
 void	execute_builtin_cmd(t_cmd *cmd, t_mini *mini)

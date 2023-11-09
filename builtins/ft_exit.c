@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 14:37:44 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/31 11:13:50 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/08 18:41:56 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int	ft_exit(char **args)
 			len_args++;
 	if (len_args == 0)
 	{
-		ft_free_all(var_container(NULL, NULL, GET_TOKENS), var_container(NULL, NULL, GET_TREE));
+		ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
+		free_env(var_container(NULL, NULL, NULL, GET_MINI));
 		printf("exit\n");
 		exit(0);
 	}
@@ -52,7 +53,8 @@ int	ft_exit(char **args)
 					exit_value -= 256;
 				while (exit_value < 0)
 					exit_value += 256;
-				ft_free_all(var_container(NULL, NULL, GET_TOKENS), var_container(NULL, NULL, GET_TREE));
+				ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
+				free_env(var_container(NULL, NULL, NULL, GET_MINI));
 				printf("exit\n");
 				exit(exit_value);
 			}
@@ -66,7 +68,8 @@ int	ft_exit(char **args)
 		else
 		{
 			printf("exit\nminishell: exit: %s: numeric argument required\n", args[0]);
-			ft_free_all(var_container(NULL, NULL, GET_TOKENS), var_container(NULL, NULL, GET_TREE));
+			free_env(var_container(NULL, NULL, NULL, GET_MINI));
+			ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
 			exit (2);
 		}
 	}

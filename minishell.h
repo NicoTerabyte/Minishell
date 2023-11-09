@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 11:35:53 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/07 17:05:07 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/08 18:58:33 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,15 @@ typedef struct s_mini
 # define SET 10
 # define GET_TREE 11
 # define GET_TOKENS 12
+# define GET_MINI 13
 
-
-void	env_container(int action, void *arg, t_mini *the_copy);
 void	signal_handler(int signum);
 void	ign(int signum);
-void	*var_container(t_token *token_lst, t_tree *tree, int op);
+void	*var_container(t_token *token_lst, t_tree *tree, t_mini *mini, int op);
 void	ft_free_all(t_token *token_lst, t_tree *tree);
 void	free_tree(t_tree *tree);
 void	free_tokens(t_token *token_lst);
 void	printTree(t_tree *node, int level, char *message);
+void	free_env(t_mini *mini);
 
 #endif

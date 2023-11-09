@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/08 18:02:25 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/09 11:59:09 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,6 @@ void	printTree(t_tree *node, int level, char *message)
 	printTree(node->right, level + 1, "RIGHT");
 }
 
-void	env_container(int action, void *arg, t_mini *the_copy)
-{
-	if (action == 0)
-		copy_env((char **)arg, the_copy);
-}
-
 void	free_tokens(t_token *token_lst)
 {
 	t_token			*tmp;
@@ -80,6 +74,7 @@ void	free_tokens(t_token *token_lst)
 			type_decl = (t_declaration *)token_lst->value;
 			while (type_decl)
 			{
+				printf("sto freeando bro\n");
 				tmpdecl = type_decl;
 				if (!type_decl->next)
 					break ;
@@ -89,7 +84,15 @@ void	free_tokens(t_token *token_lst)
 				if (tmpdecl->value)
 					free(tmpdecl->value);
 				free(tmpdecl);
+				// tmpdecl = type_decl;
+				// if (tmpdecl->name)
+				// 	free(tmpdecl->name);
+				// if (tmpdecl->value)
+				// 	free(tmpdecl->value);
+				// type_decl = type_decl->next;
+				// free(tmpdecl);
 			}
+			free(tmpdecl);
 		}
 		else if (token_lst->token == CMD_ARG)
 		{
@@ -169,21 +172,25 @@ void	ign(int signum)
 	}
 }
 
-void	*var_container(t_token *token_lst, t_tree *tree, int op)
+void	*var_container(t_token *token_lst, t_tree *tree, t_mini *mini, int op)
 {
-	static t_token *this_token_lst;
-	static t_tree *this_tree;
+	static t_token	*this_token_lst;
+	static t_tree	*this_tree;
+	static t_mini	*this_mini;
 
 	if (op == SET)
 	{
 		this_token_lst = token_lst;
 		this_tree = tree;
+		this_mini = mini;
 		return (NULL);
 	}
 	else if (op == GET_TREE)
 		return (this_tree);
 	else if (op == GET_TOKENS)
 		return (this_token_lst);
+	else if (op == GET_MINI)
+		return (this_mini);
 	return (NULL);
 }
 
@@ -242,6 +249,17 @@ char	**wildcard_split(char **splitcmd, t_mini *mini)
 	return splitcmd;
 }
 
+void	free_env(t_mini *mini)
+{
+	int		i;
+
+	i = 0;
+	while (mini->env[i])
+		free(mini->env[i++]);
+	free(mini->env);
+	free(mini);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	signal(SIGQUIT, ign);
@@ -254,7 +272,7 @@ int	main(int argc, char **argv, char **envp)
 	t_tree	*tree;
 	t_mini	*mini;
 	mini = ft_calloc(1, sizeof(t_mini));
-	env_container(0, envp, mini);
+	copy_env(envp, mini);
 
 	token_list = NULL;
 	while (1)
@@ -269,6 +287,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			printf("\n");
 			free(str);
+			free_env(mini);
 			exit(0);
 		}
 		add_history(str);
@@ -299,7 +318,7 @@ int	main(int argc, char **argv, char **envp)
 		if (token_list)
 			while (token_list->prev)
 				token_list = token_list->prev;
-		var_container(token_list, tree, SET);
+		var_container(token_list, tree, mini, SET);
 		execute(tree, STDIN_FILENO, STDOUT_FILENO, mini);
 		free_matrix(splitcmd);
 		ft_free_all(token_list, tree);

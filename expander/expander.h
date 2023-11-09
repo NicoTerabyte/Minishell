@@ -3,19 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/07 16:53:00 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/08 19:00:05 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXPANDER_H
 # define EXPANDER_H
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
-# endif
 
 #include "../minishell.h"
 # define AND 0
@@ -28,7 +24,6 @@
 # define DOUBLE_QUOTES 7
 # define SINGLE_QUOTES 8
 
-// abuonomo
 int				env_rows2(t_mini *shell_data);
 int				put_arguments_in_list(t_declaration *identity,
 					char *command_line);

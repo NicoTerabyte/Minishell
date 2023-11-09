@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessiolongo <alessiolongo@student.42.f    +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 13:41:27 by mlongo            #+#    #+#             */
-/*   Updated: 2023/08/10 15:09:34 by alessiolong      ###   ########.fr       */
+/*   Updated: 2023/11/08 19:00:13 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,6 @@
 #  define BUFFER_SIZE 32
 # endif
 
-// void	ft_bzero(void *s, size_t n);
-// void	*ft_memcpy(void *dst, const void *src, int n);
-// void	*ft_calloc(int count, int size);
 char	*get_next_line(int fd);
-// int		ft_strlen(char *str);
 
 #endif
