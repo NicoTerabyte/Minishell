@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 16:11:25 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/31 11:08:23 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/09 15:45:07 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		ft_env(char **env)
+int	ft_env(char **env)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (env[i])
@@ -25,4 +25,3 @@ int		ft_env(char **env)
 	}
 	return (0);
 }
-

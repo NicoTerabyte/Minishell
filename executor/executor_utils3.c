@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 20:41:37 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/09 12:14:19 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/09 16:00:06 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,27 @@ void	expander_simple_cmd_args(char **args, t_mini *mini)
 	}
 }
 
-void	execute_integrated(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
+void	execute_integrated(t_tree *tree, int curr_in,
+		int curr_out, t_mini *mini)
 {
 	t_simple_cmd	*simple_cmd;
 	t_token			*redir_list;
 
 	if (!tree)
 		return ;
-	simple_cmd = (t_simple_cmd	*)tree->content;
+	simple_cmd = (t_simple_cmd *)tree->content;
 	if (simple_cmd->redir_list != NULL)
 	{
 		redir_list = (t_token *)simple_cmd->redir_list;
 		if (have_inputs(redir_list))
+		{
 			if (execute_redirections_input(redir_list, curr_in, mini))
 			{
-				ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
+				ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS),
+					var_container(NULL, NULL, NULL, GET_TREE));
 				exit(1);
 			}
+		}
 	}
 	else
 		dup_std_fd(curr_in, STDIN_FILENO);
@@ -48,17 +52,21 @@ void	execute_integrated(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 	{
 		redir_list = (t_token *)simple_cmd->redir_list;
 		if (have_outputs(redir_list))
+		{
 			if (execute_redirections_output(redir_list, curr_out, mini))
 			{
-				ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
+				ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS),
+					var_container(NULL, NULL, NULL, GET_TREE));
 				exit(1);
 			}
+		}
 	}
 	else
 		dup_std_fd(curr_out, STDOUT_FILENO);
 	if (simple_cmd->cmd == NULL)
 	{
-		ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
+		ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS),
+			var_container(NULL, NULL, NULL, GET_TREE));
 		exit(1);
 	}
 	else
@@ -69,7 +77,8 @@ void	execute_integrated(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 	}
 }
 
-void	process_integrated(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
+void	process_integrated(t_tree *tree, int curr_in,
+		int curr_out, t_mini *mini)
 {
 	int	pid;
 	int	exit_status;
@@ -78,7 +87,7 @@ void	process_integrated(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 	signal(SIGINT, ign);
 	signal(SIGTERM, ign);
 	pid = fork();
-	if(pid == 0)
+	if (pid == 0)
 		execute_integrated(tree, curr_in, curr_out, mini);
 	else
 	{
@@ -90,7 +99,6 @@ void	process_integrated(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 		signal(SIGQUIT, ign);
 		if (WIFEXITED(exit_status))
 			g_last_exit_status_cmd = WEXITSTATUS(exit_status);
-		// printf("last = %d", g_last_exit_status_cmd);
 	}
 }
 
@@ -99,9 +107,9 @@ int	is_builtin_command(t_tree *root, t_mini *mini)
 	t_simple_cmd	*simple_cmd;
 	char			*simple_name;
 
-	simple_cmd = (t_simple_cmd	*)root->content;
+	simple_cmd = (t_simple_cmd *)root->content;
 	if (simple_cmd->env)
-		return 1;
+		return (1);
 	if (simple_cmd->cmd)
 	{
 		simple_name = (char *)simple_cmd->cmd->cmd_name->value;

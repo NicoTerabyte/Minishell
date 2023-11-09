@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/08 19:00:05 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/09 15:31:41 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXPANDER_H
 # define EXPANDER_H
 
-#include "../minishell.h"
+# include "../minishell.h"
 # define AND 0
 # define OR 1
 # define PIPE 2
@@ -61,6 +61,7 @@ char			*expand_strbefore(char *input, int i, t_mini *mini);
 int				move_to_wildcard(char *input);
 int				is_wildcard_present(char *input);
 int				check_wildcard_before(char *input, int i);
-void			close_free_dir(struct dirent *entry,char *dirname, DIR *dir);
-void			open_read_getcwd(char **dirname, DIR **dir, struct dirent **entry);
+void			close_free_dir(struct dirent *entry, char *dirname, DIR *dir);
+void			open_read_getcwd(char **dirname, DIR **dir,
+					struct dirent **entry);
 #endif

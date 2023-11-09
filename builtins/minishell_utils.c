@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 17:46:34 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/07 15:22:29 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/09 15:41:54 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	copy_env(char **env, t_mini *all)
 	if (!all->env)
 	{
 		printf("Incombenza rilevata!!!\n");
-		return (0); // Non c'è bisogno di liberare la memoria qui
+		return (0);
 	}
 	while (env[i])
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_pwd_echo.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 16:34:36 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/10/31 11:12:47 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/09 15:46:52 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_pwd(void)
 	return (0);
 }
 
-static int		echo_case(char **command_line)
+static int	echo_case(char **command_line)
 {
 	if (!command_line)
 		return (1);
@@ -54,12 +54,11 @@ static int	flag_checker(char **command_line, int flag)
 	if (command_line[0][0] == '-' && command_line[0][1] == 'n')
 	{
 		flag = 1;
-		while(command_line[0][++n_counter])
+		while (command_line[0][++n_counter])
 		{
-			if (command_line[0][n_counter] != '\0' && command_line[0][n_counter] != 'n')
-			{
+			if (command_line[0][n_counter] != '\0'
+				&& command_line[0][n_counter] != 'n')
 				flag = 0;
-			}
 		}
 	}
 	return (flag);
@@ -74,7 +73,6 @@ int	ft_echo(char **command_line)
 	mat_size = 0;
 	flag = 0;
 	i = -1;
-//	printf("che è arrivato? %s\n", command_line[0]);
 	if (echo_case(command_line) == 2)
 		return (0);
 	else if (echo_case(command_line) == 1)
@@ -86,4 +84,3 @@ int	ft_echo(char **command_line)
 	echo_printer(command_line, flag, mat_size, i);
 	return (0);
 }
-

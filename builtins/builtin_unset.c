@@ -3,26 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 20:16:03 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/07 15:11:29 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/09 15:37:06 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
 
 void	fix_mat(t_mini *mini, int i)
 {
 	while (mini->env[i + 1])
 	{
 		swap_mat(&mini->env[i], &mini->env[i + 1]);
-		//swap_mat(&shell_data->export_mini->env[i], &shell_data->export_mini->env[i + 1]); export version da fare
 		i++;
 	}
 	mini->env[i] = 0;
-	//shell_data->export_mini->env[i] = 0;
 }
 
 void	copy_check_unset(char *str, t_mini *mini)
@@ -39,7 +36,7 @@ void	copy_check_unset(char *str, t_mini *mini)
 		if (ft_strncmp(mini->env[i], str, j) == 0)
 		{
 			if (ft_strncmp(mini->env[i], str,
-				ft_strlen(str)) == 0)
+					ft_strlen(str)) == 0)
 			{
 				free(mini->env[i]);
 				fix_mat(mini, i);
@@ -49,7 +46,7 @@ void	copy_check_unset(char *str, t_mini *mini)
 	}
 }
 
-int		ft_unset(t_declaration *node, t_mini *mini)
+int	ft_unset(t_declaration *node, t_mini *mini)
 {
 	int				i;
 
@@ -63,4 +60,3 @@ int		ft_unset(t_declaration *node, t_mini *mini)
 	}
 	return (0);
 }
-

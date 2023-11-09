@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/09 12:33:24 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/09 15:41:37 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	add_export_env(char **env);
 void	env_adding(char *final_string, char **env);
 int		check_doubles(t_declaration *node, t_mini *mini);
 char	*i_hate_this_strcpy_for_apix(char *dst, char *src);
-char	*ft_strjoin_damn_you_leaks(char *s1, char  *s2);
+char	*ft_strjoin_damn_you_leaks(char *s1, char *s2);
 void	add_to_the_real_env(t_declaration *node, t_mini *mini);
 int		check_if_good_for_env(t_declaration *node);
 char	*ft_strndup(char *str, int start, int finish);
