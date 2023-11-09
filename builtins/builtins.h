@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/01 10:32:32 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/09 12:33:24 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,8 @@ char	*ft_strndup(char *str, int start, int finish);
 void	change_if_needed_env_ver(t_declaration *node, int pos, t_mini *mini);
 void	concatenation_export(t_declaration *node, int pos, t_mini *mini);
 char	**split_bt_nt_t_mc(char *str, char c);
-//unset
 int		ft_unset(t_declaration *node, t_mini *mini);
 void	copy_check_unset(char *str, t_mini *mini);
 void	swap_mat(char **str1, char **str2);
-//exit mlongo deve farci ancora qualcosa
 int		ft_exit(char **args);
 #endif

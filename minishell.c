@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/09 12:14:19 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/09 12:23:38 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,46 +14,46 @@
 
 int	g_last_exit_status_cmd = 0;
 
-void	printTree(t_tree *node, int level, char *message)
-{
-	if (node == NULL) {
-		return;
-	}
-	for (int i = 0; i < level; i++) {
-		printf("  ");
-	}
-	printf("%s\n", message);
-	for (int i = 0; i < level; i++) {
-		printf("  ");
-	}
+// void	printTree(t_tree *node, int level, char *message)
+// {
+// 	if (node == NULL) {
+// 		return;
+// 	}
+// 	for (int i = 0; i < level; i++) {
+// 		printf("  ");
+// 	}
+// 	printf("%s\n", message);
+// 	for (int i = 0; i < level; i++) {
+// 		printf("  ");
+// 	}
 
-	if (node->type == SIMPLE_CMD) {
-		t_simple_cmd *cmd = (t_simple_cmd *)node->content;
-		printf("SIMPLE_CMD\n");
-		print_tokens(cmd->redir_list);
-		for (int i = 0; i < level; i++) {
-			printf("  ");
-		}
-		print_tokens(cmd->cmd->cmd_arg);
-		for (int i = 0; i < level; i++) {
-			printf("  ");
-		}
-		print_tokens(cmd->cmd->cmd_name);
-		print_tokens(cmd->env);
-	} else if (node->type == OP) {
-		printf("OP\n");
-		char *cmd = (char *)node->content;
-		printf("content : %s\n", cmd);
-	} else if (node->type == PARENTHESI) {
-		printf("PARENTHESIS\n");
-		t_parenthesis *cmd = (t_parenthesis *)node->content;
-		print_tokens(cmd->redir_list);
-		printTree(cmd->tree, level, "ROOT PARENTHESIS");
-	}
+// 	if (node->type == SIMPLE_CMD) {
+// 		t_simple_cmd *cmd = (t_simple_cmd *)node->content;
+// 		printf("SIMPLE_CMD\n");
+// 		print_tokens(cmd->redir_list);
+// 		for (int i = 0; i < level; i++) {
+// 			printf("  ");
+// 		}
+// 		print_tokens(cmd->cmd->cmd_arg);
+// 		for (int i = 0; i < level; i++) {
+// 			printf("  ");
+// 		}
+// 		print_tokens(cmd->cmd->cmd_name);
+// 		print_tokens(cmd->env);
+// 	} else if (node->type == OP) {
+// 		printf("OP\n");
+// 		char *cmd = (char *)node->content;
+// 		printf("content : %s\n", cmd);
+// 	} else if (node->type == PARENTHESI) {
+// 		printf("PARENTHESIS\n");
+// 		t_parenthesis *cmd = (t_parenthesis *)node->content;
+// 		print_tokens(cmd->redir_list);
+// 		printTree(cmd->tree, level, "ROOT PARENTHESIS");
+// 	}
 
-	printTree(node->left, level + 1, "LEFT");
-	printTree(node->right, level + 1, "RIGHT");
-}
+// 	printTree(node->left, level + 1, "LEFT");
+// 	printTree(node->right, level + 1, "RIGHT");
+// }
 
 void	free_tokens(t_token *token_lst)
 {
@@ -67,9 +67,10 @@ void	free_tokens(t_token *token_lst)
 	while (token_lst)
 	{
 		if (token_lst->token == OPERATOR || token_lst->token == OUT_FILE_APPEND || token_lst->token == OUT_FILE_TRUNC
-				|| token_lst->token == IN_FILE_TRUNC || token_lst->token == OPERATOR || token_lst->token == CMD_NAME)
+			|| token_lst->token == IN_FILE_TRUNC || token_lst->token == OPERATOR || token_lst->token == CMD_NAME)
 			free(token_lst->value);
-		else if (token_lst->token == ENV_VAR_DECL || token_lst->token == ENV_VAR_UNSET)
+		else if (token_lst->token == ENV_VAR_DECL
+			|| token_lst->token == ENV_VAR_UNSET)
 		{
 			type_decl = (t_declaration *)token_lst->value;
 			while (type_decl)
@@ -84,13 +85,6 @@ void	free_tokens(t_token *token_lst)
 				if (tmpdecl->value)
 					free(tmpdecl->value);
 				free(tmpdecl);
-				// tmpdecl = type_decl;
-				// if (tmpdecl->name)
-				// 	free(tmpdecl->name);
-				// if (tmpdecl->value)
-				// 	free(tmpdecl->value);
-				// type_decl = type_decl->next;
-				// free(tmpdecl);
 			}
 			free(tmpdecl);
 		}
@@ -98,7 +92,7 @@ void	free_tokens(t_token *token_lst)
 		{
 			i = 0;
 			args = (char **)token_lst->value;
-			while(args[i])
+			while (args[i])
 			{
 				free(args[i]);
 				i++;
@@ -167,9 +161,7 @@ void	signal_handler(int signum)
 void	ign(int signum)
 {
 	if (signum)
-	{
 		;
-	}
 }
 
 void	*var_container(t_token *token_lst, t_tree *tree, t_mini *mini, int op)
@@ -197,8 +189,8 @@ void	*var_container(t_token *token_lst, t_tree *tree, t_mini *mini, int op)
 int	ft_isredirection(char *str)
 {
 	if (!ft_strcmp(str, ">") || !ft_strcmp(str, ">>") || !ft_strcmp(str, "<"))
-		return 1;
-	return 0;
+		return (1);
+	return (0);
 }
 
 char	**wildcard_split(char **splitcmd, t_mini *mini)
@@ -246,7 +238,7 @@ char	**wildcard_split(char **splitcmd, t_mini *mini)
 		if (splitcmd[i])
 			i++;
 	}
-	return splitcmd;
+	return (splitcmd);
 }
 
 void	free_env(t_mini *mini)
@@ -262,18 +254,18 @@ void	free_env(t_mini *mini)
 
 int	main(int argc, char **argv, char **envp)
 {
-	signal(SIGQUIT, ign);
-	(void)argc;
-	(void)argv;
 	char	*str;
 	char	**splitcmd;
 	char	*fixed;
 	t_token	*token_list;
 	t_tree	*tree;
 	t_mini	*mini;
+
+	signal(SIGQUIT, ign);
+	(void)argc;
+	(void)argv;
 	mini = ft_calloc(1, sizeof(t_mini));
 	copy_env(envp, mini);
-
 	token_list = NULL;
 	while (1)
 	{
@@ -292,7 +284,6 @@ int	main(int argc, char **argv, char **envp)
 		}
 		add_history(str);
 		fixed = fix_syntax(str);
-		// printf("%s\n", fixed);
 		free(str);
 		if (!check(fixed, mini))
 		{
@@ -307,9 +298,6 @@ int	main(int argc, char **argv, char **envp)
 		splitcmd = ft_split(fixed, ' ');
 		free(fixed);
 		splitcmd = wildcard_split(splitcmd, mini);
-		// printf("Print splitcmd\n");
-		// for (int i = 0; splitcmd[i]; i++)
-		// 	printf("split = %s\n", splitcmd[i]);
 		token_list = tokenizer(splitcmd, mini);
 		if (token_list)
 			while (token_list->next)
@@ -322,6 +310,5 @@ int	main(int argc, char **argv, char **envp)
 		execute(tree, STDIN_FILENO, STDOUT_FILENO, mini);
 		free_matrix(splitcmd);
 		ft_free_all(token_list, tree);
-		// printf("exit status: %d\n", g_last_exit_status_cmd);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 14:19:48 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/08 19:00:35 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/09 12:36:22 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,43 +14,6 @@
 # define TREE_H
 
 # include "../minishell.h"
-
-typedef enum e_tree_enum
-{
-	SIMPLE_CMD,
-	OP,
-	PARENTHESI,
-}	t_tree_enum;
-
-typedef struct s_cmd
-{
-	t_token *cmd_name;
-	t_token *cmd_arg;
-} t_cmd;
-
-typedef struct s_simple_cmd
-{
-	t_token			*redir_list;
-	struct s_cmd	*cmd;
-	t_token			*env;
-}	t_simple_cmd;
-
-typedef struct s_tree
-{
-	t_tree_enum		type;
-	void			*content;
-	struct s_tree	*right;
-	struct s_tree	*left;
-	struct s_tree	*prev;
-	char			**env;
-}	t_tree;
-
-typedef struct s_parenthesis
-{
-	t_token	*redir_list;
-	t_tree	*tree;
-}	t_parenthesis;
-
 
 t_tree			*tree_create(t_token *token_lst, t_tree_enum calling);
 t_parenthesis	*parenthesis_node(t_token *token_lst);
