@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:43:45 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/02 16:08:21 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/09 15:07:43 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,3 @@ void	scan_cmd(char **splitcmd, int *i, t_token **token_lst, t_mini *mini)
 	scan_args(splitcmd, i, token_lst, mini);
 	tok_add_back(token_lst, token_cmd_name);
 }
-

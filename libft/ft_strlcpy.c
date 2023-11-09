@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 19:17:17 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/21 04:23:49 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/09 15:12:33 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 		i++;
 	return (i);
 }
+
 char	*i_hate_this_strcpy_for_apix(char *dst, char *src)
 {
 	int		i;
@@ -47,6 +48,5 @@ char	*i_hate_this_strcpy_for_apix(char *dst, char *src)
 		j++;
 	}
 	dst = ft_strjoin_damn_you_leaks(dst, "\"");
-
 	return (dst);
 }

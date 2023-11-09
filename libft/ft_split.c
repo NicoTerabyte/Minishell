@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 19:16:11 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/08 18:56:26 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/09 15:14:23 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static size_t	get_word(const char *s, char c)
 		if (*s != c && !(*s >= '\t' && c <= '\r'))
 		{
 			++words;
-			while (*s && *s != c )
+			while (*s && *s != c)
 				++s;
 		}
 		else

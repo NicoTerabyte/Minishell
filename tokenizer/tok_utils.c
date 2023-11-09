@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   tok_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:44:33 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/31 11:06:51 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/09 15:07:24 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char *no_quotes(char *str)
+char	*no_quotes(char *str)
 {
 	char	*res;
 	int		i;

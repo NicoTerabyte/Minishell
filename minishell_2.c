@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:20:54 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/11/09 12:23:52 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/09 15:01:46 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,16 @@
 // 	if (node->type == SIMPLE_CMD) {
 // 		t_simple_cmd *cmd = (t_simple_cmd *)node->content;
 // 		printf("SIMPLE_CMD\n");
-// 		print_tokens(cmd->redir_list);
+// 		debug_print_tokens(cmd->redir_list);
 // 		for (int i = 0; i < level; i++) {
 // 			printf("  ");
 // 		}
-// 		print_tokens(cmd->cmd->cmd_arg);
+// 		debug_print_tokens(cmd->cmd->cmd_arg);
 // 		for (int i = 0; i < level; i++) {
 // 			printf("  ");
 // 		}
-// 		print_tokens(cmd->cmd->cmd_name);
-// 		print_tokens(cmd->env);
+// 		debug_print_tokens(cmd->cmd->cmd_name);
+// 		debug_print_tokens(cmd->env);
 // 	} else if (node->type == OP) {
 // 		printf("OP\n");
 // 		char *cmd = (char *)node->content;
@@ -45,7 +45,7 @@
 // 	} else if (node->type == PARENTHESI) {
 // 		printf("PARENTHESIS\n");
 // 		t_parenthesis *cmd = (t_parenthesis *)node->content;
-// 		print_tokens(cmd->redir_list);
+// 		debug_print_tokens(cmd->redir_list);
 // 		printTree(cmd->tree, level, "ROOT PARENTHESIS");
 // 	}
 

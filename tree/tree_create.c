@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_create.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 11:51:13 by alessiolong       #+#    #+#             */
-/*   Updated: 2023/11/06 17:21:46 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/09 14:49:21 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void	tree_node_operator(t_token *token_lst, t_tree **tree)
 	(*tree)->right = tree_create(token_lst, SIMPLE_CMD);
 }
 
-t_tree *tree_create(t_token *token_lst, t_tree_enum calling)
+t_tree	*tree_create(t_token *token_lst, t_tree_enum calling)
 {
-	if (!token_lst)
-		return (NULL);
 	t_tree	*tree;
 
+	if (!token_lst)
+		return (NULL);
 	tree = (t_tree *)malloc(sizeof(t_tree));
 	tree->content = NULL;
 	tree->left = NULL;

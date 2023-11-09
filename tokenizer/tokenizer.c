@@ -3,29 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:44:38 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/31 11:07:18 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/09 15:02:53 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	initializePrevious(t_token *head)
+void	initialize_previus(t_token *head)
 {
-	t_token* current = head;
-	t_token* prevNode = NULL;
+	t_token	*current;
+	t_token	*prevnode;
 
+	current = head;
+	prevnode = NULL;
 	while (current != NULL)
 	{
-		current->prev = prevNode;
-		prevNode = current;
+		current->prev = prevnode;
+		prevnode = current;
 		current = current->next;
 	}
 }
 
-void	print_tokens(t_token *token_lst)
+void	debug_print_tokens(t_token *token_lst)
 {
 	t_declaration	*type_decl;
 	char			*type_char;
@@ -36,14 +38,17 @@ void	print_tokens(t_token *token_lst)
 	while (token_lst)
 	{
 		if (token_lst->token == PARENTHESIS || token_lst->token == IN_FILE_TRUNC
-				|| token_lst->token == HERE_DOC || token_lst->token == OUT_FILE_APPEND
-				|| token_lst->token == OUT_FILE_TRUNC || token_lst->token == CMD_NAME
-				|| token_lst->token == OPERATOR)
+			|| token_lst->token == HERE_DOC
+			|| token_lst->token == OUT_FILE_APPEND
+			|| token_lst->token == OUT_FILE_TRUNC
+			|| token_lst->token == CMD_NAME
+			|| token_lst->token == OPERATOR)
 		{
 			type_char = (char *)token_lst->value;
 			printf("tipo : %d, contenuto : %s\n", token_lst->token, type_char);
 		}
-		else if (token_lst->token == ENV_VAR_DECL || token_lst->token == ENV_VAR_UNSET)
+		else if (token_lst->token == ENV_VAR_DECL
+			|| token_lst->token == ENV_VAR_UNSET)
 		{
 			type_decl = (t_declaration *)token_lst->value;
 			printf("tipo : %d, contenuto : ", token_lst->token);
@@ -59,25 +64,22 @@ void	print_tokens(t_token *token_lst)
 			i = 0;
 			args = (char **)token_lst->value;
 			printf("tipo : %d, contenuto : (", token_lst->token);
-			while(args[i])
+			while (args[i])
 			{
 				printf(" %s", args[i]);
 				i++;
 			}
 			printf(" )\n");
 		}
-		// tmp = token_lst;
 		token_lst = token_lst->next;
-		// free(tmp);
 	}
-	// free(token_lst);
 }
 
 t_token	*tokenizer(char **splitcmd, t_mini *mini)
 {
-	t_token *token_lst;
-	int	i;
-	int	cursor;
+	t_token	*token_lst;
+	int		i;
+	int		cursor;
 
 	i = 0;
 	cursor = 0;
@@ -98,6 +100,6 @@ t_token	*tokenizer(char **splitcmd, t_mini *mini)
 		if (cursor == i)
 			break ;
 	}
-	initializePrevious(token_lst);
+	initialize_previus(token_lst);
 	return (token_lst);
 }

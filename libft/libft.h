@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 19:18:28 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/08 17:49:15 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/09 15:13:45 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-#include <stdint.h>
+# include <stdint.h>
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -71,7 +71,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		ft_strcmp(char *s1, char *s2);
-char	*ft_strjoin_damn_you_leaks(char *s1, char  *s2);
+char	*ft_strjoin_damn_you_leaks(char *s1, char *s2);
 char	*i_hate_this_strcpy_for_apix(char *dst, char *src);
 void	*ft_realloc(void *p, size_t size, int dim, int new_dim);
 char	*ft_strcpy(char *dest, char *src);

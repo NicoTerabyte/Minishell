@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_utils_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:44:30 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/03 17:41:18 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/09 14:56:27 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	free_matrix(char **s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s[i])
@@ -28,7 +28,7 @@ int	ft_isspace(char c)
 	return (c == 32 || (c >= '\t' && c <= '\r'));
 }
 
-char *ft_strpbrk(char *str, char *set)
+char	*ft_strpbrk(char *str, char *set)
 {
 	int	i;
 
@@ -42,18 +42,21 @@ char *ft_strpbrk(char *str, char *set)
 	return (NULL);
 }
 
-char *ft_strbash_control(char *str)
+char	*ft_strbash_control(char *str)
 {
-	if (str[0] == '|' || (str[0] == '&' && str[1] == '&')|| str[0] == '<' || str[0] == '>'
+	if (str[0] == '|' || (str[0] == '&' && str[1] == '&')
+		|| str[0] == '<' || str[0] == '>'
 		|| str[0] == '(' || str[0] == ')' || str[0] == '`'
-		|| str[0] == '\\' || str[0] == '"' || str[0] == '\'' || ft_isspace(str[0]))
+		|| str[0] == '\\' || str[0] == '"'
+		|| str[0] == '\'' || ft_isspace(str[0]))
 		return (&str[0]);
 	return (NULL);
 }
 
-char *ft_strbash_control_args(char *str)
+char	*ft_strbash_control_args(char *str)
 {
-	if (str[0] == '|' || (str[0] == '&' && str[1] == '&')|| str[0] == '<' || str[0] == '>'
+	if (str[0] == '|' || (str[0] == '&' && str[1] == '&')
+		|| str[0] == '<' || str[0] == '>'
 		|| str[0] == '(' || str[0] == ')' || str[0] == '`'
 		|| str[0] == '\\' || ft_isspace(str[0]))
 		return (&str[0]);
@@ -62,7 +65,7 @@ char *ft_strbash_control_args(char *str)
 
 int	ft_stralnum(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])

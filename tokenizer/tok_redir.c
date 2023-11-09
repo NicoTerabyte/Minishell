@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   tok_redir.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:44:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/02 16:08:26 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/09 14:53:23 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_token_enum set_redir_type(char **splitcmd, int *i)
+t_token_enum	set_redir_type(char **splitcmd, int *i)
 {
-	t_token_enum enum_tok;
+	t_token_enum	enum_tok;
 
 	enum_tok = NONE;
 	if (splitcmd[*i][0] == '>' && splitcmd[*i][1] == '>')
@@ -32,12 +32,13 @@ t_token_enum set_redir_type(char **splitcmd, int *i)
 char	*set_redir_value(char **splitcmd, int *i, t_mini *mini)
 {
 	char	*res;
+
 	res = ft_substr(splitcmd[*i], 0, ft_strlen(splitcmd[*i]));
 	*i += 1;
 	return (res);
 }
 
-char	*here_doc_name()
+char	*here_doc_name(void)
 {
 	int				here_docs;
 	char			*prefix;
@@ -72,13 +73,15 @@ void	*unlink_here_docs(t_list *here_docs_lst)
 	return (NULL);
 }
 
-void	scan_redirections(char **splitcmd, int *i, t_token **token_lst, t_mini *mini)
+void	scan_redirections(char **splitcmd, int *i,
+	t_token **token_lst, t_mini *mini)
 {
 	t_token	*token;
 
 	if (!splitcmd[*i])
 		return ;
-	while (splitcmd[*i] && ((splitcmd[*i][0] == '>' && splitcmd[*i][1] == '>') || (splitcmd[*i][0] == '<' && splitcmd[*i][1] == '<')
+	while (splitcmd[*i] && ((splitcmd[*i][0] == '>' && splitcmd[*i][1] == '>')
+			|| (splitcmd[*i][0] == '<' && splitcmd[*i][1] == '<')
 			|| splitcmd[*i][0] == '>' || splitcmd[*i][0] == '<'))
 	{
 		token = (t_token *)malloc(sizeof(t_token));

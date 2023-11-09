@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_scan_1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicoter <lnicoter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:44:24 by mlongo            #+#    #+#             */
-/*   Updated: 2023/10/31 11:06:44 by lnicoter         ###   ########.fr       */
+/*   Updated: 2023/11/09 14:54:00 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	scan_parenthesis(char **splitcmd, int *i, t_token **token_lst)
 {
-	t_token *tok_par;
+	t_token	*tok_par;
 
 	while (splitcmd[*i] && (splitcmd[*i][0] == '(' || splitcmd[*i][0] == ')'))
 	{
@@ -44,7 +44,9 @@ void	scan_operator(char **splitcmd, int *i, t_token **token_lst)
 {
 	t_token	*token_op;
 
-	if (!splitcmd[*i] || !((splitcmd[*i][0] == '|' && splitcmd[*i][1] == '|') || (splitcmd[*i][0] == '&' && splitcmd[*i][1] == '&') || splitcmd[*i][0] == '|'))
+	if (!splitcmd[*i] || !((splitcmd[*i][0] == '|' && splitcmd[*i][1] == '|')
+		|| (splitcmd[*i][0] == '&' && splitcmd[*i][1] == '&')
+		|| splitcmd[*i][0] == '|'))
 		return ;
 	token_op = (t_token *)malloc(sizeof(t_token));
 	token_op->token = OPERATOR;
