@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/09 15:31:41 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/10 18:34:58 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@
 # define REDIRECTION_OUTPUT_APPEND 6
 # define DOUBLE_QUOTES 7
 # define SINGLE_QUOTES 8
+
+typedef struct s_filter
+{
+	char	*filename;
+	char	*filter;
+}	t_filter;
 
 int				env_rows2(t_mini *shell_data);
 int				put_arguments_in_list(t_declaration *identity,
