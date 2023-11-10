@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:37:51 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/10 16:33:29 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/10 19:11:32 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,7 @@ void	execute_and_op(t_tree *tree, int curr_in, int curr_out, t_mini *mini);
 void	execute_pipe_op(t_tree *root, int curr_in, int curr_out, t_mini *mini);
 void	execute_simple_cmd(t_tree *tree, int curr_in,
 			int curr_out, t_mini *mini);
+void	free_exit(int exit_value);
+void	handle_redirections(t_token *redir_list, int in, int out, t_mini *mini);
+
 #endif
