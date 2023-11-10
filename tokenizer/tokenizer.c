@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:44:38 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/09 17:41:18 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/10 13:39:17 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,12 @@ void	debug_print_tokens(t_token *token_lst)
 		token_lst = token_lst->next;
 	}
 }
+t_token *init_tokenizer(int *i, int *cursor)
+{
+	*i = 0;
+	*cursor = 0;
+	return (NULL);
+}
 
 t_token	*tokenizer(char **splitcmd, t_mini *mini)
 {
@@ -83,28 +89,25 @@ t_token	*tokenizer(char **splitcmd, t_mini *mini)
 	int		i;
 	int		cursor;
 
-	i = 0;
-	cursor = 0;
-	token_lst = NULL;
+	token_lst = init_tokenizer(&i,&cursor);
 	while (splitcmd[i])
 	{
 		cursor = i;
 		scan_parenthesis(splitcmd, &i, &token_lst);
-		scan_redirections(splitcmd, &i, &token_lst, mini);
+		scan_redirections(splitcmd, &i, &token_lst);
 		if (verify_env_decl(splitcmd, &i))
-			scan_env_decl(splitcmd, &i, &token_lst, mini);
+			scan_env_decl(splitcmd, &i, &token_lst);
 		else
 		{
 			if (!scan_cmd(splitcmd, &i, &token_lst, mini))
 				continue ;
 		}
-		scan_redirections(splitcmd, &i, &token_lst, mini);
+		scan_redirections(splitcmd, &i, &token_lst);
 		scan_parenthesis(splitcmd, &i, &token_lst);
-		scan_redirections(splitcmd, &i, &token_lst, mini);
+		scan_redirections(splitcmd, &i, &token_lst);
 		scan_operator(splitcmd, &i, &token_lst);
 		if (cursor == i)
 			break ;
 	}
-	initialize_previus(token_lst);
 	return (token_lst);
 }
