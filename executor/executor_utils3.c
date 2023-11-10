@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 20:41:37 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/10 16:23:22 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/10 17:01:51 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,44 +21,34 @@ void	execute_integrated(t_tree *tree, int curr_in,
 	if (!tree)
 		return ;
 	simple_cmd = (t_simple_cmd *)tree->content;
-	if (simple_cmd->redir_list != NULL)
+	redir_list = (t_token *)simple_cmd->redir_list;
+	if (redir_list && have_inputs(redir_list))
 	{
-		redir_list = (t_token *)simple_cmd->redir_list;
-		if (have_inputs(redir_list))
+		if (execute_redirections_input(redir_list, curr_in, mini))
 		{
-			if (execute_redirections_input(redir_list, curr_in, mini))
-			{
-				free_matrix(((t_mini *)var_container(NULL,
-							NULL, NULL, GET_MINI))->splitcmd);
-				ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS),
-					var_container(NULL, NULL, NULL, GET_TREE));
-				exit(1);
-			}
+			free_matrix(((t_mini *)var_container(NULL, NULL, NULL, GET_MINI))->splitcmd);
+			ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS),
+				var_container(NULL, NULL, NULL, GET_TREE));
+			exit(1);
 		}
 	}
 	else
 		dup_std_fd(curr_in, STDIN_FILENO);
-	if (simple_cmd->redir_list != NULL)
+	if (redir_list && have_outputs(redir_list))
 	{
-		redir_list = (t_token *)simple_cmd->redir_list;
-		if (have_outputs(redir_list))
+		if (execute_redirections_output(redir_list, curr_out, mini))
 		{
-			if (execute_redirections_output(redir_list, curr_out, mini))
-			{
-				free_matrix(((t_mini *)var_container(NULL,
-							NULL, NULL, GET_MINI))->splitcmd);
-				ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS),
-					var_container(NULL, NULL, NULL, GET_TREE));
-				exit(1);
-			}
+			free_matrix(((t_mini *)var_container(NULL, NULL, NULL, GET_MINI))->splitcmd);
+			ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS),
+				var_container(NULL, NULL, NULL, GET_TREE));
+			exit(1);
 		}
 	}
 	else
 		dup_std_fd(curr_out, STDOUT_FILENO);
 	if (simple_cmd->cmd == NULL)
 	{
-		free_matrix(((t_mini *)var_container(NULL,
-					NULL, NULL, GET_MINI))->splitcmd);
+		free_matrix(((t_mini *)var_container(NULL, NULL, NULL, GET_MINI))->splitcmd);
 		ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS),
 			var_container(NULL, NULL, NULL, GET_TREE));
 		exit(1);
