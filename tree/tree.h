@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 14:19:48 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/09 18:53:25 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/09 12:36:22 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,5 @@ t_token			*copy_tok(t_token *to_copy);
 t_simple_cmd	*simple_cmd_redirections(t_token *token_lst);
 void			simple_cmd(t_token *token_lst, t_simple_cmd *simple_cmd);
 void			free_tokens(t_token *token_lst);
-void			tree_init_norm(t_tree *tree);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_paths_cmdargs_dup.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 20:20:50 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/09 16:53:10 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/09 16:35:44 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_is_one_word(char	*input)
 	while (input[i])
 	{
 		if (input[i] == ' ')
-			return (0);
+			return 0;
 		else if (input[i] == '"' || input[i] == '\'')
 		{
 			quote = input[i];
@@ -40,7 +40,7 @@ int	ft_is_one_word(char	*input)
 		if (input[i])
 			i++;
 	}
-	return (1);
+	return 1;
 }
 
 int	execute_redirections_output(t_token *redir_list, int curr_out, t_mini *mini)

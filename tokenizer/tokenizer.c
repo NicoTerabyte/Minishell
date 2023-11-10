@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:44:38 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/09 15:47:50 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/09 17:41:18 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,10 @@ t_token	*tokenizer(char **splitcmd, t_mini *mini)
 		if (verify_env_decl(splitcmd, &i))
 			scan_env_decl(splitcmd, &i, &token_lst, mini);
 		else
-			scan_cmd(splitcmd, &i, &token_lst, mini);
+		{
+			if (!scan_cmd(splitcmd, &i, &token_lst, mini))
+				continue ;
+		}
 		scan_redirections(splitcmd, &i, &token_lst, mini);
 		scan_parenthesis(splitcmd, &i, &token_lst);
 		scan_redirections(splitcmd, &i, &token_lst, mini);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/09 16:58:28 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/09 19:01:59 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	expander_env(t_declaration *env, t_mini *mini)
+void expander_env(t_declaration *env, t_mini *mini)
 {
 	while (env)
 	{
@@ -25,6 +25,7 @@ void	expander_env(t_declaration *env, t_mini *mini)
 
 void	execute_builtin(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 {
+
 	t_simple_cmd	*simple_cmd;
 	t_token			*redir_list;
 	int				starting_in;
@@ -34,18 +35,16 @@ void	execute_builtin(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 		return ;
 	starting_in = dup(fileno(stdin));
 	starting_out = dup(fileno(stdout));
-	simple_cmd = (t_simple_cmd *)tree->content;
+	simple_cmd = (t_simple_cmd	*)tree->content;
 	if (simple_cmd->redir_list != NULL)
 	{
 		redir_list = (t_token *)simple_cmd->redir_list;
 		if (have_inputs(redir_list))
-		{
 			if (execute_redirections_input(redir_list, curr_in, mini))
 			{
 				g_last_exit_status_cmd = 1;
 				return ;
 			}
-		}
 	}
 	else
 		dup_std_fd(curr_in, STDIN_FILENO);
@@ -53,13 +52,11 @@ void	execute_builtin(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 	{
 		redir_list = (t_token *)simple_cmd->redir_list;
 		if (have_outputs(redir_list))
-		{
 			if (execute_redirections_output(redir_list, curr_out, mini))
 			{
 				g_last_exit_status_cmd = 1;
 				return ;
 			}
-		}
 	}
 	else
 		dup_std_fd(curr_out, STDOUT_FILENO);
@@ -81,8 +78,7 @@ void	execute_builtin(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 	dup_std_fd(starting_out, STDOUT_FILENO);
 }
 
-void	execute_simple_cmd(t_tree *tree, int curr_in,
-			int curr_out, t_mini *mini)
+void	execute_simple_cmd(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 {
 	if (!tree)
 		return ;
@@ -141,10 +137,10 @@ void	execute_or_op(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 
 void	execute_operator(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 {
-	char	*operator;
-
 	if (!tree)
 		return ;
+	char	*operator;
+
 	operator = (char *)tree->content;
 	if (!ft_strcmp(operator, "&&"))
 		execute_and_op(tree, curr_in, curr_out, mini);
@@ -169,16 +165,12 @@ static void	execute_subshell(t_tree *root, int in, int out, t_mini *mini)
 		{
 			redir_list = (t_token *)parenthesis_node->redir_list;
 			if (have_inputs(redir_list))
-			{
 				if (execute_redirections_input(redir_list, in, mini))
 				{
-					free_matrix(((t_mini *)var_container(NULL, NULL,
-								NULL, GET_MINI))->splitcmd);
-					ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS),
-						var_container(NULL, NULL, NULL, GET_TREE));
+					free_matrix(((t_mini *)var_container(NULL, NULL, NULL, GET_MINI))->splitcmd);
+					ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
 					exit(1);
 				}
-			}
 		}
 		else
 			dup_std_fd(in, STDIN_FILENO);
@@ -186,16 +178,12 @@ static void	execute_subshell(t_tree *root, int in, int out, t_mini *mini)
 		{
 			redir_list = (t_token *)parenthesis_node->redir_list;
 			if (have_outputs(redir_list))
-			{
 				if (execute_redirections_output(redir_list, out, mini))
 				{
-					free_matrix(((t_mini *)var_container(NULL, NULL,
-								NULL, GET_MINI))->splitcmd);
-					ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS),
-						var_container(NULL, NULL, NULL, GET_TREE));
+					free_matrix(((t_mini *)var_container(NULL, NULL, NULL, GET_MINI))->splitcmd);
+					ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
 					exit(1);
 				}
-			}
 		}
 		else
 			dup_std_fd(out, STDOUT_FILENO);
@@ -224,5 +212,5 @@ void	execute(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 	if (tree->type == PARENTHESI)
 		execute_subshell(tree, curr_in, curr_out, mini);
 	else
-		execute_shell(tree, curr_in, curr_out, mini);
+	execute_shell(tree, curr_in, curr_out, mini);
 }

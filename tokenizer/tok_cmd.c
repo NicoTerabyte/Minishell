@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:43:45 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/09 16:26:40 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/09 17:46:55 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,23 @@ void	scan_args(char **splitcmd, int *i, t_token **token_lst, t_mini *mini)
 		add_cmd_args(token_cmd_args, args, token_lst);
 }
 
-void	scan_cmd(char **splitcmd, int *i, t_token **token_lst, t_mini *mini)
+int	scan_cmd(char **splitcmd, int *i, t_token **token_lst, t_mini *mini)
 {
 	t_token	*token_cmd_name;
+	char	*expanded;
+	char	*to_expand;
 
 	if (!splitcmd[*i] || ft_strbash_control(splitcmd[*i]))
-		return ;
+		return 1;
+	to_expand = ft_strdup(splitcmd[*i]);
+	expanded = expander(mini, to_expand);
+	if (!*expanded)
+	{
+		*i += 1;
+		free(expanded);
+		return 0;
+	}
+	free(expanded);
 	token_cmd_name = (t_token *)malloc(sizeof(t_token));
 	token_cmd_name->token = CMD_NAME;
 	token_cmd_name->value = ft_substr(splitcmd[*i], 0, ft_strlen(splitcmd[*i]));

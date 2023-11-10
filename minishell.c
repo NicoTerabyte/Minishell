@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcarlucc <fcarlucc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/09 18:20:53 by fcarlucc         ###   ########.fr       */
+/*   Updated: 2023/11/10 11:58:29 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,48 +248,75 @@ void	free_env(t_mini *mini)
 	free(mini);
 }
 
+void	increment_shlvl(t_mini *mini)
+{
+	char	*shlvl;
+	int		i;
+	int		j;
+	char	*num;
+
+	i = -1;
+	while (mini->env[++i])
+	{
+		if (!ft_strncmp(mini->env[i], "SHLVL=", ft_strlen("SHLVL=")))
+		{
+			shlvl = ft_strdup(mini->env[i]);
+			free(mini->env[i]);
+			j = ft_atoi(&shlvl[ft_strlen("SHLVL=")]);
+			j++;
+			free(shlvl);
+			num = ft_itoa(j);
+			mini->env[i] = ft_strjoin("SHLVL=", num);
+			free(num);
+			return ;
+		}
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
+	char	*str;
 	char	**splitcmd;
 	char	*fixed;
 	t_token	*token_list;
 	t_tree	*tree;
 	t_mini	*mini;
 
-	signal(SIGQUIT, ign);
 	(void)argc;
 	(void)argv;
 	mini = ft_calloc(1, sizeof(t_mini));
 	copy_env(envp, mini);
 	token_list = NULL;
+	increment_shlvl(mini);
 	while (1)
 	{
 		unlink_here_docs(handle_list_heredocs(LIST));
 		handle_list_heredocs(START);
-		signal(SIGQUIT, ign);
+		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, signal_handler);
 		signal(SIGTERM, signal_handler);
-		mini->str = readline("Minishell> ");
-		if (mini->str == NULL)
+		str = readline("Minishell> ");
+		if (str == NULL)
 		{
 			printf("\n");
-			free(mini->str);
+			free(str);
 			free_env(mini);
 			exit(0);
 		}
-		add_history(mini->str);
-		mini->str = fix_syntax(mini->str);
-		if (!check(mini->str, mini))
+		add_history(str);
+		fixed = fix_syntax(str);
+		free(str);
+		if (!check(fixed, mini))
 		{
-			free(mini->str);
+			free(fixed);
 			if (g_last_exit_status_cmd == 130)
 				continue ;
 			printf("Syntax error\n");
 			g_last_exit_status_cmd = 2;
 			continue ;
 		}
-		splitcmd = ft_split(mini->str, ' ');
-		free(mini->str);
+		splitcmd = ft_split(fixed, ' ');
+		free(fixed);
 		splitcmd = wildcard_split(splitcmd, mini);
 		token_list = tokenizer(splitcmd, mini);
 		if (token_list)

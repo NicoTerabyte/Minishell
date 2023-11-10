@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 11:51:13 by alessiolong       #+#    #+#             */
-/*   Updated: 2023/11/09 18:55:47 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/09 14:49:21 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,45 +23,6 @@ void	tree_node_operator(t_token *token_lst, t_tree **tree)
 	(*tree)->right = tree_create(token_lst, SIMPLE_CMD);
 }
 
-t_tree	*simple_cmd_calling(t_token *token_lst, t_tree *tree)
-{
-	if (verify_parenthesis(token_lst))
-	{
-		tree->type = PARENTHESI;
-		tree->content = parenthesis_node(token_lst);
-		return (tree);
-	}
-	tree->type = SIMPLE_CMD;
-	tree->content = simple_cmd_redirections((token_lst));
-	simple_cmd(token_lst, tree->content);
-	return (tree);
-}
-
-t_tree	*op_cmd_calling(t_token *token_lst, t_tree *tree)
-{
-	while (token_lst->prev != NULL)
-	{
-		if (token_lst->token == OPERATOR)
-		{
-			tree_node_operator(token_lst, &tree);
-			return (tree);
-		}
-		else if (token_lst->token == PARENTHESIS)
-			token_lst = skip_back_parenthesis(token_lst);
-		else
-			token_lst = token_lst->prev;
-	}
-	return (NULL);
-}
-
-t_token	*norminette_tree_create(t_token *token_lst)
-{
-	if (token_lst->token == PARENTHESIS)
-		return (skip_back_parenthesis(token_lst));
-	else
-		return (token_lst->prev);
-}
-
 t_tree	*tree_create(t_token *token_lst, t_tree_enum calling)
 {
 	t_tree	*tree;
@@ -69,9 +30,23 @@ t_tree	*tree_create(t_token *token_lst, t_tree_enum calling)
 	if (!token_lst)
 		return (NULL);
 	tree = (t_tree *)malloc(sizeof(t_tree));
-	tree_init_norm(tree);
+	tree->content = NULL;
+	tree->left = NULL;
+	tree->right = NULL;
+	tree->prev = NULL;
 	if (calling == SIMPLE_CMD)
-		return (simple_cmd_calling(token_lst, tree));
+	{
+		if (verify_parenthesis(token_lst))
+		{
+			tree->type = PARENTHESI;
+			tree->content = parenthesis_node(token_lst);
+			return (tree);
+		}
+		tree->type = SIMPLE_CMD;
+		tree->content = simple_cmd_redirections((token_lst));
+		simple_cmd(token_lst, tree->content);
+		return (tree);
+	}
 	else if (calling == OP)
 	{
 		while (token_lst->prev != NULL)
@@ -81,8 +56,10 @@ t_tree	*tree_create(t_token *token_lst, t_tree_enum calling)
 				tree_node_operator(token_lst, &tree);
 				return (tree);
 			}
+			else if (token_lst->token == PARENTHESIS)
+				token_lst = skip_back_parenthesis(token_lst);
 			else
-				token_lst = norminette_tree_create(token_lst);
+				token_lst = token_lst->prev;
 		}
 	}
 	free(tree);
