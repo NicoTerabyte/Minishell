@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 15:47:11 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/09 16:26:58 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/10 11:29:56 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,8 @@ void	debug_print_tokens(t_token *token_lst);
 void	initialize_previus(t_token *head);
 void	*unlink_here_docs(t_list *here_docs_lst);
 char	*here_doc_name(void);
+char	*set_decl_name(char *word);
+char	*set_decl_value(char *word);
+int		set_decl_mode(char *word);
 
 #endif
