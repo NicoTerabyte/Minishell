@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_pwd_echo.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 16:34:36 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/10 14:57:47 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/09 15:46:52 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@ int	ft_pwd(void)
 {
 	char	pwd[4096];
 
-	if (getcwd(pwd, sizeof(pwd)))
-		printf("%s\n", pwd);
-	else
-		printf("minishell : the path is broken use 'cd <path>' or 'cd ..'\n");
+	getcwd(pwd, sizeof(pwd));
+	printf("%s\n", pwd);
 	return (0);
 }
 

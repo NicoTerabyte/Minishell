@@ -6,37 +6,11 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:28:00 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/10 13:01:08 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/09 14:48:01 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	simple_cmd_logic(t_token *token_lst, t_simple_cmd *simple_cmd)
-{
-	if (token_lst->token == CMD_ARG)
-	{
-		tok_add_back(&simple_cmd->cmd->cmd_arg, copy_tok(token_lst));
-		tok_add_back(&simple_cmd->cmd->cmd_name, copy_tok(token_lst->next));
-		return (0);
-	}
-	else if (token_lst->token == CMD_NAME)
-	{
-		tok_add_back(&simple_cmd->cmd->cmd_name, copy_tok(token_lst));
-		return (0);
-	}
-	else if (token_lst->token == ENV_VAR_DECL
-		|| token_lst->token == ENV_VAR_UNSET)
-	{
-		tok_add_back(&simple_cmd->env, copy_tok(token_lst));
-		free(simple_cmd->cmd);
-		simple_cmd->cmd = NULL;
-		return (0);
-	}
-	else
-		token_lst = token_lst->next;
-	return (1);
-}
 
 void	simple_cmd(t_token *token_lst, t_simple_cmd *simple_cmd)
 {
@@ -45,8 +19,27 @@ void	simple_cmd(t_token *token_lst, t_simple_cmd *simple_cmd)
 	simple_cmd->cmd->cmd_name = NULL;
 	while (token_lst && token_lst->token != OPERATOR)
 	{
-		if (simple_cmd_logic(token_lst, simple_cmd) == 0)
+		if (token_lst->token == CMD_ARG)
+		{
+			tok_add_back(&simple_cmd->cmd->cmd_arg, copy_tok(token_lst));
+			tok_add_back(&simple_cmd->cmd->cmd_name, copy_tok(token_lst->next));
 			return ;
+		}
+		else if (token_lst->token == CMD_NAME)
+		{
+			tok_add_back(&simple_cmd->cmd->cmd_name, copy_tok(token_lst));
+			return ;
+		}
+		else if (token_lst->token == ENV_VAR_DECL
+			|| token_lst->token == ENV_VAR_UNSET)
+		{
+			tok_add_back(&simple_cmd->env, copy_tok(token_lst));
+			free(simple_cmd->cmd);
+			simple_cmd->cmd = NULL;
+			return ;
+		}
+		else
+			token_lst = token_lst->next;
 	}
 	if (simple_cmd->cmd->cmd_arg == NULL && simple_cmd->cmd->cmd_name == NULL)
 	{
@@ -113,4 +106,28 @@ t_token	*skip_forward_parenthesis(t_token *token_lst)
 		}
 	}
 	return (token_lst);
+}
+
+t_token	*skip_back_parenthesis(t_token *token_lst)
+{
+	int		n_parenthesis;
+	char	*value;
+
+	n_parenthesis = 1;
+	while (token_lst->prev && n_parenthesis)
+	{
+		token_lst = token_lst->prev;
+		if (token_lst->token == PARENTHESIS)
+		{
+			value = (char *)token_lst->value;
+			if (ft_strncmp(value, ")", 1) == 0)
+				n_parenthesis++;
+			else
+				n_parenthesis--;
+		}
+	}
+	if (token_lst->prev != NULL)
+		return (token_lst->prev);
+	else
+		return (token_lst);
 }

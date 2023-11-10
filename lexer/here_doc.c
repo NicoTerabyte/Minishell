@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   here_doc.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/09 15:54:01 by abuonomo          #+#    #+#             */
+/*   Updated: 2023/11/09 15:54:18 by abuonomo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 t_list	*start_back(t_list *here_doc_lst)
@@ -37,7 +49,7 @@ void	*handle_list_heredocs(int op)
 	return (NULL);
 }
 
-void handle_here_doc_sig(int signum)
+void	handle_here_doc_sig(int signum)
 {
 	(void)signum;
 	printf("\n");
