@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/10 16:31:24 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/10 18:47:23 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,40 +47,33 @@ static void	execute_subshell(t_tree *root, int in, int out, t_mini *mini)
 	subshell_pid = fork();
 	if (subshell_pid == 0)
 	{
-		if (parenthesis_node->redir_list != NULL)
+		redir_list = (t_token *)parenthesis_node->redir_list;
+		if (redir_list && have_inputs(redir_list))
 		{
-			redir_list = (t_token *)parenthesis_node->redir_list;
-			if (have_inputs(redir_list))
+			if (execute_redirections_input(redir_list, in, mini))
 			{
-				if (execute_redirections_input(redir_list, in, mini))
-				{
-					free_matrix(((t_mini *)var_container(NULL,
-								NULL, NULL, GET_MINI))->splitcmd);
-					ft_free_all(var_container(NULL, NULL, NULL,
-							GET_TOKENS), var_container(NULL,
-							NULL, NULL, GET_TREE));
-					free_env(var_container(NULL, NULL, NULL, GET_MINI));
-					exit(1);
-				}
+				free_matrix(((t_mini *)var_container(NULL,
+							NULL, NULL, GET_MINI))->splitcmd);
+				ft_free_all(var_container(NULL, NULL, NULL,
+						GET_TOKENS), var_container(NULL,
+						NULL, NULL, GET_TREE));
+				free_env(var_container(NULL, NULL, NULL, GET_MINI));
+				exit(1);
 			}
 		}
 		else
 			dup_std_fd(in, STDIN_FILENO);
-		if (parenthesis_node->redir_list != NULL)
+		if (redir_list && have_outputs(redir_list))
 		{
-			redir_list = (t_token *)parenthesis_node->redir_list;
-			if (have_outputs(redir_list))
+			if (execute_redirections_output(redir_list, out, mini))
 			{
-				if (execute_redirections_output(redir_list, out, mini))
-				{
-					free_matrix(((t_mini *)var_container(NULL,
-								NULL, NULL, GET_MINI))->splitcmd);
-					ft_free_all(var_container(NULL, NULL, NULL,
-							GET_TOKENS), var_container(NULL,
-							NULL, NULL, GET_TREE));
-					free_env(var_container(NULL, NULL, NULL, GET_MINI));
-					exit(1);
-				}
+				free_matrix(((t_mini *)var_container(NULL,
+							NULL, NULL, GET_MINI))->splitcmd);
+				ft_free_all(var_container(NULL, NULL, NULL,
+						GET_TOKENS), var_container(NULL,
+						NULL, NULL, GET_TREE));
+				free_env(var_container(NULL, NULL, NULL, GET_MINI));
+				exit(1);
 			}
 		}
 		else

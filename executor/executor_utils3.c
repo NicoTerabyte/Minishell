@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 20:41:37 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/10 17:01:51 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/10 18:50:10 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	execute_integrated(t_tree *tree, int curr_in,
 			free_matrix(((t_mini *)var_container(NULL, NULL, NULL, GET_MINI))->splitcmd);
 			ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS),
 				var_container(NULL, NULL, NULL, GET_TREE));
+			free_env(var_container(NULL, NULL, NULL, GET_MINI));
 			exit(1);
 		}
 	}
@@ -41,6 +42,7 @@ void	execute_integrated(t_tree *tree, int curr_in,
 			free_matrix(((t_mini *)var_container(NULL, NULL, NULL, GET_MINI))->splitcmd);
 			ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS),
 				var_container(NULL, NULL, NULL, GET_TREE));
+			free_env(var_container(NULL, NULL, NULL, GET_MINI));
 			exit(1);
 		}
 	}
@@ -51,6 +53,7 @@ void	execute_integrated(t_tree *tree, int curr_in,
 		free_matrix(((t_mini *)var_container(NULL, NULL, NULL, GET_MINI))->splitcmd);
 		ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS),
 			var_container(NULL, NULL, NULL, GET_TREE));
+		free_env(var_container(NULL, NULL, NULL, GET_MINI));
 		exit(1);
 	}
 	else
