@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/10 11:58:29 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/10 12:32:27 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,15 +306,15 @@ int	main(int argc, char **argv, char **envp)
 		add_history(str);
 		fixed = fix_syntax(str);
 		free(str);
-		if (!check(fixed, mini))
-		{
-			free(fixed);
-			if (g_last_exit_status_cmd == 130)
-				continue ;
-			printf("Syntax error\n");
-			g_last_exit_status_cmd = 2;
-			continue ;
-		}
+		// if (!check(fixed, mini))
+		// {
+		// 	free(fixed);
+		// 	if (g_last_exit_status_cmd == 130)
+		// 		continue ;
+		// 	printf("Syntax error\n");
+		// 	g_last_exit_status_cmd = 2;
+		// 	continue ;
+		// }
 		splitcmd = ft_split(fixed, ' ');
 		free(fixed);
 		splitcmd = wildcard_split(splitcmd, mini);

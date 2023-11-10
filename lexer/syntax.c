@@ -75,8 +75,8 @@ char *handle_quotes(char *str, char *res, int *i, int *j)
 	c = 0;
 	if (str[*i] == '"' || str[*i] == '\'')
 	{
-		res[(*j)++] = str[(*i)++];
 		c = str[*i];
+		res[(*j)++] = str[(*i)++];
 		while (str[*i] && str[*i] != c)
 			res[(*j)++] = str[(*i)++];
 		if (str[*i] == c)

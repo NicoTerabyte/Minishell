@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/09 19:01:59 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/10 12:36:36 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,7 @@ static void	execute_subshell(t_tree *root, int in, int out, t_mini *mini)
 				{
 					free_matrix(((t_mini *)var_container(NULL, NULL, NULL, GET_MINI))->splitcmd);
 					ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
+					free_env(var_container(NULL, NULL, NULL, GET_MINI));
 					exit(1);
 				}
 		}
@@ -182,12 +183,16 @@ static void	execute_subshell(t_tree *root, int in, int out, t_mini *mini)
 				{
 					free_matrix(((t_mini *)var_container(NULL, NULL, NULL, GET_MINI))->splitcmd);
 					ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
+					free_env(var_container(NULL, NULL, NULL, GET_MINI));
 					exit(1);
 				}
 		}
 		else
 			dup_std_fd(out, STDOUT_FILENO);
 		execute(parenthesis_node->tree, in, out, mini);
+		ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
+		free_matrix(((t_mini *)var_container(NULL, NULL, NULL, GET_MINI))->splitcmd);
+		free_env(var_container(NULL, NULL, NULL, GET_MINI));
 		exit(g_last_exit_status_cmd);
 	}
 	waitpid(subshell_pid, &subshell_exit_status, 0);
