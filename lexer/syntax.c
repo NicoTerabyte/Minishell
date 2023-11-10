@@ -111,13 +111,13 @@ char *handle_two(char *str, char *res, int *i, int *j)
 
 char *handle_one(char *str, char *res, int *i, int *j)
 {
-	if ((i != 0 && str[*i - 1] != ' ') && (str[*i + 1] && str[*i + 1] != ' '))
+	if ((*i != 0 && str[*i - 1] != ' ') && (str[*i + 1] && str[*i + 1] != ' '))
 	{
 		res[(*j)++] = ' ';
 		res[(*j)++] = str[(*i)++];
 		res[(*j)++] = ' ';
 	}
-	else if (i != 0 && str[*i - 1] != ' ')
+	else if (*i != 0 && str[*i - 1] != ' ')
 	{
 		res[(*j)++] = ' ';
 		res[(*j)++] = str[(*i)++];

@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/10 12:36:36 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/10 14:57:14 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,9 @@ void	execute_pipe_op(t_tree *root, int curr_in, int curr_out, t_mini *mini)
 	{
 		close(piping[0]);
 		execute(root->left, curr_in, piping[1], mini);
+		ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
+		free_matrix(((t_mini *)var_container(NULL, NULL, NULL, GET_MINI))->splitcmd);
+		free_env(var_container(NULL, NULL, NULL, GET_MINI));
 		exit(g_last_exit_status_cmd);
 	}
 	pid_right = fork();
@@ -108,6 +111,9 @@ void	execute_pipe_op(t_tree *root, int curr_in, int curr_out, t_mini *mini)
 	{
 		close(piping[1]);
 		execute(root->right, piping[0], curr_out, mini);
+		ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
+		free_matrix(((t_mini *)var_container(NULL, NULL, NULL, GET_MINI))->splitcmd);
+		free_env(var_container(NULL, NULL, NULL, GET_MINI));
 		exit(g_last_exit_status_cmd);
 	}
 	close(piping[0]);
