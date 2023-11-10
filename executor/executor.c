@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/10 18:47:23 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/10 19:05:54 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,35 @@ void	execute_operator(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 		execute_pipe_op(tree, curr_in, curr_out, mini);
 }
 
+void	free_exit(int exit_value)
+{
+	ft_free_all(var_container(NULL, NULL, NULL,
+			GET_TOKENS), var_container(NULL,
+			NULL, NULL, GET_TREE));
+	free_matrix(((t_mini *)var_container(NULL,
+				NULL, NULL, GET_MINI))->splitcmd);
+	free_env(var_container(NULL, NULL, NULL, GET_MINI));
+	exit(exit_value);
+}
+
+void	handle_redirections(t_token *redir_list, int in, int out, t_mini *mini)
+{
+	if (redir_list && have_inputs(redir_list))
+	{
+		if (execute_redirections_input(redir_list, in, mini))
+			free_exit(1);
+	}
+	else
+		dup_std_fd(in, STDIN_FILENO);
+	if (redir_list && have_outputs(redir_list))
+	{
+		if (execute_redirections_output(redir_list, out, mini))
+			free_exit(1);
+	}
+	else
+		dup_std_fd(out, STDOUT_FILENO);
+}
+
 static void	execute_subshell(t_tree *root, int in, int out, t_mini *mini)
 {
 	int				subshell_pid;
@@ -48,44 +77,9 @@ static void	execute_subshell(t_tree *root, int in, int out, t_mini *mini)
 	if (subshell_pid == 0)
 	{
 		redir_list = (t_token *)parenthesis_node->redir_list;
-		if (redir_list && have_inputs(redir_list))
-		{
-			if (execute_redirections_input(redir_list, in, mini))
-			{
-				free_matrix(((t_mini *)var_container(NULL,
-							NULL, NULL, GET_MINI))->splitcmd);
-				ft_free_all(var_container(NULL, NULL, NULL,
-						GET_TOKENS), var_container(NULL,
-						NULL, NULL, GET_TREE));
-				free_env(var_container(NULL, NULL, NULL, GET_MINI));
-				exit(1);
-			}
-		}
-		else
-			dup_std_fd(in, STDIN_FILENO);
-		if (redir_list && have_outputs(redir_list))
-		{
-			if (execute_redirections_output(redir_list, out, mini))
-			{
-				free_matrix(((t_mini *)var_container(NULL,
-							NULL, NULL, GET_MINI))->splitcmd);
-				ft_free_all(var_container(NULL, NULL, NULL,
-						GET_TOKENS), var_container(NULL,
-						NULL, NULL, GET_TREE));
-				free_env(var_container(NULL, NULL, NULL, GET_MINI));
-				exit(1);
-			}
-		}
-		else
-			dup_std_fd(out, STDOUT_FILENO);
+		handle_redirections(redir_list, in, out, mini);
 		execute(parenthesis_node->tree, in, out, mini);
-		ft_free_all(var_container(NULL, NULL, NULL,
-				GET_TOKENS), var_container(NULL,
-				NULL, NULL, GET_TREE));
-		free_matrix(((t_mini *)var_container(NULL,
-					NULL, NULL, GET_MINI))->splitcmd);
-		free_env(var_container(NULL, NULL, NULL, GET_MINI));
-		exit(g_last_exit_status_cmd);
+		free_exit(g_last_exit_status_cmd);
 	}
 	waitpid(subshell_pid, &subshell_exit_status, 0);
 	g_last_exit_status_cmd = WEXITSTATUS(subshell_exit_status);
