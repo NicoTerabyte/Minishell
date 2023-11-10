@@ -3,23 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   redir_paths_cmdargs_dup.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 20:20:50 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/09 16:35:44 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/10 16:20:44 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	dup_std_fd(int cur_in_out, int std_in_out)
-{
-	if (cur_in_out != std_in_out)
-	{
-		dup2(cur_in_out, std_in_out);
-		close(cur_in_out);
-	}
-}
 
 int	ft_is_one_word(char	*input)
 {
@@ -30,7 +21,7 @@ int	ft_is_one_word(char	*input)
 	while (input[i])
 	{
 		if (input[i] == ' ')
-			return 0;
+			return (0);
 		else if (input[i] == '"' || input[i] == '\'')
 		{
 			quote = input[i];
@@ -40,7 +31,7 @@ int	ft_is_one_word(char	*input)
 		if (input[i])
 			i++;
 	}
-	return 1;
+	return (1);
 }
 
 int	execute_redirections_output(t_token *redir_list, int curr_out, t_mini *mini)

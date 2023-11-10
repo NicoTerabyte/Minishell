@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:37:51 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/10 16:12:41 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/10 16:33:29 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,12 @@ void	execute_builtin_env(t_token *env, t_mini *mini);
 void	execute_builtin_cmd(t_cmd *cmd, t_mini *mini);
 void	expander_simple_cmd_args(char **args, t_mini *mini);
 int		is_directory(const char *path);
+void	dup_std_fd(int cur_in_out, int std_in_out);
+void	expander_simple_cmd_args(char **args, t_mini *mini);
+void	expander_env(t_declaration *env, t_mini *mini);
+void	execute_builtin(t_tree *tree, int curr_in, int curr_out, t_mini *mini);
+void	execute_and_op(t_tree *tree, int curr_in, int curr_out, t_mini *mini);
+void	execute_pipe_op(t_tree *root, int curr_in, int curr_out, t_mini *mini);
+void	execute_simple_cmd(t_tree *tree, int curr_in,
+			int curr_out, t_mini *mini);
 #endif

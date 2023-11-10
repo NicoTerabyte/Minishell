@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 20:41:37 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/09 16:30:43 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/10 16:23:22 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	expander_simple_cmd_args(char **args, t_mini *mini)
-{
-	int	i;
-
-	i = 0;
-	while (args[i])
-	{
-		args[i] = expander(mini, args[i]);
-		i++;
-	}
-}
 
 void	execute_integrated(t_tree *tree, int curr_in,
 		int curr_out, t_mini *mini)
@@ -40,7 +28,8 @@ void	execute_integrated(t_tree *tree, int curr_in,
 		{
 			if (execute_redirections_input(redir_list, curr_in, mini))
 			{
-				free_matrix(((t_mini *)var_container(NULL, NULL, NULL, GET_MINI))->splitcmd);
+				free_matrix(((t_mini *)var_container(NULL,
+							NULL, NULL, GET_MINI))->splitcmd);
 				ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS),
 					var_container(NULL, NULL, NULL, GET_TREE));
 				exit(1);
@@ -56,7 +45,8 @@ void	execute_integrated(t_tree *tree, int curr_in,
 		{
 			if (execute_redirections_output(redir_list, curr_out, mini))
 			{
-				free_matrix(((t_mini *)var_container(NULL, NULL, NULL, GET_MINI))->splitcmd);
+				free_matrix(((t_mini *)var_container(NULL,
+							NULL, NULL, GET_MINI))->splitcmd);
 				ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS),
 					var_container(NULL, NULL, NULL, GET_TREE));
 				exit(1);
@@ -67,7 +57,8 @@ void	execute_integrated(t_tree *tree, int curr_in,
 		dup_std_fd(curr_out, STDOUT_FILENO);
 	if (simple_cmd->cmd == NULL)
 	{
-		free_matrix(((t_mini *)var_container(NULL, NULL, NULL, GET_MINI))->splitcmd);
+		free_matrix(((t_mini *)var_container(NULL,
+					NULL, NULL, GET_MINI))->splitcmd);
 		ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS),
 			var_container(NULL, NULL, NULL, GET_TREE));
 		exit(1);
