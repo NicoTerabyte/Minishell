@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/09 19:01:59 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/10 16:15:05 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,9 @@ void	execute_pipe_op(t_tree *root, int curr_in, int curr_out, t_mini *mini)
 	{
 		close(piping[0]);
 		execute(root->left, curr_in, piping[1], mini);
+		ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
+		free_matrix(((t_mini *)var_container(NULL, NULL, NULL, GET_MINI))->splitcmd);
+		free_env(var_container(NULL, NULL, NULL, GET_MINI));
 		exit(g_last_exit_status_cmd);
 	}
 	pid_right = fork();
@@ -108,6 +111,9 @@ void	execute_pipe_op(t_tree *root, int curr_in, int curr_out, t_mini *mini)
 	{
 		close(piping[1]);
 		execute(root->right, piping[0], curr_out, mini);
+		ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
+		free_matrix(((t_mini *)var_container(NULL, NULL, NULL, GET_MINI))->splitcmd);
+		free_env(var_container(NULL, NULL, NULL, GET_MINI));
 		exit(g_last_exit_status_cmd);
 	}
 	close(piping[0]);
@@ -169,6 +175,7 @@ static void	execute_subshell(t_tree *root, int in, int out, t_mini *mini)
 				{
 					free_matrix(((t_mini *)var_container(NULL, NULL, NULL, GET_MINI))->splitcmd);
 					ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
+					free_env(var_container(NULL, NULL, NULL, GET_MINI));
 					exit(1);
 				}
 		}
@@ -182,12 +189,16 @@ static void	execute_subshell(t_tree *root, int in, int out, t_mini *mini)
 				{
 					free_matrix(((t_mini *)var_container(NULL, NULL, NULL, GET_MINI))->splitcmd);
 					ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
+					free_env(var_container(NULL, NULL, NULL, GET_MINI));
 					exit(1);
 				}
 		}
 		else
 			dup_std_fd(out, STDOUT_FILENO);
 		execute(parenthesis_node->tree, in, out, mini);
+		ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
+		free_matrix(((t_mini *)var_container(NULL, NULL, NULL, GET_MINI))->splitcmd);
+		free_env(var_container(NULL, NULL, NULL, GET_MINI));
 		exit(g_last_exit_status_cmd);
 	}
 	waitpid(subshell_pid, &subshell_exit_status, 0);

@@ -6,7 +6,7 @@
 /*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:46:42 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/11/08 13:03:22 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/10 16:16:52 by abuonomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,10 @@ int	word_middle_filter(char *filter, char *filename, int *i)
 	while (filename[filename_index] && filter[filter_index])
 	{
 		while ((filename[filename_index] && filter[filter_index])
-			&& filename[filename_index++] == filter[filter_index++])
+				&& filename[filename_index] == filter[filter_index])
 		{
+			filter_index++;
+			filename_index++;
 		}
 		if (!filter[filter_index])
 			break ;
