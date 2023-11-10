@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/10 19:24:39 by mlongo            #+#    #+#             */
+/*   Updated: 2023/11/10 19:24:41 by mlongo           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef LEXER_H
 #define LEXER_H
 
@@ -14,7 +26,6 @@ char    *handle_one(char *str, char *res, int *i, int *j);
 int		count_syntax(char *str);
 char	*fix_white_spaces(char *str);
 char	*fix_syntax(char *str);
-
 void	*handle_list_heredocs(int op);
 void	handle_here_doc(char *del, t_mini *mini);
 void	del(void *str);
@@ -24,8 +35,6 @@ int		check_parentheses(char *s, int *i);
 int		check_number(char *s);
 int		check_quote(char *s);
 int		check_operator(char *s, int *i);
-// int	check_redirection(char *s, int *i);
-
 int     counter(int count);
 int		is_op(char *c);
 int		is_red(char *c);
