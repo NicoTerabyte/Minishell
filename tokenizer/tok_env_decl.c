@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:43:54 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/11 13:05:07 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/11 13:36:54 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	verify_env_decl(char **splitcmd, int *i, t_mini *mini)
 	char	*exp;
 	char	*to_expand;
 
-	if (!splitcmd[*i] || ft_strbash_control(splitcmd[*i]))
+	if (!splitcmd[*i])
 		return (1);
 	to_expand = ft_strdup(splitcmd[*i]);
 	exp = expander(mini, to_expand);
