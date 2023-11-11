@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcarlucc <fcarlucc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 16:15:57 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/11 16:35:46 by fcarlucc         ###   ########.fr       */
+/*   Updated: 2023/11/11 17:45:26 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +103,13 @@ char	*handle_two(char *str, char *res, int *i, int *j)
 
 char	*handle_one(char *str, char *res, int *i, int *j)
 {
-	if ((i != 0 && str[*i - 1] != ' ') && (str[*i + 1] && str[*i + 1] != ' '))
+	if ((*i != 0 && str[*i - 1] != ' ') && (str[*i + 1] && str[*i + 1] != ' '))
 	{
 		res[(*j)++] = ' ';
 		res[(*j)++] = str[(*i)++];
 		res[(*j)++] = ' ';
 	}
-	else if (i != 0 && str[*i - 1] != ' ')
+	else if (*i != 0 && str[*i - 1] != ' ')
 	{
 		res[(*j)++] = ' ';
 		res[(*j)++] = str[(*i)++];
