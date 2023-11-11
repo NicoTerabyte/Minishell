@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 19:24:24 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/11 12:25:58 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/11 15:34:01 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	check(char *s, t_mini *mini)
 		}
 		else if (is_op_or_red(s, &i))
 		{
-			if (!check_operator(s, &i) && is_op_or_red(s, &i) < 0)
+			if (!check_operator(s, &i) || is_op_or_red(s, &i) < 0)
 				return (0);
 			if (s[i] == '<' && s[i + 1] == '<')
 			{

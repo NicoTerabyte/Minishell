@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/10 18:34:58 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/11 15:31:08 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,9 @@ int				check_wildcard_before(char *input, int i);
 void			close_free_dir(struct dirent *entry, char *dirname, DIR *dir);
 void			open_read_getcwd(char **dirname, DIR **dir,
 					struct dirent **entry);
+void			not_valid_wildcard(t_wild_split *wild, char **splitcmd, int i);
+void			valid_wildcard(t_wild_split *wild,
+					char ***splitcmd, int i, int j);
+char			**wildcard_split(char **splitcmd, t_mini *mini);
+
 #endif

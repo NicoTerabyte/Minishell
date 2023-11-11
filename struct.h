@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:41:13 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/11/11 13:12:12 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/11 13:46:21 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,13 @@ typedef struct s_mini
 	t_tree	*tree;
 	t_token	*token_list;
 }	t_mini;
+
+typedef struct s_wild_split
+{
+	char	*expanded;
+	char	**split_expanded;
+	int		end;
+	int		end_new;
+}	t_wild_split;
 
 #endif
