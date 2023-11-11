@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:43:54 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/11 12:13:45 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/11 13:05:07 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,38 +78,29 @@ t_token	*set_token_env_id(char **splitcmd, int *i, t_mini *mini)
 int	verify_env_decl(char **splitcmd, int *i, t_mini *mini)
 {
 	t_token	*token_cmd_name;
-	char	*expanded;
+	char	*exp;
 	char	*to_expand;
 
 	if (!splitcmd[*i] || ft_strbash_control(splitcmd[*i]))
 		return (1);
 	to_expand = ft_strdup(splitcmd[*i]);
-	expanded = expander(mini, to_expand);
-	if ((ft_strlen(expanded) >= 6
-			&& ft_strncmp(expanded, "export", 6) == 0
-			&& (ft_isspace(expanded[6])
-			|| expanded[6] == 0))
-			|| (ft_strlen(expanded) >= 5
-			&& ft_strncmp(expanded, "unset", 5) == 0
-			&& (ft_isspace(expanded[5])
-			|| expanded[5] == 0))
-			|| (ft_strlen(expanded) >= 8
-			&& ft_strncmp(expanded + 1, "export", 6) == 0
-			&& expanded[0] == '"'
-			&& expanded[7] == '"'
-			&& (ft_isspace(expanded[8])
-			|| expanded[8] == 0))
-			|| (ft_strlen(expanded) >= 7
-			&& ft_strncmp(expanded + 1, "unset", 5) == 0
-			&& expanded[0] == '"'
-			&& expanded[6] == '"'
-			&& (ft_isspace(expanded[7])
-			|| expanded[7] == 0)))
+	exp = expander(mini, to_expand);
+	if ((ft_strlen(exp) >= 6 && ft_strncmp(exp, "export", 6) == 0
+			&& (ft_isspace(exp[6]) || exp[6] == 0)) || (ft_strlen(exp) >= 5
+			&& ft_strncmp(exp, "unset", 5) == 0
+			&& (ft_isspace(exp[5]) || exp[5] == 0))
+		|| (ft_strlen(exp) >= 8 && ft_strncmp(exp + 1, "export", 6) == 0
+			&& exp[0] == '"' && exp[7] == '"'
+			&& (ft_isspace(exp[8]) || exp[8] == 0))
+		|| (ft_strlen(exp) >= 7
+			&& ft_strncmp(exp + 1, "unset", 5) == 0
+			&& exp[0] == '"' && exp[6] == '"'
+			&& (ft_isspace(exp[7]) || exp[7] == 0)))
 	{
-		free(expanded);
+		free(exp);
 		return (1);
 	}
-	free(expanded);
+	free(exp);
 	return (0);
 }
 
