@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/11 15:46:52 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/11 19:21:50 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,9 @@ int	main(int argc, char **argv, char **envp)
 		str = readline("Minishell> ");
 		if (str == NULL)
 			ctrl_d_case(str, mini);
-		add_history(str);
 		fixed = fix_syntax(str);
+		if (*fixed && !(*fixed == ' ' && !fixed[1]))
+			add_history(str);
 		free(str);
 		if (check(fixed, mini))
 			parse_and_execute_mini(fixed, mini);

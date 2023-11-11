@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:41:03 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/10 19:11:03 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/11 19:11:01 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	execute_or_op(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 	if (!tree)
 		return ;
 	execute(tree->left, curr_in, curr_out, mini);
-	if (g_last_exit_status_cmd == 1)
+	if (g_last_exit_status_cmd != 0)
 		execute(tree->right, curr_in, curr_in, mini);
 }
 
