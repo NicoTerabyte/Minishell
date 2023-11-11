@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:37:51 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/10 19:11:32 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/11 09:42:22 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ void	execute_simple_cmd(t_tree *tree, int curr_in,
 			int curr_out, t_mini *mini);
 void	free_exit(int exit_value);
 void	handle_redirections(t_token *redir_list, int in, int out, t_mini *mini);
+int		error_ambigous_redirection();
 
 #endif

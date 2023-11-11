@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_paths_cmdargs_dup.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 20:20:50 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/10 16:20:44 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/11 09:40:39 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,7 @@ int	execute_redirections_output(t_token *redir_list, int curr_out, t_mini *mini)
 		file_name = expander(mini, file_name);
 		redir_list->value = file_name;
 		if (!ft_is_one_word(file_name))
-		{
-			printf("minishell : ambigous redirection\n");
-			return (1);
-		}
+			return (error_ambigous_redirection());
 		if (redir_list->token == OUT_FILE_TRUNC)
 			curr_out = open(file_name, O_CREAT | O_TRUNC | O_WRONLY, 0777);
 		else if (redir_list->token == OUT_FILE_APPEND)

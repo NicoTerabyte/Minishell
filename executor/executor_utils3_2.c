@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 16:23:10 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/11/10 19:10:41 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/11 09:42:44 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,10 @@ void	handle_redirections(t_token *redir_list, int in, int out, t_mini *mini)
 	}
 	else
 		dup_std_fd(out, STDOUT_FILENO);
+}
+
+int	error_ambigous_redirection(void)
+{
+	printf("minishell : ambigous redirection\n");
+	return (1);
 }
