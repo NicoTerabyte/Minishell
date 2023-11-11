@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 20:27:59 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/11 09:51:10 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/11 11:27:20 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	have_inputs(t_token *redir_list)
 {
 	while (redir_list)
 	{
-		if (redir_list->token == HERE_DOC || redir_list->token == IN_FILE_TRUNC)
+		if (redir_list->token == IN_FILE_TRUNC)
 			return (1);
 		redir_list = redir_list->next;
 	}
