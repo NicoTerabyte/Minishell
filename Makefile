@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+         #
+#    By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/01 14:36:32 by fcarlucc          #+#    #+#              #
-#    Updated: 2023/11/10 15:59:00 by abuonomo         ###   ########.fr        #
+#    Updated: 2023/11/11 16:00:34 by mlongo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRC = $(wildcard *.c) \
 
 OBJS = $(SRC:.c=.o)
 
-FLAGS := -g
+FLAGS := -Wall -Wextra -Werror -g
 
 LIBFT_PATH = ./libft
 

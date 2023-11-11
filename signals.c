@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 11:54:54 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/11 11:55:35 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/11 15:47:05 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,7 @@ void	signal_handler(int signum)
 void	ign(int signum)
 {
 	if (signum)
+	{
 		;
+	}
 }

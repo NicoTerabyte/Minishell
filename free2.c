@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 12:16:58 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/11 13:08:20 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/11 15:45:45 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	free_tree_parenthesis(t_parenthesis *par)
 
 void	free_tree(t_tree *tree)
 {
-	t_parenthesis	*par;
 	t_simple_cmd	*simple_cmd;
 
 	if (!tree)

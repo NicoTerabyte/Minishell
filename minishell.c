@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:35:17 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/11 15:30:22 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/11 15:46:52 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,10 @@ void	syntax_error(char *fixed)
 	}
 }
 
-void	parse_and_execute_mini(char **splitcmd, char *fixed, t_mini *mini)
+void	parse_and_execute_mini(char *fixed, t_mini *mini)
 {
+	char	**splitcmd;
+
 	splitcmd = ft_split(fixed, ' ');
 	free(fixed);
 	splitcmd = wildcard_split(splitcmd, mini);
@@ -64,7 +66,6 @@ void	parse_and_execute_mini(char **splitcmd, char *fixed, t_mini *mini)
 int	main(int argc, char **argv, char **envp)
 {
 	char	*str;
-	char	**splitcmd;
 	char	*fixed;
 	t_mini	*mini;
 
@@ -84,7 +85,7 @@ int	main(int argc, char **argv, char **envp)
 		fixed = fix_syntax(str);
 		free(str);
 		if (check(fixed, mini))
-			parse_and_execute_mini(splitcmd, fixed, mini);
+			parse_and_execute_mini(fixed, mini);
 		else
 			syntax_error(fixed);
 	}

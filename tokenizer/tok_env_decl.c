@@ -6,14 +6,14 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:43:54 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/11 13:36:54 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/11 15:50:33 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 t_declaration	*set_decl(char **splitcmd, int *i,
-				t_token_enum token_enum, t_mini *mini)
+				t_token_enum token_enum)
 {
 	t_declaration	*res_decl;
 
@@ -77,7 +77,6 @@ t_token	*set_token_env_id(char **splitcmd, int *i, t_mini *mini)
 
 int	verify_env_decl(char **splitcmd, int *i, t_mini *mini)
 {
-	t_token	*token_cmd_name;
 	char	*exp;
 	char	*to_expand;
 
@@ -119,9 +118,9 @@ void	scan_env_decl(char **splitcmd, int *i,
 	token = set_token_env_id(splitcmd, i, mini);
 	while (splitcmd[*i])
 	{
-		scan_redirections(splitcmd, i, token_lst, mini);
+		scan_redirections(splitcmd, i, token_lst);
 		cursor = *i;
-		tmpdecl = set_decl(splitcmd, i, token->token, mini);
+		tmpdecl = set_decl(splitcmd, i, token->token);
 		if (cursor == *i)
 			break ;
 		add_decl_back(&decl_lst, tmpdecl);

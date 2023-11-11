@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   tok_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:43:45 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/10 16:43:02 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/11 15:51:53 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*scan_arg(char **splitcmd, int *i, t_mini *mini)
+char	*scan_arg(char **splitcmd, int *i)
 {
 	char	*res;
 
@@ -33,7 +33,7 @@ void	add_cmd_args(t_token *token_cmd_args, char *args, t_token **token_lst)
 	tok_add_back(token_lst, token_cmd_args);
 }
 
-void	scan_args(char **splitcmd, int *i, t_token **token_lst, t_mini *mini)
+void	scan_args(char **splitcmd, int *i, t_token **token_lst)
 {
 	t_token	*token_cmd_args;
 	char	*arg;
@@ -48,8 +48,8 @@ void	scan_args(char **splitcmd, int *i, t_token **token_lst, t_mini *mini)
 		return ;
 	while (splitcmd[*i])
 	{
-		scan_redirections(splitcmd, i, token_lst, mini);
-		arg = scan_arg(splitcmd, i, mini);
+		scan_redirections(splitcmd, i, token_lst);
+		arg = scan_arg(splitcmd, i);
 		if (arg == NULL)
 			break ;
 		tmp = ft_strjoin(args, arg);
@@ -84,7 +84,7 @@ int	scan_cmd(char **splitcmd, int *i, t_token **token_lst, t_mini *mini)
 	token_cmd_name->value = ft_substr(splitcmd[*i], 0, ft_strlen(splitcmd[*i]));
 	token_cmd_name->next = NULL;
 	*i += 1;
-	scan_args(splitcmd, i, token_lst, mini);
+	scan_args(splitcmd, i, token_lst);
 	tok_add_back(token_lst, token_cmd_name);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 14:37:44 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/11 12:57:42 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/11 16:02:39 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_isstrnum(char *str)
 	return (1);
 }
 
-int	exit_conditions(char **args, int exit_value, int len_args)
+void	exit_conditions(char **args, int exit_value, int len_args)
 {
 	if (ft_isstrnum(args[0]))
 	{
@@ -54,12 +54,13 @@ int	exit_conditions(char **args, int exit_value, int len_args)
 	}
 }
 
-int	ft_exit(char **args)
+void	ft_exit(char **args)
 {
 	int	len_args;
 	int	exit_value;
 
 	len_args = 0;
+	exit_value = 0;
 	if (args)
 		while (args[len_args])
 			len_args++;

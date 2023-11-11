@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 15:47:11 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/11 11:14:43 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/11 15:51:28 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_token	*tokenizer(char **splitcmd, t_mini *mini);
 int		free_matrix(char **s);
 void	scan_parenthesis(char **splitcmd, int *i, t_token **token_lst);
 void	scan_redirections(char **splitcmd, int *i,
-			t_token **token_lst, t_mini *mini);
+			t_token **token_lst);
 void	scan_env_decl(char **splitcmd, int *i,
 			t_token **token_lst, t_mini *mini);
 int		scan_cmd(char **splitcmd, int *i, t_token **token_lst, t_mini *mini);
