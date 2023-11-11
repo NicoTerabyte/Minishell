@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:15:02 by fcarlucc          #+#    #+#             */
-/*   Updated: 2023/11/10 16:38:36 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:57:42 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,5 @@ int		ft_unset(t_declaration *node, t_mini *mini);
 void	copy_check_unset(char *str, t_mini *mini);
 void	swap_mat(char **str1, char **str2);
 int		ft_exit(char **args);
+void	p_error(char *first, char *var, char *second);
 #endif

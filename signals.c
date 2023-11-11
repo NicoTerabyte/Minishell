@@ -1,44 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_utils.c                                  :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 17:46:34 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/11 12:47:21 by mlongo           ###   ########.fr       */
+/*   Created: 2023/11/11 11:54:54 by mlongo            #+#    #+#             */
+/*   Updated: 2023/11/11 11:55:35 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
-int	copy_env(char **env, t_mini *all)
+void	signal_handler(int signum)
 {
-	int	env_size;
-	int	i;
-
-	env_size = 0;
-	i = 0;
-	while (env[env_size])
-		env_size++;
-	all->env = ft_calloc((env_size + 1), sizeof(char *));
-	if (!all->env)
-		return (0);
-	while (env[i])
+	if (signum == SIGINT)
 	{
-		all->env[i] = ft_strdup(env[i]);
-		i++;
+		g_last_exit_status_cmd = EXIT_FAILURE;
+		printf("\n");
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
 	}
-	all->env[i] = 0;
-	return (1);
+	else if (signum == SIGTERM)
+		exit (1);
 }
 
-int	env_rows(char **env)
+void	ign(int signum)
 {
-	int	size;
-
-	size = 0;
-	while (env[size])
-		size++;
-	return (size);
+	if (signum)
+		;
 }

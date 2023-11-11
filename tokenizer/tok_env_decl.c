@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:43:54 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/11 11:14:36 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/11 12:13:45 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int	verify_env_decl(char **splitcmd, int *i, t_mini *mini)
 		free(expanded);
 		return (1);
 	}
+	free(expanded);
 	return (0);
 }
 

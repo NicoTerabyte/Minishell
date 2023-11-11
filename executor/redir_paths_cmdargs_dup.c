@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 20:20:50 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/11 09:40:39 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/11 12:58:21 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	execute_redirections_output(t_token *redir_list, int curr_out, t_mini *mini)
 			curr_out = open(file_name, O_CREAT | O_APPEND | O_WRONLY, 0777);
 		if (curr_out == -1)
 		{
-			printf("minishell : %s: error creating file\n", file_name);
+			p_error("minishell : ", file_name, ": error creating file\n");
 			return (1);
 		}
 		redir_list = redir_list->next;
@@ -75,14 +75,14 @@ int	execute_redirections_input(t_token *redir_list, int curr_in, t_mini *mini)
 		redir_list->value = file_name;
 		if (!ft_is_one_word(file_name))
 		{
-			printf("minishell : ambigous redirection\n");
+			ft_putstr_fd("minishell : ambigous redirection\n", 2);
 			return (1);
 		}
 		if (redir_list->token == IN_FILE_TRUNC || redir_list->token == HERE_DOC)
 			curr_in = open(file_name, O_RDONLY);
 		if (curr_in == -1)
 		{
-			printf("minishell : %s: No such file or directory\n", file_name);
+			p_error("minishell : ", file_name, "No such file or directory\n");
 			return (1);
 		}
 		redir_list = redir_list->next;

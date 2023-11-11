@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 14:37:44 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/11 10:21:19 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/11 12:57:42 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ int	exit_conditions(char **args, int exit_value, int len_args)
 		}
 		else
 		{
-			printf("exit\nminishell: exit: too many arguments\n");
+			ft_putstr_fd("exit\nminishell: exit: too many arguments\n", 2);
 			g_last_exit_status_cmd = 1;
 		}
 	}
 	else
 	{
-		printf("exit\nminishell: exit: %s: numeric argument required\n",
-			args[0]);
+		p_error("exit\nminishell: exit: ",
+			args[0], ": numeric argument required\n");
 		free_exit(2);
 	}
 }
