@@ -6,11 +6,18 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 12:16:58 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/11 12:38:21 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/11 13:08:20 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_tree_parenthesis(t_parenthesis *par)
+{
+	free_tokens((t_token *)par->redir_list);
+	free_tree((t_tree *)par->tree);
+	free(par);
+}
 
 void	free_tree(t_tree *tree)
 {
@@ -20,13 +27,7 @@ void	free_tree(t_tree *tree)
 	if (!tree)
 		return ;
 	if (tree->type == PARENTHESI)
-		// free_tree_parenthesis()
-	{
-		par = (t_parenthesis *)tree->content;
-		free_tokens((t_token *)par->redir_list);
-		free_tree((t_tree *)par->tree);
-		free(par);
-	}
+		free_tree_parenthesis(tree->content);
 	else if (tree->type == SIMPLE_CMD)
 	{
 		simple_cmd = (t_simple_cmd *)tree->content;
