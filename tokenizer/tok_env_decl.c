@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_env_decl.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:43:54 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/10 16:39:54 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/11 11:14:36 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,47 +54,61 @@ void	add_decl_back(t_declaration **decl_lst, t_declaration *decl)
 	tail->next = NULL;
 }
 
-t_token	*set_token_env_id(char **splitcmd, int *i)
+t_token	*set_token_env_id(char **splitcmd, int *i, t_mini *mini)
 {
 	t_token	*env_token;
+	char	*expanded;
+	char	*to_expand;
 
+	to_expand = ft_strdup(splitcmd[*i]);
+	expanded = expander(mini, to_expand);
 	env_token = (t_token *)malloc(sizeof(t_token));
 	env_token->next = NULL;
-	if (ft_strlen(splitcmd[*i]) >= 5
-		&& ft_strncmp(splitcmd[*i], "unset", 5) == 0
-		&& (ft_isspace(splitcmd[*i][5]) || splitcmd[*i][5] == 0))
+	if (ft_strlen(expanded) >= 5
+		&& ft_strncmp(expanded, "unset", 5) == 0
+		&& (ft_isspace(expanded[5]) || expanded[5] == 0))
 		env_token->token = ENV_VAR_UNSET;
 	else
 		env_token->token = ENV_VAR_DECL;
 	*i += 1;
+	free(expanded);
 	return (env_token);
 }
 
-int	verify_env_decl(char **splitcmd, int *i)
+int	verify_env_decl(char **splitcmd, int *i, t_mini *mini)
 {
-	if (!splitcmd[*i])
-		return (0);
-	else if ((ft_strlen(splitcmd[*i]) >= 6
-			&& ft_strncmp(splitcmd[*i], "export", 6) == 0
-			&& (ft_isspace(splitcmd[*i][6])
-			|| splitcmd[*i][6] == 0))
-			|| (ft_strlen(splitcmd[*i]) >= 5
-			&& ft_strncmp(splitcmd[*i], "unset", 5) == 0
-			&& (ft_isspace(splitcmd[*i][5])
-			|| splitcmd[*i][5] == 0))
-			|| (ft_strlen(splitcmd[*i]) >= 8
-			&& ft_strncmp(splitcmd[*i] + 1, "export", 6) == 0
-			&& splitcmd[*i][0] == '"'
-			&& splitcmd[*i][7] == '"'
-			&& (ft_isspace(splitcmd[*i][8])
-			|| splitcmd[*i][8] == 0))
-			|| (ft_strlen(splitcmd[*i]) >= 7
-			&& ft_strncmp(splitcmd[*i] + 1, "unset", 5) == 0
-			&& splitcmd[*i][0] == '"'
-			&& splitcmd[*i][6] == '"'
-			&& (ft_isspace(splitcmd[*i][7])
-			|| splitcmd[*i][7] == 0)))
+	t_token	*token_cmd_name;
+	char	*expanded;
+	char	*to_expand;
+
+	if (!splitcmd[*i] || ft_strbash_control(splitcmd[*i]))
 		return (1);
+	to_expand = ft_strdup(splitcmd[*i]);
+	expanded = expander(mini, to_expand);
+	if ((ft_strlen(expanded) >= 6
+			&& ft_strncmp(expanded, "export", 6) == 0
+			&& (ft_isspace(expanded[6])
+			|| expanded[6] == 0))
+			|| (ft_strlen(expanded) >= 5
+			&& ft_strncmp(expanded, "unset", 5) == 0
+			&& (ft_isspace(expanded[5])
+			|| expanded[5] == 0))
+			|| (ft_strlen(expanded) >= 8
+			&& ft_strncmp(expanded + 1, "export", 6) == 0
+			&& expanded[0] == '"'
+			&& expanded[7] == '"'
+			&& (ft_isspace(expanded[8])
+			|| expanded[8] == 0))
+			|| (ft_strlen(expanded) >= 7
+			&& ft_strncmp(expanded + 1, "unset", 5) == 0
+			&& expanded[0] == '"'
+			&& expanded[6] == '"'
+			&& (ft_isspace(expanded[7])
+			|| expanded[7] == 0)))
+	{
+		free(expanded);
+		return (1);
+	}
 	return (0);
 }
 
@@ -110,7 +124,7 @@ void	scan_env_decl(char **splitcmd, int *i,
 	decl_lst = NULL;
 	if (!splitcmd[*i])
 		return ;
-	token = set_token_env_id(splitcmd, i);
+	token = set_token_env_id(splitcmd, i, mini);
 	while (splitcmd[*i])
 	{
 		scan_redirections(splitcmd, i, token_lst, mini);

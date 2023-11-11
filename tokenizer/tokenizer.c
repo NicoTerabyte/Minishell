@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 11:44:38 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/11 10:33:15 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/11 11:05:57 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_token	*tokenizer(char **splitcmd, t_mini *mini)
 		cursor = i;
 		scan_parenthesis(splitcmd, &i, &token_lst);
 		scan_redirections(splitcmd, &i, &token_lst, mini);
-		if (verify_env_decl(splitcmd, &i))
+		if (verify_env_decl(splitcmd, &i, mini))
 			scan_env_decl(splitcmd, &i, &token_lst, mini);
 		else
 			if (!scan_cmd(splitcmd, &i, &token_lst, mini))
