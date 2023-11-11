@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve_signal_have_cmdpath.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 20:27:59 by lnicoter          #+#    #+#             */
-/*   Updated: 2023/11/10 16:09:42 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/11 09:51:10 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,7 @@ void	execve_cmd(t_simple_cmd *simple_cmd, t_mini *mini)
 	cmd_name = NULL;
 	split_paths = get_paths(mini->env);
 	if (is_directory(simple_cmd->cmd->cmd_name->value))
-	{
-		printf("minishell : %s is a directory\n",
-			(char *)simple_cmd->cmd->cmd_name->value);
-		free_matrix(split_paths);
-		ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS),
-			var_container(NULL, NULL, NULL, GET_TREE));
-		free_matrix(((t_mini *)var_container(NULL, NULL,
-					NULL, GET_MINI))->splitcmd);
-		free_env(var_container(NULL, NULL, NULL, GET_MINI));
-		exit(126);
-	}
+		error_is_a_directory(simple_cmd, split_paths);
 	if (split_paths != NULL)
 	{
 		split_paths[0] = ft_strtrim(split_paths[0], "PATH=");
@@ -95,17 +85,7 @@ void	execve_cmd(t_simple_cmd *simple_cmd, t_mini *mini)
 				simple_cmd->cmd->cmd_name->value, split_paths);
 	}
 	if (split_paths == NULL || cmd_name == NULL)
-	{
-		printf("minishell : %s command not found\n",
-			(char *)simple_cmd->cmd->cmd_name->value);
-		free_matrix(split_paths);
-		ft_free_all(var_container(NULL, NULL, NULL, GET_TOKENS),
-			var_container(NULL, NULL, NULL, GET_TREE));
-		free_matrix(((t_mini *)var_container(NULL,
-					NULL, NULL, GET_MINI))->splitcmd);
-		free_env(var_container(NULL, NULL, NULL, GET_MINI));
-		exit(127);
-	}
+		error_command_not_found(simple_cmd, split_paths);
 	cmd_args = get_cmd_args(simple_cmd);
 	free_matrix(split_paths);
 	execve(cmd_name, cmd_args, mini->env);
