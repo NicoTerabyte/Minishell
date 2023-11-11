@@ -6,7 +6,7 @@
 /*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:37:51 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/11 09:52:09 by mlongo           ###   ########.fr       */
+/*   Updated: 2023/11/11 10:06:16 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,8 @@ void	handle_redirections(t_token *redir_list, int in, int out, t_mini *mini);
 int		error_ambigous_redirection(void);
 void	error_command_not_found(t_simple_cmd *simple_cmd, char **split_paths);
 void	error_is_a_directory(t_simple_cmd *simple_cmd, char **split_paths);
+void	handle_redirections_builtin(t_token *redir_list,
+			int in, int out, t_mini *mini);
+void	process_env(t_simple_cmd *simple_cmd, t_mini *mini);
 
 #endif

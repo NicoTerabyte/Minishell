@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abuonomo <abuonomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 16:30:58 by abuonomo          #+#    #+#             */
-/*   Updated: 2023/11/10 16:31:18 by abuonomo         ###   ########.fr       */
+/*   Updated: 2023/11/11 10:03:00 by mlongo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,41 +35,12 @@ void	execute_builtin(t_tree *tree, int curr_in, int curr_out, t_mini *mini)
 	starting_in = dup(fileno(stdin));
 	starting_out = dup(fileno(stdout));
 	simple_cmd = (t_simple_cmd *)tree->content;
-	if (simple_cmd->redir_list != NULL)
-	{
-		redir_list = (t_token *)simple_cmd->redir_list;
-		if (have_inputs(redir_list))
-		{
-			if (execute_redirections_input(redir_list, curr_in, mini))
-			{
-				g_last_exit_status_cmd = 1;
-				return ;
-			}
-		}
-	}
-	else
-		dup_std_fd(curr_in, STDIN_FILENO);
-	if (simple_cmd->redir_list != NULL)
-	{
-		redir_list = (t_token *)simple_cmd->redir_list;
-		if (have_outputs(redir_list))
-		{
-			if (execute_redirections_output(redir_list, curr_out, mini))
-			{
-				g_last_exit_status_cmd = 1;
-				return ;
-			}
-		}
-	}
-	else
-		dup_std_fd(curr_out, STDOUT_FILENO);
+	redir_list = (t_token *)simple_cmd->redir_list;
+	handle_redirections_builtin(redir_list, curr_in, curr_out, mini);
 	if (simple_cmd->cmd == NULL)
 	{
 		if (simple_cmd->env != NULL)
-		{
-			expander_env(simple_cmd->env->value, mini);
-			execute_builtin_env(simple_cmd->env, mini);
-		}
+			process_env(simple_cmd, mini);
 	}
 	else
 	{
@@ -105,24 +76,14 @@ void	execute_pipe_op(t_tree *root, int curr_in, int curr_out, t_mini *mini)
 	{
 		close(piping[0]);
 		execute(root->left, curr_in, piping[1], mini);
-		ft_free_all(var_container(NULL, NULL,
-				NULL, GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
-		free_matrix(((t_mini *)var_container(NULL,
-					NULL, NULL, GET_MINI))->splitcmd);
-		free_env(var_container(NULL, NULL, NULL, GET_MINI));
-		exit(g_last_exit_status_cmd);
+		free_exit(g_last_exit_status_cmd);
 	}
 	pid_right = fork();
 	if (!pid_right)
 	{
 		close(piping[1]);
 		execute(root->right, piping[0], curr_out, mini);
-		ft_free_all(var_container(NULL, NULL, NULL,
-				GET_TOKENS), var_container(NULL, NULL, NULL, GET_TREE));
-		free_matrix(((t_mini *)var_container(NULL,
-					NULL, NULL, GET_MINI))->splitcmd);
-		free_env(var_container(NULL, NULL, NULL, GET_MINI));
-		exit(g_last_exit_status_cmd);
+		free_exit(g_last_exit_status_cmd);
 	}
 	close(piping[0]);
 	close(piping[1]);
