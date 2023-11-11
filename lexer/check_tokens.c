@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fcarlucc <fcarlucc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/10 19:24:15 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/10 19:24:16 by mlongo           ###   ########.fr       */
+/*   Created: 2023/11/11 16:11:23 by fcarlucc          #+#    #+#             */
+/*   Updated: 2023/11/11 16:13:54 by fcarlucc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,32 @@
 
 int	check_parentheses(char *s, int *i)
 {
-	if (*i != 0)
+	if (s[*i - 2] == '(' && check_number(s))
+		return (1);
+	if (is_op(&s[*i - 2]) || is_op(&s[*i - 3]))
 	{
-		if (s[*i - 2] == '(' && check_number(s))
+		if (!is_op(&s[*i + 2]))
 			return (1);
-		if (is_op(&s[*i - 2]) || is_op(&s[*i - 3]))
-		{
-			if (!is_op(&s[*i + 2]))
-				return (1);
-		}
-		return (0);
 	}
 	if (check_number(s))
 		return (1);
 	return (0);
 }
 
-int check_operator(char *s, int *i)
+int	check_operator(char *s, int *i)
 {
-	if ((s[*i] == '>' || s[*i] == '<' || s[*i] == '|' || s[*i] == '&') && *i == '0')
+	if ((s[*i] == '|' || s[*i] == '&') && (*i == 0 || *i == 1))
 		return (0);
-	if (s[*i + 1] == 0 || s[*i + 2] == 0 || *i == 0 || is_double(s, i))
+	if (s[*i + 1] == 0 || s[*i + 2] == 0 || is_double(s, i))
 		return (0);
 	return (1);
 }
 
-int check_quote(char *s)
+int	check_quote(char *s)
 {
-	int i;
-	int count;
-	char c;
+	int		i;
+	int		count;
+	char	c;
 
 	i = -1;
 	count = 0;
@@ -58,17 +54,17 @@ int check_quote(char *s)
 			while (s[i] != c && s[i] != '\0')
 				i++;
 			if (s[i] == c)
-			count--;
+				count--;
 		}
 	}
 	return (counter(count));
 }
 
-int check_number(char *s)
+int	check_number(char *s)
 {
-	int i;
-	int count;
-	char c;
+	int		i;
+	int		count;
+	char	c;
 
 	i = -1;
 	count = 0;

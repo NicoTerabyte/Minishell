@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlongo <mlongo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fcarlucc <fcarlucc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/10 19:24:45 by mlongo            #+#    #+#             */
-/*   Updated: 2023/11/10 19:24:46 by mlongo           ###   ########.fr       */
+/*   Created: 2023/11/11 16:15:57 by fcarlucc          #+#    #+#             */
+/*   Updated: 2023/11/11 16:35:46 by fcarlucc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,36 +21,16 @@ int	count_syntax(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i + 1] && ((str[i] == '|' && str[i + 1] == '|') || (str[i] == '&' && str[i + 1] == '&') || (str[i] == '<' && str[i + 1] == '<') || (str[i] == '>' && str[i + 1] == '>')))
+		if (str[i + 1] && ((str[i] == '|' && str[i + 1] == '|') \
+		|| (str[i] == '&' && str[i + 1] == '&') \
+		|| (str[i] == '<' && str[i + 1] == '<') \
+		|| (str[i] == '>' && str[i + 1] == '>')))
 			count += 2;
 		else if (ft_strchr("|()<>", str[i]))
 			count += 2;
 		i++;
 	}
 	return (i + count);
-}
-
-char	*fix_white_spaces(char *str)
-{
-	int		i;
-	int		j;
-	char 	*res;
-
-	if (!str)
-		return (NULL);
-	i = 0;
-	j = 0;
-	res = malloc(ft_strlen(str) + 1);
-	while (str[i])
-	{
-		if (ft_isspace(str[i]) && ft_isspace(str[i + 1]))
-			i++;
-		else
-			res[j++] = str[i++];
-	}
-	res[j] = 0;
-	free(str);
-	return (res);
 }
 
 char	*fix_syntax(char *str)
@@ -68,7 +48,7 @@ char	*fix_syntax(char *str)
 	{
 		if (str[i] == '"' || str[i] == '\'')
 			res = handle_quotes(str, res, &i, &j);
-		else if(str[i + 1] && is_two_char(&str[i]))
+		else if (str[i + 1] && is_two_char(&str[i]))
 			res = handle_two(str, res, &i, &j);
 		else if (ft_strchr("|()<>", str[i]))
 			res = handle_one(str, res, &i, &j);
@@ -80,9 +60,9 @@ char	*fix_syntax(char *str)
 	return (res);
 }
 
-char *handle_quotes(char *str, char *res, int *i, int *j)
+char	*handle_quotes(char *str, char *res, int *i, int *j)
 {
-	char c;
+	char	c;
 
 	c = 0;
 	if (str[*i] == '"' || str[*i] == '\'')
@@ -97,7 +77,7 @@ char *handle_quotes(char *str, char *res, int *i, int *j)
 	return (res);
 }
 
-char *handle_two(char *str, char *res, int *i, int *j)
+char	*handle_two(char *str, char *res, int *i, int *j)
 {
 	if ((*i != 0 && str[*i - 1] != ' ') && (str[*i + 2] && str[*i + 2] != ' '))
 	{
@@ -121,15 +101,15 @@ char *handle_two(char *str, char *res, int *i, int *j)
 	return (res);
 }
 
-char *handle_one(char *str, char *res, int *i, int *j)
+char	*handle_one(char *str, char *res, int *i, int *j)
 {
-	if ((*i != 0 && str[*i - 1] != ' ') && (str[*i + 1] && str[*i + 1] != ' '))
+	if ((i != 0 && str[*i - 1] != ' ') && (str[*i + 1] && str[*i + 1] != ' '))
 	{
 		res[(*j)++] = ' ';
 		res[(*j)++] = str[(*i)++];
 		res[(*j)++] = ' ';
 	}
-	else if (*i != 0 && str[*i - 1] != ' ')
+	else if (i != 0 && str[*i - 1] != ' ')
 	{
 		res[(*j)++] = ' ';
 		res[(*j)++] = str[(*i)++];
